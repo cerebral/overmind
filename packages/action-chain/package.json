@@ -1,0 +1,83 @@
+{
+	"name": "action-chain",
+	"version": "1.0.0",
+	"description": "Functional actions",
+	"author": "Christian Alfoni <christianalfoni@gmail.com>",
+	"license": "MIT",
+	"repository": "git+https://github.com/cerebral/overmind.git",
+	"main": "lib/index.js",
+	"module": "es/index.js",
+	"browser": "dist/bundle.js",
+	"types": "dist/bundle.d.ts",
+	"scripts": {
+		"build": "npm run build:lib & npm run build:umd",
+		"build:lib": "tsc --outDir lib --module commonjs",
+		"build:es": "tsc --outDir es --module es2015",
+		"build:umd": "npm run build:es && rollup --config && dts-bundle --name dist/bundle --main es --outputAsModuleFolder",
+		"clean": "rimraf dist es lib coverage",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint \"**/*.ts\" \"**/*.tsx\" --fix",
+		"test": "jest --env=jsdom --coverage",
+		"test:watch": "jest --env=jsdom --watch --updateSnapshot",
+		"prepublishOnly": "npm run build",
+		"prebuild": "npm run clean",
+		"postbuild": "rimraf {lib,es}/**/__tests__",
+		"posttest": "npm run typecheck && npm run lint",
+		"preversion": "npm test",
+		"postversion": "git push && git push --tags"
+	},
+	"keywords": [ "action", "flow" ],
+	"files": [ "lib", "es", "dist" ],
+	"jest": {
+		"moduleFileExtensions": [ "ts", "tsx", "js" ],
+		"transform": {
+			"^.+\\.(ts|tsx)$": "ts-jest"
+		},
+		"globals": {
+			"ts-jest": {
+				"tsConfigFile": "tsconfig.json"
+			}
+		},
+		"testMatch": [ "**/src/*.test.(ts|tsx|js)" ]
+	},
+	"dependencies": {
+		"@types/node": "^8.0.0",
+		"eventemitter3": "^3.1.0",
+		"tslib": "^1.6.0"
+	},
+	"devDependencies": {
+		"@types/jest": "^20.0.0",
+		"@types/react": "^16.4.1",
+		"@types/react-dom": "^16.0.6",
+		"dts-bundle": "^0.7.2",
+		"eslint": "^4.19.1",
+		"eslint-config-prettier": "^2.9.0",
+		"eslint-config-standard": "^11.0.0",
+		"eslint-config-standard-jsx": "^5.0.0",
+		"eslint-plugin-import": "^2.2.0",
+		"eslint-plugin-node": "^6.0.1",
+		"eslint-plugin-prettier": "^2.6.0",
+		"eslint-plugin-promise": "^3.5.0",
+		"eslint-plugin-react": "^7.7.0",
+		"eslint-plugin-standard": "^3.0.1",
+		"eslint-plugin-typescript": "^0.11.0",
+		"jest": "^20.0.0",
+		"pascal-case": "^2.0.1",
+		"prettier": "^1.13.5",
+		"react": "^16.4.1",
+		"react-dom": "^16.4.1",
+		"react-test-renderer": "^16.4.1",
+		"rimraf": "^2.6.1",
+		"rollup": "^0.47.4",
+		"rollup-plugin-commonjs": "^8.1.0",
+		"rollup-plugin-node-builtins": "^2.1.0",
+		"rollup-plugin-node-globals": "^1.1.0",
+		"rollup-plugin-node-resolve": "^3.0.0",
+		"rollup-plugin-sourcemaps": "^0.4.1",
+		"rollup-plugin-uglify": "^2.0.0",
+		"semver": "^5.4.0",
+		"ts-jest": "^20.0.0",
+		"typescript": "^2.4.0",
+		"typescript-eslint-parser": "^16.0.0"
+	}
+}
