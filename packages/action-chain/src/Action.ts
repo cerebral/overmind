@@ -44,7 +44,7 @@ export interface Operators<Context, InitialValue, Value> {
     }
   ): InitialValue extends undefined
     ? NoValueAction<Context, InitialValue, ResolveValue | RejectValue>
-    : Action<Context, Value, ResolveValue | RejectValue>
+    : Action<Context, InitialValue, ResolveValue | RejectValue>
   when<TrueValue, FalseValue>(
     cb: (value: Value, context: Context) => boolean,
     paths: {
@@ -53,7 +53,7 @@ export interface Operators<Context, InitialValue, Value> {
     }
   ): InitialValue extends undefined
     ? NoValueAction<Context, InitialValue, TrueValue | FalseValue>
-    : Action<Context, Value, TrueValue | FalseValue>
+    : Action<Context, InitialValue, TrueValue | FalseValue>
   filter(
     cb: (value: Value, context: Context) => boolean
   ): InitialValue extends undefined
@@ -143,14 +143,14 @@ export function actionFactory<Context, InitialValue, Value = InitialValue>(
         const operator = (value, context) => {
           return (cb(value, context) as any)
             .then((promiseValue) => {
-              return (paths.success as any).run(
+              return (paths.success as any)(
                 promiseValue,
                 context.execution,
                 context.path.concat('success')
               )
             })
             .catch((error) => {
-              return (paths.error as any).run(
+              return (paths.error as any)(
                 error,
                 context.execution,
                 context.path.concat('error')
@@ -180,7 +180,7 @@ export function actionFactory<Context, InitialValue, Value = InitialValue>(
           const isTrue = cb(value, context)
           const path = isTrue ? paths.true : (paths.false as any)
 
-          return path.run(
+          return path(
             value,
             context.execution,
             context.path.concat(isTrue ? 'true' : 'false')
@@ -206,7 +206,7 @@ export function actionFactory<Context, InitialValue, Value = InitialValue>(
             return value
           }
 
-          return new StopExecution()
+          return new StopExecution(value)
         }
         const [
           chain,
@@ -234,7 +234,7 @@ export function actionFactory<Context, InitialValue, Value = InitialValue>(
             }, timer)
             currentTimeout = () => {
               clearTimeout(timeoutId)
-              resolve(new StopExecution())
+              resolve(new StopExecution(value))
             }
           })
         }

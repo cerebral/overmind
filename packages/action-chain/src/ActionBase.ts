@@ -2,8 +2,9 @@ import { ActionChain, Execution } from './ActionChain'
 ;(actionBaseFactory as any).nextActionId = 0
 
 export class StopExecution {
-  toJSON() {
-    return '[EXECUTION_STOPPED]'
+  value: any
+  constructor(value) {
+    this.value = value
   }
 }
 
@@ -44,7 +45,8 @@ export function actionBaseFactory<Context, InitialValue, Value = InitialValue>(
           }
         : arguments[1]
 
-      const path = typeof arguments[2] === 'undefined' ? [] : arguments[2]
+      const path =
+        typeof arguments[2] === 'undefined' ? [] : (arguments[2] as string[])
       if (initialOperator) {
         actionChain.emit('action:start', {
           actionId: execution.actionId,
@@ -87,7 +89,7 @@ export function actionBaseFactory<Context, InitialValue, Value = InitialValue>(
 
             function produceResult(currentValue) {
               if (currentValue instanceof StopExecution) {
-                return currentValue
+                return currentValue.value
               }
 
               execution.operatorId++
