@@ -42,9 +42,9 @@ const actionChain = actionChainFactory<Context>(context)
 // conditional "Action" or "NoValueAction" to allow
 // typed actions to require a value and untyped actions
 // to not require a value
-const action = <InitialValue>(): InitialValue extends undefined
-  ? NoValueMyAction<Context, InitialValue>
-  : MyAction<Context, InitialValue> {
+const action = function <InitialValue>(): InitialValue extends undefined
+  ? NoValueAction<Context, InitialValue>
+  : Action<Context, InitialValue> {
   return actionFactory<Context, InitialValue>(actionChain)
 }
 ```
