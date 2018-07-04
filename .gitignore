@@ -8,6 +8,8 @@ yarn-error.log*
 dist
 es
 lib
+.cache
+.DS_Store
 
 # Runtime data
 pids
