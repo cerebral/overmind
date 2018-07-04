@@ -1,0 +1,39 @@
+sudo: false
+language: node_js
+node_js: '8'
+cache:
+  directories:
+  - node_modules
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      # needed by nodegit (repo-cooker)
+      - libstdc++-4.9-dev
+git:
+  depth: 9999
+notifications:
+  email: false
+script:
+- |
+  if [[ $SKIP_TESTS != 'true' ]]; then
+    npm prune
+    npm run checkdeps
+    npm run lint
+    npm test
+  fi
+after_success:
+- |
+  if [[ $TRAVIS_SECURE_ENV_VARS == 'true' ]]; then
+    git config --global user.email "cerebraljs@gmail.com";
+    git config --global user.name "Cerebral JS";
+  fi
+  if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+    printf "//registry.npmjs.org/:_authToken=$NPM_TOKEN\n" > ~/.npmrc
+    npm install --no-save nodegit@0.20.3
+    npm run release
+  fi
+branches:
+  except:
+  - "/^v\\d+\\.\\d+\\.\\d+$/"
