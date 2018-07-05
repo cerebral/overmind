@@ -10,9 +10,10 @@
     "commitmsg": "cz-customizable-ghooks",
     "fixdeps": "repo-cooker --fix-dependencies",
     "format": "npm run lint -- --fix && prettier --write --with-node-modules \"**/*.md\" \"**/*.css\" \"**/*.json\"",
+    "install": "npm run link && npm run build",
     "link": "repo-cooker --link",
     "lint": "eslint \"**/*.js\" \"**/*.ts\"",
-    "install": "npm run link && npm run build",
+    "precommit": "lint-staged",
     "release": "repo-cooker --release",
     "test": "repo-cooker test"
   },
@@ -63,6 +64,16 @@
     "ts-jest": "23.0.0",
     "typescript": "2.9.2",
     "typescript-eslint-parser": "^16.0.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{md,css,json}": [
+      "prettier --write --with-node-modules",
+      "git add"
+    ]
   },
   "config": {
     "commitizen": {
