@@ -2,7 +2,7 @@
 
 Overmind is a state and side effects management tool for popular JavaScript frameworks. If you are familiar with projects like Redux, Vuex, Mobx or similar solutions, Overmind is taking it to the next step.
 
-The default instance of Overmind exposes tools to track access to state and mutation of state. These are the tools you need to integrate Overmind with a view. Luckily Overmind has several preset view implements like **React**, **VueJS, Preact** etc.
+The default instance of Overmind exposes tools to track access to state and mutation of state. These are the tools you need to integrate Overmind with a view. Luckily Overmind has several preset view implementations like **React**, **VueJS, Preact** etc.
 
 ```typescript
 import App from 'overmind'
@@ -53,7 +53,7 @@ This information is automatically passed to the Overmind devtools.
 
 **addMutationListener**
 
-This function is used with the tracked paths:
+This function is used with the tracked paths. You typically create the listener on the first render and update it on subsequent renders:
 
 ```typescript
 const listener = addMutationListener(paths, () => {
@@ -223,7 +223,7 @@ export default connect(App)
 What to take notice of:
 
 * We are not interfering in any way with the initial rendering of the app, meaning you just connect state where you need it
-* By default Overmind takes a single module with state, actions etc., but **compose** allows us to merge multiple modules together, giving them a namespace \(main and items in this example\)
+* By default Overmind takes a single module with state, actions etc., but **compose** allows us to merge multiple modules together, giving them a namespace \("main" and "items" in this example\)
 * We separate mutations and other side effects. This makes it absolutely clear where mutations are performed and only the **mutation** operator is allowed to perform these mutations.
 * The actions are now just plain functions taking any payload. When the action is typed it requires a value, when it is not typed, it does not require a value \(this is actually very difficult to do in TypeScript\)
 
