@@ -2,7 +2,7 @@
 
 Overmind is a state and side effects management tool for popular JavaScript frameworks. If you are familiar with projects like Redux, Vuex, Mobx or similar solutions, Overmind is taking it to the next step.
 
-The default instance of Overmind exposes tools to track access to state and mutation of state. These are the tools you need to integrate Overmind with a view. Luckily Overmind has several preset view implementations like **React**, **VueJS, Preact** etc.
+The default instance of Overmind exposes tools to track access to state. This allows you to integrate Overmind with any view layer you want. Overmind has several preset view implementations like **React**, **VueJS, Preact** etc.
 
 ```typescript
 import App from 'overmind'
