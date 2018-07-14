@@ -4,5 +4,5 @@ import { Action } from './'
 export default (action: Action) => ({
   changeNewTodoTitle: action<React.ChangeEvent<HTMLInputElement>>()
     .map((event) => event.currentTarget.value)
-    .mutation((state, value) => (state.newTodoTitle = value)),
+    .mutation((value, state) => (state.newTodoTitle = value)),
 })
