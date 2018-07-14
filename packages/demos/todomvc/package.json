@@ -1,0 +1,43 @@
+{
+	"name": "todomvc",
+	"version": "1.0.0-alpha1",
+	"description": "Overmind todomvc demo",
+	"author": "Christian Alfoni <christianalfoni@gmail.com>",
+	"license": "MIT",
+	"repository": "git+https://github.com/cerebral/overmind.git",
+	"bin": {
+		"overmind-devtools": "bin.js"
+	},
+	"scripts": {
+		"start": "webpack-dev-server --port 4000",
+		"typecheck": "tsc --noEmit",
+		"test": "jest",
+		"test:watch": "jest --watch --updateSnapshot --coverage false",
+		"prepare": "npm run build",
+		"posttest": "npm run typecheck"
+	},
+	"keywords": [
+		"overmind",
+		"devtool"
+	],
+	"dependencies": {
+		"@types/node": "^10.5.1",
+		"overmind": "next",
+		"color": "^3.0.0",
+		"react": "^16.4.1",
+		"react-dom": "^16.4.1",
+		"styled-components": "^3.3.3"
+	},
+	"devDependencies": {
+		"@types/jest": "^23.1.4",
+		"@types/react": "^16.4.6",
+		"@types/react-dom": "^16.0.6",
+		"jest": "^23.3.0",
+		"ts-jest": "^23.0.0",
+		"ts-loader": "^4.4.2",
+		"tslib": "^1.9.3",
+		"typescript": "^2.9.2",
+		"webpack": "^4.15.1",
+		"webpack-cli": "^3.0.8"
+	}
+}
