@@ -30,7 +30,9 @@
     "react": "16.4.1",
     "react-dom": "16.4.1",
     "styled-components": "3.3.3",
-    "ws": "5.2.1"
+    "ws": "5.2.1",
+    "color": "3.0.0",
+    "tslib": "1.9.3"
   },
   "devDependencies": {
     "@types/jest": "23.1.4",
@@ -61,12 +63,12 @@
     "repo-cooker": "^6.2.2",
     "rimraf": "2.6.2",
     "ts-jest": "23.0.0",
-    "ts-loader": "^4.4.2",
-    "tslib": "^1.9.3",
+    "ts-loader": "4.4.2",
+    "tslib": "1.9.3",
     "typescript": "2.9.2",
     "typescript-eslint-parser": "^16.0.1",
-    "webpack": "^4.15.1",
-    "webpack-cli": "^3.0.8",
+    "webpack": "4.15.1",
+    "webpack-cli": "3.0.8",
     "webpack-dev-server": "^3.1.4"
   },
   "lint-staged": {
