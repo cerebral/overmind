@@ -40,7 +40,7 @@ const app = new App({
   actions: action => ({
     changeValue: action()
       .map((event) => event.target.value)
-      .mutation((state, value) => state.value = value)
+      .mutation((value, state) => state.value = value)
   })
 })
 
