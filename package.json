@@ -60,7 +60,7 @@
     "prettier": "1.13.7",
     "react": "16.4.1",
     "react-test-renderer": "16.4.1",
-    "repo-cooker": "^6.2.2",
+    "repo-cooker": "^6.2.4",
     "rimraf": "2.6.2",
     "ts-jest": "23.0.0",
     "ts-loader": "4.4.2",
