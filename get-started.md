@@ -129,10 +129,10 @@ export default connect(Title)
 import React from 'react'
 import { connect, Connect } from '../app'
 
-const Title: React.SFC<Connect> = ({ appState, actions }) =>
+const Title: React.SFC<Connect> = ({ app }) =>
   <div>
-    <h1>{appState.title}</h1>
-    <input value={appState.title} onChange={actions.changeTitle} />
+    <h1>{app.state.title}</h1>
+    <input value={app.state.title} onChange={actions.changeTitle} />
   </div>
   
 export default connect(Title)
