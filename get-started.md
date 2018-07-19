@@ -2,7 +2,7 @@
 
 ### 1. Install
 
-`npm install overmind`
+`npm install overmind@next`
 
 ### 2. Initialize the app
 

@@ -2,7 +2,7 @@
 
 You can start the devtools as simple as running
 
-`npx overmind-devtools`
+`npx overmind-devtools@next`
 
 from the command line. You can add this to your custom **npm** script by:
 
@@ -20,7 +20,7 @@ from the command line. You can add this to your custom **npm** script by:
 
 If you prefer installing the devtools, giving you control over which version of the devtools to run, you can
 
-`npm install overmind-devtools`
+`npm install overmind-devtools@next`
 
 and the **npm** script can be changed to:
 
