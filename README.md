@@ -1,59 +1,10 @@
 # Overmind
 
-### Why Overmind?
 
-Instead of writing components that isolates state:
 
-{% code-tabs %}
-{% code-tabs-item title="react.js" %}
-```javascript
-import React from 'react'
+### What is it?
 
-class InputComponent extends React.Component {
-  state = {
-    value: ''
-  }
-  changeValue = (event) => {
-    this.setState({
-      value: event.target.value
-    })
-  }
-  render () {
-    return <input value={this.state.value} onChange={this.changeValue} />
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-You keep your state and logic to change that state in Overmind:
-
-{% code-tabs %}
-{% code-tabs-item title="react.js" %}
-```javascript
-import App from 'overmind/react'
-
-const app = new App({
-  state: {
-    value: ''
-  },
-  actions: action => ({
-    changeValue: action()
-      .map((event) => event.target.value)
-      .mutation((value, state) => state.value = value)
-  })
-})
-
-const InputComponent = app.connect(
-  function InputComponent ({ appState, actions }) {
-    return <input value={appState.value} onChange={actions.changeValue} />
-  }
-)
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-There are many tools, like Redux, Mobx, Vuex, Hyperapp etc., that also moves state and logic outside your components. Where Overmind differs is:
+Overmind is a tool to build web applications. It allows you to choose your favourite way of expressing UI, while given great insight into your running application using the Overmind development tool.The benefits of Overmind
 
 * **Automatic render.** When you connect your app to a component the component will automatically and optimally rerender based on the state that is being used inside that component 
 * **Safe mutations**. There is only one place in Overmind you can change the state of your application and that is inside the mutation operator. Any outside mutations throws errors 
