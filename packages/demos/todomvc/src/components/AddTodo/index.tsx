@@ -4,6 +4,7 @@ import { Wrapper, Input, Button, Form } from './elements'
 
 const AddTodo: React.SFC<Connect> = ({ app }) => (
   <Wrapper>
+    {app.state.count}
     <Form onSubmit={app.actions.addTodo}>
       <Input
         placeholder="I need to..."
