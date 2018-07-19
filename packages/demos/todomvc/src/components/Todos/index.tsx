@@ -3,9 +3,9 @@ import { connect, Connect } from '../../app'
 import { List } from './elements'
 import Todo from '../Todo'
 
-const Todos: React.SFC<Connect> = ({ appState }) => (
+const Todos: React.SFC<Connect> = ({ app }) => (
   <List>
-    {appState.todos.map(
+    {app.state.todos.map(
       (todo, index) =>
         console.log('todo ID', todo.id) || <Todo key={todo.id} todo={todo} />
     )}
