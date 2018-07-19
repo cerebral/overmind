@@ -2,15 +2,15 @@ import * as React from 'react'
 import { connect, Connect } from '../../app'
 import { Wrapper, Input, Button, Form } from './elements'
 
-const AddTodo: React.SFC<Connect> = ({ appState, actions }) => (
+const AddTodo: React.SFC<Connect> = ({ app }) => (
   <Wrapper>
-    <Form onSubmit={actions.addTodo}>
+    <Form onSubmit={app.actions.addTodo}>
       <Input
         placeholder="I need to..."
-        value={appState.newTodoTitle}
-        onChange={actions.changeNewTodoTitle}
+        value={app.state.newTodoTitle}
+        onChange={app.actions.changeNewTodoTitle}
       />
-      <Button disabled={!appState.newTodoTitle}>add</Button>
+      <Button disabled={!app.state.newTodoTitle}>add</Button>
     </Form>
   </Wrapper>
 )
