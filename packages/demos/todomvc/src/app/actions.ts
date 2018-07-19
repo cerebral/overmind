@@ -11,9 +11,6 @@ export default (action: Action) => ({
   addTodo: action<React.FormEvent>()
     .do(helpers.preventEventDefault)
     .mutation(mutations.addTodo)
-    .mutation(mutations.clearNewTodoTitle)
-    .filter((_, { state }) => state.todos.length > 2)
-    .map(() => Promise.resolve())
-    .mutation((_, state) => (state.todos[2].title = 'mihihihi')),
+    .mutation(mutations.clearNewTodoTitle),
   toggleCompleted: action<Todo>().mutation(mutations.toggleCompleted),
 })
