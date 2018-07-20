@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@types/node": "10.5.1",
-    "eventemitter3": "3.1.0",
     "electron": "2.0.4",
     "is-plain-object": "2.0.4",
     "electron-json-storage": "4.1.0",
