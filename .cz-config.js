@@ -33,6 +33,7 @@ module.exports = {
     { name: 'overmind' },
     { name: 'overmind-devtools' },
     { name: 'proxy-state-tree' },
+    { name: 'betsy' },
   ],
 
   // it needs to match the value for field type. Eg.: 'fix'
