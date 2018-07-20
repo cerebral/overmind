@@ -1,4 +1,4 @@
-import * as Color from 'color'
+const Color = require('color')
 
 export interface ThemeInterface {
   color: {
