@@ -8,6 +8,7 @@
 	"repository": "git+https://github.com/cerebral/overmind.git",
 	"scripts": {
     "start": "webpack-dev-server --port 4000",
+    "start:parcel": "parcel -p 4000 ./index.html",
     "build": "webpack",
 		"typecheck": "tsc --noEmit",
 		"prepare": "npm run build",
