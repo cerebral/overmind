@@ -12,13 +12,20 @@ const app = new App(
     state,
     actions,
     providers,
+    computed: {
+      test: (foo: number) => (state) => state.count + foo,
+    },
   },
   {
     devtools: 'localhost:1234',
   }
 )
 
-export type Connect = TConnect<typeof app.state, typeof app.actions>
+export type Connect = TConnect<
+  typeof app.state,
+  typeof app.actions,
+  typeof app.computed
+>
 
 export const connect = app.connect
 
