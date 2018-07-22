@@ -11,8 +11,10 @@
 * [API](api/README.md)
   * [app](api/app.md)
   * [action](api/action.md)
+  * [computed](api/computed.md)
   * [derived](api/derived.md)
   * [namespaces](api/namespaces.md)
   * [providers](api/providers.md)
+  * [reaction](api/reaction.md)
   * [state](api/state.md)
 
