@@ -15,7 +15,7 @@ const app = new App({
   },
   reactions: (reaction, action) => {
     const storeFooInStorage = action()
-      .do((_, { storage, state }) => storage.set('foo', state.foo))
+      .do(({ storage, state }) => storage.set('foo', state.foo))
 
     return {
       storeFoo: reaction(state => state.foo, storeFooInStorage)
@@ -30,7 +30,7 @@ What to take notice of is that if the returned state of the reaction was an arra
 
 ### Component reactions
 
-Component reactions differ in the sense that they only live through the component lifecycle. They are unregistered when the component unmounts. Also you are likely to not use the actions passed to the second callback.
+Component reactions differ in the sense that they only live through the component lifecycle. They are unregistered when the component unmounts. Also you do not pass it an action, but a regular callback to run when the reaction triggers.
 
 {% tabs %}
 {% tab title="React" %}
@@ -41,7 +41,7 @@ import { connect } from '../app'
 class MyComponent extends React.Component {
   componentDidMount () {
     this.props.app.reaction(
-      'focusInputOnFooChange',
+      'focusInput',
       state => state.foo,
       () => this.input.focus()
     )

@@ -83,7 +83,7 @@ export default state
 ```javascript
 export default action => ({
   changeTitle: action()
-    .map(event => event.target.value)
+    .map((_, event) => event.target.value)
     .mutation((state, title) => state.title = title)
 })
 ```

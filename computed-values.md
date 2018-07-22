@@ -1,6 +1,6 @@
 # Computed values
 
-Sometimes you want to computed a value based on some input and the current state of the application. That is why we have the concept of a **computed**.
+Sometimes you want to compute a value based on some input and the current state of the application. That is why we have the concept of a **computed**.
 
 {% code-tabs %}
 {% code-tabs-item title="app/computed.js" %}
@@ -24,7 +24,7 @@ import { computed } from 'overmind'
 import { State } from './state'
 
 export type UsersListConfig {
-  isAweome: boolean
+  isAwesome: boolean
   sortField: string
   startIndex: number
   endIndex: number
@@ -78,4 +78,6 @@ export default {
 {% endcode-tabs %}
 
 You use a computed by calling it and giving it an argument, like **config** in this example.
+
+Comuted values are also tracked by the devtools and shows up in the devtools state overview with details about the current value, how many times it has executed and cache information.
 
