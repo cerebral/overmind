@@ -1,5 +1,5 @@
-export const getEventValue = (event: React.ChangeEvent<HTMLInputElement>) =>
+export const getEventValue = (_, event: React.ChangeEvent<HTMLInputElement>) =>
   event.currentTarget.value
 
-export const preventEventDefault = (event: React.FormEvent) =>
+export const preventEventDefault = (_, event: React.FormEvent) =>
   event.preventDefault()
