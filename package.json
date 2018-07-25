@@ -31,7 +31,8 @@
     "styled-components": "3.3.3",
     "ws": "5.2.1",
     "color": "3.0.0",
-    "tslib": "1.9.3"
+    "tslib": "1.9.3",
+    "color-hash": "1.0.3"
   },
   "devDependencies": {
     "@types/jest": "23.1.4",

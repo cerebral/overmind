@@ -1,5 +1,7 @@
-export const getEventValue = (_, event: React.ChangeEvent<HTMLInputElement>) =>
-  event.currentTarget.value
+export function getEventValue(_, event: React.ChangeEvent<HTMLInputElement>) {
+  return Promise.resolve(event.currentTarget.value)
+}
 
-export const preventEventDefault = (_, event: React.FormEvent) =>
+export function preventEventDefault(_, event: React.FormEvent) {
   event.preventDefault()
+}
