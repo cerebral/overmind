@@ -1,17 +1,17 @@
-import App, { TConnect, TContext, IAction } from 'overmind/react'
-import * as providers from './providers'
+import App, { TConnect, TEffects, TAction } from 'overmind/react'
+import * as effects from './effects'
 import actions from './actions'
 import state from './state'
 
-export type Context = TContext<typeof state, typeof providers>
+export type Effects = TEffects<typeof state, typeof effects>
 
-export type Action = IAction<typeof state, Context>
+export type Action = TAction<typeof state, Effects>
 
 const app = new App(
   {
     state,
     actions,
-    providers,
+    effects,
   },
   {
     devtools: 'localhost:1234',
