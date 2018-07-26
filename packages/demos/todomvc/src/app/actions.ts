@@ -4,12 +4,6 @@ import { Todo } from './state'
 import * as helpers from './helpers'
 import * as mutations from './mutations'
 
-function hasLength(_, value: string) {
-  return Boolean(value.length)
-}
-
-function noop() {}
-
 export default (action: Action) => ({
   changeNewTodoTitle: action<React.ChangeEvent<HTMLInputElement>>()
     .map(helpers.getEventValue)
