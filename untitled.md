@@ -1,6 +1,6 @@
 # Side effects
 
-Overmind helps you expose side effects to your application logic. It does this with a concept called **Providers**. A provider is nothing more than an object with methods or a class instance. For example exposing an http library like [axios](https://github.com/axios/axios)  could be done like this:
+Overmind helps you expose side effects to your application logic. It does this with a concept called **Effects**. An effect is nothing more than an object with methods or a class instance. For example exposing an http library like [axios](https://github.com/axios/axios)  could be done like this:
 
 {% code-tabs %}
 {% code-tabs-item title="app/providers.js" %}
@@ -29,7 +29,7 @@ export const api = new Api('/api/v1')
 
 Using a class is useful when you want to pass in options based on the environment, or maybe the library exposes a class in itself.
 
-The providers are added to the configuration of the app:
+The effects are added to the configuration of the app:
 
 {% code-tabs %}
 {% code-tabs-item title="app/index.js" %}
@@ -37,12 +37,12 @@ The providers are added to the configuration of the app:
 import App from 'overmind/$VIEW'
 import state from './state'
 import actions from './actions'
-import providers from './providers'
+import effects from './effects'
 
 const app = new App({
   state,
   actions,
-  providers
+  effects
 })
 
 export const connect = app.connect
