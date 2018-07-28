@@ -1,5 +1,5 @@
 {
-  "name": "todomvc",
+  "name": "overmind-todomvc",
   "private": true,
 	"version": "1.0.0-alpha1",
 	"description": "Overmind todomvc demo",
