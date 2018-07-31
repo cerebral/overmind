@@ -29,9 +29,11 @@ module.exports = {
   ],
 
   scopes: [
-    { name: 'action-chain' },
     { name: 'overmind' },
     { name: 'overmind-devtools' },
+    { name: 'react-overmind' },
+    { name: 'vue-overmind' },
+    { name: 'action-chain' },
     { name: 'proxy-state-tree' },
     { name: 'betsy' },
   ],

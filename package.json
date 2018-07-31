@@ -32,7 +32,9 @@
     "ws": "5.2.1",
     "color": "3.0.0",
     "tslib": "1.9.3",
-    "color-hash": "1.0.3"
+    "color-hash": "1.0.3",
+    "vue": "2.5.16",
+    "vue-hot-reload-api": "2.3.0"
   },
   "devDependencies": {
     "@types/jest": "23.1.4",
@@ -70,7 +72,12 @@
     "webpack": "4.15.1",
     "webpack-cli": "3.0.8",
     "webpack-dev-server": "^3.1.4",
-    "url-loader": "1.0.1"
+    "url-loader": "1.0.1",
+    "@vue/component-compiler-utils": "2.1.0",
+    "parcel-bundler": "1.9.7",
+    "jsdom": "11.12.0",
+    "vue": "2.5.16",
+    "vue-template-compiler": "2.5.16"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
