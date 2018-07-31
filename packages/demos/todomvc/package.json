@@ -19,7 +19,7 @@
 	],
 	"dependencies": {
 		"@types/node": "^10.5.1",
-		"overmind": "next",
+		"react-overmind": "next",
 		"color": "^3.0.0",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1",
