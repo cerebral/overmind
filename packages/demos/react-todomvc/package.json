@@ -9,6 +9,7 @@
 	"scripts": {
 		"start": "parcel src/index.html --port 4000",
 		"build": "parcel build src/index.html ",
+		"test": "echo \"Error: no test specified\"",
 		"prepare": "npm run build"
 	},
 	"keywords": [
