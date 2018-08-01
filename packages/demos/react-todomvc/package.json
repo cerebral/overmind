@@ -1,0 +1,28 @@
+{
+  "name": "todomvc",
+  "private": true,
+	"version": "1.0.0",
+	"description": "Overmind todomvc demo",
+	"author": "Christian Alfoni <christianalfoni@gmail.com>",
+	"license": "MIT",
+	"repository": "git+https://github.com/cerebral/overmind.git",
+	"scripts": {
+		"start": "parcel src/index.html --port 4000",
+		"build": "parcel build src/index.html ",
+		"prepare": "npm run build"
+	},
+	"keywords": [
+		"overmind",
+		"demo"
+	],
+	"dependencies": {
+		"react-overmind": "next",
+		"color": "^3.0.0",
+		"react": "^16.4.1",
+		"react-dom": "^16.4.1",
+		"styled-components": "^3.3.3"
+	},
+	"devDependencies": {
+		"parcel-bundler": "^1.9.7"
+	}
+}
