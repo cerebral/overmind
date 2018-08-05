@@ -29,10 +29,13 @@ module.exports = {
   ],
 
   scopes: [
-    { name: 'action-chain' },
     { name: 'overmind' },
     { name: 'overmind-devtools' },
+    { name: 'react-overmind' },
+    { name: 'vue-overmind' },
+    { name: 'action-chain' },
     { name: 'proxy-state-tree' },
+    { name: 'betsy' },
   ],
 
   // it needs to match the value for field type. Eg.: 'fix'

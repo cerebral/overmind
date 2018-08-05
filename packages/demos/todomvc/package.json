@@ -1,7 +1,7 @@
 {
   "name": "todomvc",
   "private": true,
-	"version": "1.0.0-alpha1",
+	"version": "1.0.0",
 	"description": "Overmind todomvc demo",
 	"author": "Christian Alfoni <christianalfoni@gmail.com>",
 	"license": "MIT",
@@ -19,7 +19,7 @@
 	],
 	"dependencies": {
 		"@types/node": "^10.5.1",
-		"overmind": "next",
+		"react-overmind": "next",
 		"color": "^3.0.0",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1",

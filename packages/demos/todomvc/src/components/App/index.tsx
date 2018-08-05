@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { connect, Connect } from '../../app'
 import { Wrapper, InnerWrapper } from './elements'
 import AddTodo from '../AddTodo'
 import Todos from '../Todos'
 
-const App: React.SFC<Connect> = ({ appState, actions }) => (
+const App: React.SFC = () => (
   <Wrapper>
     <InnerWrapper>
       <AddTodo />
@@ -13,4 +12,4 @@ const App: React.SFC<Connect> = ({ appState, actions }) => (
   </Wrapper>
 )
 
-export default connect(App)
+export default App
