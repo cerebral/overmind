@@ -37,12 +37,12 @@ after_success:
   if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
     cd ./packages/overmind-website
     npm install --no-save now
-    now --token $NOW_TOKEN && now alias overmindjs.org --token $NOW_TOKEN
+    ./node_modules/.bin/now --token $NOW_TOKEN && now alias overmindjs.org --token $NOW_TOKEN
   fi
   if [[ $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
     cd ./packages/overmind-website
     npm install --no-save now
-    now --token $NOW_TOKEN && now alias next.overmindjs.org --token $NOW_TOKEN
+    ./node_modules/.bin/now --token $NOW_TOKEN && now alias next.overmindjs.org --token $NOW_TOKEN
   fi
 branches:
   except:
