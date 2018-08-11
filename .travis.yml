@@ -31,14 +31,14 @@ after_success:
   fi
   if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
     printf "//registry.npmjs.org/:_authToken=$NPM_TOKEN\n" > ~/.npmrc
-    npm install --no-save nodegit@0.20.3 now-pipeline
+    npm install --no-save nodegit@0.20.3 now
     npm run release
   fi
   if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-    now-pipeline --dir ./packages/overmind-website --alias overmindjs.org
+    now ./packages/overmind-website --token $NOW_TOKEN && now alias overmindjs.org --token $NOW_TOKEN
   fi
   if [[ $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-    now-pipeline --dir ./packages/overmind-website --alias next.overmindjs.org
+    now ./packages/overmind-website --token $NOW_TOKEN && now alias next.overmindjs.org --token $NOW_TOKEN
   fi
 branches:
   except:
