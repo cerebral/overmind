@@ -15,7 +15,6 @@
 		"posttest": "npm run typecheck"
   },
   "now": {
-    "alias": "overmind",
     "files": [
       "api",
       "backend",

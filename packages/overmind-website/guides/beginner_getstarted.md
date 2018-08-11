@@ -1,6 +1,6 @@
 # Get started with Overmind
 
-Hello there you awesomeness!
+It actually worked! :D
 
 ```marksy
 <Example example="beginner_getstarted_0" />
