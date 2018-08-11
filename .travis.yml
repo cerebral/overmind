@@ -31,8 +31,9 @@ after_success:
   fi
   if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
     printf "//registry.npmjs.org/:_authToken=$NPM_TOKEN\n" > ~/.npmrc
-    npm install --no-save nodegit@0.20.3
+    npm install --no-save nodegit@0.20.3 now
     npm run release
+    now ./packages/overmind-website --token $NOW_TOKEN && now ./packages/overmind-website alias --token $NOW_TOKEN
   fi
 branches:
   except:

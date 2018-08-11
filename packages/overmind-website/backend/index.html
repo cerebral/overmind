@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+
+    #overmind-app {
+      height: 100%;
+      background-color: #333;
+      transition: background-color 0.2s ease-in, color 0.2s ease-in;
+      overflow-y: scroll;
+    }
+
+    #overmind-loader {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      background-color: #333;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      color: #EAEAEA;
+    }
+
+    #overmind-circle {
+      position: absolute;
+      background-color: #EAEAEA;
+      border-radius: 50%;
+      width: 125px;
+      height: 125px;
+    }
+
+    #overmind-inner-circle {
+      position: absolute;
+      background-color: inherit;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+
+    #overmind-text {
+      position: absolute;
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      text-indent: 10px;
+    }
+
+    #overmind-block {
+      position: absolute;
+      background-color: inherit;
+      height: 25px;
+      width: 125px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+
+<body>
+  <div id="overmind-app">
+    <div id="overmind-loader">
+      <div id="overmind-circle"></div>
+      <div id="overmind-inner-circle"></div>
+      <div id="overmind-block"></div>
+      <div id="overmind-text">overmind</div>
+    </div>
+  </div>
+</body>
+
+</html>
