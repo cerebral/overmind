@@ -1,0 +1,116 @@
+import * as React from 'react'
+import FrontPage from '../FrontPage'
+import * as page from 'page'
+import * as themes from 'overmind-themes'
+import { ThemeProvider } from '../../styled-components'
+import { getTheme } from '../../utils'
+import Guides from '../Guides'
+import Videos from '../Videos'
+import Guide from '../Guide'
+import Api from '../Api'
+import TopBar from '../TopBar'
+import { Wrapper } from './elements'
+
+const routesMap = {
+  '/': FrontPage,
+  '/guides': Guides,
+  '/guides/:title': Guide,
+  '/videos': Videos,
+  '/videos/:title': Videos,
+  '/api/:title': Api,
+}
+
+export type TVideo = {
+  title: string
+  type: string
+  fileName: string
+  url: string
+  shortName: string
+}
+
+export type TGuide = {
+  title: string
+  type: string
+  fileName: string
+}
+
+export type TApi = {
+  title: string
+  fileName: string
+}
+
+type State = {
+  currentPage: string
+  currentPath: string
+  videos: TVideo[]
+  guides: TGuide[]
+  apis: TApi[]
+  isLoading: boolean
+}
+
+class App extends React.Component<{}, State> {
+  state = {
+    currentPage: null,
+    currentPath: null,
+    videos: [],
+    guides: [],
+    apis: [],
+    isLoading: true,
+  }
+  componentWillMount() {
+    const routes = Object.keys(routesMap)
+
+    routes.forEach((route) =>
+      page(route, (context) =>
+        this.setState({ currentPage: route, currentPath: context.path })
+      )
+    )
+
+    page.redirect('/api', '/api/action')
+  }
+  componentDidMount() {
+    const el = document.querySelector('#overmind-app') as HTMLElement
+
+    el.style.backgroundColor = themes[getTheme()].color.dark
+    page.start({})
+
+    Promise.all([
+      fetch('/backend/guides').then((response) => response.json()),
+      fetch('/backend/videos').then((response) => response.json()),
+      fetch('/backend/apis').then((response) => response.json()),
+    ]).then(([guides, videos, apis]) =>
+      this.setState({
+        isLoading: false,
+        guides,
+        videos,
+        apis,
+      })
+    )
+  }
+  render() {
+    const { currentPage, currentPath } = this.state
+
+    if (!currentPage) {
+      return null
+    }
+
+    const Page = routesMap[this.state.currentPage]
+
+    return (
+      <ThemeProvider theme={themes[getTheme()]}>
+        <Wrapper>
+          <TopBar currentPage={currentPage} selectedTheme={getTheme()} />
+          <Page
+            currentPath={currentPath}
+            isLoading={this.state.isLoading}
+            videos={this.state.videos}
+            apis={this.state.apis}
+            guides={this.state.guides}
+          />
+        </Wrapper>
+      </ThemeProvider>
+    )
+  }
+}
+
+export default App
