@@ -34,7 +34,8 @@
 	],
 	"dependencies": {
 		"@types/node": "^10.5.1",
-		"express": "^4.16.3",
+    "express": "^4.16.3",
+    "overmind-themes": "next",
 		"install": "^0.12.1",
 		"marksy": "^6.0.3",
 		"npm": "^6.3.0",
