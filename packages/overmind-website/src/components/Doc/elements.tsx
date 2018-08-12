@@ -19,6 +19,10 @@ export const Content = styled.div`
   h4 {
     padding-top: 50px;
   }
+  a {
+    color: ${({ theme }) => theme.color.primary};
+    text-decoration: none;
+  }
   > pre {
     color: #ccc;
     background: ${({ theme }) => theme.color.dark};
