@@ -7,7 +7,18 @@ export const Content = styled.div`
   box-sizing: border-box;
   background-color: ${({ theme }) => theme.color.white};
   padding: ${({ theme }) => theme.padding.large};
+  font-family: 'helvetica neue';
+  color: ${({ theme }) => theme.color.black};
 
+  > p {
+    text-align: justify;
+    line-height: 22px;
+  }
+  > h2,
+  h3,
+  h4 {
+    padding-top: 50px;
+  }
   > pre {
     color: #ccc;
     background: ${({ theme }) => theme.color.dark};
