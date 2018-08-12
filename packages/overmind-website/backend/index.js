@@ -97,5 +97,9 @@ app.get('/backend/search', (req, res) => {
 
   res.send(hits.slice(0, 5))
 })
+app.get('/favicon.ico', (_, res) =>
+  res.sendFile(path.resolve('backend', 'favicon.ico'))
+)
+app.get('/*', (_, res) => res.sendFile(path.resolve('dist', 'index.html')))
 
 app.listen(5000, () => console.log('Example app listening on port 5000!'))

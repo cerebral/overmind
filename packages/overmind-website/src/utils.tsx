@@ -7,8 +7,6 @@ export const getTheme = () => localStorage.getItem('theme') || 'react'
 
 export const getTypescript = () => localStorage.getItem('typescript') || false
 
-export const views = ['react', 'vue']
-
 const LoadingExample = styled.div`
   display: flex;
   align-items: center;
@@ -19,10 +17,20 @@ const LoadingExample = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.normal};
 `
 
-class Example extends React.Component<{ example: string }> {
+const FileName = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.small};
+  font-weight: bold;
+`
+
+type TExample = {
+  fileName: string
+  code: string
+}
+
+class Example extends React.Component<{ name: string; view?: boolean }> {
   state: {
     isLoading: boolean
-    content: string[]
+    content: TExample[]
   }
   currentExampleName = null
   constructor(props) {
@@ -46,21 +54,36 @@ class Example extends React.Component<{ example: string }> {
   verifyExamples(module) {
     const examples = Object.keys(module)
 
-    views.forEach((view) => {
-      if (!examples.includes(view)) {
-        console.warn(`Missing example for ${view} in ${this.props.example}`)
-      }
-      if (!examples.includes(`${view}_ts`)) {
-        console.warn(
-          `Missing example for ${view} with TypeScript in ${this.props.example}`
-        )
-      }
-    })
+    if (this.props.view) {
+      ;['react', 'vue'].forEach((type) => {
+        if (!examples.includes(type)) {
+          console.warn(`Missing example for "${type}" in ${this.props.name}`)
+        }
+        if (!examples.includes(`${type}Ts`)) {
+          console.warn(
+            `Missing example for "${type}" with TypeScript in ${
+              this.props.name
+            }`
+          )
+        }
+      })
+    } else {
+      ;['js', 'ts'].forEach((type) => {
+        if (!examples.includes(type)) {
+          console.warn(
+            `Missing example for "${
+              type === 'js' ? 'Vanilla JS' : 'TypeScript'
+            }" in ${this.props.name}`
+          )
+        }
+      })
+    }
   }
   getExample() {
-    import('../examples/' + this.props.example).then((module) => {
+    import('../examples/' + this.props.name).then((module) => {
       this.currentExampleName = this.getExampleName()
       this.verifyExamples(module)
+
       if (module[this.currentExampleName]) {
         localStorage.setItem(
           this.getKey(),
@@ -74,13 +97,17 @@ class Example extends React.Component<{ example: string }> {
     })
   }
   getKey() {
-    return `${this.props.example}.${this.getExampleName()}`
+    return `${this.props.name}.${this.getExampleName()}`
   }
   getExampleName() {
-    const theme = getTheme()
-    const ts = getTypescript()
+    if (this.props.view) {
+      const theme = getTheme()
+      const ts = getTypescript()
 
-    return ts ? `${theme}Ts` : theme
+      return ts ? `${theme}Ts` : theme
+    }
+
+    return getTypescript() ? 'ts' : 'js'
   }
   render() {
     if (this.state.isLoading) {
@@ -91,9 +118,18 @@ class Example extends React.Component<{ example: string }> {
       return 'Missing example'
     }
 
-    return this.state.content.map(
-      (code) => compile(`\`\`\`tsx\n${code.trim()}\n\`\`\``).tree
-    )
+    return this.state.content.map((example, index) => (
+      <React.Fragment key={index}>
+        {example.fileName ? <FileName>{example.fileName}</FileName> : null}
+        {
+          compile(
+            `\`\`\`${
+              this.props.view ? 'tsx' : 'ts'
+            }\n${example.code.trim()}\n\`\`\``
+          ).tree
+        }
+      </React.Fragment>
+    ))
   }
 }
 
