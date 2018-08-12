@@ -13,31 +13,31 @@
 		"typecheck": "tsc --noEmit",
 		"prepare": "npm run build",
 		"posttest": "npm run typecheck"
-  },
-  "now": {
-    "files": [
-      "api",
-      "backend",
-      "examples",
-      "guides",
-      "src",
-      "package.json",
-      "tsconfig.json",
-      "videos.json",
-      "webpack.config.js"
-    ]
-  },
+	},
+	"now": {
+		"files": [
+			"api",
+			"backend",
+			"examples",
+			"guides",
+			"src",
+			"package.json",
+			"tsconfig.json",
+			"videos.json",
+			"webpack.config.js"
+		]
+	},
 	"keywords": [
 		"overmind",
 		"demo"
 	],
 	"dependencies": {
 		"@types/node": "^10.5.1",
-    "express": "^4.16.3",
-    "overmind-themes": "next",
+		"express": "^4.16.3",
 		"install": "^0.12.1",
 		"marksy": "^6.0.3",
 		"npm": "^6.3.0",
+		"overmind-themes": "next",
 		"page": "^1.8.6",
 		"prismjs": "^1.15.0",
 		"react": "^16.4.1",
@@ -56,7 +56,7 @@
 		"url-loader": "^1.0.1",
 		"webpack": "^4.15.1",
 		"webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.5",
-    "html-webpack-plugin": "^3.2.0"
+		"webpack-dev-server": "^3.1.5",
+		"html-webpack-plugin": "^3.2.0"
 	}
 }
