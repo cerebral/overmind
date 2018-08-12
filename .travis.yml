@@ -35,10 +35,10 @@ after_success:
     npm run release
   fi
   if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-    now ./packages/overmind-website --token $NOW_TOKEN && now alias overmindjs.org --token $NOW_TOKEN
+    now ./packages/overmind-website --token $NOW_TOKEN --no-verify && now alias overmindjs.org --token $NOW_TOKEN
   fi
   if [[ $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-    now ./packages/overmind-website --token $NOW_TOKEN && now alias next.overmindjs.org --token $NOW_TOKEN
+    now ./packages/overmind-website --token $NOW_TOKEN --no-verify && now alias next.overmindjs.org --token $NOW_TOKEN
   fi
 branches:
   except:
