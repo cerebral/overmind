@@ -25,6 +25,7 @@ const FileName = styled.div`
 type TExample = {
   fileName: string
   code: string
+  target: string
 }
 
 class Example extends React.Component<{ name: string; view?: boolean }> {
@@ -123,9 +124,7 @@ class Example extends React.Component<{ name: string; view?: boolean }> {
         {example.fileName ? <FileName>{example.fileName}</FileName> : null}
         {
           compile(
-            `\`\`\`${
-              this.props.view ? 'tsx' : 'ts'
-            }\n${example.code.trim()}\n\`\`\``
+            `\`\`\`${example.target || 'ts'}\n${example.code.trim()}\n\`\`\``
           ).tree
         }
       </React.Fragment>

@@ -7,6 +7,7 @@ export const cooker = Cooker(process.argv, {
   path: '.',
   packagesGlobs: [
     'packages/node_modules/*',
-    /* 'packages/overmind-website'  'packages/demos/*' */
+    'packages/overmind-website',
+    'packages/demos/*',
   ],
 })
