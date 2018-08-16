@@ -4,7 +4,7 @@ export const react = [
     target: 'jsx',
     code: `
 import React from 'react'
-import { connect } from './app'
+import app from './app'
 
 class Posts extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class Posts extends React.Component {
   }
 }
 
-export default connect(Posts)
+export default app.connect(Posts)
   `,
   },
 ]
@@ -28,7 +28,7 @@ export const reactTs = [
     fileName: 'Posts.tsx',
     code: `
 import * as React from 'react'
-import { connect, Connect } from './app'
+import app, { Connect } from './app'
 
 class Posts extends React.Component<Connect> {
   render() {
@@ -42,7 +42,7 @@ class Posts extends React.Component<Connect> {
   }
 }
 
-export default connect(Posts)
+export default app.connect(Posts)
   `,
   },
 ]
@@ -61,9 +61,9 @@ export const vue = [
   {
     fileName: 'Posts.vue (script)',
     code: `
-import { connect } from './app'
+import app from './app'
 
-export default connect({})
+export default app.connect({})
 `,
   },
 ]

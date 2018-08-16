@@ -2,10 +2,11 @@ import styled from '../../styled-components'
 
 export const Wrapper = styled.div`
   display: flex;
-  justify-content: space-around;
   max-width: 800px;
   padding: ${({ theme }) => theme.padding.large};
   margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 export const Guide = styled.a`
@@ -17,6 +18,7 @@ export const Guide = styled.a`
   box-sizing: border-box;
   text-decoration: none;
   padding: ${({ theme }) => theme.padding.small};
+  margin: ${({ theme }) => theme.padding.small};
   color: ${({ theme }) => theme.color.white};
   font-size: ${({ theme }) => theme.fontSize.large};
   cursor: pointer;

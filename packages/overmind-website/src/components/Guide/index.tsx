@@ -17,9 +17,12 @@ class Guide extends React.Component<Props, State> {
     content: null,
   }
   componentDidMount() {
-    import('../../../guides/' +
-      this.props.currentPath.split('/').pop() +
-      '.md').then((module) => this.setState({ content: module }))
+    const pathArray = this.props.currentPath.split('/')
+    const name = pathArray.pop()
+    const type = pathArray.pop()
+    import('../../../guides/' + type + '/' + name + '.md').then((module) =>
+      this.setState({ content: module })
+    )
   }
   render() {
     if (!this.state.content) {

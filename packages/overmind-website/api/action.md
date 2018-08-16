@@ -1,7 +1,7 @@
 # Action
 
 ```marksy
-<Example name="api_action" />
+<Example name="api/action" />
 ```
 
 An action allows you to compose pieces of logic into an execution. You typically execute an action based on some user interaction in your application, but it could be everything from a route change to a websocket message as well.
@@ -12,7 +12,7 @@ The action is built up by **operators**, methods called on the action itself. Th
 
 ## debounce
 ```marksy
-<Example name="api_action_debounce" />
+<Example name="api/action_debounce" />
 ```
 
 Typically used to only continue execution of the last action call if multiple action calls has been made in the time limit passed in.
@@ -21,7 +21,7 @@ The only argument is the time limit in milliseconds the operator should prevent 
 
 ## do
 ```marksy
-<Example name="api_action_do" />
+<Example name="api/action_do" />
 ```
 
 Typically used to fire off an effect without caring about its returned result, if any.
@@ -30,7 +30,7 @@ Only argument is a function that receives the **effects** registered in the appl
 
 ## filter
 ```marksy
-<Example name="api_action_filter" />
+<Example name="api/action_filter" />
 ```
 
 Typically used to stop execution related to some condition.
@@ -39,7 +39,7 @@ The first argument is a function that receives the **effects** registered in the
 
 ## fork
 ```marksy
-<Example name="api_action_fork" />
+<Example name="api/action_fork" />
 ```
 Typically used to fork out execution when a value can result in multiple complex executions.
 
@@ -48,7 +48,7 @@ The first argument is a function that receives the **effects** as the first argu
 
 ## map
 ```marksy
-<Example name="api_action_map" />
+<Example name="api/action_map" />
 ```
 
 Typically used to get values from an effect or transform the current value of the action.
@@ -57,7 +57,7 @@ Only argument is a function that receives the **effects** registered in the appl
 
 ## mutation
 ```marksy
-<Example name="api_action_mutation" />
+<Example name="api/action_mutation" />
 ```
 
 Used to change the state of the application.
@@ -66,7 +66,7 @@ Only argument is a function that receives the **state** as the first argument an
 
 ## try
 ```marksy
-<Example name="api_action_try" />
+<Example name="api/action_try" />
 ```
 
 Typically used to explicitly handle potentially thrown errors from an effect.
@@ -75,7 +75,7 @@ The first argument is a function that receives the **effects** registered in the
 
 ## when
 ```marksy
-<Example name="api_action_when" />
+<Example name="api/action_when" />
 ```
 
 Typically used to fork execution based on a thruthy or falsy value.

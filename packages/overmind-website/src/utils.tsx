@@ -28,7 +28,11 @@ type TExample = {
   target: string
 }
 
-class Example extends React.Component<{ name: string; view?: boolean }> {
+class Example extends React.Component<{
+  type: string
+  name: string
+  view?: boolean
+}> {
   state: {
     isLoading: boolean
     content: TExample[]

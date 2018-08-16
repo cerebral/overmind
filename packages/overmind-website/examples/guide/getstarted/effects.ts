@@ -29,7 +29,7 @@ const app = new App({
   }
 })
 
-export const connect = app.connect
+export default app
         `,
     },
   ]
@@ -93,7 +93,7 @@ const app = new App({
 
 export type Connect = TConnect<typeof app.state, typeof app.actions>
 
-export const connect = app.connect
+export default app
         `,
     },
   ]
