@@ -12,7 +12,7 @@ const Guides: React.SFC<Props> = ({ guides }) => (
     {guides.map((guide) => (
       <Guide
         key={guide.fileName}
-        href={`/guides/${guide.fileName.split('.')[0]}`}
+        href={`/guides/${guide.type}/${guide.fileName.split('.')[0]}`}
       >
         {guide.title}
         <span>{guide.type}</span>

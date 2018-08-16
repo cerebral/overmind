@@ -1,7 +1,7 @@
 # Compute
 
 ```marksy
-<Example name="api_compute" view/>
+<Example name="api/compute" view/>
 ```
 
 You can add computed state values. These state values are functions that takes one argument, `filterNameBy` in the example above. This argument can be whatever you want, but it can only be a single argument. That means if you want to pass in multiple values you would pass those as part of an object. The reason computed state values work like this is because this argument is the cache key. As long as you pass in the same argument and the accessed state is not changed, the cached value is instantly returned.

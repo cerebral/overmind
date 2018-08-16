@@ -5,14 +5,20 @@ const fs = require('fs')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 
 function getGuides() {
-  return fs.readdirSync(path.resolve('guides')).reduce((acc, fileName) => {
-    const content = fs.readFileSync(path.resolve('guides', fileName)).toString()
+  return fs.readdirSync(path.resolve('guides')).reduce((acc, type) => {
+    return acc.concat(
+      fs.readdirSync(path.resolve('guides', type)).reduce((acc, fileName) => {
+        const content = fs
+          .readFileSync(path.resolve('guides', type, fileName))
+          .toString()
 
-    return acc.concat({
-      title: content.split('\n')[0].replace('# ', ''),
-      type: fileName.split('_')[0],
-      fileName,
-    })
+        return acc.concat({
+          title: content.split('\n')[0].replace('# ', ''),
+          type,
+          fileName,
+        })
+      }, [])
+    )
   }, [])
 }
 
@@ -34,17 +40,21 @@ function getApis() {
 function getSearchData() {
   return fs
     .readdirSync(path.resolve('guides'))
-    .reduce((acc, fileName) => {
-      const content = fs
-        .readFileSync(path.resolve('guides', fileName))
-        .toString()
+    .reduce((acc, type) => {
+      return acc.concat(
+        fs.readdirSync(path.resolve('guides', type)).reduce((acc, fileName) => {
+          const content = fs
+            .readFileSync(path.resolve('guides', type, fileName))
+            .toString()
 
-      return acc.concat({
-        type: 'guide',
-        title: content.split('\n')[0].replace('# ', ''),
-        content: content.toLowerCase(),
-        fileName,
-      })
+          return acc.concat({
+            type: 'guide',
+            title: content.split('\n')[0].replace('# ', ''),
+            content: content.toLowerCase(),
+            fileName,
+          })
+        }, [])
+      )
     }, [])
     .concat(
       fs.readdirSync(path.resolve('api')).reduce((acc, fileName) => {

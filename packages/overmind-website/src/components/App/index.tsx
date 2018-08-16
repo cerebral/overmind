@@ -14,7 +14,7 @@ import { Wrapper } from './elements'
 const routesMap = {
   '/': FrontPage,
   '/guides': Guides,
-  '/guides/:title': Guide,
+  '/guides/:type/:title': Guide,
   '/videos': Videos,
   '/videos/:title': Videos,
   '/api/:title': Api,

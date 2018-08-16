@@ -16,7 +16,6 @@ export const Wrapper = styled.div`
   > ul {
     padding-left: 0;
     font-size: 0.8em;
-    text-transform: uppercase;
   }
 
   a {

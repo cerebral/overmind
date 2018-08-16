@@ -13,14 +13,14 @@ const SomeComponent = ({ app }) => {
   )
 }
 
-export default connect(MyComponent)
+export default connect(SomeComponent)
   `,
   },
 ]
 
 export const reactTs = [
   {
-    fileName: 'MyComponent.tsx',
+    fileName: 'components/SomeComponent.tsx',
     code: `
 import * as React from 'react'
 import { connect, Connect } from '../app'
@@ -33,14 +33,14 @@ const SomeComponent: React.SFC<Connect, {}> = ({ app }) => {
   )
 }
 
-export default connect(MyComponent)
+export default connect(SomeComponent)
   `,
   },
 ]
 
 export const vue = [
   {
-    fileName: 'SomeComponent.vue (template)',
+    fileName: 'components/SomeComponent.vue (template)',
     code: `
 <div v-on:click="app.actions.onClick">
   {{app.state.foo}}
@@ -48,7 +48,7 @@ export const vue = [
   `,
   },
   {
-    fileName: 'SomeComponent.vue (script)',
+    fileName: 'components/SomeComponent.vue (script)',
     code: `
 import { connect } from '../app'
 

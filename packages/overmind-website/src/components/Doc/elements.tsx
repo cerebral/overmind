@@ -7,12 +7,18 @@ export const Content = styled.div`
   box-sizing: border-box;
   background-color: ${({ theme }) => theme.color.white};
   padding: ${({ theme }) => theme.padding.large};
-  font-family: 'helvetica neue';
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
   color: ${({ theme }) => theme.color.black};
 
   > p {
-    text-align: justify;
-    line-height: 22px;
+    line-height: 26px;
+  }
+  > h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Helvetica Neue', Arial;
   }
   > h2,
   h3,
@@ -20,12 +26,14 @@ export const Content = styled.div`
     padding-top: 50px;
   }
   a {
-    color: ${({ theme }) => theme.color.primary};
+    color: ${({ theme }) => theme.color.lighten(theme.color.dark, 1.5)};
     text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
   }
   > pre {
     color: #ccc;
-    background: ${({ theme }) => theme.color.dark};
+    background: ${({ theme }) => theme.color.lighten(theme.color.dark, -0.2)};
     border-radius: ${({ theme }) => theme.borderRadius.normal};
     padding: 1em;
     margin: 0.5em 0;
@@ -49,8 +57,7 @@ export const Content = styled.div`
   > pre * {
     font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New,
       monospace;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 12px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
