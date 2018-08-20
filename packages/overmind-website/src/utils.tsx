@@ -29,7 +29,6 @@ type TExample = {
 }
 
 class Example extends React.Component<{
-  type: string
   name: string
   view?: boolean
 }> {
@@ -142,6 +141,6 @@ export const compile = marksy({
     return Prism.highlight(code, Prism.languages[language], language)
   },
   components: {
-    Example,
+    Example: ({ name, view }) => <Example key={name} name={name} view={view} />,
   },
 })

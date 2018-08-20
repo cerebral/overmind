@@ -10,7 +10,7 @@ When you have your project up and running install the Overmind dependency by usi
 <Example name="guide/getstarted/install" view />
 ```
 
-Great, we are good to go! In this guide we will create a very simple application to get you into the vocabulary and API of Overmind.
+Great, we are good to go! In this guide we will create a very simple application, but we will use the conventions for structuring a scalable app. That means we will be creating some files that seems unnecessary, but this is just as important as learning the API.
 
 ## Our first state
 
@@ -28,7 +28,7 @@ This will of course result in an error. To make this work we have to create an O
 <Example name="guide/getstarted/createapp" view />
 ```
 
-We add the state to a new application instance and export the app. The instances has a method called **connect** which connets your application to the components. Let us do that now.
+We add the state to our main module and configure that module in our **app.ts** file. Note that you do not have to touch this file again. This is just the initial wiring. The app instance has a method called **connect** which connets your application to the components. Let us do that now.
 
 ```marksy
 <Example name="guide/getstarted/connectapp" view />
@@ -39,7 +39,7 @@ We add the state to a new application instance and export the app. The instances
 We want to load some posts from [jsonplaceholder]() when the **Posts** component mounts. To run logic in Overmind you trigger **actions**. Let us define an action that is responsible for getting our application up and running.
 
 ```marksy
-<Example name="guide/getstarted/actions" view />
+<Example name="guide/getstarted/actions" />
 ```
 
 As you can see we have not really written any logic yet, we are just describing what we want to happen. This is what we call **declarative** code and is a concept in programming used to manage complexity. In this application it might seem unnecessary, but it is very important to manage complexity as your application grows.

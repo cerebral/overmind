@@ -1,7 +1,8 @@
 export const js = [
   {
+    fileName: 'reactions.js',
     code: `
-reaction(
+export const saveTodos = (reaction, action) => reaction(
   state => state.todos,
   action().do(saveTodosToLocalStorage)
 )
@@ -11,9 +12,10 @@ reaction(
 
 export const ts = [
   {
+    fileName: 'reactions.js',
     code: `
-reaction(
-  (state: State) => state.todos,
+export const saveTodos: Reaction = (reaction, action) => reaction(
+  state => state.todos,
   action().do(saveTodosToLocalStorage)
 )
   `,

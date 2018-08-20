@@ -1,0 +1,7 @@
+{
+  "presets": [
+    "../../../node_modules/@babel/preset-react",
+    "../../../node_modules/@babel/preset-typescript",
+    ["../../../node_modules/@babel/preset-env", { "modules": false }]
+  ]
+}

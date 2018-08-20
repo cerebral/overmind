@@ -1,9 +1,9 @@
 export const react = [
   {
-    fileName: 'components/SomeComponent.js',
+    fileName: 'SomeComponent.js',
     code: `
 import React from 'react'
-import { connect } from '../app'
+import app from '../app'
 
 const SomeComponent = ({ app }) => {
   return (
@@ -13,19 +13,19 @@ const SomeComponent = ({ app }) => {
   )
 }
 
-export default connect(SomeComponent)
+export default app.connect(SomeComponent)
   `,
   },
 ]
 
 export const reactTs = [
   {
-    fileName: 'components/SomeComponent.tsx',
+    fileName: 'SomeComponent.tsx',
     code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import app { Connect } from '../app'
 
-const SomeComponent: React.SFC<Connect, {}> = ({ app }) => {
+const SomeComponent: React.SFC<Connect> = ({ app }) => {
   return (
     <div onClick={app.actions.onClick}>
       {app.state.foo}
@@ -33,14 +33,14 @@ const SomeComponent: React.SFC<Connect, {}> = ({ app }) => {
   )
 }
 
-export default connect(SomeComponent)
+export default app.connect(SomeComponent)
   `,
   },
 ]
 
 export const vue = [
   {
-    fileName: 'components/SomeComponent.vue (template)',
+    fileName: 'SomeComponent.vue (template)',
     code: `
 <div v-on:click="app.actions.onClick">
   {{app.state.foo}}
@@ -48,11 +48,11 @@ export const vue = [
   `,
   },
   {
-    fileName: 'components/SomeComponent.vue (script)',
+    fileName: 'SomeComponent.vue (script)',
     code: `
-import { connect } from '../app'
+import app from '../app'
 
-export default connect({})
+export default app.connect({})
 `,
   },
 ]

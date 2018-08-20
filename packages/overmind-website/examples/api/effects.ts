@@ -1,11 +1,9 @@
 export const js = [
   {
+    fileName: 'effects.js',
     code: `
 export axios from 'axios'
-  `,
-  },
-  {
-    code: `
+
 export const api = {
   getUser() {
     return fetch('/user').then(response => response.json())
@@ -20,12 +18,10 @@ export const api = {
 
 export const ts = [
   {
+    fileName: 'effects.ts',
     code: `
 export axios from 'axios'
-  `,
-  },
-  {
-    code: `
+
 export const api = {
   getUser(): Promise<User> {
     return fetch('/user').then(response => response.json())

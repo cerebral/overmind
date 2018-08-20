@@ -1,20 +1,16 @@
 function createJsCode(view) {
   return [
     {
-      fileName: 'app/index.js',
+      fileName: 'app.js',
       code: `
 import App from '${view}'
+import * as main from './main'
 
-const app = new App({
-  state: {},
-  actions: (action) => ({}),
-  effects: {},
-  reactions: (reaction, action) => ({})
-}, {
+const app = new App(main, {
   devtools: 'localhost:1234'
 })
 
-export const connect = app.connect
+export default app
   `,
     },
   ]
@@ -23,32 +19,43 @@ export const connect = app.connect
 function createTsCode(view) {
   return [
     {
-      fileName: 'app/index.ts',
+      fileName: 'app.ts',
       code: `
-import App, { TEffects, TAction, TConnect } from '${view}'
+import App, {
+  TModule,
+  TAction,
+  TDerive,
+  TCompute,
+  TReaction,
+  TOperation,
+  TConnect
+} from '${view}'
+import * as main from './main'
 
-type State = {}
+type Module = TModule<typeof main>
 
-const state: State = {}
+export type Action<Value = void> = TAction<Value, Module>
+export type Derive = TDerive<Module>
+export type Compute<Value> = TCompute<Value, Module>
+export type Reaction = TReaction<Module>
 
-const effects = {}
+export type Do<Value = any> = TOperation.Do<Value, Module>
+export type Filter<Value = any> = TOperation.Filter<Value, Module>
+export type When<Value = any> = TOperation.When<Value, Module>
+export type Fork<Value = any> = TOperation.Fork<Value, Module>
+export type Mutation<Value = any> = TOperation.Mutation<Value, Module>
+export type Map<Value, ReturnValue> =
+  TOperation.Map<Value, ReturnValue, Module>
+export type Try<Value, ReturnValue> =
+  TOperation.Try<Value, ReturnValue, Module>
 
-export type Effects = TEffects<State, {}>
-
-export type Action = TAction<State, Effects>
-
-const app = new App({
-  state,
-  actions: (action) => ({}),
-  effects,
-  reactions: (reaction, action) => ({})
-}, {
+const app = new App(main, {
   devtools: 'localhost:1234'
 })
 
-export type Connect = TConnect<typeof app.state, typeof app.actions>
+export type Connect = TConnect<typeof app>
 
-export const connect = app.connect
+export default app
   `,
     },
   ]

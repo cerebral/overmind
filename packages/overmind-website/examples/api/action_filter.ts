@@ -1,29 +1,43 @@
 export const js = [
   {
+    fileName: 'operations.js',
     code: `
-action()
-  .filter(({ connection }) => connection.isOnline())
+export const isOnline = ({ connection }) =>
+  connection.isOnline()
+
+export const isGreaterThan2 = (_, value) =>
+  value.length > 2
   `,
   },
   {
+    fileName: 'actions.js',
     code: `
-action()
-  .filter((_, value) => value.length > 2)
+export const doThis = action =>
+  action()
+    .filter(operations.isOnline)
+    .filter(operations.isGreaterThan2)
   `,
   },
 ]
 
 export const ts = [
   {
+    fileName: 'operations.ts',
     code: `
-action()
-  .filter(({ connection }) => connection.isOnline())
+export const isOnline: Filter = ({ connection }) =>
+  connection.isOnline()
+
+export const isGreatherThan2: Filter<string> = (_, value) =>
+  value.length > 2
   `,
   },
   {
+    fileName: 'actions.ts',
     code: `
-action<string>()
-  .filter((_, value) => value.length > 2)
+export const doThis = action =>
+  action<string>()
+    .filter(operations.isOnline)
+    .filter(operations.isGreaterThan2)
   `,
   },
 ]
