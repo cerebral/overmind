@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { connect, Connect } from '../../app'
-import { Todo } from '../../app/state'
+import { Todo as TTodo } from '../../main/state'
 import { Item, Completed } from './elements'
 
 type Props = {
-  todo: Todo
+  todo: TTodo
 } & Connect
 
 const Todo: React.SFC<Props> = ({ todo, app }) => (

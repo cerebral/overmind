@@ -13,11 +13,12 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
-        include: path.resolve('src'),
-        options: {
-          allowTsInNodeModules: true,
-        },
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.js$/,
+        use: [path.resolve('../../../node_modules/source-map-loader')],
+        enforce: 'pre',
       },
     ],
   },

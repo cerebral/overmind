@@ -3,7 +3,7 @@ export const react = [
     fileName: 'components/SomeComponent.js',
     code: `
 import React from 'react'
-import { connect } from '../app'
+import app from '../app'
 
 class SomeComponent extends React.Component {
   componentDidMount () {
@@ -20,7 +20,7 @@ class SomeComponent extends React.Component {
   }
 }
 
-export default connect(SomeComponent)
+export default app.connect(SomeComponent)
   `,
   },
 ]
@@ -30,7 +30,7 @@ export const reactTs = [
     fileName: 'components/SomeComponent.tsx',
     code: `
 import React from 'react'
-import { connect, Connect } from '../app'
+import app, { Connect } from '../app'
 
 class SomeComponent extends React.Component<Connect, {}> {
   componentDidMount () {
@@ -47,7 +47,7 @@ class SomeComponent extends React.Component<Connect, {}> {
   }
 }
 
-export default connect(SomeComponent)
+export default app.connect(SomeComponent)
   `,
   },
 ]
@@ -62,9 +62,9 @@ export const vue = [
   {
     fileName: 'SomeComponent.vue (script)',
     code: `
-import { connect } from '../app'
+import app from '../app'
 
-export default connect({
+export default app.connect({
   mounted() {
     this.app.reaction(
       'scrollUpOnNotification',

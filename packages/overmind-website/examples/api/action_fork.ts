@@ -1,45 +1,55 @@
 export const js = [
   {
+    fileName: 'operations.js',
     code: `
-action()
-  .fork(({ http }) => http.get('/currentuser/access'), {
-    admin: adminAction,
-    superuser: superuserAction,
-    user: userAction
-  })
+export const getUserRole = ({ state }) =>
+  state.user.role
   `,
   },
   {
+    fileName: 'actions.js',
     code: `
-action()
-  .fork((_, selection) => selection, {
-    aSelection: aSelectionAction,
-    bSelection: bSelectionAction,
-    cSelection: cSelectionAction
-  })
+export const adminAction = action => action()
+
+export const superuserAction = action => action()
+
+export const userAction = action => action()
+
+export const doThis = action =>
+  action()
+    .fork(operations.getUserRole, {
+      admin: adminAction(action),
+      superuser: superuserAction(action),
+      user: userAction(action)
+    })
   `,
   },
 ]
 
 export const ts = [
   {
+    fileName: 'operations.js',
     code: `
-action()
-  .fork(({ http }) => http.get('/currentuser/access'), {
-    admin: adminAction,
-    superuser: superuserAction,
-    user: userAction
-  })
+export const getUserRole: Fork = ({ state }) =>
+  state.user.role
   `,
   },
   {
+    fileName: 'actions.js',
     code: `
-action<string>()
-  .fork((_, selection) => selection, {
-    aSelection: aSelectionAction,
-    bSelection: bSelectionAction,
-    cSelection: cSelectionAction
-  })
+export const adminAction: Action = action => action()
+
+export const superuserAction: Action = action => action()
+
+export const userAction: Action = action => action()
+
+export const doThis: Action = action =>
+  action()
+    .fork(operations.getUserRole, {
+      admin: adminAction(action),
+      superuser: superuserAction(action),
+      user: userAction(action)
+    })
   `,
   },
 ]

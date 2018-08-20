@@ -1,84 +1,52 @@
-function createJsCode(view) {
-  return [
-    {
-      fileName: 'app.js',
-      code: `
-import App from '${view}'
+export const js = [
+  {
+    fileName: 'main/actions.js',
+    code: `
 import * as mutations from './mutations'
 import * as operations from './operations'
 
-const app = new App({
-  state: {
-    isLoadingPosts: false,
-    posts: []
-  },
-  actions: action => ({
-    loadPosts: action()
-      .mutation(mutations.setLoadingPosts)
-      .map(operations.getPosts)
-      .mutation(mutations.setPosts)
-      .mutation(mutations.unsetLoadingPosts)
-  })
-})
-
-export default app
-        `,
-    },
-  ]
-}
-
-function createTsCode(view) {
-  return [
-    {
-      fileName: 'app.ts',
-      code: `
-import App, { TConnect, TAction } from '${view}'
-import * as mutations from './mutations'
-import * as operations from './operations'
-
-export type Post = {
-  id: number
-  title: string
-  body: string
-}
-
-export type State = {
-  isLoadingPosts: boolean
-  posts: Post[]
-}
-
-const state: State = {
-  isLoadingPosts: true,
-  posts: []
-}
-
-type Action = TAction<typeof state>
-
-const actions = (action: Action) => ({
-  loadPosts: action()
+export const loadPosts = action =>
+  action()
     .mutation(mutations.setLoadingPosts)
     .map(operations.getPosts)
     .mutation(mutations.setPosts)
     .mutation(mutations.unsetLoadingPosts)
-})
+    `,
+  },
+  {
+    fileName: 'main/index.js',
+    code: `
+import state from './state'
+import * as actions from './actions'
 
-const app = new App({
-  state,
-  actions
-})
+export { state, actions }
+    `,
+  },
+]
 
-export type Connect = TConnect<typeof app.state, typeof app.actions>
+export const ts = [
+  {
+    fileName: 'main/actions.js',
+    code: `
+import { Action } from '../app'
+import * as mutations from './mutations'
+import * as operations from './operations'
 
-export default app
-        `,
-    },
-  ]
-}
+export const loadPosts: Action = action =>
+  action()
+    .mutation(mutations.setLoadingPosts)
+    .map(operations.getPosts)
+    .mutation(mutations.setPosts)
+    .mutation(mutations.unsetLoadingPosts)
+    `,
+  },
+  {
+    fileName: 'main/index.js',
+    code: `
+import state from './state'
+import * as actions from './actions'
 
-export const react = createJsCode('react-overmind')
-
-export const reactTs = createTsCode('react-overmind')
-
-export const vue = createJsCode('vue-overmind')
-
-export const vueTs = createTsCode('vue-overmind')
+export { state, actions }
+    `,
+  },
+]

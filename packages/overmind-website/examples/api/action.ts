@@ -1,9 +1,10 @@
 export const js = [
   {
     code: `
-action()
-  .map(effects.getUser)
-  .mutation(mutations.setUser)
+export const doThis = action => 
+  action()
+    .map(operations.getUser)
+    .mutation(mutations.setUser)
   `,
   },
 ]
@@ -11,9 +12,10 @@ action()
 export const ts = [
   {
     code: `
-action<number>()
-  .map(effects.getUser)
-  .mutation(mutations.setUser)
+export const doThis: Action<number> = action =>
+  action<number>()
+    .map(operations.getUser)
+    .mutation(mutations.setUser)
   `,
   },
 ]
