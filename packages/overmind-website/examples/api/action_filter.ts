@@ -1,6 +1,6 @@
 export const js = [
   {
-    fileName: 'operations.js',
+    fileName: 'app/operations.js',
     code: `
 export const isOnline = ({ connection }) =>
   connection.isOnline()
@@ -10,7 +10,7 @@ export const isGreaterThan2 = (_, value) =>
   `,
   },
   {
-    fileName: 'actions.js',
+    fileName: 'app/actions.js',
     code: `
 export const doThis = action =>
   action()
@@ -22,7 +22,7 @@ export const doThis = action =>
 
 export const ts = [
   {
-    fileName: 'operations.ts',
+    fileName: 'app/operations.ts',
     code: `
 export const isOnline: Filter = ({ connection }) =>
   connection.isOnline()
@@ -32,7 +32,7 @@ export const isGreatherThan2: Filter<string> = (_, value) =>
   `,
   },
   {
-    fileName: 'actions.ts',
+    fileName: 'app/actions.ts',
     code: `
 export const doThis = action =>
   action<string>()

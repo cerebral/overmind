@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect, Connect } from '../../app'
-import { Todo as TTodo } from '../../main/state'
+import { Todo as TTodo } from '../../app/state'
 import { Item, Completed } from './elements'
 
 type Props = {

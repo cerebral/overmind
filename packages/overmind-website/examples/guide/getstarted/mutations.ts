@@ -1,14 +1,14 @@
 export const js = [
   {
-    fileName: 'main/state.js',
+    fileName: 'app/state.js',
     code: `
-export default {
-  isLoadingPosts: false
-} 
+export let isLoadingPosts = false
+
+export let posts = []
     `,
   },
   {
-    fileName: 'main/mutations.js',
+    fileName: 'app/mutations.js',
     code: `
 export const setLoadingPosts = state =>
   state.isLoadingPosts = true
@@ -24,7 +24,7 @@ export const setPosts = (state, posts) =>
 
 export const ts = [
   {
-    fileName: 'main/state.ts',
+    fileName: 'app/state.ts',
     code: `
 export type Post {
   id: number
@@ -32,23 +32,15 @@ export type Post {
   body: string
 }
 
-type State = {
-  isLoadingPosts: boolean
-  posts: Post[]
-}
+export let isLoadingPosts: boolean = false
 
-const state: State = {
-  isLoadingPosts: false,
-  posts: []
-}
-
-export default state
+export let posts: Post[] = []
     `,
   },
   {
-    fileName: 'main/mutations.ts',
+    fileName: 'app/mutations.ts',
     code: `
-import { Mutation } from '../app'
+import { Mutation } from './'
 import { Post } from './state'
 
 export const setLoadingPosts: Mutation = state =>
