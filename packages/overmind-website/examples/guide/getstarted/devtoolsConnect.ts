@@ -1,9 +1,13 @@
 export const js = [
   {
-    fileName: 'app.js',
+    fileName: 'app/index.js',
     code: `
 ...
-const app = new App(main, {
+const app = new App({
+  state,
+  actions,
+  effects
+}, {
   devtools: 'localhost:1234'
 })
 ...
@@ -11,4 +15,15 @@ const app = new App(main, {
   },
 ]
 
-export const ts = js
+export const ts = [
+  {
+    fileName: 'app/index.ts',
+    code: `
+...
+const app = new App(config, {
+  devtools: 'localhost:1234'
+})
+...
+      `,
+  },
+]

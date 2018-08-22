@@ -9,15 +9,14 @@ export const completedItems = state =>
         `,
     },
     {
-      fileName: 'state.js',
+      fileName: 'app/state.js',
       code: `
 import { derive } from '${view}'
 import * as derived from './derived'
 
-export default {
-  items: [],
-  completedItems: derive(derived.completedItems)
-}
+export const items = []
+
+export const completedItems = derive(derived.completedItems)
       `,
     },
   ]
@@ -34,27 +33,19 @@ export const completedItems: Derive = state =>
         `,
     },
     {
-      fileName: 'state.ts',
+      fileName: 'app/state.ts',
       code: `
 import { derive } from '${view}'
 import * as derived from './derived'
 
-type Item = {
+export type Item = {
   title: string
   completed: boolean
 }
 
-type State = {
-  items: Item[]
-  completedItems: Item[]
-}
+export const items: Item[] = []
 
-const state: State = {
-  items: [],
-  completedItems: derive(derived.completedItems)
-}
-
-export default state
+export const completedItems: Item[] = derive(derived.completedItems)
       `,
     },
   ]

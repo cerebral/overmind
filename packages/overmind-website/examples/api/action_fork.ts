@@ -1,13 +1,13 @@
 export const js = [
   {
-    fileName: 'operations.js',
+    fileName: 'app/operations.js',
     code: `
 export const getUserRole = ({ state }) =>
   state.user.role
   `,
   },
   {
-    fileName: 'actions.js',
+    fileName: 'app/actions.js',
     code: `
 export const adminAction = action => action()
 
@@ -28,14 +28,14 @@ export const doThis = action =>
 
 export const ts = [
   {
-    fileName: 'operations.js',
+    fileName: 'app/operations.js',
     code: `
 export const getUserRole: Fork = ({ state }) =>
   state.user.role
   `,
   },
   {
-    fileName: 'actions.js',
+    fileName: 'app/actions.js',
     code: `
 export const adminAction: Action = action => action()
 

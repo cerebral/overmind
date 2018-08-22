@@ -4,9 +4,9 @@
   </li>
 </template>
 <script>
-import { connect } from '../app'
+import app from '../app'
 
-export default connect({
+export default app.connect({
   name: 'Post',
   props: ['post'],
 })

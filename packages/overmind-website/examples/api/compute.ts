@@ -1,22 +1,21 @@
 function createJsCode(view) {
   return [
     {
-      fileName: 'computed.js',
+      fileName: 'app/computed.js',
       code: `
 export const filteredItems = filterNameBy => state =>
   state.items.filter(item => item.name === filterNameBy)
         `,
     },
     {
-      fileName: 'state.js',
+      fileName: 'app/state.js',
       code: `
 import { compute } from '${view}'
 import * as computed from './computed'
 
-export default {
-  items: [],
-  filteredItems: compute(computed.filteredItems, { limit: 10 })
-}
+export const items = []
+
+export const filteredItems = compute(computed.filteredItems, { limit: 10 })
       `,
     },
   ]
@@ -25,33 +24,26 @@ export default {
 function createTsCode(view) {
   return [
     {
-      fileName: 'computed.ts',
+      fileName: 'app/computed.ts',
       code: `
 export const filteredItems: Compute<string> = filterNameBy => state =>
   state.items.filter(item => item.name === filterNameBy)
         `,
     },
     {
-      fileName: 'state.ts',
+      fileName: 'app/state.ts',
       code: `
 import { compute } from '${view}'
 import * as computed from './computed'
 
-type Item = {
+export type Item = {
   name: string
 }
 
-type State = {
-  items: Item[]
-  filteredItems: (filterNameBy: string) => Item[]
-}
+export const items: Item[] = []
 
-const state: State = {
-  items: [],
-  filteredItems: compute(computed.filteredItems, { limit: 10 })
-}
-
-export default state
+export const filteredItems: (input: string) => Item[] =
+  compute(computed.filteredItems, { limit: 10 })
       `,
     },
   ]

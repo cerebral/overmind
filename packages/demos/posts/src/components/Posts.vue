@@ -5,10 +5,10 @@
 </ul>
 </template>
 <script>
-import { connect } from '../app'
+import app from '../app'
 import Post from './Post.vue'
 
-export default connect({
+export default app.connect({
   name: 'Posts',
   components: {
     Post,

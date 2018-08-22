@@ -18,7 +18,7 @@ export const api = {
 
 export const ts = [
   {
-    fileName: 'effects.ts',
+    fileName: 'app/effects.ts',
     code: `
 export axios from 'axios'
 

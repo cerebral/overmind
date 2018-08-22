@@ -1,4 +1,4 @@
-export const effects = {
+export const api = {
   getPost(id) {
     return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`).then(
       (response) => response.json()

@@ -25,7 +25,7 @@ export default app.connect(Posts)
 
 export const reactTs = [
   {
-    fileName: 'Posts.tsx',
+    fileName: 'components/Posts.tsx',
     code: `
 import * as React from 'react'
 import app, { Connect } from './app'

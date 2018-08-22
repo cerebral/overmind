@@ -1,6 +1,6 @@
 export const js = [
   {
-    fileName: 'mutations.js',
+    fileName: 'app/mutations.js',
     code: `
 export const setLoading = state =>
   state.isLoading = true
@@ -10,7 +10,7 @@ export const setInputValue = (state, value) =>
     `,
   },
   {
-    fileName: 'actions.js',
+    fileName: 'app/actions.js',
     code: `
 export const doThis = action =>
   action()
@@ -22,7 +22,7 @@ export const doThis = action =>
 
 export const ts = [
   {
-    fileName: 'mutations.ts',
+    fileName: 'app/mutations.ts',
     code: `
 export const setLoading: Mutation = state =>
   state.isLoading = true
@@ -32,7 +32,7 @@ export const setInputValue: Mutation<string> = (state, value) =>
     `,
   },
   {
-    fileName: 'actions.ts',
+    fileName: 'app/actions.ts',
     code: `
 export const doThis: Action<string> = action =>
   action<string>()

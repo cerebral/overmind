@@ -2,9 +2,9 @@
 
 Before you fire up your first Overmind application be sure to check out the [Why Overmind?]() guide.
 
-To get started with Overmind you have to set up a project. You can do this with [webpack]() or [parceljs]() on your local machine, or go to [codesandbox.io]() to play around with Overmind directly in the browser.
+To get started with Overmind you have to set up a project. You can do this with [webpack](https://webpack.js.org/) or [parceljs](https://parceljs.org/) on your local machine, or go to [codesandbox.io](https://codesandbox.io/) to play around with Overmind directly in the browser.
 
-When you have your project up and running install the Overmind dependency by using [npm]() or [yarn]():
+When you have your project up and running install the Overmind dependency by using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/en/):
 
 ```marksy
 <Example name="guide/getstarted/install" view />
@@ -36,10 +36,10 @@ We add the state to our main module and configure that module in our **app.ts** 
 
 ## Loading posts
 
-We want to load some posts from [jsonplaceholder]() when the **Posts** component mounts. To run logic in Overmind you trigger **actions**. Let us define an action that is responsible for getting our application up and running.
+We want to load some posts from [jsonplaceholder](https://jsonplaceholder.typicode.com/) when the **Posts** component mounts. To run logic in Overmind you trigger **actions**. Let us define an action that is responsible for getting our application up and running.
 
 ```marksy
-<Example name="guide/getstarted/actions" />
+<Example name="guide/getstarted/actions" view />
 ```
 
 As you can see we have not really written any logic yet, we are just describing what we want to happen. This is what we call **declarative** code and is a concept in programming used to manage complexity. In this application it might seem unnecessary, but it is very important to manage complexity as your application grows.

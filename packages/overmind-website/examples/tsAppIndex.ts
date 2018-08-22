@@ -1,32 +1,4 @@
-function createJsCode(view) {
-  return [
-    {
-      fileName: 'app/index.js',
-      code: `
-import App from '${view}'
-import * as moduleA from './moduleA'
-import * as moduleB from './moduleB'
-
-const app = new App({
-  namespaces: {
-    moduleA,
-    moduleB
-  }
-}, {
-  devtools: 'localhost:1234'
-})
-
-export default app
-  `,
-    },
-  ]
-}
-
-function createTsCode(view) {
-  return [
-    {
-      fileName: 'app.ts',
-      code: `
+export default (view, config) => `
 import App, {
   TConfig,
   TAction,
@@ -36,15 +8,7 @@ import App, {
   TOperation,
   TConnect
 } from '${view}'
-import * as moduleA from './moduleA'
-import * as moduleB from './moduleB'
-
-const config = {
-  namespaces: {
-    moduleA,
-    moduleB
-  }
-}
+${config.trim()}
 
 type Config = TConfig<typeof config>
 
@@ -61,22 +25,9 @@ export type Mutation<Input = any> = TOperation.Mutation<Input, Config>
 export type Map<Input, Output> = TOperation.Map<Input, Output, Config>
 export type Try<Input, Output> = TOperation.Try<Input, Output, Config>
 
-const app = new App(config, {
-  devtools: 'localhost:1234'
-})
+const app = new App(main)
 
 export type Connect = TConnect<typeof app>
 
 export default app
-  `,
-    },
-  ]
-}
-
-export const react = createJsCode('react-overmind')
-
-export const reactTs = createTsCode('react-overmind')
-
-export const vue = createJsCode('vue-overmind')
-
-export const vueTs = createTsCode('vue-overmind')
+`

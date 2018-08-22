@@ -1,13 +1,13 @@
 export const js = [
   {
-    fileName: 'operations.js',
+    fileName: 'app/operations.js',
     code: `
 export const hasToken = ({ localStorage }) =>
   Boolean(localStorage.get('token'))
   `,
   },
   {
-    fileName: 'actions.js',
+    fileName: 'app/actions.js',
     code: `
 export const withTokenAction = action => action()
 
@@ -25,14 +25,14 @@ export const doThis = action =>
 
 export const ts = [
   {
-    fileName: 'operations.ts',
+    fileName: 'app/operations.ts',
     code: `
 export const hasToken: When = ({ localStorage }) =>
   Boolean(localStorage.get('token'))
   `,
   },
   {
-    fileName: 'actions.ts',
+    fileName: 'app/actions.ts',
     code: `
 export const withTokenAction: Action = action => action()
 

@@ -1,6 +1,6 @@
 export const js = [
   {
-    fileName: 'main/operations.js',
+    fileName: 'app/operations.js',
     code: `
 export const getPosts =
   ({ jsonPlaceholder }) => jsonPlaceholder.getPosts()
@@ -10,9 +10,9 @@ export const getPosts =
 
 export const ts = [
   {
-    fileName: 'main/operations.ts',
+    fileName: 'app/operations.ts',
     code: `
-import { Map } from '../app'
+import { Map } from './'
 
 export const getPosts: Map<any, Promise<Post[]>> = ({ jsonPlaceholder })
   jsonPlaceholder.getPosts()

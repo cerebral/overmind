@@ -1,6 +1,6 @@
 export const js = [
   {
-    fileName: 'operations.js',
+    fileName: 'app/operations.js',
     code: `
 export const getUser = ({ http }, id) =>
   http.get(\`/users/\${id}\`)
@@ -10,7 +10,7 @@ export const trim = (_, value) =>
   `,
   },
   {
-    fileName: 'actions.js',
+    fileName: 'app/actions.js',
     code: `
 export const doThis = action =>
   action()
@@ -22,7 +22,7 @@ export const doThis = action =>
 
 export const ts = [
   {
-    fileName: 'operations.ts',
+    fileName: 'app/operations.ts',
     code: `
 export const getUser: Map<string, Promise<User>> =
   ({ http }, id) => http.get(\`/users/\${id}\`)
@@ -32,7 +32,7 @@ export const trim: Map<string, string> =
   `,
   },
   {
-    fileName: 'actions.ts',
+    fileName: 'app/actions.ts',
     code: `
 export const doThis: Action<string> = action =>
   action<string>()
