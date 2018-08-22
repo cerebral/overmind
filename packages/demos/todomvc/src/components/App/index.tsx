@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader'
 import * as React from 'react'
 import { Wrapper, InnerWrapper } from './elements'
 import AddTodo from '../AddTodo'
@@ -12,4 +13,4 @@ const App: React.SFC = () => (
   </Wrapper>
 )
 
-export default App
+export default hot(module)(App)

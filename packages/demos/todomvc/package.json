@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"repository": "git+https://github.com/cerebral/overmind.git",
 	"scripts": {
-		"start": "webpack-dev-server --port 4000",
+		"start": "webpack-dev-server --port 4000 --hot",
 		"build": "webpack",
 		"typecheck": "tsc --noEmit",
 		"prepare": "npm run build",
