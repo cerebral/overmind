@@ -5,7 +5,7 @@ export const js = [
 {
   "name": "my-app",
   "scripts": {
-    "devtools": "npx overmind-devtools"
+    "devtools": "npx overmind-devtools@next"
   }
 }
   `,
