@@ -34,8 +34,8 @@ export const isGreatherThan2: Filter<string> = (_, value) =>
   {
     fileName: 'app/actions.ts',
     code: `
-export const doThis = action =>
-  action<string>()
+export const doThis: Action<string> = action =>
+  action()
     .filter(operations.isOnline)
     .filter(operations.isGreaterThan2)
   `,

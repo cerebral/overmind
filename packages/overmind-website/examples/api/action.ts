@@ -13,7 +13,7 @@ export const ts = [
   {
     code: `
 export const doThis: Action<number> = action =>
-  action<number>()
+  action()
     .map(operations.getUser)
     .mutation(mutations.setUser)
   `,

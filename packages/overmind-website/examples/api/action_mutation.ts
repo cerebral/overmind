@@ -35,7 +35,7 @@ export const setInputValue: Mutation<string> = (state, value) =>
     fileName: 'app/actions.ts',
     code: `
 export const doThis: Action<string> = action =>
-  action<string>()
+  action()
     .mutation(mutations.setLoading)
     .mutation(mutations.setInputValue)
   `,
