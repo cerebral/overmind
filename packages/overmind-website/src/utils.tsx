@@ -142,5 +142,8 @@ export const compile = marksy({
   },
   components: {
     Example: ({ name, view }) => <Example key={name} name={name} view={view} />,
+    Image: ({ src }) => (
+      <img src={`/images/${src}`} style={{ width: '100%' }} />
+    ),
   },
 })
