@@ -35,7 +35,7 @@ export const trim: Map<string, string> =
     fileName: 'app/actions.ts',
     code: `
 export const doThis: Action<string> = action =>
-  action<string>()
+  action()
     .map(operations.trim)
     .map(operations.getUser)
   `,

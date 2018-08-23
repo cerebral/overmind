@@ -12,7 +12,7 @@ ${config.trim()}
 
 type Config = TConfig<typeof config>
 
-export type Action<Input = void> = TAction<Input, Config>
+export type Action<Input = void, Output = any> = TAction<Input, Output, Config>
 export type Derive = TDerive<Config>
 export type Compute<Input> = TCompute<Input, Config>
 export type Reaction = TReaction<Config>
