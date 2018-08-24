@@ -11,6 +11,29 @@ export const Content = styled.div`
   font-size: 18px;
   color: ${({ theme }) => theme.color.black};
 
+  ol {
+    list-style: none;
+    counter-reset: li;
+  }
+  ol li {
+    counter-increment: li;
+  }
+  ol li::before {
+    content: counter(li);
+    color: ${({ theme }) => theme.color.primary};
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  ol,
+  ul {
+    margin-top: ${({ theme }) => theme.padding.large};
+    margin-bottom: ${({ theme }) => theme.padding.large};
+  }
+  li {
+    margin-bottom: 15px;
+  }
   > p {
     line-height: 26px;
   }

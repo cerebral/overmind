@@ -4,6 +4,9 @@ const icons = {
   search: '\f002',
   'chevron-up': '\f077',
   'chevron-down': '\f078',
+  movie: '\f008',
+  chat: '\f086',
+  guide: '\f0f6',
 }
 
 export const IconElement = styled<
