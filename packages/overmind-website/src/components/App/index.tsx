@@ -68,6 +68,11 @@ class App extends React.Component<{}, State> {
 
     page.redirect('/api', '/api/action')
   }
+  componentDidUpdate(_, prevState) {
+    if (prevState.currentPath !== this.state.currentPath) {
+      document.querySelector('#overmind-app').scrollTop = 0
+    }
+  }
   componentDidMount() {
     const el = document.querySelector('#overmind-app') as HTMLElement
 
