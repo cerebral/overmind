@@ -146,4 +146,13 @@ export const compile = marksy({
       <img src={`/images/${src}`} style={{ width: '100%' }} />
     ),
   },
+  elements: {
+    a({ href, children }) {
+      return (
+        <a href={href} target={href.indexOf('http') === 0 ? '_blank' : null}>
+          {children}
+        </a>
+      )
+    },
+  },
 })
