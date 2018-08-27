@@ -21,6 +21,7 @@ export const ts = [
     fileName: 'app/effects.ts',
     code: `
 export axios from 'axios'
+import { User, Item } from './state'
 
 export const api = {
   getUser(): Promise<User> {

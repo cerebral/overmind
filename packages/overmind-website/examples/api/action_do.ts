@@ -20,13 +20,17 @@ export const ts = [
   {
     fileName: 'app/operations.ts',
     code: `
-export const trackSubmitForm: Do = ({ track }) =>
+import { Operation } from 'overmind'
+
+export const trackSubmitForm: Operation.Do = ({ track }) =>
   track.interaction('submitForm')
     `,
   },
   {
     fileName: 'app/actions.ts',
     code: `
+import { Action } from 'overmind'
+
 export const doThis: Action = action =>
   action()
     .do(operations.trackSubmitForm)

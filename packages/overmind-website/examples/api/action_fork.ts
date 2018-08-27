@@ -30,13 +30,17 @@ export const ts = [
   {
     fileName: 'app/operations.js',
     code: `
-export const getUserRole: Fork = ({ state }) =>
+import { Operation } from 'overmind'
+
+export const getUserRole: Operation.Fork = ({ state }) =>
   state.user.role
   `,
   },
   {
     fileName: 'app/actions.js',
     code: `
+import { Action } from 'overmind'
+
 export const adminAction: Action = action => action()
 
 export const superuserAction: Action = action => action()

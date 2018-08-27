@@ -11,7 +11,7 @@ export const completedItems = state =>
     {
       fileName: 'app/state.js',
       code: `
-import { derive } from '${view}'
+import { derive } from 'overmind'
 import * as derived from './derived'
 
 export const items = []
@@ -27,7 +27,10 @@ function createTsCode(view) {
     {
       fileName: 'derived.ts',
       code: `
-export const completedItems: Derive = state =>
+import { Derive } from 'overmind'
+import { Item } from './state'
+
+export const completedItems: Derive<Item[]> = state =>
   state.items.filter(item => item.completed)
 
         `,
@@ -35,7 +38,7 @@ export const completedItems: Derive = state =>
     {
       fileName: 'app/state.ts',
       code: `
-import { derive } from '${view}'
+import { derive } from 'overmind'
 import * as derived from './derived'
 
 export type Item = {

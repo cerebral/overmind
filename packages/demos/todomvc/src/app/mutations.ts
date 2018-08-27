@@ -1,4 +1,4 @@
-import { Mutation } from '../app'
+import { Mutation } from 'overmind'
 import { Todo } from './state'
 
 let nextTodoId = 0

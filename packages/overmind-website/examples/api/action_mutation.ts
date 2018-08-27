@@ -24,6 +24,8 @@ export const ts = [
   {
     fileName: 'app/mutations.ts',
     code: `
+import { Mutation } from 'overmind'
+
 export const setLoading: Mutation = state =>
   state.isLoading = true
 
@@ -34,6 +36,8 @@ export const setInputValue: Mutation<string> = (state, value) =>
   {
     fileName: 'app/actions.ts',
     code: `
+import { Action } from 'overmind'
+
 export const doThis: Action<string> = action =>
   action()
     .mutation(mutations.setLoading)

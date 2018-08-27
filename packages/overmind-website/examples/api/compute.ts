@@ -10,7 +10,7 @@ export const filteredItems = filterNameBy => state =>
     {
       fileName: 'app/state.js',
       code: `
-import { compute } from '${view}'
+import { compute } from 'overmind'
 import * as computed from './computed'
 
 export const items = []
@@ -26,14 +26,17 @@ function createTsCode(view) {
     {
       fileName: 'app/computed.ts',
       code: `
-export const filteredItems: Compute<string> = filterNameBy => state =>
+import { Compute } from 'overmind'
+import { Item } from './state'
+
+export const filteredItems: Compute<string, Item[]> = filterNameBy => state =>
   state.items.filter(item => item.name === filterNameBy)
         `,
     },
     {
       fileName: 'app/state.ts',
       code: `
-import { compute } from '${view}'
+import { compute } from 'overmind'
 import * as computed from './computed'
 
 export type Item = {

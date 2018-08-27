@@ -27,13 +27,17 @@ export const ts = [
   {
     fileName: 'app/operations.ts',
     code: `
-export const hasToken: When = ({ localStorage }) =>
+import { Operation } from 'overmind'
+
+export const hasToken: Operation.When = ({ localStorage }) =>
   Boolean(localStorage.get('token'))
   `,
   },
   {
     fileName: 'app/actions.ts',
     code: `
+import { Action } from 'overmind'
+
 export const withTokenAction: Action = action => action()
 
 export const withoutTokenAction: Action = action => action()

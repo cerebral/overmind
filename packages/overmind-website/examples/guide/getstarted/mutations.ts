@@ -40,7 +40,7 @@ export let posts: Post[] = []
   {
     fileName: 'app/mutations.ts',
     code: `
-import { Mutation } from './'
+import { Mutation } from 'overmind'
 import { Post } from './state'
 
 export const setLoadingPosts: Mutation = state =>

@@ -30,7 +30,7 @@ export const ts = [
   {
     fileName: 'app/actions.ts',
     code: `
-import { Action } from './'
+import { Action } from 'overmind'
 import * as operations from './operations'
 
 export const actionA: Action = action =>
@@ -44,7 +44,7 @@ export const actionC: Action<string> = action =>
   `,
   },
   {
-    fileName: 'demo.js',
+    fileName: 'demo.ts',
     code: `
 import app from './app'
 

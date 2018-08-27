@@ -12,9 +12,9 @@ export const ts = [
   {
     fileName: 'app/operations.ts',
     code: `
-import { Map } from './'
+import { Operation } from 'overmind'
 
-export const getPosts: Map<any, Promise<Post[]>> = ({ jsonPlaceholder })
+export const getPosts: Operation.Map<any, Promise<Post[]>> = ({ jsonPlaceholder })
   jsonPlaceholder.getPosts()
   `,
   },

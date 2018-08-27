@@ -31,9 +31,13 @@ export type User = {
   bio: string
 }
 
+export type Users = {
+  [username: string]: User
+}
+
 export let isLoadingUsers: boolean = false
 
-export const users: { [username: string]: User } = {}
+export const users: Users = {}
   `,
   },
   {

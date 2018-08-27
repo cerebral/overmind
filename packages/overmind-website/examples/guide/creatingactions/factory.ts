@@ -12,7 +12,9 @@ export const ts = [
   {
     fileName: 'app/actions.ts',
     code: `
-export const initializeApp = action =>
+import { Action } from 'overmind'
+
+export const initializeApp: Action = action =>
   action()
   `,
   },

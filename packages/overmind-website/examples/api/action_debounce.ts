@@ -11,6 +11,8 @@ export const doThis = action =>
 export const ts = [
   {
     code: `
+import { Action } from 'overmind'
+
 export const doThis: Action = action =>
   action()
     .debounce(200)

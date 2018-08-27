@@ -30,7 +30,7 @@ export const ts = [
   {
     fileName: 'app/mutations.js',
     code: `
-import { Mutation } from './'
+import { Mutation } from 'overmind'
 
 export const setValue: Mutation = state =>
     state.value = 'foo'
@@ -45,7 +45,7 @@ export const setValueFromState: Mutation = state =>
   {
     fileName: 'app/actions.js',
     code: `
-import { Action } from './'
+import { Action } from 'overmind'
 import * as mutations from './mutations'
 
 export const setValues: Action<string> = action =>
