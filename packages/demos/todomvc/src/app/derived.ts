@@ -1,3 +1,3 @@
-import { Derive } from '../app'
+import { Derive } from 'overmind'
 
-export const count: Derive = (state) => state.todos.length
+export const count: Derive<number> = (state) => state.todos.length

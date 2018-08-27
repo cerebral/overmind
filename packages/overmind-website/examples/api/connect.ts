@@ -23,7 +23,7 @@ export const reactTs = [
     fileName: 'SomeComponent.tsx',
     code: `
 import * as React from 'react'
-import app { Connect } from '../app'
+import app, { Connect } from '../app'
 
 const SomeComponent: React.SFC<Connect> = ({ app }) => {
   return (

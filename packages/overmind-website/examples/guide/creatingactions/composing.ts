@@ -24,7 +24,7 @@ export const ts = [
   {
     fileName: 'app/actions.ts',
     code: `
-import { Action } from './'
+import { Action } from 'overmind'
 import * as operations from './operations'
 
 export const loadApplication: Action = action =>

@@ -12,10 +12,10 @@ export const ts = [
   {
     fileName: 'app/operations.ts',
     code: `
-import { Map } from './'
+import { Operation } from 'overmind'
 import { User } from './state'
 
-export const getUser: Map<any, Promise<User>> = ({ http }) =>
+export const getUser: Operation.Map<any, Promise<User>> = ({ http }) =>
     http.get<User>('/user')
   `,
   },

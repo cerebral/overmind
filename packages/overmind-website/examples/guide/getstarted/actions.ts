@@ -39,7 +39,7 @@ function createTsCode(view) {
     {
       fileName: 'app/actions.js',
       code: `
-import { Action } from './'
+import { Action } from 'overmind'
 import * as mutations from './mutations'
 import * as operations from './operations'
 

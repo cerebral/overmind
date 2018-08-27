@@ -24,16 +24,20 @@ export const ts = [
   {
     fileName: 'app/operations.ts',
     code: `
-export const isOnline: Filter = ({ connection }) =>
+import { Operation } from 'overmind'
+
+export const isOnline: Operation.Filter = ({ connection }) =>
   connection.isOnline()
 
-export const isGreatherThan2: Filter<string> = (_, value) =>
+export const isGreatherThan2: Operation.Filter<string> = (_, value) =>
   value.length > 2
   `,
   },
   {
     fileName: 'app/actions.ts',
     code: `
+import { Action } from 'overmind'
+
 export const doThis: Action<string> = action =>
   action()
     .filter(operations.isOnline)

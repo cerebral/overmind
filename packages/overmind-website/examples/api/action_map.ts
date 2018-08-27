@@ -24,16 +24,20 @@ export const ts = [
   {
     fileName: 'app/operations.ts',
     code: `
-export const getUser: Map<string, Promise<User>> =
+import { Operation } from 'overmind'
+
+export const getUser: Operation.Map<string, Promise<User>> =
   ({ http }, id) => http.get(\`/users/\${id}\`)
 
-export const trim: Map<string, string> =
+export const trim: Operation.Map<string, string> =
   (_, value) => value.trim()
   `,
   },
   {
     fileName: 'app/actions.ts',
     code: `
+import { Action } from 'overmind'
+
 export const doThis: Action<string> = action =>
   action()
     .map(operations.trim)
