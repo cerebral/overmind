@@ -8,7 +8,7 @@ import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
 const app = new App({
-  namespaces: {
+  modules: {
     moduleA,
     moduleB
   }
@@ -32,7 +32,7 @@ import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
 const config = {
-  namespaces: {
+  modules: {
     moduleA,
     moduleB
   }

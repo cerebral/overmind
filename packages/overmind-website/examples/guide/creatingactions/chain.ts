@@ -7,10 +7,10 @@ import * as operations from './operations'
 
 export const initializeApp = action =>
   action()
-    .mutation(mutations.setLoadingUser)
+    .mutate(mutations.setLoadingUser)
     .map(operations.getUser)
-    .mutation(mutations.setUser)
-    .mutation(mutations.unsetLoadingUser)
+    .mutate(mutations.setUser)
+    .mutate(mutations.unsetLoadingUser)
   `,
   },
 ]
@@ -24,10 +24,10 @@ import * as operations from './operations'
 
 export const initializeApp = action =>
   action()
-    .mutation(mutations.setLoadingUser)
+    .mutate(mutations.setLoadingUser)
     .map(operations.getUser)
-    .mutation(mutations.setUser)
-    .mutation(mutations.unsetLoadingUser)
+    .mutate(mutations.setUser)
+    .mutate(mutations.unsetLoadingUser)
   `,
   },
 ]

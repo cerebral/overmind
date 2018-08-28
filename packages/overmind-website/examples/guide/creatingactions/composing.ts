@@ -13,8 +13,8 @@ export const getValidToken = action =>
 export const initializeApp = action =>
   action()
     .when(operations.hasValidToken, {
-      true: loadApplication(action),
-      false: getValidToken(action).compose(loadApplication(action))
+      true: loadApplication,
+      false: action => getValidToken(action).compose(loadApplication)
     })
   `,
   },
@@ -36,8 +36,8 @@ export const getValidToken: Action = action =>
 export const initializeApp: Action = action =>
   action()
     .when(operations.hasValidToken, {
-      true: loadApplication(action),
-      false: getValidToken(action).compose(loadApplication(action))
+      true: loadApplication,
+      false: action => getValidToken(action).compose(loadApplication)
     })
   `,
   },

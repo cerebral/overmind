@@ -4,7 +4,7 @@ export const js = [
 export const doThis = action => 
   action()
     .map(operations.getUser)
-    .mutation(mutations.setUser)
+    .mutate(mutations.setUser)
   `,
   },
 ]
@@ -17,7 +17,7 @@ import { Action } from 'overmind'
 export const doThis: Action<number> = action =>
   action()
     .map(operations.getUser)
-    .mutation(mutations.setUser)
+    .mutate(mutations.setUser)
   `,
   },
 ]

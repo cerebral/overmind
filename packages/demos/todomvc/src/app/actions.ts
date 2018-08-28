@@ -9,15 +9,15 @@ type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 export const changeNewTodoTitle: Action<ChangeEvent> = (action) =>
   action()
     .map(operations.getEventValue)
-    .mutation(mutations.setNewTodoTitle)
+    .mutate(mutations.setNewTodoTitle)
 
 export const addTodo: Action<React.FormEvent> = (action) =>
   action()
     .do(operations.preventEventDefault)
-    .mutation(mutations.addTodo)
-    .mutation(mutations.clearNewTodoTitle)
+    .mutate(mutations.addTodo)
+    .mutate(mutations.clearNewTodoTitle)
     .map(() => Promise.resolve())
     .map(() => Promise.resolve())
 
 export const toggleCompleted: Action<Todo> = (action) =>
-  action().mutation(mutations.toggleCompleted)
+  action().mutate(mutations.toggleCompleted)

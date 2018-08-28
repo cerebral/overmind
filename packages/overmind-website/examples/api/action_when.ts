@@ -16,8 +16,8 @@ export const withoutTokenAction = action => action()
 export const doThis = action =>
   action()
     .when(operations.hasToken, {
-      true: withTokenAction(action),
-      false: withoutTokenAction(action)
+      true: withTokenAction,
+      false: withoutTokenAction
     })
     `,
   },
@@ -45,8 +45,8 @@ export const withoutTokenAction: Action = action => action()
 export const doThis: Action = action =>
   action()
     .when(operations.hasToken, {
-      true: withTokenAction(action),
-      false: withoutTokenAction(action)
+      true: withTokenAction,
+      false: withoutTokenAction
     })
     `,
   },

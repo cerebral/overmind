@@ -55,7 +55,7 @@ Typically used to get values from an effect or transform the current value of th
 
 Only argument is a function that receives the **effects** registered in the application as the first argument, and the current **value** of the action as the second argument. The returned value will become the new value of the action.
 
-## mutation
+## mutate
 ```marksy
 <Example name="api/action_mutation" />
 ```

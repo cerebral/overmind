@@ -10,10 +10,10 @@ import * as operations from './operations'
 
 export const loadPosts = action =>
   action()
-    .mutation(mutations.setLoadingPosts)
+    .mutate(mutations.setLoadingPosts)
     .map(operations.getPosts)
-    .mutation(mutations.setPosts)
-    .mutation(mutations.unsetLoadingPosts)
+    .mutate(mutations.setPosts)
+    .mutate(mutations.unsetLoadingPosts)
       `,
     },
     {
@@ -45,10 +45,10 @@ import * as operations from './operations'
 
 export const loadPosts: Action = action =>
   action()
-    .mutation(mutations.setLoadingPosts)
+    .mutate(mutations.setLoadingPosts)
     .map(operations.getPosts)
-    .mutation(mutations.setPosts)
-    .mutation(mutations.unsetLoadingPosts)
+    .mutate(mutations.setPosts)
+    .mutate(mutations.unsetLoadingPosts)
       `,
     },
     {

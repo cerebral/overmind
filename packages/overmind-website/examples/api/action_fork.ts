@@ -18,9 +18,9 @@ export const userAction = action => action()
 export const doThis = action =>
   action()
     .fork(operations.getUserRole, {
-      admin: adminAction(action),
-      superuser: superuserAction(action),
-      user: userAction(action)
+      admin: adminAction,
+      superuser: superuserAction,
+      user: userAction
     })
   `,
   },
@@ -50,9 +50,9 @@ export const userAction: Action = action => action()
 export const doThis: Action = action =>
   action()
     .fork(operations.getUserRole, {
-      admin: adminAction(action),
-      superuser: superuserAction(action),
-      user: userAction(action)
+      admin: adminAction,
+      superuser: superuserAction,
+      user: userAction
     })
   `,
   },

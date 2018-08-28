@@ -14,8 +14,8 @@ export const setInputValue = (state, value) =>
     code: `
 export const doThis = action =>
   action()
-    .mutation(mutations.setLoading)
-    .mutation(mutations.setInputValue)
+    .mutate(mutations.setLoading)
+    .mutate(mutations.setInputValue)
   `,
   },
 ]
@@ -40,8 +40,8 @@ import { Action } from 'overmind'
 
 export const doThis: Action<string> = action =>
   action()
-    .mutation(mutations.setLoading)
-    .mutation(mutations.setInputValue)
+    .mutate(mutations.setLoading)
+    .mutate(mutations.setInputValue)
   `,
   },
 ]

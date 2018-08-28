@@ -16,8 +16,8 @@ export const handleItemsErrorAction = action => action()
 export const doThis = action => 
   action()
     .try(operations.getItems, {
-      success: handleItemsAction(action),
-      error: handleItemsErrorAction(action)
+      success: handleItemsAction,
+      error: handleItemsErrorAction
     })
     `,
   },
@@ -45,8 +45,8 @@ export const handleItemsErrorAction: Action = action => action()
 export const doThis: Action = action => 
   action()
     .try(operations.getItems, {
-      success: handleItemsAction(action),
-      error: handleItemsErrorAction(action)
+      success: handleItemsAction,
+      error: handleItemsErrorAction
     })
     `,
   },

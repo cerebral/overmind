@@ -19,9 +19,9 @@ import * as mutations from './mutations'
 
 export const setValues = action =>
     action()
-      .mutation(mutations.setValue)
-      .mutation(mutations.setValueFromAction)
-      .mutation(mutations.setValueFromState)
+      .mutate(mutations.setValue)
+      .mutate(mutations.setValueFromAction)
+      .mutate(mutations.setValueFromState)
   `,
   },
 ]
@@ -50,9 +50,9 @@ import * as mutations from './mutations'
 
 export const setValues: Action<string> = action =>
     action()
-      .mutation(mutations.setValue)
-      .mutation(mutations.setValueFromAction)
-      .mutation(mutations.setValueFromState)
+      .mutate(mutations.setValue)
+      .mutate(mutations.setValueFromAction)
+      .mutate(mutations.setValueFromState)
   `,
   },
 ]
