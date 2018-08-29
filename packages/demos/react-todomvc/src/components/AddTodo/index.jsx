@@ -4,7 +4,6 @@ import { Wrapper, Input, Button, Form } from './elements'
 
 const AddTodo = ({ app }) => (
   <Wrapper>
-    {app.state.testCount(5)}
     <Form onSubmit={app.actions.addTodo}>
       <Input
         placeholder="I need to..."

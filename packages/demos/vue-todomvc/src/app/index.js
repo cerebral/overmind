@@ -1,7 +1,7 @@
 import App from 'vue-overmind'
 import * as effects from './effects'
-import actions from './actions'
-import state from './state'
+import * as actions from './actions'
+import * as state from './state'
 
 const app = new App(
   {

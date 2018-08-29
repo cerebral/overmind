@@ -1,10 +1,7 @@
-import { derive, compute } from 'overmind'
+import { derive } from 'overmind'
 
-const state = {
-  todos: [],
-  count: derive((state) => state.todos.length),
-  newTodoTitle: '',
-  testCount: compute((foo) => (state) => state.count + foo),
-}
+export const todos = []
 
-export default state
+export const count = derive((state) => state.todos.length)
+
+export let newTodoTitle = ''

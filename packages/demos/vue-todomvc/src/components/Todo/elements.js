@@ -9,7 +9,7 @@ export const Item = styled.li`
   font-size: ${theme.fontSize.larger};
 `
 
-export const Completed = styled('button')`
+export const Completed = styled('button', { completed: Boolean })`
   outline: none;
   border: 0;
   background: transparent;

@@ -1,21 +1,14 @@
 let nextTodoId = 0
 
-export function setNewTodoTitle(state, value) {
-  state.newTodoTitle = value
-}
+export const setNewTodoTitle = (state, value) => (state.newTodoTitle = value)
 
-export function addTodo(state) {
+export const addTodo = (state) =>
   state.todos.unshift({
     id: String(nextTodoId++),
     title: state.newTodoTitle,
     completed: false,
   })
-}
 
-export function clearNewTodoTitle(state) {
-  state.newTodoTitle = ''
-}
+export const clearNewTodoTitle = (state) => (state.newTodoTitle = '')
 
-export function toggleCompleted(_, todo) {
-  todo.completed = !todo.completed
-}
+export const toggleCompleted = (_, todo) => (todo.completed = !todo.completed)

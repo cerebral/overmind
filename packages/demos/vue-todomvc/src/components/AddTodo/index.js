@@ -6,7 +6,6 @@ export default connect({
   render() {
     return (
       <Wrapper>
-        {this.app.state.testCount(5)}
         <Form nativeOnSubmit={this.app.actions.addTodo}>
           <Input
             placeholder="I need to..."

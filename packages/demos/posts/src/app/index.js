@@ -7,7 +7,7 @@ import * as effects from './effects'
 const app = new App(
   {
     effects,
-    namespaces: {
+    modules: {
       tabs,
       posts,
       users,

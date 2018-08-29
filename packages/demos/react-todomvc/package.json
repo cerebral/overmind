@@ -8,9 +8,7 @@
 	"repository": "git+https://github.com/cerebral/overmind.git",
 	"scripts": {
 		"start": "parcel src/index.html --port 4000",
-		"build": "parcel build src/index.html ",
-		"test": "echo \"Error: no test specified\"",
-		"prepare": "npm run build"
+		"test": "echo \"Error: no test specified\""
 	},
 	"keywords": [
 		"overmind",

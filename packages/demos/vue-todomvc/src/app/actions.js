@@ -1,13 +1,16 @@
-import * as helpers from './helpers'
+import * as operations from './operations'
 import * as mutations from './mutations'
 
-export default (action) => ({
-  changeNewTodoTitle: action()
-    .map(helpers.getEventValue)
-    .mutation(mutations.setNewTodoTitle),
-  addTodo: action()
-    .do(helpers.preventEventDefault)
-    .mutation(mutations.addTodo)
-    .mutation(mutations.clearNewTodoTitle),
-  toggleCompleted: action().mutation(mutations.toggleCompleted),
-})
+export const changeNewTodoTitle = (action) =>
+  action()
+    .map(operations.getEventValue)
+    .mutate(mutations.setNewTodoTitle)
+
+export const addTodo = (action) =>
+  action()
+    .do(operations.preventEventDefault)
+    .mutate(mutations.addTodo)
+    .mutate(mutations.clearNewTodoTitle)
+
+export const toggleCompleted = (action) =>
+  action().mutate(mutations.toggleCompleted)

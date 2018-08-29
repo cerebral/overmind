@@ -16,8 +16,6 @@ export const addTodo: Action<React.FormEvent> = (action) =>
     .do(operations.preventEventDefault)
     .mutate(mutations.addTodo)
     .mutate(mutations.clearNewTodoTitle)
-    .map(() => Promise.resolve())
-    .map(() => Promise.resolve())
 
 export const toggleCompleted: Action<Todo> = (action) =>
   action().mutate(mutations.toggleCompleted)
