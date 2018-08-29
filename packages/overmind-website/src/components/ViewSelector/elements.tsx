@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   min-width: 200px;
-  margin: 0 ${({ theme }) => theme.padding.small};
 `
 
 export const Selector = styled<{ isOpen: boolean }, 'div'>('div')`

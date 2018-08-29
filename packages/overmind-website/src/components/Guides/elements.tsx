@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   max-width: 800px;
   padding: ${({ theme }) => theme.padding.large};
+  flex-wrap: wrap;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;

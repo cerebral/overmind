@@ -3,6 +3,13 @@ import marksy from 'marksy/components'
 import styled from './styled-components'
 import * as Prism from './prismjs.js'
 
+export const viewport = {
+  isMobile: window.innerWidth <= 1024,
+  set() {
+    this.isMobile = window.innerWidth <= 1024
+  },
+}
+
 export const getTheme = () => localStorage.getItem('theme') || 'react'
 
 export const getTypescript = () => localStorage.getItem('typescript') || false
