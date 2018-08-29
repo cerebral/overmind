@@ -51,11 +51,11 @@
   </div>
 </template>
 <script>
-import { connect } from '../app'
+import app from '../app'
 import Posts from './Posts.vue'
 import Users from './Users.vue'
 
-export default connect({
+export default app.connect({
   name: 'App',
   components: {
     Posts,

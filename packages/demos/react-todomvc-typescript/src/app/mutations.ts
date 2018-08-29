@@ -1,23 +1,19 @@
-import { State, Todo } from './state'
+import { Mutate } from 'overmind'
+import { Todo } from './state'
 
 let nextTodoId = 0
 
-export function setNewTodoTitle(state: State, value: string) {
-  state.newTodoTitle = value
-}
+export const setNewTodoTitle: Mutate<string> = (state, value) =>
+  (state.newTodoTitle = value)
 
-export function addTodo(state: State) {
+export const addTodo: Mutate = (state) =>
   state.todos.unshift({
     id: String(nextTodoId++),
     title: state.newTodoTitle,
     completed: false,
   })
-}
 
-export function clearNewTodoTitle(state: State) {
-  state.newTodoTitle = ''
-}
+export const clearNewTodoTitle: Mutate = (state) => (state.newTodoTitle = '')
 
-export function toggleCompleted(_, todo: Todo) {
-  todo.completed = !todo.completed
-}
+export const toggleCompleted: Mutate<Todo> = (_, todo) =>
+  (todo.completed = !todo.completed)

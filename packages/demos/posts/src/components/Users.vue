@@ -2,9 +2,9 @@
   <div>Hello users!</div>
 </template>
 <script>
-import { connect } from '../app'
+import app from '../app'
 
-export default connect({
+export default app.connect({
   name: 'Users',
 })
 </script>

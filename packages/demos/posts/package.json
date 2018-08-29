@@ -1,11 +1,12 @@
 {
   "name": "posts",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel src/index.html --port 4000",
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "start": "./../../../node_modules/.bin/parcel src/index.html --port 4000"
   },
   "keywords": [],
   "author": "",

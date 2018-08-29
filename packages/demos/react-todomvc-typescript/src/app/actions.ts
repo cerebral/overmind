@@ -1,16 +1,23 @@
 import * as React from 'react'
-import { Action } from './'
+import { Action } from 'overmind'
 import { Todo } from './state'
-import * as helpers from './helpers'
+import * as operations from './operations'
 import * as mutations from './mutations'
 
-export default (action: Action) => ({
-  changeNewTodoTitle: action<React.ChangeEvent<HTMLInputElement>>()
-    .map(helpers.getEventValue)
-    .mutation(mutations.setNewTodoTitle),
-  addTodo: action<React.FormEvent>()
-    .do(helpers.preventEventDefault)
-    .mutation(mutations.addTodo)
-    .mutation(mutations.clearNewTodoTitle),
-  toggleCompleted: action<Todo>().mutation(mutations.toggleCompleted),
-})
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+
+export const changeNewTodoTitle: Action<ChangeEvent> = (action) =>
+  action()
+    .map(operations.getEventValue)
+    .mutate(mutations.setNewTodoTitle)
+
+export const addTodo: Action<React.FormEvent> = (action) =>
+  action()
+    .do(operations.preventEventDefault)
+    .mutate(mutations.addTodo)
+    .mutate(mutations.clearNewTodoTitle)
+    .map(() => Promise.resolve())
+    .map(() => Promise.resolve())
+
+export const toggleCompleted: Action<Todo> = (action) =>
+  action().mutate(mutations.toggleCompleted)

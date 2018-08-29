@@ -1,9 +1,11 @@
 sudo: false
 language: node_js
 node_js: '8'
+install:
+  - npm ci
 cache:
   directories:
-  - node_modules
+    - '$HOME/.npm'
 addons:
   apt:
     sources:
@@ -15,25 +17,32 @@ git:
   depth: 9999
 notifications:
   email: false
+before_install: dpkg --compare-versions `npm -v` ge 6.3 || npm i -g npm@^6.3
 script:
-- |
-  if [[ $SKIP_TESTS != 'true' ]]; then
-    npm prune
-    npm run checkdeps
-    npm run lint
-    npm test
-  fi
+  - |
+    if [[ $SKIP_TESTS != 'true' ]]; then
+      npm prune
+      npm run checkdeps
+      npm run lint
+      npm test
+    fi
 after_success:
-- |
-  if [[ $TRAVIS_SECURE_ENV_VARS == 'true' ]]; then
-    git config --global user.email "cerebraljs@gmail.com";
-    git config --global user.name "Cerebral JS";
-  fi
-  if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-    printf "//registry.npmjs.org/:_authToken=$NPM_TOKEN\n" > ~/.npmrc
-    npm install --no-save nodegit@0.20.3
-    npm run release
-  fi
+  - |
+    if [[ $TRAVIS_SECURE_ENV_VARS == 'true' ]]; then
+      git config --global user.email "cerebraljs@gmail.com";
+      git config --global user.name "Cerebral JS";
+    fi
+    if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+      printf "//registry.npmjs.org/:_authToken=$NPM_TOKEN\n" > ~/.npmrc
+      npm install --no-save nodegit@0.20.3 now
+      npm run release
+    fi
+    if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+      now ./packages/overmind-website --docker --token $NOW_TOKEN && now alias overmindjs.org --token $NOW_TOKEN
+    fi
+    if [[ $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+      now ./packages/overmind-website --docker --token $NOW_TOKEN && now alias next.overmindjs.org --token $NOW_TOKEN
+    fi
 branches:
   except:
-  - "/^v\\d+\\.\\d+\\.\\d+$/"
+    - "/^v\\d+\\.\\d+\\.\\d+$/"

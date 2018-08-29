@@ -1,0 +1,62 @@
+{
+	"name": "overmind-website",
+	"private": true,
+	"version": "1.0.0",
+	"description": "Overmind website",
+	"author": "Christian Alfoni <christianalfoni@gmail.com>",
+	"license": "MIT",
+	"repository": "git+https://github.com/cerebral/overmind.git",
+	"scripts": {
+		"start": "node backend/index",
+		"dev": "concurrently \"node backend/index.js\" \"webpack-dev-server --port 4000 --mode development --hot --inline\"",
+		"build": "webpack --mode=production",
+		"typecheck": "tsc --noEmit",
+		"prepare": "npm run build",
+		"posttest": "npm run typecheck"
+	},
+	"now": {
+		"files": [
+			"api",
+			"backend",
+			"examples",
+			"guides",
+			"src",
+			"package.json",
+			"tsconfig.json",
+			"videos.json",
+			"webpack.config.js"
+		]
+	},
+	"keywords": [
+		"overmind",
+		"demo"
+	],
+	"dependencies": {
+		"@types/node": "^10.5.1",
+		"express": "^4.16.3",
+		"install": "^0.12.1",
+		"marksy": "^6.0.3",
+		"npm": "^6.3.0",
+		"overmind-themes": "next",
+		"page": "^1.8.6",
+		"prismjs": "^1.15.0",
+		"react": "^16.4.1",
+		"react-dom": "^16.4.1",
+		"react-overmind": "next",
+		"styled-components": "^3.3.3"
+	},
+	"devDependencies": {
+		"@types/react": "^16.4.6",
+		"@types/react-dom": "^16.0.6",
+		"concurrently": "^3.6.1",
+		"raw-loader": "^0.5.1",
+		"ts-loader": "^4.4.2",
+		"tslib": "^1.9.3",
+		"typescript": "^2.9.2",
+		"url-loader": "^1.0.1",
+		"webpack": "^4.15.1",
+		"webpack-cli": "^3.0.8",
+		"webpack-dev-server": "^3.1.5",
+		"html-webpack-plugin": "^3.2.0"
+	}
+}

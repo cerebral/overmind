@@ -1,4 +1,6 @@
 import { derive, compute } from 'overmind'
+import * as derived from './derived'
+import * as computed from './computed'
 
 export type Todo = {
   id: string
@@ -6,18 +8,10 @@ export type Todo = {
   completed: boolean
 }
 
-export type State = {
-  todos: Todo[]
-  newTodoTitle: string
-  count: number
-  testCount: (foo: number) => number
-}
+export const todos: Todo[] = []
 
-const state: State = {
-  todos: [],
-  count: derive((state: State) => state.todos.length),
-  newTodoTitle: '',
-  testCount: compute((foo: number) => (state: State) => state.count + foo),
-}
+export let newTodoTitle: string = ''
 
-export default state
+export const count: number = derive(derived.count)
+
+export const testCount: (foo: number) => number = compute(computed.testCount)
