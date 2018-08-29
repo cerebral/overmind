@@ -7,6 +7,7 @@ const icons = {
   movie: '\f008',
   chat: '\f086',
   guide: '\f0f6',
+  bars: '\f0c9',
 }
 
 export const IconElement = styled<

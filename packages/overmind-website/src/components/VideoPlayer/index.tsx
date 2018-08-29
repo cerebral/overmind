@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Wrapper, Video, Backdrop, Loader, Iframe } from './elements'
+import { viewport } from '../../utils'
 
 type Props = {
   url: string
@@ -25,8 +26,8 @@ class VideoPlayer extends React.Component<Props> {
         <Video>
           <Loader>loading video...</Loader>
           <Iframe
-            width="560"
-            height="315"
+            width={viewport.isMobile ? '300' : '560'}
+            height={viewport.isMobile ? '169' : '315'}
             src={
               this.props.url.replace('watch?v=', 'embed/') +
               '?rel=0&amp;showinfo=0'

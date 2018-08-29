@@ -11,6 +11,11 @@ export const Content = styled.div`
   font-size: 18px;
   color: ${({ theme }) => theme.color.black};
 
+  @media (max-width: 700px) {
+    width: 100%;
+    padding: ${({ theme }) => `${theme.padding.large} ${theme.padding.normal}`};
+  }
+
   ol {
     list-style: none;
     counter-reset: li;

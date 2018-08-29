@@ -90,6 +90,8 @@
       border-radius: 50%;
       width: 125px;
       height: 125px;
+      box-shadow: 0 0 0 rgba(206, 206, 206, 0.4);
+      animation: pulse 2s infinite 0.5s;
     }
 
     #overmind-inner-circle {
@@ -112,6 +114,33 @@
       background-color: inherit;
       height: 25px;
       width: 125px;
+    }
+
+    @-webkit-keyframes pulse {
+      0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(206, 206, 206, 0.4);
+      }
+      70% {
+        -webkit-box-shadow: 0 0 0 20px rgba(211, 211, 211, 0);
+      }
+      100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(199, 199, 199, 0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        -moz-box-shadow: 0 0 0 0 rgba(201, 201, 201, 0.4);
+        box-shadow: 0 0 0 0 rgba(196, 196, 196, 0.4);
+      }
+      70% {
+        -moz-box-shadow: 0 0 0 20px rgba(202, 202, 202, 0);
+        box-shadow: 0 0 0 20px rgba(209, 209, 209, 0);
+      }
+      100% {
+        -moz-box-shadow: 0 0 0 0 rgba(206, 206, 206, 0);
+        box-shadow: 0 0 0 0 rgba(202, 202, 202, 0);
+      }
     }
   </style>
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">

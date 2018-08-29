@@ -3,12 +3,13 @@ import FrontPage from '../FrontPage'
 import * as page from 'page'
 import * as themes from 'overmind-themes'
 import { ThemeProvider } from '../../styled-components'
-import { getTheme } from '../../utils'
+import { getTheme, viewport } from '../../utils'
 import Guides from '../Guides'
 import Videos from '../Videos'
 import Guide from '../Guide'
 import Api from '../Api'
 import TopBar from '../TopBar'
+import MobileTopBar from '../MobileTopBar'
 import { Wrapper } from './elements'
 
 const routesMap = {
@@ -104,7 +105,15 @@ class App extends React.Component<{}, State> {
     return (
       <ThemeProvider theme={themes[getTheme()]}>
         <Wrapper>
-          <TopBar currentPage={currentPage} selectedTheme={getTheme()} />
+          {viewport.isMobile ? (
+            <MobileTopBar
+              currentPage={currentPage}
+              selectedTheme={getTheme()}
+              currentPath={currentPath}
+            />
+          ) : (
+            <TopBar currentPage={currentPage} selectedTheme={getTheme()} />
+          )}
           <Page
             currentPath={currentPath}
             isLoading={this.state.isLoading}

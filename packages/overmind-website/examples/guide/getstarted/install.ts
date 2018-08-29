@@ -1,7 +1,9 @@
+import { getPackageWithVersion } from '../../templates'
+
 export const react = [
   {
     code: `
-npm install react-overmind
+npm install ${getPackageWithVersion('react-overmind')}
   `,
   },
 ]
@@ -11,7 +13,7 @@ export const reactTs = react
 export const vue = [
   {
     code: `
-npm install vue-overmind
+npm install ${getPackageWithVersion('vue-overmind')}
   `,
   },
 ]

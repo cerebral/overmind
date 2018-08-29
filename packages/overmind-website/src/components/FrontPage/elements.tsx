@@ -7,6 +7,8 @@ export const QuickstartWrapper = styled.div`
   left: 0;
   width: 100vw;
   display: flex;
+  bottom: -75px;
+  transition: bottom 0.5s ease-out;
 `
 
 export const Quickstart = styled.a`
@@ -19,8 +21,8 @@ export const Quickstart = styled.a`
   justify-content: center;
   text-decoration: none;
   flex: 1;
-  > *:first-child {
-    margin-right: 15px;
+  > *:nth-child(2) {
+    margin-left: 15px;
   }
   color: ${({ theme }) => theme.color.fade(theme.color.white, 0.25)};
   :hover {

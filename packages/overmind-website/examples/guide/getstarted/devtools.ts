@@ -1,3 +1,5 @@
+import { getPackageWithVersion } from '../../templates'
+
 export const js = [
   {
     fileName: 'package.json',
@@ -5,7 +7,7 @@ export const js = [
 {
   "name": "my-app",
   "scripts": {
-    "devtools": "npx overmind-devtools@next"
+    "devtools": "npx ${getPackageWithVersion('overmind-devtools')}"
   }
 }
   `,

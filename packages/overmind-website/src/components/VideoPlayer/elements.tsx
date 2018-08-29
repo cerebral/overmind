@@ -11,13 +11,13 @@ export const Wrapper = styled.div`
   align-items: center;
   opacity: 0;
   transition: opacity 0.25s ease-in;
+  z-index: 3;
 `
 
 export const Backdrop = styled.a`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
   width: 100vw;
   height: 100vh;
   background-color: #000;
@@ -29,6 +29,10 @@ export const Video = styled.div`
   display: inline-block;
   width: 560px;
   height: 315px;
+  @media (max-width: 1024px) {
+    width: 300px;
+    height: 169px;
+  }
   box-shadow: 0px 0px 36px 0px rgba(0, 0, 0, 0.75);
   background-color: #000;
 `
@@ -37,6 +41,9 @@ export const Loader = styled.div`
   position: absolute;
   width: 560px;
   top: 50%;
+  @media (max-width: 1024px) {
+    width: 300px;
+  }
   text-align: center;
   color: ${({ theme }) => theme.color.white};
 `

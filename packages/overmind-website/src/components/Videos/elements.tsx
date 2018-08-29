@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   justify-content: space-around;
   max-width: 800px;
   padding: ${({ theme }) => theme.padding.large};
+  flex-wrap: wrap;
   margin-top: 50px;
 `
 

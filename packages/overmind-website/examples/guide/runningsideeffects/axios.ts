@@ -1,4 +1,4 @@
-import tsAppIndex from '../../tsAppIndex'
+import { tsAppIndex } from '../../templates'
 
 function createJsCode(view) {
   return [

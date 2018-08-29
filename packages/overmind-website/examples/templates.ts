@@ -1,4 +1,7 @@
-export default (view, config) => `
+const getVersion = () => (location.host.split('.')[0] === 'next' ? '@next' : '')
+
+export const tsAppIndex = (view, config) => {
+  return `
 import App, { TConnect } from '${view}'
 ${config.trim()}
 
@@ -13,3 +16,6 @@ export type Connect = TConnect<typeof app>
 
 export default app
 `
+}
+
+export const getPackageWithVersion = (name) => name + getVersion()
