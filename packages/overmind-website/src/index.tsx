@@ -31,3 +31,11 @@ window.onresize = () => {
     window.rerender()
   }
 }
+
+document.addEventListener(
+  'touchmove',
+  (event) => {
+    event.preventDefault()
+  },
+  { passive: false }
+)
