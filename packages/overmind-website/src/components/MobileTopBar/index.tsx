@@ -17,13 +17,9 @@ class MobileTopBar extends React.Component<Props> {
   }
   openMenu = () => {
     this.menu.style.transform = 'translate3d(0, 0, 0)'
-    const page: HTMLElement = document.querySelector('#overmind-app')
-    page.style.overflowY = 'hidden'
   }
   closeMenu = () => {
     this.menu.style.transform = 'translate3d(-110vw, 0, 0)'
-    const page: HTMLElement = document.querySelector('#overmind-app')
-    page.style.overflowY = 'scroll'
   }
   render() {
     const { selectedTheme, currentPage, currentPath } = this.props
