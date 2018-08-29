@@ -16,6 +16,7 @@ export const ListWrapper = styled.div`
   height: 100vh;
   right: calc(50% + 350px);
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 `
 
 export const List = styled.ul`

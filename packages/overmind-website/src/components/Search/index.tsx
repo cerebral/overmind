@@ -45,12 +45,16 @@ class Search extends React.Component<{}, State> {
     searchResult: [],
     showSearchResult: false,
   }
+  isUnmounting: boolean
   componentDidMount() {
     document.addEventListener('click', () => {
       this.setState({
         showSearchResult: false,
       })
     })
+  }
+  componentWillUnmount() {
+    this.isUnmounting = true
   }
   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value
@@ -67,6 +71,10 @@ class Search extends React.Component<{}, State> {
     this.search()
   }
   search = debounce(function() {
+    if (this.isUnmounting) {
+      return
+    }
+
     this.setState({
       isLoading: true,
     })
@@ -106,6 +114,10 @@ class Search extends React.Component<{}, State> {
     if (this.state.searchResult.length) {
       // Let closing click event go through first
       setTimeout(() => {
+        if (this.isUnmounting) {
+          return
+        }
+
         this.setState({
           showSearchResult: true,
         })

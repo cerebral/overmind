@@ -37,6 +37,9 @@ export const Menu = styled.div`
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   border-right: 2px solid ${({ theme }) => theme.color.primary};
+  padding: ${({ theme }) => theme.padding.small};
+  padding-bottom: ${({ theme }) => theme.padding.large};
+  box-sizing: border-box;
 `
 
 export const Link = styled<{ selected?: boolean }, 'a'>('a')`
