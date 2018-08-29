@@ -1,0 +1,29 @@
+{
+	"name": "vue-todomvc",
+	"private": true,
+	"version": "1.0.0",
+	"description": "Overmind todomvc demo",
+	"author": "Christian Alfoni <christianalfoni@gmail.com>",
+	"license": "MIT",
+	"repository": "git+https://github.com/cerebral/overmind.git",
+	"scripts": {
+		"start": "parcel src/index.html --port 4000",
+		"build": "parcel build src/index.html ",
+		"test": "echo \"Error: no test specified\"",
+		"prepare": "npm run build"
+	},
+	"keywords": [
+		"overmind",
+		"demo"
+	],
+	"dependencies": {
+		"vue-overmind": "next",
+		"color": "^3.0.0",
+		"vue": "^2.5.16",
+		"vue-styled-components": "^1.3.0"
+	},
+	"devDependencies": {
+		"babel-plugin-transform-vue-jsx": "^3.7.0",
+		"parcel-bundler": "^1.9.7"
+	}
+}

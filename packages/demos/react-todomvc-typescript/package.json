@@ -1,5 +1,5 @@
 {
-	"name": "todomvc",
+	"name": "react-todomvc-typescript",
 	"private": true,
 	"version": "1.0.0",
 	"description": "Overmind todomvc demo",
@@ -9,6 +9,7 @@
 	"scripts": {
 		"start": "webpack-dev-server --port 4000 --hot",
 		"build": "webpack",
+		"test": "echo \"Error: no test specified\"",
 		"typecheck": "tsc --noEmit",
 		"prepare": "npm run build",
 		"posttest": "npm run typecheck"

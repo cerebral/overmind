@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\"",
     "start": "./../../../node_modules/.bin/parcel src/index.html --port 4000"
   },
   "keywords": [],
