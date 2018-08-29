@@ -35,6 +35,7 @@ export const Menu = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   border-right: 2px solid ${({ theme }) => theme.color.primary};
 `
 
@@ -45,7 +46,4 @@ export const Link = styled<{ selected?: boolean }, 'a'>('a')`
   margin: ${({ theme }) => theme.padding.small};
   cursor: pointer;
   text-transform: uppercase;
-  :hover {
-    color: ${({ theme }) => theme.color.white};
-  }
 `
