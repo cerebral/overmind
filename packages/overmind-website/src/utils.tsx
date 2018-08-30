@@ -129,16 +129,21 @@ class Example extends React.Component<{
       return 'Missing example'
     }
 
-    return this.state.content.map((example, index) => (
-      <React.Fragment key={index}>
-        {example.fileName ? <FileName>{example.fileName}</FileName> : null}
-        {
-          compile(
-            `\`\`\`${example.target || 'ts'}\n${example.code.trim()}\n\`\`\``
-          ).tree
-        }
-      </React.Fragment>
-    ))
+    return (
+      <span>
+        {this.state.content.map((example, index) => (
+          <span key={index}>
+            {example.fileName ? <FileName>{example.fileName}</FileName> : null}
+            {
+              compile(
+                `\`\`\`${example.target ||
+                  'ts'}\n${example.code.trim()}\n\`\`\``
+              ).tree
+            }
+          </span>
+        ))}
+      </span>
+    )
   }
 }
 

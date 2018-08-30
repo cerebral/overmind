@@ -1,6 +1,7 @@
 import styled from '../../styled-components'
 
 export const Wrapper = styled.div`
+  position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -40,18 +41,3 @@ export const Text = styled.div`
   letter-spacing: 10px;
   text-indent: 10px;
 `
-
-/*
-
-    #inner-circle {
-
-    }
-
-    #text {
-
-    }
-
-    #block {
-
-    }
-*/

@@ -65,6 +65,11 @@ export const Option = styled.div`
   }
 `
 
+export const OptionItem = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 export const TsImageWrapper = styled.div`
   display: flex;
   padding: 4px;

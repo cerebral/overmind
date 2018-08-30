@@ -59,7 +59,7 @@ export const Content = styled.div`
     font-size: 14px;
     text-transform: uppercase;
   }
-  > pre {
+  > span > span > pre {
     color: #ccc;
     background: ${({ theme }) => theme.color.lighten(theme.color.dark, -0.2)};
     border-radius: ${({ theme }) => theme.borderRadius.normal};
@@ -82,7 +82,7 @@ export const Content = styled.div`
     hyphens: none;
   }
 
-  > pre * {
+  > span > span > pre * {
     font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New,
       monospace;
     font-size: 12px;
