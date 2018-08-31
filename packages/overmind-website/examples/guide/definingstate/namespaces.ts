@@ -48,18 +48,23 @@ export enum SortKey = {
   Title = 'title'
 }
 
-export enum SortType = {
+export enum SortDirection = {
   Asc = 'asc',
   Desc = 'desc'
+}
+
+export type Sorting {
+  key: SortKey
+  type: SortDirection
 }
 
 export let isLoading = false
 
 export const issues = {}
 
-export const sorting: { key: SortKey, type: SortType } = {
+export const sorting: Sorting = {
   key: SortKey.Date,
-  type: SortType.Asc
+  direction: SortDirection.Asc
 }
   `,
   },
