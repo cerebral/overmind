@@ -5,7 +5,7 @@ Even though we think of the user interface as the application, it is really not.
 On one end we listen to interaction from the user to change this data structure. On the other end we transform this data structure into a user interface. This is what we mean when we say that "the state drives the user interface".
 
 ```marksy
-<Image src="state-ui.png" />
+<Image src="state-ui.png" })
 ```
 
 ## The values
@@ -19,7 +19,7 @@ Let us talk a litte bit about what each value helps you represent in your applic
 The root value of your state tree is an object, because objects are great for holding other values. An object has keys that points to values. Most of these keys points to values that is used to produce a UI, but these keys can also represent domains of the application. A typical state structure could be:
 
 ```marksy
-<Example name="guide/definingstate/objects" />
+h(Example, { name: "guide/definingstate/objects" })
 ```
 
 ### Arrays
@@ -31,7 +31,7 @@ Arrays are in a way similar to objects in the sense that they hold other values,
 Strings are of course used to represent text values. Names, descriptions and what not. But strings are also used for ids, types etc. Basically values used to reference other values. This is an important part in structuring state. For example in our **objects** example above we chose to use an array to represent the tabs, using an index to point to the current tab, but we could also do:
 
 ```marksy
-<Example name="guide/definingstate/strings" />
+h(Example, { name: "guide/definingstate/strings" })
 ```
 
 Now we are referencing the current tab with a string. In this scenario you would probably stick with the array, but it is important to highlight that objects allows you to reference things by string, while arrays reference by number.
@@ -53,7 +53,7 @@ All values, with the exception of booleans, can also be **null**. Non existing. 
 You define the state of the application in **state** files. For example top level state could be defined as:
 
 ```marksy
-<Example name="guide/definingstate/define" />
+h(Example, { name: "guide/definingstate/define" })
 ```
 
 Note that we are just exporting variables from our state module. We use **let** for values that can be replaced and **const** for values that can not be replaced. That would typically be derived or computed values, but you might also have arrays or objects that should not be replaced.
@@ -61,7 +61,7 @@ Note that we are just exporting variables from our state module. We use **let** 
 As your application grows you will most likely move state to their own namespaces. An example of that could be:
 
 ```marksy
-<Example name="guide/definingstate/namespaces" />
+h(Example, { name: "guide/definingstate/namespaces" })
 ```
 
 ## Summary
