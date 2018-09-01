@@ -1,7 +1,7 @@
 # Reaction
 
 ```marksy
-<Example name="api/reaction_global" />
+h(Example, { name: "api/reaction_global" })
 ```
 
 You can register reactions to act whenever a state path is affected by a mutation. The **global** reactions are conigured with the application and will live as long as the application lives. A reaction results in an executed action.
@@ -9,7 +9,7 @@ You can register reactions to act whenever a state path is affected by a mutatio
 ## Component
 
 ```marksy
-<Example name="api/reaction_component" view />
+h(Example, { name: "api/reaction_component", view: true })
 ```
 
 Inside components reactions can be registered to perform view related side effects. These reactions are unregistered automatically when the component unmounts. 

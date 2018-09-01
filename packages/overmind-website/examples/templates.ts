@@ -10,7 +10,7 @@ declare module 'overmind' {
   interface IEffects extends TEffects<typeof config> {}
 }
 
-const app = new App(main)
+const app = new App(config)
 
 export type Connect = TConnect<typeof app>
 

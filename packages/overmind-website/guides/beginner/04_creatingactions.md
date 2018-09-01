@@ -7,13 +7,13 @@ When an event triggers in your application, that being a user interaction, a web
 You define your actions in files named **actions**. From this file you export functions that will receive the action factory function as its only argument.
 
 ```marksy
-<Example name="guide/creatingactions/factory" />
+h(Example, { name: "guide/creatingactions/factory" })
 ```
 
 When you call this action factory you create the action. Now... why do we have this factory? Why could you not just do something like this:
 
 ```marksy
-<Example name="guide/creatingactions/instead" />
+h(Example, { name: "guide/creatingactions/instead" })
 ```
 
 1. We want actions to be defined as a callback. This allows actions to compose actions from other files, even in circular reference. This is an important flexibility which callbacks enable
@@ -27,7 +27,7 @@ This might not make too much sense right now, but it will become more clear as w
 The action returned by the factory has a chaining API. This is the concept that forces you into a functional world. One of the big benefits of this approach is that your code becomes declarative. That means you describe **what** your application is doing in the action chain and then you have small separate functions that actually describes the **how**.
 
 ```marksy
-<Example name="guide/creatingactions/chain" />
+h(Example, { name: "guide/creatingactions/chain" })
 ```
 
 Each of the methods on the action we call an **operator**. So **mutation** and **map** are operators.
@@ -37,7 +37,7 @@ Each of the methods on the action we call an **operator**. So **mutation** and *
 When the application is initialized you can start calling the actions. You will typically **connect** your app to components before doing this, but you can also call them directly off the application instance. Let us do that now to show how actions behave.
 
 ```marksy
-<Example name="guide/creatingactions/trigger" />
+h(Example, { name: "guide/creatingactions/trigger" })
 ```
 
 Here we have three different examples of actions.
@@ -53,7 +53,7 @@ What to learn from this is that calling an action is just like calling a plain f
 The most common thing you will do is changing the state of the application. You perform a **mutation**. To express this in an action you will use the **mutation** operator. You will define all your mutations in their own files called **mutations**. The reason for that is to be explicit about where mutations actually happens in your application.
 
 ```marksy
-<Example name="guide/creatingactions/mutations" />
+h(Example, { name: "guide/creatingactions/mutations" })
 ```
 
 As the example shows above there are three ways to change the state of the application:
@@ -69,7 +69,7 @@ Note that when you use an existing value from the state tree that value has to b
 A powerful concept in Overmind is that you can compose actions together. There are several operators that supports this. We will look at one of those operators here, the **when** operator.
 
 ```marksy
-<Example name="guide/creatingactions/composing" />
+h(Example, { name: "guide/creatingactions/composing" })
 ```
 
 Since each action is defined with a function we call that function and pass it the action factory. This ensures that every composition is unique. Also since each function is defined as a function we can now import actions from anywhere else, even circular imports.

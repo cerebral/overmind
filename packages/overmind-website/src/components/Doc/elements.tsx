@@ -8,7 +8,7 @@ export const Content = styled.div`
   background-color: ${({ theme }) => theme.color.white};
   padding: ${({ theme }) => theme.padding.large};
   font-family: 'Nunito', sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   color: ${({ theme }) => theme.color.black};
 
   @media (max-width: 700px) {

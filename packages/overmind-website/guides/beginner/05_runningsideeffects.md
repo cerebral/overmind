@@ -5,7 +5,7 @@ Developing applications is not only about managing state, but also managing side
 Let us start with a simple example.
 
 ```marksy
-<Example name="guide/runningsideeffects/axios" view />
+h(Example, { name: "guide/runningsideeffects/axios", view: true })
 ```
 
 We are just exporting an existing library from our effects file and include it in the application config. Now Overmind is aware of an **http** effect. It can track it for debugging and all operations will have it injected.
@@ -13,19 +13,19 @@ We are just exporting an existing library from our effects file and include it i
 Let us put it to use in an operation that grabs the user of the application.
 
 ```marksy
-<Example name="guide/runningsideeffects/getuser" />
+h(Example, { name: "guide/runningsideeffects/getuser" })
 ```
 
 That was basically it. We can take this a step further though. Maybe you want to create a more explicit API effect.
 
 ```marksy
-<Example name="guide/runningsideeffects/object" />
+h(Example, { name: "guide/runningsideeffects/object" })
 ```
 
 Or maybe you need it to be configurable. Improving testability and environment variables.
 
 ```marksy
-<Example name="guide/runningsideeffects/class" />
+h(Example, { name: "guide/runningsideeffects/class" })
 ```
 
 ## Summary

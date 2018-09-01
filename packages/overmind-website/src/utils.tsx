@@ -1,5 +1,5 @@
 import * as React from 'react'
-import marksy from 'marksy/components'
+import marksy from 'marksy'
 import styled from './styled-components'
 import * as Prism from './prismjs.js'
 
@@ -27,6 +27,16 @@ const LoadingExample = styled.div`
 const FileName = styled.div`
   font-size: ${({ theme }) => theme.fontSize.small};
   font-weight: bold;
+`
+
+const Notice = styled.div`
+  background-color: ${({ theme }) =>
+    theme.color.lighten(theme.color.white, -0.02)};
+  border: 1px solid ${({ theme }) => theme.color.primary};
+  border-left: 6px solid ${({ theme }) => theme.color.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.normal};
+  padding: ${({ theme }) => `${theme.padding.small} ${theme.padding.normal}`};
+  font-size: ${({ theme }) => theme.fontSize.normal};
 `
 
 type TExample = {
@@ -152,6 +162,7 @@ export const compile = marksy({
     Image: ({ src }) => (
       <img src={`/images/${src}`} style={{ width: '100%' }} />
     ),
+    Notice: ({ children }) => <Notice>{compile(children[0]).tree}</Notice>,
   },
   elements: {
     a({ href, children }) {

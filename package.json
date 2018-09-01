@@ -32,7 +32,7 @@
     "express": "4.16.3",
     "install": "0.12.1",
     "is-plain-object": "2.0.4",
-    "marksy": "6.0.3",
+    "marksy": "^6.1.0",
     "npm": "6.3.0",
     "page": "1.8.6",
     "prismjs": "1.15.0",
