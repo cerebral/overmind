@@ -35,7 +35,7 @@
 		"@types/node": "^10.5.1",
 		"express": "^4.16.3",
 		"install": "^0.12.1",
-		"marksy": "^6.0.3",
+		"marksy": "^6.1.0",
 		"npm": "^6.3.0",
 		"overmind-themes": "next",
 		"page": "^1.8.6",
