@@ -8,7 +8,7 @@ import app from './app'
 
 const List = ({ app }) => (
   <ul>
-    {app.state.myArray.map(item => 
+    {app.state.items.map(item => 
       <li key={item.id}>{item.title}</li>
     )}
   </ul>
@@ -28,7 +28,7 @@ import app, { Connect } from './app'
 
 const List: React.SFC<Connect> = ({ app }) => (
   <ul>
-    {app.state.myArray.map(item => 
+    {app.state.items.map(item => 
       <li key={item.id}>{item.title}</li>
     )}
   </ul>
@@ -45,7 +45,7 @@ export const vue = [
     target: 'markup',
     code: `
 <ul>
-  <li v-for="item in app.state.myArray" :key="item.id>
+  <li v-for="item in app.state.items" :key="item.id>
   {{ item.title }}
   </li>
 </ul>
@@ -62,3 +62,36 @@ export default app.connect({})
 ]
 
 export const vueTs = vue
+
+export const angularTs = [
+  {
+    fileName: 'components/list.component.ts',
+    code: `
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import app from '../app'
+
+@Component({
+  selector: 'app-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+  <ul>
+    <li *ngFor="let item of app.state.items;trackby: trackById">
+      {{item.title}}
+    </li>
+  </ul>
+  \`
+})
+@app.connect()
+export class List {
+  constructor(private cdr: ChangeDetectorRef) {}
+  trackById(index, item) {
+    return item.id
+  }
+}
+  `,
+  },
+]

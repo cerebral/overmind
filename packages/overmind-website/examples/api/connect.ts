@@ -58,3 +58,31 @@ export default app.connect({})
 ]
 
 export const vueTs = vue
+
+export const angularTs = [
+  {
+    fileName: 'some.component.ts',
+    code: `
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import app from '../app'
+
+@Component({
+  selector: 'some-component',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+  <div (click)="app.actions.onClick()">
+    {{app.state.foo}}
+  </div>
+  \`
+})
+@app.connect()
+export class SomeComponent {
+  constructor(private cdr: ChangeDetectorRef) {}
+}    
+  `,
+  },
+]

@@ -25,6 +25,9 @@ export const Selector = styled<{ isOpen: boolean }, 'div'>('div')`
     background-color: ${({ isOpen, theme }) =>
       theme.color.lighten(theme.color.dark, isOpen ? -0.5 : -0.4)};
   }
+  > img {
+    margin-right: 5px;
+  }
 `
 
 export const Chevron = styled.span`
@@ -62,6 +65,9 @@ export const Option = styled.div`
   :last-child {
     border-bottom-left-radius: ${({ theme }) => theme.borderRadius.normal};
     border-bottom-right-radius: ${({ theme }) => theme.borderRadius.normal};
+  }
+  > img {
+    margin-right: 5px;
   }
 `
 

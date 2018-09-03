@@ -1,4 +1,4 @@
-import App from 'react-overmind'
+import App from 'overmind-react'
 import * as effects from './effects'
 import * as actions from './actions'
 import * as state from './state'

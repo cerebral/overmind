@@ -1,4 +1,4 @@
-import App, { TConnect } from 'react-overmind'
+import App, { TConnect } from 'overmind-react'
 import * as effects from './effects'
 import * as actions from './actions'
 import * as state from './state'

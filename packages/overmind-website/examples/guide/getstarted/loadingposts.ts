@@ -65,3 +65,23 @@ export default {}
 ]
 
 export const vueTs = vue
+
+export const angularTs = [
+  {
+    fileName: 'posts.component.ts',
+    code: `
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'posts-list',
+  template: \`
+  <h4 *ngIf="app.state.isLoadingPosts">
+    Loading posts...
+  </h4>
+  <div *ngIf="!app.state.isLoadingPosts"></div>
+  \`
+})
+export class PostsList {}
+  `,
+  },
+]

@@ -15,7 +15,7 @@
 		"demo"
 	],
 	"dependencies": {
-		"react-overmind": "next",
+		"overmind-react": "next",
 		"color": "^3.0.0",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1",

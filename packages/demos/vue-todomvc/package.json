@@ -17,7 +17,7 @@
 		"demo"
 	],
 	"dependencies": {
-		"vue-overmind": "next",
+		"overmind-vue": "next",
 		"color": "^3.0.0",
 		"vue": "^2.5.16",
 		"vue-styled-components": "^1.3.0"

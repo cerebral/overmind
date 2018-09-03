@@ -10,6 +10,7 @@ import {
 } from './elements'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
+import * as AngularImage from '../../images/angular.png'
 import * as TsImage from '../../images/ts.png'
 import * as TsImageGrayscale from '../../images/ts-grayscale.png'
 import Icon from '../Icon'
@@ -54,6 +55,10 @@ class ViewSelector extends React.Component<Props, State> {
   }
   onTsClick(event) {
     event.stopPropagation()
+    if (getTheme() === 'angular') {
+      return
+    }
+
     if (getTypescript()) {
       localStorage.removeItem('typescript')
     } else {
@@ -63,6 +68,9 @@ class ViewSelector extends React.Component<Props, State> {
   }
   selectTheme(theme) {
     localStorage.setItem('theme', theme)
+    if (theme === 'angular') {
+      localStorage.setItem('typescript', 'true')
+    }
     window.rerender()
   }
   render() {
@@ -77,6 +85,11 @@ class ViewSelector extends React.Component<Props, State> {
       vue: (
         <React.Fragment>
           <img src={VueImage} width={25} />Vue
+        </React.Fragment>
+      ),
+      angular: (
+        <React.Fragment>
+          <img src={AngularImage} width={25} />Angular
         </React.Fragment>
       ),
     }
