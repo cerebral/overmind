@@ -69,3 +69,32 @@ export default app.connect({})
 ]
 
 export const vueTs = vue
+
+export const angularTs = [
+  {
+    fileName: 'posts.component.ts',
+    code: `
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import app from '../app'
+
+@Component({
+  selector: 'posts-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+  <h4 *ngIf="app.state.isLoadingPosts">
+    Loading posts...
+  </h4>
+  <div *ngIf="!app.state.isLoadingPosts"></div>
+  \`
+})
+@app.connect()
+export class PostsList {
+  constructor(private cdr: ChangeDetectorRef) {}
+}
+  `,
+  },
+]

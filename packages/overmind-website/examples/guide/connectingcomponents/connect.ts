@@ -45,7 +45,7 @@ export const vue = [
     target: 'markup',
     code: `
 <div v-if="app.state.isLoading">
-  Loading posts...
+  Loading app...
 </div>
 <h1 v-else>My awesome app</h1>
   `,
@@ -61,3 +61,34 @@ export default app.connect({})
 ]
 
 export const vueTs = vue
+
+export const angularTs = [
+  {
+    fileName: 'app.component.js',
+    code: `
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import app from '../app'
+
+@Component({
+  selector: 'app-root',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+  <div *ngIf="app.state.isLoading">
+    Loading app...
+  </div>
+  <h1 *ngIf="!app.state.isLoading">
+    My awesome app
+  </h1>
+  \`
+})
+@app.connect()
+export class App {
+  constructor(private cdr: ChangeDetectorRef) {}
+}
+  `,
+  },
+]

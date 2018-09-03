@@ -75,3 +75,5 @@ export const reactTs = createTsCode('overmind-react')
 export const vue = createJsCode('overmind-vue')
 
 export const vueTs = createTsCode('overmind-vue')
+
+export const angularTs = createTsCode('overmind-angular')

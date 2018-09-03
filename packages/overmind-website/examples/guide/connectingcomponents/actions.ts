@@ -67,14 +67,16 @@ export const toggleAwesomeApp: Action = action =>
   `,
   },
   {
-    fileName: 'components/List.vue (template)',
+    fileName: 'components/App.vue (template)',
     target: 'markup',
     code: `
-<h1>{{app.state.myObject}}</h1>
+<button v-on:click="app.actions.toggleAwesomeApp()">
+  Toggle awesome
+</button>
   `,
   },
   {
-    fileName: 'components/List.vue (script)',
+    fileName: 'components/App.vue (script)',
     code: `
 import app from './app'
 
@@ -84,3 +86,41 @@ export default app.connect({})
 ]
 
 export const vueTs = vue
+
+export const angularTs = [
+  {
+    fileName: 'app/actions.ts',
+    code: `
+import * as mutations from './mutations'
+
+export const toggleAwesomeApp: Action = action =>
+    action()
+      .mutate(mutations.toggleAwesomeApp)
+  `,
+  },
+  {
+    fileName: 'components/app.component.ts',
+    code: `
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import app from '../app'
+
+@Component({
+  selector: 'app-root',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+  <button (click)="app.actions.toggleAwesomeApp()">
+    Toggle awesome
+  </button>
+  \`
+})
+@app.connect()
+export class App {
+  constructor(private cdr: ChangeDetectorRef) {}
+}
+  `,
+  },
+]

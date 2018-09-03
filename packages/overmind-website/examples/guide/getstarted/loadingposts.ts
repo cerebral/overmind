@@ -71,26 +71,17 @@ export const angularTs = [
     fileName: 'posts.component.ts',
     code: `
 import { Component } from '@angular/core';
-import app from '../app'
 
 @Component({
   selector: 'posts-list',
   template: \`
-  <h1>foo</h1>
+  <h4 *ngIf="app.state.isLoadingPosts">
+    Loading posts...
+  </h4>
+  <div *ngIf="!app.state.isLoadingPosts"></div>
   \`
 })
-@app.connect()
-export class SomeComponent {
-  constructor(private cdr: ChangeDetectorRef) {
-    this.app.reaction(
-      'scrollUpOnNotification',
-      state => state.notifications,
-      () => {
-        window.scrollTop = 0
-      }  
-    )
-  }
-}
+export class PostsList {}
   `,
   },
 ]
