@@ -33,8 +33,8 @@ export default (namespace: Namespace) => ({
 
 export const react = createJsCode()
 
-export const reactTs = createTsCode('react-overmind')
+export const reactTs = createTsCode('overmind-react')
 
 export const vue = createJsCode()
 
-export const vueTs = createTsCode('vue-overmind')
+export const vueTs = createTsCode('overmind-vue')

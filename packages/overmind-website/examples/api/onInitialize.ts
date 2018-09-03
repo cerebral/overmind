@@ -46,10 +46,12 @@ const config = {
   ]
 }
 
-export const react = js('react-overmind')
+export const react = js('overmind-react')
 
-export const reactTs = ts('react-overmind')
+export const reactTs = ts('overmind-react')
 
-export const vue = js('vue-overmind')
+export const vue = js('overmind-vue')
 
-export const vueTs = ts('vue-overmind')
+export const vueTs = ts('overmind-vue')
+
+export const angularTs = ts('overmind-angular')

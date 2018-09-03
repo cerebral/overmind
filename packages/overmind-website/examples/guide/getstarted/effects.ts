@@ -68,10 +68,10 @@ const config = {
   ]
 }
 
-export const react = createJsCode('react-overmind')
+export const react = createJsCode('overmind-react')
 
-export const reactTs = createTsCode('react-overmind')
+export const reactTs = createTsCode('overmind-react')
 
-export const vue = createJsCode('vue-overmind')
+export const vue = createJsCode('overmind-vue')
 
-export const vueTs = createTsCode('vue-overmind')
+export const vueTs = createTsCode('overmind-vue')

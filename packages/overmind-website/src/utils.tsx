@@ -76,7 +76,7 @@ class Example extends React.Component<{
     const examples = Object.keys(module)
 
     if (this.props.view) {
-      ;['react', 'vue'].forEach((type) => {
+      ;['react', 'vue', 'angular'].forEach((type) => {
         if (!examples.includes(type)) {
           console.warn(`Missing example for "${type}" in ${this.props.name}`)
         }
@@ -136,7 +136,11 @@ class Example extends React.Component<{
     }
 
     if (!this.state.content) {
-      return 'Missing example'
+      return (
+        <span style={{ color: 'red', fontWeight: 'bold' }}>
+          MISSING EXAMPLE ({this.props.name})
+        </span>
+      )
     }
 
     return this.state.content.map((example, index) => (

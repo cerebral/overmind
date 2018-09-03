@@ -1,5 +1,5 @@
 {
-	"name": "react-todomvc-typescript",
+	"name": "react-typescript-todomvc",
 	"private": true,
 	"version": "1.0.0",
 	"description": "Overmind todomvc demo",
@@ -20,7 +20,7 @@
 	],
 	"dependencies": {
 		"@types/node": "^10.5.1",
-		"react-overmind": "next",
+		"overmind-react": "next",
 		"color": "^3.0.0",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1",

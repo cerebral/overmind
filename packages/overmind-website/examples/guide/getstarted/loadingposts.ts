@@ -65,3 +65,32 @@ export default {}
 ]
 
 export const vueTs = vue
+
+export const angularTs = [
+  {
+    fileName: 'posts.component.ts',
+    code: `
+import { Component } from '@angular/core';
+import app from '../app'
+
+@Component({
+  selector: 'posts-list',
+  template: \`
+  <h1>foo</h1>
+  \`
+})
+@app.connect()
+export class SomeComponent {
+  constructor(private cdr: ChangeDetectorRef) {
+    this.app.reaction(
+      'scrollUpOnNotification',
+      state => state.notifications,
+      () => {
+        window.scrollTop = 0
+      }  
+    )
+  }
+}
+  `,
+  },
+]
