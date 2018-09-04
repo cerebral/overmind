@@ -18,7 +18,7 @@ function createTsCode(view) {
   return [
     {
       code: `
-import { Namespace } from '${view}'
+import { Namespace } from 'overmind-${view}'
 
 export default (namespace: Namespace) => ({
   state: {},

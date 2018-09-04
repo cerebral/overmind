@@ -2,17 +2,18 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app.ts',
+          fileName: 'app/actions.ts',
           code: `
 import App, { TConnect } from 'overmind-${view}'
-import * as moduleA from './moduleA'
-import * as moduleB from './moduleB'
+import * as page from 'page'
+import * as state from './state'
+import * as actions from './actions'
+import * as effects from './effects'
 
 const config = {
-  modules: {
-    moduleA,
-    moduleB
-  }
+  state,
+  actions,
+  effects
 }
 
 declare module 'overmind' {
@@ -20,15 +21,14 @@ declare module 'overmind' {
   interface IEffects extends TEffects<typeof config> {}
 }
 
+const app = new App(config)
 
-const app = new App(config, {
-  devtools: 'localhost:1234'
-})
+page.start()
 
 export type Connect = TConnect<typeof app>
 
 export default app
-`,
+    `,
         },
       ]
     : [
@@ -36,19 +36,22 @@ export default app
           fileName: 'app/index.js',
           code: `
 import App from 'overmind-${view}'
-import * as moduleA from './moduleA'
-import * as moduleB from './moduleB'
+import page from 'page'
+import * as state from './state'
+import * as actions from './actions'
+import * as effects from './effects'
 
 const app = new App({
-  modules: {
-    moduleA,
-    moduleB
-  }
-}, {
-  devtools: 'localhost:1234'
+  state,
+  actions,
+  effects
 })
 
+page('/', ({ params }) => app.actions.showHomePage(params))
+
+page.start()
+
 export default app
-`,
+    `,
         },
       ]

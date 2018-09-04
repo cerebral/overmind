@@ -37,12 +37,12 @@
 		"install": "^0.12.1",
 		"marksy": "^6.1.0",
 		"npm": "^6.3.0",
+		"overmind-react": "next",
 		"overmind-themes": "next",
 		"page": "^1.8.6",
+		"preact": "^8.3.1",
+		"preact-compat": "^3.18.4",
 		"prismjs": "^1.15.0",
-		"react": "^16.4.1",
-		"react-dom": "^16.4.1",
-		"overmind-react": "next",
 		"styled-components": "^3.3.3"
 	},
 	"devDependencies": {

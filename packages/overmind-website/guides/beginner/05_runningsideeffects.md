@@ -5,7 +5,7 @@ Developing applications is not only about managing state, but also managing side
 Let us start with a simple example.
 
 ```marksy
-h(Example, { name: "guide/runningsideeffects/axios", view: true })
+h(Example, { name: "guide/runningsideeffects/axios" })
 ```
 
 We are just exporting an existing library from our effects file and include it in the application config. Now Overmind is aware of an **http** effect. It can track it for debugging and all operations will have it injected.

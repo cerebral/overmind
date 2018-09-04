@@ -1,17 +1,22 @@
 # Routing
 
-With Overmind you can use whatever routing solution your selected view layer provides. This will most likely intertwine routing state with your component state, which is something Overmind would discourage. In this guide we will look into how you can separate your router from your components and make it part of your application state instead.
+With Overmind you can use whatever routing solution your selected view layer provides. This will most likely intertwine routing state with your component state, which is something Overmind would discourage, but you know... whatever you feel productive in, you should use :-) In this guide we will look into how you can separate your router from your components and make it part of your application state instead. This is more in the spirit of Overmind and throughout this guide you will find benefits of doing it this way.
 
-We are going to use [page js](https://www.npmjs.com/package/page) as the router and we will look at a complex routing example where we open a page with a link to a list of users, if the users url contains an id to a specific user we will show that user in a modal, with the users list behind it. In addition we will present a query parameter that reflects the current tab inside the modal.
+We are going to use [page js](https://www.npmjs.com/package/page) as the router and we will look at a complex routing example where we open a page with a link to a list of users. When you click a user in the list we will show that user in a modal with the url updating to the id of the user. In addition we will present a query parameter that reflects the current tab inside the modal.
 
-We are going to start with a simple naive approach and then we are going to tweak our approach a little bit for the optimal solution.
+We will start with a simple naive approach and then we are going to tweak our approach a little bit for the optimal solution.
 
 ## Set up the app
 
-Before we go into the router we want to set up the application. We have some state helping us express the UI explained above. In addition we have three actions. One for showing the list of users, one for showing a specific user and one for changing the tab inside the user modal.
+Before we go into the router we want to set up the application. We have some state helping us express the UI explained above. In addition we have four actions.
+
+1. **showHomePage** tells our application to set the current page to *home*
+2. **showUsersPage** tells our application to set the current page to *users* and fetches the users as well
+3. **showUserModal** tells our application to show the modal by setting an id of a user passed to the action
+4. **changeUserModalTab** tells our application to change the current tab of the user modal using the passed index
 
 ```marksy
-h(Example, { name: "guide/routing/app" })
+h(Example, { name: "guide/routing/setup" })
 ```
 
 We are not going into details on exactly how the state is set and how the data is fetched, that is the beauty of having a declarative concept to describe logic. We can talk about logic without implementing.

@@ -1,8 +1,9 @@
-export const react = [
-  {
-    fileName: 'App.js',
-    target: 'jsx',
-    code: `
+const javascript = {
+  react: [
+    {
+      fileName: 'App.js',
+      target: 'jsx',
+      code: `
 import React from 'react'
 import app from './app'
 
@@ -15,14 +16,36 @@ const App = ({ app }) => {
 }
 
 export default app.connect(App)
-  `,
-  },
-]
+    `,
+    },
+  ],
+  vue: [
+    {
+      fileName: 'components/App.vue (template)',
+      target: 'markup',
+      code: `
+<div v-if="app.state.isLoading">
+  Loading app...
+</div>
+<h1 v-else>My awesome app</h1>
+    `,
+    },
+    {
+      fileName: 'components/App.vue (script)',
+      code: `
+import app from './app'
 
-export const reactTs = [
-  {
-    fileName: 'components/App.tsx',
-    code: `
+export default app.connect({})
+  `,
+    },
+  ],
+}
+
+const typescript = {
+  react: [
+    {
+      fileName: 'components/App.tsx',
+      code: `
 import * as React from 'react'
 import app, { Connect } from './app'
 
@@ -35,47 +58,19 @@ const App: React.SFC<Connect> = ({ app }) => {
 }
 
 export default app.connect(App)
-  `,
-  },
-]
-
-export const vue = [
-  {
-    fileName: 'components/App.vue (template)',
-    target: 'markup',
-    code: `
-<div v-if="app.state.isLoading">
-  Loading app...
-</div>
-<h1 v-else>My awesome app</h1>
-  `,
-  },
-  {
-    fileName: 'components/App.vue (script)',
-    code: `
-import app from './app'
-
-export default app.connect({})
-`,
-  },
-]
-
-export const vueTs = vue
-
-export const angularTs = [
-  {
-    fileName: 'app.component.js',
-    code: `
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
+    `,
+    },
+  ],
+  vue: javascript.vue,
+  angular: [
+    {
+      fileName: 'app.component.js',
+      code: `
+import { Component } from '@angular/core';
 import app from '../app'
 
 @Component({
   selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
   <div *ngIf="app.state.isLoading">
     Loading app...
@@ -86,9 +81,10 @@ import app from '../app'
   \`
 })
 @app.connect()
-export class App {
-  constructor(private cdr: ChangeDetectorRef) {}
+export class App {}
+    `,
+    },
+  ],
 }
-  `,
-  },
-]
+
+export default (ts, view) => (ts ? typescript[view] : javascript[view])

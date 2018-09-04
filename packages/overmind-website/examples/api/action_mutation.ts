@@ -1,41 +1,21 @@
-export const js = [
-  {
-    fileName: 'app/mutations.js',
-    code: `
-export const setLoading = state =>
+export default (ts) =>
+  ts
+    ? [
+        {
+          fileName: 'app/mutations.ts',
+          code: `
+import { Mutate } from 'overmind'
+
+export const setLoading: Mutate = state =>
   state.isLoading = true
 
-export const setInputValue = (state, value) =>
+export const setInputValue: Mutate<string> = (state, value) =>
   state.inputValue = value
     `,
-  },
-  {
-    fileName: 'app/actions.js',
-    code: `
-export const doThis = action =>
-  action()
-    .mutate(mutations.setLoading)
-    .mutate(mutations.setInputValue)
-  `,
-  },
-]
-
-export const ts = [
-  {
-    fileName: 'app/mutations.ts',
-    code: `
-import { Mutation } from 'overmind'
-
-export const setLoading: Mutation = state =>
-  state.isLoading = true
-
-export const setInputValue: Mutation<string> = (state, value) =>
-  state.inputValue = value
-    `,
-  },
-  {
-    fileName: 'app/actions.ts',
-    code: `
+        },
+        {
+          fileName: 'app/actions.ts',
+          code: `
 import { Action } from 'overmind'
 
 export const doThis: Action<string> = action =>
@@ -43,5 +23,26 @@ export const doThis: Action<string> = action =>
     .mutate(mutations.setLoading)
     .mutate(mutations.setInputValue)
   `,
-  },
-]
+        },
+      ]
+    : [
+        {
+          fileName: 'app/mutations.js',
+          code: `
+export const setLoading = state =>
+  state.isLoading = true
+
+export const setInputValue = (state, value) =>
+  state.inputValue = value
+    `,
+        },
+        {
+          fileName: 'app/actions.js',
+          code: `
+export const doThis = action =>
+  action()
+    .mutate(mutations.setLoading)
+    .mutate(mutations.setInputValue)
+  `,
+        },
+      ]

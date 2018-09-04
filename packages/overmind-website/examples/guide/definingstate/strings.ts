@@ -1,4 +1,4 @@
-export const js = [
+export default () => [
   {
     code: `
 {
@@ -15,5 +15,3 @@ export const js = [
   `,
   },
 ]
-
-export const ts = js
