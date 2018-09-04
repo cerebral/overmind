@@ -1,7 +1,8 @@
-export const react = [
-  {
-    fileName: 'components/SomeComponent.js',
-    code: `
+const javascript = {
+  react: [
+    {
+      fileName: 'components/SomeComponent.js',
+      code: `
 import React from 'react'
 import app from '../app'
 
@@ -21,14 +22,42 @@ class SomeComponent extends React.Component {
 }
 
 export default app.connect(SomeComponent)
-  `,
-  },
-]
+    `,
+    },
+  ],
+  vue: [
+    {
+      fileName: 'SomeComponent.vue (template)',
+      code: `
+<h1>foo</h1>
+    `,
+    },
+    {
+      fileName: 'SomeComponent.vue (script)',
+      code: `
+import app from '../app'
 
-export const reactTs = [
-  {
-    fileName: 'components/SomeComponent.tsx',
-    code: `
+export default app.connect({
+  mounted() {
+    this.app.reaction(
+      'scrollUpOnNotification',
+      state => state.notifications,
+      () => {
+        window.scrollTop = 0
+      }
+    )  
+  }
+})
+  `,
+    },
+  ],
+}
+
+const typescript = {
+  react: [
+    {
+      fileName: 'components/SomeComponent.tsx',
+      code: `
 import React from 'react'
 import app, { Connect } from '../app'
 
@@ -48,43 +77,14 @@ class SomeComponent extends React.Component<Connect, {}> {
 }
 
 export default app.connect(SomeComponent)
-  `,
-  },
-]
-
-export const vue = [
-  {
-    fileName: 'SomeComponent.vue (template)',
-    code: `
-<h1>foo</h1>
-  `,
-  },
-  {
-    fileName: 'SomeComponent.vue (script)',
-    code: `
-import app from '../app'
-
-export default app.connect({
-  mounted() {
-    this.app.reaction(
-      'scrollUpOnNotification',
-      state => state.notifications,
-      () => {
-        window.scrollTop = 0
-      }
-    )  
-  }
-})
-`,
-  },
-]
-
-export const vueTs = vue
-
-export const angularTs = [
-  {
-    fileName: 'some.component.ts',
-    code: `
+    `,
+    },
+  ],
+  vue: javascript.vue,
+  angular: [
+    {
+      fileName: 'some.component.ts',
+      code: `
 import { Component } from '@angular/core';
 import app from '../app'
 
@@ -96,7 +96,7 @@ import app from '../app'
 })
 @app.connect()
 export class SomeComponent {
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor() {
     this.app.reaction(
       'scrollUpOnNotification',
       state => state.notifications,
@@ -106,6 +106,9 @@ export class SomeComponent {
     )
   }
 }
-  `,
-  },
-]
+    `,
+    },
+  ],
+}
+
+export default (ts, view) => (ts ? typescript[view] : javascript[view])

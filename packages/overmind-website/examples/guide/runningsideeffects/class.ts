@@ -1,29 +1,9 @@
-export const js = [
-  {
-    fileName: 'app/effects.js',
-    code: `
-import axios from 'axios'
-
-class Http {
-  constructor (baseUrl, request) {
-    this.baseUrl = baseUrl
-    this.request = request
-  }
-  getUser() {
-    return this.request.get(\`\${this.baseUrl}/user\`)
-  }
-}
-
-export const http =
-  new Http(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
-  `,
-  },
-]
-
-export const ts = [
-  {
-    fileName: 'app/effects.ts',
-    code: `
+export default (ts) =>
+  ts
+    ? [
+        {
+          fileName: 'app/effects.ts',
+          code: `
 import axios from 'axios'
 import { User } from './state'
 
@@ -46,5 +26,26 @@ class Http {
 export const http =
   new Http(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
   `,
-  },
-]
+        },
+      ]
+    : [
+        {
+          fileName: 'app/effects.js',
+          code: `
+import axios from 'axios'
+
+class Http {
+  constructor (baseUrl, request) {
+    this.baseUrl = baseUrl
+    this.request = request
+  }
+  getUser() {
+    return this.request.get(\`\${this.baseUrl}/user\`)
+  }
+}
+
+export const http =
+  new Http(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
+  `,
+        },
+      ]

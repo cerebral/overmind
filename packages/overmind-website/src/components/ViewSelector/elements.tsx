@@ -96,3 +96,8 @@ export const TSImage = styled<
     grayscale ? 'inset 0px 0px 20px 1px rgba(0,0,0,0.5)' : 'none'};
   opacity: ${({ grayscale }) => (grayscale ? '0.5' : '1')};
 `
+
+export const ViewOption = styled.div`
+  display: flex;
+  align-items: center;
+`

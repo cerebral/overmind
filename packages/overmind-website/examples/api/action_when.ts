@@ -1,41 +1,18 @@
-export const js = [
-  {
-    fileName: 'app/operations.js',
-    code: `
-export const hasToken = ({ localStorage }) =>
-  Boolean(localStorage.get('token'))
-  `,
-  },
-  {
-    fileName: 'app/actions.js',
-    code: `
-export const withTokenAction = action => action()
-
-export const withoutTokenAction = action => action()
-
-export const doThis = action =>
-  action()
-    .when(operations.hasToken, {
-      true: withTokenAction,
-      false: withoutTokenAction
-    })
-    `,
-  },
-]
-
-export const ts = [
-  {
-    fileName: 'app/operations.ts',
-    code: `
+export default (ts) =>
+  ts
+    ? [
+        {
+          fileName: 'app/operations.ts',
+          code: `
 import { Operation } from 'overmind'
 
 export const hasToken: Operation.When = ({ localStorage }) =>
   Boolean(localStorage.get('token'))
   `,
-  },
-  {
-    fileName: 'app/actions.ts',
-    code: `
+        },
+        {
+          fileName: 'app/actions.ts',
+          code: `
 import { Action } from 'overmind'
 
 export const withTokenAction: Action = action => action()
@@ -49,5 +26,29 @@ export const doThis: Action = action =>
       false: withoutTokenAction
     })
     `,
-  },
-]
+        },
+      ]
+    : [
+        {
+          fileName: 'app/operations.js',
+          code: `
+export const hasToken = ({ localStorage }) =>
+  Boolean(localStorage.get('token'))
+  `,
+        },
+        {
+          fileName: 'app/actions.js',
+          code: `
+export const withTokenAction = action => action()
+
+export const withoutTokenAction = action => action()
+
+export const doThis = action =>
+  action()
+    .when(operations.hasToken, {
+      true: withTokenAction,
+      false: withoutTokenAction
+    })
+    `,
+        },
+      ]

@@ -29,6 +29,17 @@ const FileName = styled.div`
   font-weight: bold;
 `
 
+const GithubLink = styled.a`
+  position: absolute;
+  right: 10px;
+  font-size: ${({ theme }) => theme.fontSize.smallest} !important;
+  color: ${({ theme }) => theme.color.white} !important;
+  opacity: 0.3;
+  :hover {
+    opacity: 0.8;
+  }
+`
+
 const Notice = styled.div`
   background-color: ${({ theme }) =>
     theme.color.lighten(theme.color.white, -0.02)};
@@ -47,7 +58,6 @@ type TExample = {
 
 class Example extends React.Component<{
   name: string
-  view?: boolean
 }> {
   state: {
     isLoading: boolean
@@ -72,47 +82,16 @@ class Example extends React.Component<{
       this.getExample()
     }
   }
-  verifyExamples(module) {
-    const examples = Object.keys(module)
-
-    if (this.props.view) {
-      ;['react', 'vue', 'angular'].forEach((type) => {
-        if (!examples.includes(type)) {
-          console.warn(`Missing example for "${type}" in ${this.props.name}`)
-        }
-        if (!examples.includes(`${type}Ts`)) {
-          console.warn(
-            `Missing example for "${type}" with TypeScript in ${
-              this.props.name
-            }`
-          )
-        }
-      })
-    } else {
-      ;['js', 'ts'].forEach((type) => {
-        if (!examples.includes(type)) {
-          console.warn(
-            `Missing example for "${
-              type === 'js' ? 'Vanilla JS' : 'TypeScript'
-            }" in ${this.props.name}`
-          )
-        }
-      })
-    }
-  }
   getExample() {
     import('../examples/' + this.props.name).then((module) => {
       this.currentExampleName = this.getExampleName()
-      this.verifyExamples(module)
-
-      if (module[this.currentExampleName]) {
-        localStorage.setItem(
-          this.getKey(),
-          JSON.stringify(module[this.currentExampleName])
-        )
+      const content = module.default(Boolean(getTypescript()), getTheme())
+      if (!content) {
+        return console.warn('Missing content for ' + this.getKey())
       }
+      localStorage.setItem(this.getKey(), JSON.stringify(content))
       this.setState({
-        content: module[this.currentExampleName],
+        content,
         isLoading: false,
       })
     })
@@ -121,14 +100,7 @@ class Example extends React.Component<{
     return `${this.props.name}.${this.getExampleName()}`
   }
   getExampleName() {
-    if (this.props.view) {
-      const theme = getTheme()
-      const ts = getTypescript()
-
-      return ts ? `${theme}Ts` : theme
-    }
-
-    return getTypescript() ? 'ts' : 'js'
+    return getTheme() + '.' + (getTypescript() ? 'ts' : 'js')
   }
   render() {
     if (this.state.isLoading) {
@@ -143,16 +115,36 @@ class Example extends React.Component<{
       )
     }
 
-    return this.state.content.map((example, index) => (
-      <React.Fragment key={index}>
-        {example.fileName ? <FileName>{example.fileName}</FileName> : null}
-        {
-          compile(
-            `\`\`\`${example.target || 'ts'}\n${example.code.trim()}\n\`\`\``
-          ).tree
-        }
-      </React.Fragment>
-    ))
+    const branch =
+      location.host.split('.')[0] === 'next' ||
+      location.hostname === 'localhost'
+        ? 'next'
+        : 'master'
+    const url = `https://github.com/cerebral/overmind/edit/${branch}/packages/overmind-website/examples/${
+      this.props.name
+    }.ts`
+    return (
+      <div>
+        {this.state.content.map((example, index) => (
+          <div key={index} style={{ position: 'relative' }}>
+            {example.fileName ? <FileName>{example.fileName}</FileName> : null}
+            <GithubLink
+              href={url}
+              target="_blank"
+              style={{ top: example.fileName ? '32px' : '5px' }}
+            >
+              edit on github
+            </GithubLink>
+            {
+              compile(
+                `\`\`\`${example.target ||
+                  'ts'}\n${example.code.trim()}\n\`\`\``
+              ).tree
+            }
+          </div>
+        ))}
+      </div>
+    )
   }
 }
 
@@ -162,7 +154,7 @@ export const compile = marksy({
     return Prism.highlight(code, Prism.languages[language], language)
   },
   components: {
-    Example: ({ name, view }) => <Example key={name} name={name} view={view} />,
+    Example: ({ name }) => <Example key={name} name={name} />,
     Image: ({ src }) => (
       <img src={`/images/${src}`} style={{ width: '100%' }} />
     ),

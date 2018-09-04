@@ -7,7 +7,7 @@ To get started with Overmind you have to set up a project. You can do this with 
 When you have your project up and running install the Overmind dependency by using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/en/):
 
 ```marksy
-h(Example, { name: "guide/getstarted/install", view: true })
+h(Example, { name: "guide/getstarted/install" })
 ```
 
 Great, we are good to go! In this guide we will create a very simple application, but we will use the conventions for structuring a scalable app. That means we will be creating some files that seems unnecessary, but this is just as important as learning the API.
@@ -19,19 +19,19 @@ Applications are about state and we are going to introduce our first state, **is
 In your component we are going to imagine that we recieve the Overmind application:
 
 ```marksy
-h(Example, { name: "guide/getstarted/loadingposts", view: true })
+h(Example, { name: "guide/getstarted/loadingposts" })
 ```
 
 This will of course result in an error. To make this work we have to create an Overmind application instance.
 
 ```marksy
-h(Example, { name: "guide/getstarted/createapp", view: true })
+h(Example, { name: "guide/getstarted/createapp" })
 ```
 
 We add the state to our main module and configure that module in our **app.ts** file. The app instance has a method called **connect** which connects your application to the components. Let us do that now.
 
 ```marksy
-h(Example, { name: "guide/getstarted/connectapp", view: true })
+h(Example, { name: "guide/getstarted/connectapp" })
 ```
 
 ## Loading posts
@@ -39,7 +39,7 @@ h(Example, { name: "guide/getstarted/connectapp", view: true })
 We want to load some posts from [jsonplaceholder](https://jsonplaceholder.typicode.com/) when the **Posts** component mounts. To run logic in Overmind you trigger **actions**. Let us define an action that is responsible for getting our application up and running.
 
 ```marksy
-h(Example, { name: "guide/getstarted/actions", view: true })
+h(Example, { name: "guide/getstarted/actions" })
 ```
 
 As you can see we have not really written any logic yet, we are just describing what we want to happen. This is what we call **declarative** code and is a concept in programming used to manage complexity. In this application it might seem unnecessary, but it is very important to manage complexity as your application grows.
@@ -65,7 +65,7 @@ By default the **effects** holds the state of the application, but we want to ex
 ## Effects
 
 ```marksy
-h(Example, { name: "guide/getstarted/effects", view: true })
+h(Example, { name: "guide/getstarted/effects" })
 ```
 
 You can expose any kind of side effects to your Overmind instance. Think of it as injecting libraries and tools. So this could for example be the [axios]() library itself, some class instance you create or just a plain object as we see in this example. Doing this injection keeps your operation functions pure and Overmind knows when they are accessed.

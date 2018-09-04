@@ -1,6 +1,6 @@
 import { getPackageWithVersion } from '../../templates'
 
-export const js = [
+export default () => [
   {
     fileName: 'package.json',
     code: `
@@ -18,5 +18,3 @@ npm run devtools
     `,
   },
 ]
-
-export const ts = js

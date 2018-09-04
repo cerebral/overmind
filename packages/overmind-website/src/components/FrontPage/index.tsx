@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Logo from '../Logo'
-import { QuickstartWrapper, Quickstart } from './elements'
+import { Wrapper, QuickstartWrapper, Quickstart } from './elements'
 import Icon from '../Icon'
 import { viewport } from '../../utils'
 
@@ -11,7 +11,7 @@ class FrontPage extends React.Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <Wrapper>
         <Logo />
         <QuickstartWrapper
           innerRef={(node) => {
@@ -31,7 +31,7 @@ class FrontPage extends React.Component {
             {viewport.isMobile ? null : <span>Chat Support</span>}
           </Quickstart>
         </QuickstartWrapper>
-      </React.Fragment>
+      </Wrapper>
     )
   }
 }

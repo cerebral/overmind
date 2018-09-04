@@ -1,17 +1,8 @@
-export const js = [
-  {
-    code: `
-export const doThis = action => 
-  action()
-    .map(operations.getUser)
-    .mutate(mutations.setUser)
-  `,
-  },
-]
-
-export const ts = [
-  {
-    code: `
+export default (ts) =>
+  ts
+    ? [
+        {
+          code: `
 import { Action } from 'overmind'
 
 export const doThis: Action<number> = action =>
@@ -19,5 +10,15 @@ export const doThis: Action<number> = action =>
     .map(operations.getUser)
     .mutate(mutations.setUser)
   `,
-  },
-]
+        },
+      ]
+    : [
+        {
+          code: `
+export const doThis = action => 
+  action()
+    .map(operations.getUser)
+    .mutate(mutations.setUser)
+  `,
+        },
+      ]

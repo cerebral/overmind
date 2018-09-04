@@ -1,5 +1,8 @@
 import styled from '../../styled-components'
 
+export const Wrapper = styled.div`
+  background-color: inherit;
+`
 export const QuickstartWrapper = styled.div`
   height: 75px;
   position: fixed;

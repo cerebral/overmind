@@ -1,7 +1,21 @@
-export const js = [
-  {
-    fileName: 'app/index.js',
-    code: `
+export default (ts) =>
+  ts
+    ? [
+        {
+          fileName: 'app/index.ts',
+          code: `
+...
+const app = new App(config, {
+  devtools: 'localhost:1234'
+})
+...
+      `,
+        },
+      ]
+    : [
+        {
+          fileName: 'app/index.js',
+          code: `
 ...
 const app = new App({
   state,
@@ -12,18 +26,5 @@ const app = new App({
 })
 ...
       `,
-  },
-]
-
-export const ts = [
-  {
-    fileName: 'app/index.ts',
-    code: `
-...
-const app = new App(config, {
-  devtools: 'localhost:1234'
-})
-...
-      `,
-  },
-]
+        },
+      ]

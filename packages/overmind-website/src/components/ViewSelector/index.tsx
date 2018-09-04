@@ -7,6 +7,7 @@ import {
   Option,
   TSImage,
   TsImageWrapper,
+  ViewOption,
 } from './elements'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
@@ -78,19 +79,19 @@ class ViewSelector extends React.Component<Props, State> {
 
     const options = {
       react: (
-        <React.Fragment>
+        <ViewOption>
           <img src={ReactImage} width={25} />React
-        </React.Fragment>
+        </ViewOption>
       ),
       vue: (
-        <React.Fragment>
+        <ViewOption>
           <img src={VueImage} width={25} />Vue
-        </React.Fragment>
+        </ViewOption>
       ),
       angular: (
-        <React.Fragment>
+        <ViewOption>
           <img src={AngularImage} width={25} />Angular
-        </React.Fragment>
+        </ViewOption>
       ),
     }
 

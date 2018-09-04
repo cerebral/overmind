@@ -9,7 +9,7 @@ You can register reactions to act whenever a state path is affected by a mutatio
 ## Component
 
 ```marksy
-h(Example, { name: "api/reaction_component", view: true })
+h(Example, { name: "api/reaction_component" })
 ```
 
 Inside components reactions can be registered to perform view related side effects. These reactions are unregistered automatically when the component unmounts. 
