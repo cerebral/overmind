@@ -1,0 +1,8 @@
+{
+  "plugins": ["../../../node_modules/react-hot-loader/babel"],
+  "presets": [
+    "../../../node_modules/@babel/preset-react",
+    "../../../node_modules/@babel/preset-typescript",
+    ["../../../node_modules/@babel/preset-env", { "modules": false }]
+  ]
+}

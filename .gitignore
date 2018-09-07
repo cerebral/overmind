@@ -1,4 +1,5 @@
 # Logs
+.idea
 logs
 *.log
 npm-debug.log*
@@ -39,8 +40,14 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
-jspm_packages/
+node_modules
+!/packages/node_modules
+/packages/node_modules/**/node_modules
+jspm_packages
+
+# Lock files
+yarn.lock
+/packages/**/package-lock.json
 
 # TypeScript v1 declaration files
 typings/
@@ -61,7 +68,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+.env*
 
 # next.js build output
 .next
