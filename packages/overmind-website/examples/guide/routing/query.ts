@@ -15,18 +15,12 @@ import * as effects from './effects'
 
 const app = new App(config)
 
-function parseQuery (action) {
-  return (context) {
-    action({
-      params: context.params,
-      query: queryString.parse(context.querystring)
-    })
-  }
-}
+const withParamsAndQuery = <T>(action: (payload: T) => any) => ({ params, querystring }) =>
+  action(Object.assign({}, params, queryString.parse(querystring)))
 
-page('/', parseQuery(app.actions.showHomePage))
-page('/users', parseQuery(app.actions.showUsersPage))
-page('/users/:id', parseQuery(app.actions.showUserModal))
+page('/', withParamsAndQuery(app.actions.showHomePage))
+page('/users', withParamsAndQuery(app.actions.showUsersPage))
+page('/users/:id', withParamsAndQuery<{ id: string, tabIndex: string   }>(app.actions.showUserModal))
 
 ...
   `,
@@ -49,18 +43,12 @@ const app = new App({
   effects
 })
 
-function parseQuery (action) {
-  return (context) {
-    action({
-      params: context.params,
-      query: queryString.parse(context.querystring)
-    })
-  }
-}
+const withParamsAndQuery = (action) => ({ params, querystring }) =>
+  action(Object.assign({}, params, queryString.parse(querystring)))
 
-page('/', parseQuery(app.actions.showHomePage))
-page('/users', parseQuery(app.actions.showUsersPage))
-page('/users/:id', parseQuery(app.actions.showUserModal))
+page('/', withParamsAndQuery(app.actions.showHomePage))
+page('/users', withParamsAndQuery(app.actions.showUsersPage))
+page('/users/:id', withParamsAndQuery(app.actions.showUserModal))
 
 ...
 `,

@@ -21,14 +21,14 @@ export const showUsersPage: Action<any> = action =>
 
 const getUserWithDetails: Action<string> = action =>
   action()
-    .mutate(mutations.setModalUserId)
     .mutate(mutations.setLoadingUserWithDetails(true))
     .map(operations.getUserWithDetails)
     .mutate(mutations.updateUserWithDetails)
     .mutate(mutations.setLoadingUserWithDetails(false))
 
-export const showUser: Action<string> = action =>
+export const showUserModal: Action<string> = action =>
   action()
+    .mutate(mutations.setModalUserId)
     .parallel([
       showUsersPage,
       getUserWithDetails
@@ -58,14 +58,14 @@ export const showUsersPage = action =>
 
 const getUserWithDetails = action =>
   action()
-    .mutate(mutations.setModalUserId)
     .mutate(mutations.setLoadingUserWithDetails(true))
     .map(operations.getUserWithDetails)
     .mutate(mutations.updateUserWithDetails)
     .mutate(mutations.setLoadingUserWithDetails(false))
 
-export const showUser = action =>
+export const showUserModal = action =>
   action()
+    .mutate(mutations.setModalUserId)
     .parallel([
       showUsersPage,
       getUserWithDetails

@@ -62,3 +62,10 @@ h(Example, { name: "guide/routing/parallel" })
 **Page js** also allows us to manage query strings, the stuff after the **?** in the url. Page js does not parse it though, so we introduce a library which does just that, [query-string](https://www.npmjs.com/package/query-string). With this we can update our route to also pass in any query params.
 
 
+```marksy
+h(Example, { name: "guide/routing/query" })
+```
+
+## Summary
+
+With very little effort we were able to build a custom "**application state first**" router for our application. Like many common tools needed in an application, like talking to the server, local storage etc., there are often small differences in the requirements. And even more often you do not need the full implementation of the tool you are using. By using simple tools you can meet the actual requirements of the application more "head on".

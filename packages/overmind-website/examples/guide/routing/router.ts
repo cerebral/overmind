@@ -23,6 +23,12 @@ declare module 'overmind' {
 
 const app = new App(config)
 
+const withParams = <T>(action: (payload: T) => any) => ({ params }) => action(params)
+
+page('/', withParams(app.actions.showHomePage))
+page('/users', withParams(app.actions.showUsersPage))
+page('/users/:id', withParams<{ id: string }>(app.actions.showUserModal))
+
 page.start()
 
 export type Connect = TConnect<typeof app>
@@ -47,7 +53,11 @@ const app = new App({
   effects
 })
 
-page('/', ({ params }) => app.actions.showHomePage(params))
+const withParams = (action) => ({ params }) => action(params)
+
+page('/', withParams(app.actions.showHomePage))
+page('/users', withParams(app.actions.showUsersPage))
+page('/users/:id', withParams(app.actions.showUserModal))
 
 page.start()
 

@@ -10,7 +10,7 @@ import * as operations from './operations'
 
 ...
 
-export const showUser: Action<string> = action =>
+export const showUserModal: Action<string> = action =>
   action()
     .compose(showUsersPage) // <-- WE ADD COMPOSE
     .mutate(mutations.setModalUserId)

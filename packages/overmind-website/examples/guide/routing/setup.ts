@@ -14,19 +14,24 @@ export const showHomePage: Action = action =>
 
 export const showUsersPage: Action = action =>
   action()
+    .mutate(mutations.unsetModalUserId)
     .mutate(mutations.setPage('users'))
     .mutate(mutations.setLoadingUsers(true))
     .map(operations.getUsers)
     .mutate(mutations.setUsers)
     .mutate(mutations.setLoadingUsers(false))
 
-export const showUser: Action<string> = action =>
+export const showUserModal: Action<string> = action =>
   action()
-    .mutate(mutations.setCurrentUserId)
+    .mutate(mutations.setModalUserId)
+    .mutate(mutations.setLoadingUserWithDetails(true))
+    .map(operations.getUserWithDetails)
+    .mutate(mutations.updateUserWithDetails)
+    .mutate(mutations.setLoadingUserWithDetails(false))
 
-export const changeUserTab: Action<number> = action =>
+export const changeUserModalTab: Action<number> = action =>
   action()
-    .mutate(mutations.setUserTabIndex)
+    .mutate(mutations.setUserModalTabIndex)
     `,
         },
       ]
@@ -51,11 +56,15 @@ export const showUsersPage = action =>
 
 export const showUser = action =>
   action()
-    .mutate(mutations.setCurrentUserId)
+    .mutate(mutations.setModalUserId)
+    .mutate(mutations.setLoadingUserWithDetails(true))
+    .map(operations.getUserWithDetails)
+    .mutate(mutations.updateUserWithDetails)
+    .mutate(mutations.setLoadingUserWithDetails(false))
 
-export const changeUserTab = action =>
+export const changeUserModalTab = action =>
   action()
-    .mutate(mutations.setUserTabIndex)
+    .mutate(mutations.setUserModalTabIndex)
     `,
         },
       ]
