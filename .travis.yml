@@ -38,8 +38,7 @@ after_success:
       npm run release
     fi
     if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-
-      now ./packages/overmind-website -e REDIRECT_URL=https://overmindjs.org/ now-examples/redirect --docker --token $NOW_TOKEN && now alias www.overmindjs.org --token $NOW_TOKEN
+      now ./packages/overmind-website -e REDIRECT_URL=https://overmindjs.org/ ./packages/overmind-website --docker --token $NOW_TOKEN && now alias www.overmindjs.org --token $NOW_TOKEN
     fi
     if [[ $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
       now ./packages/overmind-website --docker --token $NOW_TOKEN && now alias next.overmindjs.org --token $NOW_TOKEN
