@@ -33,7 +33,7 @@ h(Example, { name: "api/action_do" })
 
 Typically used to fire off an effect without caring about its returned result, if any.
 
-Only argument is a function that receives the **effects** registered in the application as the first argument, and the current **value** of the action as the second argument. Any returned value will be ignored. The current value of the action will be passed to the next operator.
+Only argument is a function that receives the **effects** registered in the application as the first argument, and the current **value** of the action as the second argument. Any returned value will be ignored, though you can return a promise to indicate that the do operator needs to be resolved. The current value of the action will be passed to the next operator.
 
 ## filter
 ```marksy
