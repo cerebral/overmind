@@ -83,7 +83,7 @@
     "raw-loader": "0.5.1",
     "react": "16.4.1",
     "react-test-renderer": "16.4.1",
-    "repo-cooker": "^6.2.6",
+    "repo-cooker": "^6.2.7",
     "rimraf": "2.6.2",
     "source-map-loader": "0.2.4",
     "ts-jest": "23.0.0",
