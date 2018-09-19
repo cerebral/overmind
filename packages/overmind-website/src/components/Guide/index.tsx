@@ -2,7 +2,7 @@ import * as React from 'react'
 import GuideToc from '../GuideToc'
 import Doc from '../Doc'
 import { Wrapper } from './elements'
-import { compile } from '../../utils'
+import { compile, getGithubBaseUrl } from '../../utils'
 
 type State = {
   content: string
@@ -24,6 +24,9 @@ class Guide extends React.Component<Props, State> {
       this.setState({ content: module })
     )
   }
+  getGithubUrl() {
+    return getGithubBaseUrl() + this.props.currentPath + '.md'
+  }
   render() {
     if (!this.state.content) {
       return null
@@ -33,7 +36,7 @@ class Guide extends React.Component<Props, State> {
 
     return (
       <Wrapper>
-        <Doc>{compiled.tree}</Doc>
+        <Doc url={this.getGithubUrl()}>{compiled.tree}</Doc>
         <GuideToc toc={compiled.toc} />
       </Wrapper>
     )

@@ -1,6 +1,13 @@
 import styled from '../../styled-components'
 
+export const Edit = styled.a`
+  position: absolute;
+  top: 85px;
+  right: ${({ theme }) => theme.padding.large};
+`
+
 export const Content = styled.div`
+  position: relative;
   width: 700px;
   min-height: 100vh;
   margin: 0 auto;

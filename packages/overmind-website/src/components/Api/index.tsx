@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Doc from '../Doc'
 import { Wrapper, List, Item, ListWrapper, TocList, TocItem } from './elements'
-import { compile } from '../../utils'
+import { compile, getGithubBaseUrl } from '../../utils'
 import { TApi } from '../App'
 
 type State = {
@@ -46,12 +46,15 @@ class Api extends React.Component<Props, State> {
       </TocList>
     )
   }
+  getGithubUrl() {
+    return getGithubBaseUrl() + this.props.currentPath + '.md'
+  }
   render() {
     if (!this.state.content) {
       return (
         <Wrapper>
           <ListWrapper />
-          <Doc />
+          <Doc url={this.getGithubUrl()} />
         </Wrapper>
       )
     }
@@ -78,7 +81,7 @@ class Api extends React.Component<Props, State> {
             })}
           </List>
         </ListWrapper>
-        <Doc>{compiled.tree}</Doc>
+        <Doc url={this.getGithubUrl()}>{compiled.tree}</Doc>
       </Wrapper>
     )
   }

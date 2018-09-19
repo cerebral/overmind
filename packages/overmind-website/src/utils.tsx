@@ -10,6 +10,14 @@ export const viewport = {
   },
 }
 
+export const getBranch = () =>
+  location.host.split('.')[0] === 'next' || location.hostname === 'localhost'
+    ? 'next'
+    : 'master'
+
+export const getGithubBaseUrl = () =>
+  `https://github.com/cerebral/overmind/edit/${getBranch()}/packages/overmind-website/`
+
 export const getTheme = () => localStorage.getItem('theme') || 'react'
 
 export const getTypescript = () => localStorage.getItem('typescript') || false
@@ -115,14 +123,7 @@ class Example extends React.Component<{
       )
     }
 
-    const branch =
-      location.host.split('.')[0] === 'next' ||
-      location.hostname === 'localhost'
-        ? 'next'
-        : 'master'
-    const url = `https://github.com/cerebral/overmind/edit/${branch}/packages/overmind-website/examples/${
-      this.props.name
-    }.ts`
+    const url = `${getGithubBaseUrl()}examples/${this.props.name}.ts`
     return (
       <div>
         {this.state.content.map((example, index) => (
