@@ -7,15 +7,13 @@ import * as mutations from './mutations'
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
 export const changeNewTodoTitle: Action<ChangeEvent> = (action) =>
-  action()
-    .map(operations.getEventValue)
-    .mutate(mutations.setNewTodoTitle)
+  action.map(operations.getEventValue).mutate(mutations.setNewTodoTitle)
 
 export const addTodo: Action<React.FormEvent> = (action) =>
-  action()
-    .do(operations.preventEventDefault)
+  action
+    .run(operations.preventEventDefault)
     .mutate(mutations.addTodo)
     .mutate(mutations.clearNewTodoTitle)
 
-export const toggleCompleted: Action<Todo> = (action) =>
-  action().mutate(mutations.toggleCompleted)
+export const toggleCompleted: Action<Todo> = ({ mutate }) =>
+  mutate(mutations.toggleCompleted)
