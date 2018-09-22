@@ -7,7 +7,7 @@ export default (ts) =>
 import { Action } from 'overmind'
 
 export const initializeApp: Action = action =>
-  action()
+  action
   `,
         },
       ]
@@ -16,7 +16,7 @@ export const initializeApp: Action = action =>
           fileName: 'app/actions.js',
           code: `
 export const initializeApp = action =>
-  action()
+  action
   `,
         },
       ]

@@ -8,13 +8,13 @@ import { Action } from 'overmind'
 import * as operations from './operations'
 
 export const actionA: Action = action =>
-  action().map(operations.sayHelloWorld)
+  action.map(operations.sayHelloWorld)
   
 export const actionB: Action = action =>
-  action().map(operations.sayHelloWorldAsync)
+  action.map(operations.sayHelloWorldAsync)
   
 export const actionC: Action<string> = action =>
-  action().map(operations.inputToUpperCase)
+  action.map(operations.inputToUpperCase)
   `,
         },
         {
@@ -35,13 +35,13 @@ app.actions.actionC("hello world") // "HELLO WORLD"
 import * as operations from './operations'    
 
 export const actionA = action =>
-  action().map(operations.sayHelloWorld)
+  action.map(operations.sayHelloWorld)
 
 export const actionB = action =>
-  action().map(operations.sayHelloWorldAsync)
+  action.map(operations.sayHelloWorldAsync)
 
 export const actionC = action =>
-  action().map(operations.inputToUpperCase)
+  action.map(operations.inputToUpperCase)
   `,
         },
         {

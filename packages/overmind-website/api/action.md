@@ -10,6 +10,15 @@ Actions are defined with a powerful chaining API which gives control of the exec
 
 The action is built up by **operators**, methods called on the action itself. These operators describes the execution logic.
 
+## attempt
+```marksy
+h(Example, { name: "api/action_try" })
+```
+
+Typically used to explicitly handle potentially thrown errors from an effect.
+
+The first argument is a function that receives the **effects** registered in the application as the first argument, and the current **value** as the second argument. The second argument to the operator are two paths, **success** and **error** which are respectively executed based on the success of the first argument function.
+
 ## compose
 ```marksy
 h(Example, { name: "api/action_compose" })
@@ -25,15 +34,6 @@ h(Example, { name: "api/action_debounce" })
 Typically used to only continue execution of the last action call if multiple action calls has been made in the time limit passed in.
 
 The only argument is the time limit in milliseconds the operator should prevent action calls to continue. When the an action call has waited for the milliseconds defined, without any new action calls has been made, the execution will continue.
-
-## do
-```marksy
-h(Example, { name: "api/action_do" })
-```
-
-Typically used to fire off an effect without caring about its returned result, if any.
-
-Only argument is a function that receives the **effects** registered in the application as the first argument, and the current **value** of the action as the second argument. Any returned value will be ignored, though you can return a promise to indicate that the do operator needs to be resolved. The current value of the action will be passed to the next operator.
 
 ## filter
 ```marksy
@@ -51,6 +51,15 @@ h(Example, { name: "api/action_fork" })
 Typically used to fork out execution when a value can result in multiple complex executions.
 
 The first argument is a function that receives the **effects** as the first argument and the current **value** as the second. The function is expected to return a value, either synchronously or asynchronously, that matches the paths passed as the second argument to the fork operator.
+
+## run
+```marksy
+h(Example, { name: "api/action_do" })
+```
+
+Typically used to fire off an effect without caring about its returned result, if any.
+
+Only argument is a function that receives the **effects** registered in the application as the first argument, and the current **value** of the action as the second argument. Any returned value will be ignored, though you can return a promise to indicate that the do operator needs to be resolved. The current value of the action will be passed to the next operator.
 
 
 ## map
@@ -79,15 +88,6 @@ h(Example, { name: "api/action_parallel" })
 Typically used to run multiple composed actions in parallel. "In parallel" means that one executes after the other synchronously, but if any of them are doing something asynchronous the execution of the source action will not continue until all of them are done.
 
 The parallel operator does not return a value.
-
-## try
-```marksy
-h(Example, { name: "api/action_try" })
-```
-
-Typically used to explicitly handle potentially thrown errors from an effect.
-
-The first argument is a function that receives the **effects** registered in the application as the first argument, and the current **value** as the second argument. The second argument to the operator are two paths, **success** and **error** which are respectively executed based on the success of the first argument function.
 
 ## when
 ```marksy

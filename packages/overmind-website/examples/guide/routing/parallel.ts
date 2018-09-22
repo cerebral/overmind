@@ -11,7 +11,7 @@ import * as operations from './operations'
 ...
 
 export const showUsersPage: Action<any> = action =>
-  action()
+  action
     .mutate(mutations.unsetModalUserId)
     .mutate(mutations.setPage('users'))
     .mutate(mutations.setLoadingUsers(true))
@@ -20,14 +20,14 @@ export const showUsersPage: Action<any> = action =>
     .mutate(mutations.setLoadingUsers(false))
 
 const getUserWithDetails: Action<string> = action =>
-  action()
+  action
     .mutate(mutations.setLoadingUserWithDetails(true))
     .map(operations.getUserWithDetails)
     .mutate(mutations.updateUserWithDetails)
     .mutate(mutations.setLoadingUserWithDetails(false))
 
 export const showUserModal: Action<string> = action =>
-  action()
+  action
     .mutate(mutations.setModalUserId)
     .parallel([
       showUsersPage,
@@ -48,7 +48,7 @@ import * as operations from './operations'
 ...
 
 export const showUsersPage = action =>
-  action()
+  action
     .mutate(mutations.unsetModalUserId)
     .mutate(mutations.setPage('users'))
     .mutate(mutations.setLoadingUsers(true))
@@ -57,14 +57,14 @@ export const showUsersPage = action =>
     .mutate(mutations.setLoadingUsers(false))
 
 const getUserWithDetails = action =>
-  action()
+  action
     .mutate(mutations.setLoadingUserWithDetails(true))
     .map(operations.getUserWithDetails)
     .mutate(mutations.updateUserWithDetails)
     .mutate(mutations.setLoadingUserWithDetails(false))
 
 export const showUserModal = action =>
-  action()
+  action
     .mutate(mutations.setModalUserId)
     .parallel([
       showUsersPage,

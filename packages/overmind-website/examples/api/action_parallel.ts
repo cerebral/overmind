@@ -5,13 +5,13 @@ export default (ts) =>
           fileName: 'app/actions.ts',
           code: `
 export const goDoSomething: Action<any> = action =>
-  action()
+  action
 
 export const goDoSomethingElse: Action<string> = action =>
-  action()
+  action
 
 export const doThis: Action<string> = action =>
-  action()
+  action
     .parallel([
       goDoSomething,
       goDoSomethingElse
@@ -24,13 +24,13 @@ export const doThis: Action<string> = action =>
           fileName: 'app/actions.js',
           code: `
 export const goDoSomething = action =>
-  action()
+  action
 
 export const goDoSomethingElse = action =>
-  action()
+  action
 
 export const doThis = action =>
-  action()
+  action
     .parallel([
       goDoSomething,
       goDoSomethingElse

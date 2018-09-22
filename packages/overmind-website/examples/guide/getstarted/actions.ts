@@ -11,7 +11,7 @@ import * as mutations from './mutations'
 import * as operations from './operations'
 
 export const loadPosts: Action = action =>
-  action()
+  action
     .mutate(mutations.setLoadingPosts)
     .map(operations.getPosts)
     .mutate(mutations.setPosts)
@@ -42,7 +42,7 @@ import * as mutations from './mutations'
 import * as operations from './operations'
 
 export const loadPosts = action =>
-  action()
+  action
     .mutate(mutations.setLoadingPosts)
     .map(operations.getPosts)
     .mutate(mutations.setPosts)

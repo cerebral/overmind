@@ -6,8 +6,8 @@ export default (ts) =>
           code: `
 import { Operation } from 'overmind'
 
-export const trackSubmitForm: Operation.Run = ({ track }) =>
-  track.interaction('submitForm')
+export const trackSubmitForm: Operation.Run = ({ state, track }) =>
+  track.interaction('login', Boolean(state.user))
     `,
         },
         {
@@ -15,9 +15,19 @@ export const trackSubmitForm: Operation.Run = ({ track }) =>
           code: `
 import { Action } from 'overmind'
 
-export const doThis: Action = action =>
-  action
-    .run(operations.trackSubmitForm)
+export const setUser = ({ mutate }) =>
+  mutate(mutations.setUser)    
+
+export const setLoginError = ({ mutate }) =>
+  mutate(mutations.setLoginError)
+
+export const login: Action = (action) =>
+    action
+      .attempt(operations.login, {
+        success: setUser,
+        error: setLoginError
+      })
+      .run(operations.trackLogin)
   `,
         },
       ]

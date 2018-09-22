@@ -7,10 +7,10 @@ export default (ts) =>
 import * as operations from './operations'
 
 export const goDoSomethingWithString: Action<string> = action =>
-  action()
+  action
 
 export const doThis: Action<string> = action =>
-  action()
+  action
     .map(operations.transformString)
     .compose(goDoSomethingWithString)
     `,
@@ -23,10 +23,10 @@ export const doThis: Action<string> = action =>
 import * as operations from './operations'
 
 export const goDoSomethingWithString = action =>
-  action()
+  action
 
 export const doThis = action =>
-  action()
+  action
     .map(operations.transformString)
     .compose(goDoSomethingWithString)
     `,

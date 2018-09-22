@@ -19,7 +19,7 @@ export const trim: Operation.Map<string, string> =
 import { Action } from 'overmind'
 
 export const doThis: Action<string> = action =>
-  action()
+  action
     .map(operations.trim)
     .map(operations.getUser)
   `,
@@ -40,7 +40,7 @@ export const trim = (_, value) =>
           fileName: 'app/actions.js',
           code: `
 export const doThis = action =>
-  action()
+  action
     .map(operations.trim)
     .map(operations.getUser)
   `,

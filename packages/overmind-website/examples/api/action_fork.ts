@@ -15,14 +15,14 @@ export const getUserRole: Operation.Fork = ({ state }) =>
           code: `
 import { Action } from 'overmind'
 
-export const adminAction: Action = action => action()
+export const adminAction: Action = action => action
 
-export const superuserAction: Action = action => action()
+export const superuserAction: Action = action => action
 
-export const userAction: Action = action => action()
+export const userAction: Action = action => action
 
 export const doThis: Action = action =>
-  action()
+  action
     .fork(operations.getUserRole, {
       admin: adminAction,
       superuser: superuserAction,
@@ -42,14 +42,14 @@ export const getUserRole = ({ state }) =>
         {
           fileName: 'app/actions.js',
           code: `
-export const adminAction = action => action()
+export const adminAction = action => action
 
-export const superuserAction = action => action()
+export const superuserAction = action => action
 
-export const userAction = action => action()
+export const userAction = action => action
 
 export const doThis = action =>
-  action()
+  action
     .fork(operations.getUserRole, {
       admin: adminAction,
       superuser: superuserAction,

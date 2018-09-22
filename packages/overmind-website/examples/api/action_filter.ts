@@ -19,7 +19,7 @@ export const isGreatherThan2: Operation.Filter<string> = (_, value) =>
 import { Action } from 'overmind'
 
 export const doThis: Action<string> = action =>
-  action()
+  action
     .filter(operations.isOnline)
     .filter(operations.isGreaterThan2)
   `,
@@ -40,7 +40,7 @@ export const isGreaterThan2 = (_, value) =>
           fileName: 'app/actions.js',
           code: `
 export const doThis = action =>
-  action()
+  action
     .filter(operations.isOnline)
     .filter(operations.isGreaterThan2)
   `,

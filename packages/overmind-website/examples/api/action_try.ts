@@ -6,7 +6,7 @@ export default (ts) =>
           code: `
 import { Operation } from 'overmind'
 
-export const getItems: Operation.Try<Promise<Items>> = ({ http }) =>
+export const getItems: Operation.Attempt<Promise<Items>> = ({ http }) =>
   http.get('/items')
   `,
         },
@@ -15,13 +15,13 @@ export const getItems: Operation.Try<Promise<Items>> = ({ http }) =>
           code: `
 import { Action } from 'overmind'
 
-export const handleItemsAction: Action = action => action()
+export const handleItemsAction: Action = action => action
 
-export const handleItemsErrorAction: Action = action => action()
+export const handleItemsErrorAction: Action = action => action
 
 export const doThis: Action = action => 
-  action()
-    .try(operations.getItems, {
+  action
+    .attempt(operations.getItems, {
       success: handleItemsAction,
       error: handleItemsErrorAction
     })
@@ -39,13 +39,13 @@ export const getItems = ({ http }) =>
         {
           fileName: 'app/actions.js',
           code: `
-export const handleItemsAction = action => action()
+export const handleItemsAction = action => action
 
-export const handleItemsErrorAction = action => action()
+export const handleItemsErrorAction = action => action
 
 export const doThis = action => 
-  action()
-    .try(operations.getItems, {
+  action
+    .attempt(operations.getItems, {
       success: handleItemsAction,
       error: handleItemsErrorAction
     })

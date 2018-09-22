@@ -8,7 +8,7 @@ import * as mutations from './mutations'
 import * as operations from './operations'
 
 export const initializeApp = action =>
-  action()
+  action
     .mutate(mutations.setLoadingUser)
     .map(operations.getUser)
     .mutate(mutations.setUser)
@@ -24,7 +24,7 @@ import * as mutations from './mutations'
 import * as operations from './operations'
 
 export const initializeApp = action =>
-  action()
+  action
     .mutate(mutations.setLoadingUser)
     .map(operations.getUser)
     .mutate(mutations.setUser)

@@ -8,7 +8,7 @@ import { Reaction } from 'overmind'
 
 export const saveTodos: Reaction = (reaction, action) => reaction(
   state => state.todos,
-  action().do(saveTodosToLocalStorage)
+  action.run(saveTodosToLocalStorage)
 )
   `,
         },
@@ -19,7 +19,7 @@ export const saveTodos: Reaction = (reaction, action) => reaction(
           code: `
 export const saveTodos = (reaction, action) => reaction(
   state => state.todos,
-  action().do(saveTodosToLocalStorage)
+  action.run(saveTodosToLocalStorage)
 )
   `,
         },

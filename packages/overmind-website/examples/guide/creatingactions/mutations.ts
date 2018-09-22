@@ -23,7 +23,7 @@ import { Action } from 'overmind'
 import * as mutations from './mutations'
 
 export const setValues: Action<string> = action =>
-  action()
+  action
     .mutate(mutations.setValue)
     .mutate(mutations.setValueFromAction)
     .mutate(mutations.setValueFromState)
@@ -50,7 +50,7 @@ export const setValueFromState = state =>
 import * as mutations from './mutations'
 
 export const setValues = action =>
-  action()
+  action
     .mutate(mutations.setValue)
     .mutate(mutations.setValueFromAction)
     .mutate(mutations.setValueFromState)

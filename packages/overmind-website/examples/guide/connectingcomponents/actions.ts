@@ -6,7 +6,7 @@ const javascript = {
 import * as mutations from './mutations'
 
 export const toggleAwesomeApp = action =>
-  action()
+  action
     .mutate(mutations.toggleAwesomeApp)
     `,
     },
@@ -34,7 +34,7 @@ export default app.connect(App)
 import * as mutations from './mutations'
 
 export const toggleAwesomeApp: Action = action =>
-  action()
+  action
     .mutate(mutations.toggleAwesomeApp)
     `,
     },
@@ -66,7 +66,7 @@ const typescript = {
 import * as mutations from './mutations'
 
 export const toggleAwesomeApp: Action = action =>
-  action()
+  action
     .mutate(mutations.toggleAwesomeApp)
     `,
     },
@@ -94,7 +94,7 @@ export default app.connect(App)
 import * as mutations from './mutations'
 
 export const toggleAwesomeApp: Action = action =>
-  action()
+  action
     .mutate(mutations.toggleAwesomeApp)
     `,
     },

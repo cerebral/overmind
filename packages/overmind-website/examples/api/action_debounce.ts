@@ -6,7 +6,7 @@ export default (ts) =>
 import { Action } from 'overmind'
 
 export const doThis: Action = action =>
-  action()
+  action
     .debounce(200)
   `,
         },
@@ -15,7 +15,7 @@ export const doThis: Action = action =>
         {
           code: `
 export const doThis = action =>
-  action()
+  action
     .debounce(200)
   `,
         },

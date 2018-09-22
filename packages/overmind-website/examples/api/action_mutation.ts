@@ -19,7 +19,7 @@ export const setInputValue: Mutate<string> = (state, value) =>
 import { Action } from 'overmind'
 
 export const doThis: Action<string> = action =>
-  action()
+  action
     .mutate(mutations.setLoading)
     .mutate(mutations.setInputValue)
   `,
@@ -40,7 +40,7 @@ export const setInputValue = (state, value) =>
           fileName: 'app/actions.js',
           code: `
 export const doThis = action =>
-  action()
+  action
     .mutate(mutations.setLoading)
     .mutate(mutations.setInputValue)
   `,

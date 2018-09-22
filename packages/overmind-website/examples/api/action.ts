@@ -6,7 +6,7 @@ export default (ts) =>
 import { Action } from 'overmind'
 
 export const doThis: Action<number> = action =>
-  action()
+  action
     .map(operations.getUser)
     .mutate(mutations.setUser)
   `,
@@ -16,7 +16,7 @@ export const doThis: Action<number> = action =>
         {
           code: `
 export const doThis = action => 
-  action()
+  action
     .map(operations.getUser)
     .mutate(mutations.setUser)
   `,

@@ -8,13 +8,13 @@ import { Action } from 'overmind'
 import * as operations from './operations'
 
 export const loadApplication: Action = action =>
-  action()
+  action
 
 export const getValidToken: Action = action =>
-  action()
+  action
 
 export const initializeApp: Action = action =>
-  action()
+  action
     .when(operations.hasValidToken, {
       true: loadApplication,
       false: action => getValidToken(action).compose(loadApplication)
@@ -29,13 +29,13 @@ export const initializeApp: Action = action =>
 import * as operations from './operations'
 
 export const loadApplication = action =>
-  action()
+  action
 
 export const getValidToken = action =>
-  action()
+  action
 
 export const initializeApp = action =>
-  action()
+  action
     .when(operations.hasValidToken, {
       true: loadApplication,
       false: action => getValidToken(action).compose(loadApplication)

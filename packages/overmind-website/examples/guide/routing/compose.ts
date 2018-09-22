@@ -11,7 +11,7 @@ import * as operations from './operations'
 ...
 
 export const showUserModal: Action<string> = action =>
-  action()
+  action
     .compose(showUsersPage) // <-- WE ADD COMPOSE
     .mutate(mutations.setModalUserId)
     .mutate(mutations.setLoadingUserWithDetails(true))
@@ -33,7 +33,7 @@ import * as operations from './operations'
 ...
 
 export const showUser = action =>
-  action()
+  action
     .compose(showUsersPage) // <-- WE ADD COMPOSE
     .mutate(mutations.setModalUserId)
     .mutate(mutations.setLoadingUserWithDetails(true))

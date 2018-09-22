@@ -15,12 +15,12 @@ export const hasToken: Operation.When = ({ localStorage }) =>
           code: `
 import { Action } from 'overmind'
 
-export const withTokenAction: Action = action => action()
+export const withTokenAction: Action = action => action
 
-export const withoutTokenAction: Action = action => action()
+export const withoutTokenAction: Action = action => action
 
 export const doThis: Action = action =>
-  action()
+  action
     .when(operations.hasToken, {
       true: withTokenAction,
       false: withoutTokenAction
@@ -39,12 +39,12 @@ export const hasToken = ({ localStorage }) =>
         {
           fileName: 'app/actions.js',
           code: `
-export const withTokenAction = action => action()
+export const withTokenAction = action => action
 
-export const withoutTokenAction = action => action()
+export const withoutTokenAction = action => action
 
 export const doThis = action =>
-  action()
+  action
     .when(operations.hasToken, {
       true: withTokenAction,
       false: withoutTokenAction
