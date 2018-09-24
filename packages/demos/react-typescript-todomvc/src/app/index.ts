@@ -1,4 +1,5 @@
-import App, { TConnect } from 'overmind-react'
+import App from 'overmind'
+import createConnect, { TConnect } from 'overmind-react'
 import * as effects from './effects'
 import * as actions from './actions'
 import * as state from './state'
@@ -20,6 +21,6 @@ const app = new App(config, {
 
 export type Connect = TConnect<typeof app>
 
-export const connect = app.connect
+export const connect = createConnect(app)
 
 export default app
