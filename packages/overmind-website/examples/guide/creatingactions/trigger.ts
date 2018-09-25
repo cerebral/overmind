@@ -20,7 +20,7 @@ export const actionC: Action<string> = action =>
         {
           fileName: 'demo.ts',
           code: `
-import app from './app'
+import { connect } from '../app'
 
 app.actions.actionA() // "hello world"
 app.actions.actionB() // Promise<"Hello world">
@@ -47,7 +47,7 @@ export const actionC = action =>
         {
           fileName: 'demo.js',
           code: `
-import app from './app'
+import { connect } from '../app'
 
 app.actions.actionA() // "hello world"
 app.actions.actionB() // Promise<"Hello world">

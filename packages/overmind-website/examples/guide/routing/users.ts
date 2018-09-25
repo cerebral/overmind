@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import app from '../app'
+import { connect } from '../app'
 import Users from './Users'
 
 const App = ({ app }) => (
@@ -19,7 +19,7 @@ const App = ({ app }) => (
   </div>
 )
 
-export default app.connect(App)
+export default connect(App)
     `,
     },
     {
@@ -27,7 +27,7 @@ export default app.connect(App)
       target: 'jsx',
       code: `
 import React from 'react'
-import app from '../app'
+import { connect } from '../app'
 import UserModal from './UserModal'
 
 const Users = ({ app }) => (
@@ -47,7 +47,7 @@ const Users = ({ app }) => (
   </div>
 )
 
-export default app.connect(Users)
+export default connect(Users)
     `,
     },
     {
@@ -55,7 +55,7 @@ export default app.connect(Users)
       target: 'jsx',
       code: `
 import React from 'react'
-import app from '../app'
+import { connect } from '../app'
 
 const UserModal = ({ app }) => {
   const modalUser = app.state.modalUser
@@ -87,7 +87,7 @@ const UserModal = ({ app }) => {
   )
 }
 
-export default app.connect(UserModal)
+export default connect(UserModal)
     `,
     },
   ],

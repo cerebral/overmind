@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import app from './app'
+import { connect } from '../app'
 
 const List = ({ app }) => (
   <ul>
@@ -15,7 +15,7 @@ const List = ({ app }) => (
   </ul>
 )
 
-export default app.connect(List)
+export default connect(List)
     `,
     },
   ],
@@ -34,9 +34,9 @@ export default app.connect(List)
     {
       fileName: 'components/List.vue (script)',
       code: `
-import app from './app'
+import { connect } from '../app'
 
-export default app.connect({})
+export default connect({})
   `,
     },
   ],
@@ -58,7 +58,7 @@ const List: React.SFC<Connect> = ({ app }) => (
   </ul>
 )
 
-export default app.connect(App)
+export default connect(App)
     `,
     },
   ],
@@ -68,7 +68,7 @@ export default app.connect(App)
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'app-list',
@@ -80,7 +80,7 @@ import app from '../app'
   </ul>
   \`
 })
-@app.connect()
+@connect()
 export class List {
   trackById(index, item) {
     return item.id

@@ -41,7 +41,8 @@ export default app
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind-${view}'
+import App from 'overmind'
+import createConnect from 'overmind-${view}'
 import page from 'page'
 import * as state from './state'
 import * as actions from './actions'
@@ -60,6 +61,8 @@ page('/users', withParams(app.actions.showUsersPage))
 page('/users/:id', withParams(app.actions.showUserModal))
 
 page.start()
+
+export const connect = createConnect(app)
 
 export default app
     `,

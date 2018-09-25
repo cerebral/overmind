@@ -15,7 +15,7 @@ export const toggleAwesomeApp = action =>
       target: 'jsx',
       code: `
 import React from 'react'
-import app from './app'
+import { connect } from '../app'
 
 const App = ({ app }) => (
   <button onClick={() => app.actions.toggleAwesomeApp()}>
@@ -23,7 +23,7 @@ const App = ({ app }) => (
   </button>
 )
 
-export default app.connect(App)
+export default connect(App)
     `,
     },
   ],
@@ -50,9 +50,9 @@ export const toggleAwesomeApp: Action = action =>
     {
       fileName: 'components/App.vue (script)',
       code: `
-import app from './app'
+import { connect } from '../app'
 
-export default app.connect({})
+export default connect({})
   `,
     },
   ],
@@ -82,7 +82,7 @@ const App: React.SFC<Connect> = ({ app }) => (
   </button>
 )
 
-export default app.connect(App)
+export default connect(App)
     `,
     },
   ],
@@ -102,7 +102,7 @@ export const toggleAwesomeApp: Action = action =>
       fileName: 'components/app.component.ts',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'app-root',
@@ -112,7 +112,7 @@ import app from '../app'
   </button>
   \`
 })
-@app.connect()
+@connect()
 export class App {}
     `,
     },

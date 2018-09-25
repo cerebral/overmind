@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import app from './app'
+import { connect } from '../app'
 
 class Posts extends React.Component {
   render() {
@@ -19,7 +19,7 @@ class Posts extends React.Component {
   }
 }
 
-export default app.connect(Posts)
+export default connect(Posts)
     `,
     },
   ],
@@ -37,9 +37,9 @@ export default app.connect(Posts)
     {
       fileName: 'Posts.vue (script)',
       code: `
-import app from './app'
+import { connect } from '../app'
 
-export default app.connect({})
+export default connect({})
   `,
     },
   ],
@@ -65,7 +65,7 @@ class Posts extends React.Component<Connect> {
   }
 }
 
-export default app.connect(Posts)
+export default connect(Posts)
     `,
     },
   ],
@@ -75,7 +75,7 @@ export default app.connect(Posts)
       fileName: 'posts.component.ts',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'posts-list',
@@ -86,7 +86,7 @@ import app from '../app'
   <div *ngIf="!app.state.isLoadingPosts"></div>
   \`
 })
-@app.connect()
+@connect()
 export class PostsList {}
     `,
     },

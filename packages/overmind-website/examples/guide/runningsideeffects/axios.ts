@@ -37,7 +37,8 @@ export { default as http } from 'axios'
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind-${view}'
+import App from 'overmind'
+import createConnect from 'overmind-${view}'
 import * as state from './state'
 import * as actions from './actions'
 import * as effects from './effects'
@@ -47,6 +48,8 @@ const app = new App({
   actions,
   effects
 })
+
+export const connect = createConnect(app)
 
 export default app
     `,

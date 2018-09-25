@@ -52,7 +52,8 @@ export const loadPosts = action =>
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind-${view}'
+import App from 'overmind'
+import createConnect from 'overmind-${view}'
 import * as state from './state'
 import * as actions from './actions'
 
@@ -60,6 +61,8 @@ const app = new App({
   state,
   actions
 })
+
+export const connect = createConnect(app)
 
 export default app
     `,
