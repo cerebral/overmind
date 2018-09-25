@@ -30,7 +30,8 @@ page('/users/:id', withParamsAndQuery<{ id: string, tabIndex: string   }>(app.ac
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind-${view}'
+import App from 'overmind'
+import createConnect from 'overmind-${view}'
 import queryString from 'query-string'
 import page from 'page'
 import * as state from './state'

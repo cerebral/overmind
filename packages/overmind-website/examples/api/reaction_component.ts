@@ -4,7 +4,7 @@ const javascript = {
       fileName: 'components/SomeComponent.js',
       code: `
 import React from 'react'
-import app from '../app'
+import { connect } from '../app'
 
 class SomeComponent extends React.Component {
   componentDidMount () {
@@ -21,7 +21,7 @@ class SomeComponent extends React.Component {
   }
 }
 
-export default app.connect(SomeComponent)
+export default connect(SomeComponent)
     `,
     },
   ],
@@ -35,9 +35,9 @@ export default app.connect(SomeComponent)
     {
       fileName: 'SomeComponent.vue (script)',
       code: `
-import app from '../app'
+import { connect } from '../app'
 
-export default app.connect({
+export default connect({
   mounted() {
     this.app.reaction(
       'scrollUpOnNotification',
@@ -76,7 +76,7 @@ class SomeComponent extends React.Component<Connect, {}> {
   }
 }
 
-export default app.connect(SomeComponent)
+export default connect(SomeComponent)
     `,
     },
   ],
@@ -86,7 +86,7 @@ export default app.connect(SomeComponent)
       fileName: 'some.component.ts',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'some-component',
@@ -94,7 +94,7 @@ import app from '../app'
   <h1>foo</h1>
   \`
 })
-@app.connect()
+@connect()
 export class SomeComponent {
   constructor() {
     this.app.reaction(

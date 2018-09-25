@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import app from './app'
+import { connect } from '../app'
 
 const App = ({ app }) => {
   if (app.state.isLoading) {
@@ -15,7 +15,7 @@ const App = ({ app }) => {
   return <h1>My awesome app</h1>
 }
 
-export default app.connect(App)
+export default connect(App)
     `,
     },
   ],
@@ -33,9 +33,9 @@ export default app.connect(App)
     {
       fileName: 'components/App.vue (script)',
       code: `
-import app from './app'
+import { connect } from '../app'
 
-export default app.connect({})
+export default connect({})
   `,
     },
   ],
@@ -57,7 +57,7 @@ const App: React.SFC<Connect> = ({ app }) => {
   return <h1>My awesome app</h1>
 }
 
-export default app.connect(App)
+export default connect(App)
     `,
     },
   ],
@@ -67,7 +67,7 @@ export default app.connect(App)
       fileName: 'app.component.js',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'app-root',
@@ -80,7 +80,7 @@ import app from '../app'
   </h1>
   \`
 })
-@app.connect()
+@connect()
 export class App {}
     `,
     },

@@ -5,13 +5,13 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import app from './app'
+import { connect } from '../app'
 
 const Item = ({ item }) => (
   <li>{item.title}</li>
 )
 
-export default app.connect(Item)
+export default connect(Item)
     `,
     },
     {
@@ -19,7 +19,7 @@ export default app.connect(Item)
       target: 'jsx',
       code: `
 import React from 'react'
-import app from './app'
+import { connect } from '../app'
 import Item from './Item'
 
 const App = ({ app }) => (
@@ -30,7 +30,7 @@ const App = ({ app }) => (
   </ul>
 )
 
-export default app.connect(App)
+export default connect(App)
     `,
     },
   ],
@@ -45,9 +45,9 @@ export default app.connect(App)
     {
       fileName: 'components/Item.vue (script)',
       code: `
-import app from './app'
+import { connect } from '../app'
 
-export default app.connect({
+export default connect({
   props: ['item']
 })
   `,
@@ -64,10 +64,10 @@ export default app.connect({
     {
       fileName: 'components/List.vue (script)',
       code: `
-import app from './app'
+import { connect } from '../app'
 import Item from './Item'
 
-export default app.connect({
+export default connect({
   components: {
     Item,
   },
@@ -93,7 +93,7 @@ const Item: React.SFC<Connect & Props> = ({ item }) => (
   <li>{item.title}</li>
 )
 
-export default app.connect(Item)
+export default connect(Item)
     `,
     },
     {
@@ -111,7 +111,7 @@ const List: React.SFC<Connect> = ({ app }) => (
   </ul>
 )
 
-export default app.connect(List)
+export default connect(List)
     `,
     },
   ],
@@ -121,7 +121,7 @@ export default app.connect(List)
       fileName: 'components/item.component.ts',
       code: `
 import { Component Input } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 import { Item } from '../app/state'
 
 @Component({
@@ -132,7 +132,7 @@ import { Item } from '../app/state'
   </li>
   \`
 })
-@app.connect()
+@connect()
 export class List {
   @Input() item: Item;
 }
@@ -142,7 +142,7 @@ export class List {
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'app-list',
@@ -155,7 +155,7 @@ import app from '../app'
   </ul>
   \`
 })
-@app.connect()
+@connect()
 export class List {
   keys =  Object.keys
   trackById(index, id) {

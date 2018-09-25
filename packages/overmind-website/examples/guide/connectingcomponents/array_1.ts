@@ -5,13 +5,13 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import app from './app'
+import { connect } from '../app'
 
 const List = ({ app }) => (
   <h1>{app.state.items}</h1>
 )
 
-export default app.connect(List)
+export default connect(List)
     `,
     },
   ],
@@ -26,9 +26,9 @@ export default app.connect(List)
     {
       fileName: 'components/List.vue (script)',
       code: `
-import app from './app'
+import { connect } from '../app'
 
-export default app.connect({})
+export default connect({})
   `,
     },
   ],
@@ -46,7 +46,7 @@ const List: React.SFC<Connect> = ({ app }) => (
   <h1>{app.state.items}</h1>
 )
 
-export default app.connect(List)
+export default connect(List)
     `,
     },
   ],
@@ -56,7 +56,7 @@ export default app.connect(List)
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'app-list',
@@ -64,7 +64,7 @@ import app from '../app'
   <h1>{{app.state.items}}</h1>
   \`
 })
-@app.connect()
+@connect()
 export class List {}
     `,
     },

@@ -4,7 +4,7 @@ const javascript = {
       fileName: 'SomeComponent.js',
       code: `
 import React from 'react'
-import app from '../app'
+import { connect } from '../app'
 
 const SomeComponent = ({ app }) => {
   return (
@@ -14,7 +14,7 @@ const SomeComponent = ({ app }) => {
   )
 }
 
-export default app.connect(SomeComponent)
+export default connect(SomeComponent)
     `,
     },
   ],
@@ -30,9 +30,9 @@ export default app.connect(SomeComponent)
     {
       fileName: 'SomeComponent.vue (script)',
       code: `
-import app from '../app'
+import { connect } from '../app'
 
-export default app.connect({})
+export default connect({})
   `,
     },
   ],
@@ -44,7 +44,7 @@ const typescript = {
       fileName: 'SomeComponent.tsx',
       code: `
 import * as React from 'react'
-import app, { Connect } from '../app'
+import { connect, Connect } from '../app'
 
 const SomeComponent: React.SFC<Connect> = ({ app }) => {
   return (
@@ -54,7 +54,7 @@ const SomeComponent: React.SFC<Connect> = ({ app }) => {
   )
 }
 
-export default app.connect(SomeComponent)
+export default connect(SomeComponent)
     `,
     },
   ],
@@ -64,7 +64,7 @@ export default app.connect(SomeComponent)
       fileName: 'some.component.ts',
       code: `
 import { Component } from '@angular/core';
-import app from '../app'
+import { connect } from '../app'
 
 @Component({
   selector: 'some-component',
@@ -74,7 +74,7 @@ import app from '../app'
   </div>
   \`
 })
-@app.connect()
+@connect()
 export class SomeComponent {}    
     `,
     },

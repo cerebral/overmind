@@ -28,7 +28,7 @@ This will of course result in an error. To make this work we have to create an O
 h(Example, { name: "guide/getstarted/createapp" })
 ```
 
-We add the state to our main module and configure that module in our **app.ts** file. The app instance has a method called **connect** which connects your application to the components. Let us do that now.
+We add the state to our main module and configure that module in our **app.ts** file. In addition to exporting the app itself we export a way to connect to the app. Let us do that now.
 
 ```marksy
 h(Example, { name: "guide/getstarted/connectapp" })
