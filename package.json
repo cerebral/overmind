@@ -89,7 +89,7 @@
     "ts-jest": "23.0.0",
     "ts-loader": "4.4.2",
     "tslib": "1.9.3",
-    "typescript": "^3.0.3",
+    "typescript": "2.9.2",
     "typescript-eslint-parser": "^18.0.0",
     "url-loader": "1.0.1",
     "vue": "2.5.16",
