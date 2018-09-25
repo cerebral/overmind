@@ -1,4 +1,5 @@
-import App from 'overmind-react'
+import App from 'overmind'
+import createConnect from 'overmind-react'
 import * as effects from './effects'
 import * as actions from './actions'
 import * as state from './state'
@@ -14,6 +15,6 @@ const app = new App(
   }
 )
 
-export const connect = app.connect
+export const connect = createConnect(app)
 
 export default app

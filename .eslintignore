@@ -8,3 +8,4 @@ packages/*/**/dist/
 **/coverage/
 **/vendor/
 *.d.ts
+packages/node_modules/overmind-react/*
