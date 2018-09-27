@@ -1,9 +1,8 @@
 {
-	"name": "react-typescript-todomvc",
+	"name": "plugins",
 	"private": true,
 	"version": "1.0.0",
-	"description": "Overmind todomvc demo",
-	"author": "Christian Alfoni <christianalfoni@gmail.com>",
+	"description": "Overmind plugins demo",
 	"license": "MIT",
 	"repository": "git+https://github.com/cerebral/overmind.git",
 	"scripts": {
