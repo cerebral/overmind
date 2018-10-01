@@ -1,5 +1,4 @@
-import { derive } from 'overmind'
-import * as derived from './derived'
+import { Derive } from 'overmind'
 
 export type Todo = {
   id: string
@@ -11,4 +10,4 @@ export const todos: Todo[] = []
 
 export let newTodoTitle: string = ''
 
-export const count: number = derive(derived.count)
+export const count: Derive<number> = (state) => state.todos.length
