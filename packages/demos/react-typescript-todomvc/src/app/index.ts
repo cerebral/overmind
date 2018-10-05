@@ -15,9 +15,7 @@ declare module 'overmind' {
   interface IEffects extends TEffects<typeof config> {}
 }
 
-const app = new App(config, {
-  devtools: 'localhost:1234',
-})
+const app = new App(config)
 
 export type Connect = TConnect<typeof app>
 
