@@ -1,15 +1,19 @@
-export default (ts) =>
+import { tsAppIndex } from '../templates'
+
+export default (ts, view) =>
   ts
     ? [
         {
           fileName: 'app/index.ts',
           code: `
 ...
+
 const app = new App(config, {
-  devtools: 'localhost:1234'
+  devtools: 'localhost:3031'
 })
-...
-      `,
+
+export default app 
+        `,
         },
       ]
     : [
@@ -17,14 +21,12 @@ const app = new App(config, {
           fileName: 'app/index.js',
           code: `
 ...
-const app = new App({
-  state,
-  actions,
-  effects
-}, {
-  devtools: 'localhost:1234'
+
+const app = new App(config, {
+  devtools: 'localhost:3031'
 })
-...
-      `,
+
+export default app
+`,
         },
       ]

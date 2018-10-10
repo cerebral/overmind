@@ -34,8 +34,6 @@ const app = new App({
   state,
   effects,
   actions
-}, {
-  devtools: 'localhost:1234'
 })
 
 export default app
