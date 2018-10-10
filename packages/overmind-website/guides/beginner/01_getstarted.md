@@ -80,11 +80,7 @@ h(Example, { name: "guide/getstarted/devtools" })
 
 The Overmind devtools is a pretty amazing experience. You get insight into all the state, changes to that state, actions run, side effects run and general stats. This visual overview becomes more and more valuable as well as complexity increases in your application. 
 
-To connect to the devtools simply add the option to your application:
-
-```marksy
-h(Example, { name: "guide/getstarted/devtoolsConnect" })
-```
+To connect to the devtools simply start the devtools application and refresh your app.
 
 ## Summary
 

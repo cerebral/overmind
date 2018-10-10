@@ -4,16 +4,20 @@ export default (ts, view) =>
         {
           fileName: 'app.ts',
           code: `
-import App, { TConnect } from 'overmind-${view}'
+import App, { modules } from 'overmind'
+import createConnect, { TConnect } from 'overmind-${view}'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
-const config = {
+const config = modules({
+  state: {
+    title: 'My app'
+  },
   modules: {
     moduleA,
     moduleB
   }
-}
+})
 
 declare module 'overmind' {
   interface IState extends TState<typeof config> {}
@@ -21,9 +25,7 @@ declare module 'overmind' {
 }
 
 
-const app = new App(config, {
-  devtools: 'localhost:1234'
-})
+const app = new App(config)
 
 export type Connect = TConnect<typeof app>
 
@@ -35,18 +37,22 @@ export default app
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind-${view}'
+import App, { modules } from 'overmind'
+import createConnect from 'overmind-${view}'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
-const app = new App({
+const config = modules({
+  state: {
+    title: 'My app'
+  },
   modules: {
     moduleA,
     moduleB
   }
-}, {
-  devtools: 'localhost:1234'
 })
+
+const app = new App(config)
 
 export default app
 `,
