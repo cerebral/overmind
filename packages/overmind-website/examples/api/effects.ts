@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'app/effects.ts',
           code: `
-export axios from 'axios'
+import axios from 'axios'
 import { User, Item } from './state'
 
 export const api = {
@@ -22,7 +22,7 @@ export const api = {
         {
           fileName: 'effects.js',
           code: `
-export axios from 'axios'
+import axios from 'axios'
 
 export const api = {
   getUser() {
