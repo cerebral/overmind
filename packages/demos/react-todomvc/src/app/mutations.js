@@ -1,6 +1,7 @@
 let nextTodoId = 0
 
-export const setNewTodoTitle = (state, value) => (state.newTodoTitle = value)
+export const setNewTodoTitle = ({ state, value }) =>
+  (state.newTodoTitle = value)
 
 export const addTodo = (state) =>
   state.todos.unshift({
@@ -9,6 +10,7 @@ export const addTodo = (state) =>
     completed: false,
   })
 
-export const clearNewTodoTitle = (state) => (state.newTodoTitle = '')
+export const clearNewTodoTitle = ({ state }) => (state.newTodoTitle = '')
 
-export const toggleCompleted = (_, todo) => (todo.completed = !todo.completed)
+export const toggleCompleted = ({ value: todo }) =>
+  (todo.completed = !todo.completed)

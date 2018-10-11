@@ -1,3 +1,3 @@
-export const getEventValue = (_, event) => event.currentTarget.value
+export const getEventValue = ({ value: event }) => event.currentTarget.value
 
-export const preventEventDefault = (_, event) => event.preventDefault()
+export const preventEventDefault = ({ value: event }) => event.preventDefault()
