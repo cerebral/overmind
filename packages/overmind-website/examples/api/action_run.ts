@@ -6,8 +6,8 @@ export default (ts) =>
           code: `
 import { Operation } from 'overmind'
 
-export const trackSubmitForm: Operation.Run = ({ state, track }) =>
-  track.interaction('login', Boolean(state.user))
+export const trackSubmitForm: Operation.Run = ({ state, effects }) =>
+  effects.track.interaction('login', Boolean(state.user))
     `,
         },
         {
@@ -35,8 +35,8 @@ export const login: Action = (action) =>
         {
           fileName: 'app/operations.js',
           code: `
-export const trackSubmitForm = ({ track }) =>
-  track.interaction('submitForm')    
+export const trackSubmitForm = ({ effects }) =>
+  effects.track.interaction('submitForm')    
     `,
         },
         {

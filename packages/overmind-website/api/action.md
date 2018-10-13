@@ -12,7 +12,7 @@ The action is built up by **operators**, methods called on the action itself. Th
 
 ## attempt
 ```marksy
-h(Example, { name: "api/action_try" })
+h(Example, { name: "api/action_attempt" })
 ```
 
 Typically used to explicitly handle potentially thrown errors from an effect.

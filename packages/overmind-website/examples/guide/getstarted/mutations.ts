@@ -21,13 +21,13 @@ export let posts: Post[] = []
 import { Mutate } from 'overmind'
 import { Post } from './state'
 
-export const setLoadingPosts: Mutate = state =>
+export const setLoadingPosts: Mutate = ({ state }) =>
   state.isLoadingPosts = true
 
-export const unsetLoadingPosts: Mutate = state =>
+export const unsetLoadingPosts: Mutate = ({ state }) =>
   state.isLoadingPosts = false
 
-export const setPosts: Mutate<Post[]> = (state, posts) =>
+export const setPosts: Mutate<Post[]> = ({ state, value: posts }) =>
   state.posts = posts
   `,
         },
@@ -44,13 +44,13 @@ export let posts = []
         {
           fileName: 'app/mutations.js',
           code: `
-export const setLoadingPosts = state =>
+export const setLoadingPosts = ({ state }) =>
   state.isLoadingPosts = true
 
-export const unsetLoadingPosts = state =>
+export const unsetLoadingPosts = ({ state }) =>
   state.isLoadingPosts = false
 
-export const setPosts = (state, posts) =>
+export const setPosts = ({ state, value: posts }) =>
   state.posts = posts
   `,
         },

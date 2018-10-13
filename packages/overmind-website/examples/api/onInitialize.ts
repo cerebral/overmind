@@ -4,14 +4,23 @@ export default (ts, view) =>
   ts
     ? [
         {
+          fileName: 'app/onInitialize.ts',
+          code: `
+import { OnInitialize } from 'overmind'
+
+const onInitialize: OnInitialize = (app) => app.actions.loadData()
+
+export default onInitialize
+`,
+        },
+        {
           fileName: 'app/index.ts',
           code: tsAppIndex(
             view,
             `
+import onInitialize from './onInitialize'
 import * as state from './state'
 import * as actions from './actions'
-
-const onInitialize: Action = actions.initialize
 
 const config = {
   onInitialize,
@@ -24,13 +33,18 @@ const config = {
       ]
     : [
         {
+          fileName: 'app/onInitialize.ts',
+          code: `
+export default = (app) => app.actions.loadData()
+`,
+        },
+        {
           fileName: 'app/index.js',
           code: `
 import App from 'overmind-${view}'
+import onInitialize from './onInitialize'
 import * as state from './state'
 import * as actions from './actions'
-
-const onInitialize = actions.initialize
 
 const app = new App({
   onInitialize,

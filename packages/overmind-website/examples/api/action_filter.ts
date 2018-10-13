@@ -6,10 +6,10 @@ export default (ts) =>
           code: `
 import { Operation } from 'overmind'
 
-export const isOnline: Operation.Filter = ({ connection }) =>
-  connection.isOnline()
+export const isOnline: Operation.Filter = ({ effects }) =>
+  effects.connection.isOnline()
 
-export const isGreatherThan2: Operation.Filter<string> = (_, value) =>
+export const isGreatherThan2: Operation.Filter<string> = ({ value }) =>
   value.length > 2
   `,
         },
@@ -29,10 +29,10 @@ export const doThis: Action<string> = action =>
         {
           fileName: 'app/operations.js',
           code: `
-export const isOnline = ({ connection }) =>
-  connection.isOnline()
+export const isOnline = ({ effects }) =>
+  effects.connection.isOnline()
 
-export const isGreaterThan2 = (_, value) =>
+export const isGreaterThan2 = ({ value }) =>
   value.length > 2
   `,
         },

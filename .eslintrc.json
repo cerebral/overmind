@@ -36,7 +36,8 @@
         "no-unused-expressions": "off",
         "no-use-before-define": "off",
         "no-useless-constructor": "off",
-        "typescript/no-unused-vars": "error"
+        "typescript/no-unused-vars": "error",
+        "standard/no-callback-literal": "off"
       }
     }
   ]

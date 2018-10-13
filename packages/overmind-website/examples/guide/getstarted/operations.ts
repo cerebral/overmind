@@ -7,7 +7,7 @@ export default (ts) =>
 import { Operation } from 'overmind'
 
 export const getPosts: Operation.Map<any, Promise<Post[]>> =
-  ({ jsonPlaceholder }) => jsonPlaceholder.getPosts()
+  ({ effects }) => effects.jsonPlaceholder.getPosts()
   `,
         },
       ]
@@ -16,7 +16,7 @@ export const getPosts: Operation.Map<any, Promise<Post[]>> =
           fileName: 'app/operations.js',
           code: `
 export const getPosts =
-  ({ jsonPlaceholder }) => jsonPlaceholder.getPosts()
+  ({ effects }) => effects.jsonPlaceholder.getPosts()
   `,
         },
       ]

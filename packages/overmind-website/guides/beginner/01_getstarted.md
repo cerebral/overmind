@@ -54,7 +54,7 @@ Functions used with the **mutate** operator are passed the current state of the 
 
 ## Operations
 
-All logic that is not related to changing the state of the application is considered an operation. These functions have different signatures based on the **operator** that consumes it in an action. In this example we are using the **map** operator which expects a function that receives all the **effects** configured for your application as the first argument, and the current value of the action as the second argument.
+All logic that is not related to changing the state of the application is considered an operation. These functions have different signatures based on the **operator** that consumes it in an action. In this example we are using the **map** operator which expects a function. This function is just like the mutation function above, but it will also receives all the **effects** configured for your application.
 
 ```marksy
 h(Example, { name: "guide/getstarted/operations" })
