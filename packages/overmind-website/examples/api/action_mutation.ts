@@ -6,10 +6,10 @@ export default (ts) =>
           code: `
 import { Mutate } from 'overmind'
 
-export const setLoading: Mutate = state =>
+export const setLoading: Mutate = ({ state }) =>
   state.isLoading = true
 
-export const setInputValue: Mutate<string> = (state, value) =>
+export const setInputValue: Mutate<string> = ({ state, value }) =>
   state.inputValue = value
     `,
         },
@@ -29,10 +29,10 @@ export const doThis: Action<string> = action =>
         {
           fileName: 'app/mutations.js',
           code: `
-export const setLoading = state =>
+export const setLoading = ({ state }) =>
   state.isLoading = true
 
-export const setInputValue = (state, value) =>
+export const setInputValue = ({ state, value }) =>
   state.inputValue = value
     `,
         },

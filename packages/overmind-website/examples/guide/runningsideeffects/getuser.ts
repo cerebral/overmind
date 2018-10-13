@@ -7,8 +7,8 @@ export default (ts) =>
 import { Operation } from 'overmind'
 import { User } from './state'
 
-export const getUser: Operation.Map<any, Promise<User>> = ({ http }) =>
-  http.get<User>('/user')
+export const getUser: Operation.Map<any, Promise<User>> = ({ effects }) =>
+  effects.http.get<User>('/user')
   `,
         },
       ]
@@ -16,8 +16,8 @@ export const getUser: Operation.Map<any, Promise<User>> = ({ http }) =>
         {
           fileName: 'app/operations.js',
           code: `
-export const getUser = ({ http }) =>
-  http.get('/user')
+export const getUser = ({ effects }) =>
+  effects.http.get('/user')
   `,
         },
       ]

@@ -6,13 +6,13 @@ export default (ts) =>
           code: `
 import { Mutate } from 'overmind'
 
-export const setValue: Mutate = state =>
+export const setValue: Mutate = ({ state }) =>
   state.value = 'foo'
 
-export const setValueFromAction: Mutate<string> = (state, value) =>
+export const setValueFromAction: Mutate<string> = ({ state, value }) =>
   state.value2 = value
 
-export const setValueFromState: Mutate = state =>
+export const setValueFromState: Mutate = ({ state }) =>
   state.value3 = state.value
   `,
         },
@@ -34,13 +34,13 @@ export const setValues: Action<string> = action =>
         {
           fileName: 'app/mutations.js',
           code: `
-export const setValue = state =>
+export const setValue = ({ state }) =>
   state.value = 'foo'
 
-export const setValueFromAction = (state, value) =>
+export const setValueFromAction = ({ state, value }) =>
   state.value2 = value
 
-export const setValueFromState = state =>
+export const setValueFromState = ({ state }) =>
   state.value3 = state.value
   `,
         },

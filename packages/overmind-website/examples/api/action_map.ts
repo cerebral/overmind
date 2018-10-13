@@ -7,10 +7,10 @@ export default (ts) =>
 import { Operation } from 'overmind'
 
 export const getUser: Operation.Map<string, Promise<User>> =
-  ({ http }, id) => http.get(\`/users/\${id}\`)
+  ({ effects, value: id }) => effects.http.get(\`/users/\${id}\`)
 
 export const trim: Operation.Map<string, string> =
-  (_, value) => value.trim()
+  ({ value }) => value.trim()
   `,
         },
         {
@@ -29,7 +29,7 @@ export const doThis: Action<string> = action =>
         {
           fileName: 'app/operations.js',
           code: `
-export const getUser = ({ http }, id) =>
+export const getUser = ({ effects, value: id }) =>
   http.get(\`/users/\${id}\`)
 
 export const trim = (_, value) =>

@@ -2,56 +2,42 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app/index.ts',
+          fileName: 'app/onInitialize.ts',
           code: `
-import App, { TConnect } from 'overmind-${view}'
+import { OnInitialize } from 'overmind'
+import page from 'page'
 import queryString from 'query-string'
-import * as page from 'page'
-import * as state from './state'
-import * as actions from './actions'
-import * as effects from './effects'
 
-...
+const onInitialize: OnInitialize = (app) => {
+  const withParamsAndQuery = <T>(action: (payload: T) => any) => ({ params, querystring }) =>
+    action(Object.assign({}, params, queryString.parse(querystring)))
 
-const app = new App(config)
+  page('/', withParamsAndQuery(app.actions.showHomePage))
+  page('/users', withParamsAndQuery(app.actions.showUsersPage))
+  page('/users/:id', withParamsAndQuery<{
+    id: string,
+    tabIndex: number
+  }>(app.actions.showUserModal))
+}
 
-const withParamsAndQuery = <T>(action: (payload: T) => any) => ({ params, querystring }) =>
-  action(Object.assign({}, params, queryString.parse(querystring)))
-
-page('/', withParamsAndQuery(app.actions.showHomePage))
-page('/users', withParamsAndQuery(app.actions.showUsersPage))
-page('/users/:id', withParamsAndQuery<{ id: string, tabIndex: string   }>(app.actions.showUserModal))
-
-...
-  `,
+export default onInitialize
+`,
         },
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'app/onInitialize.js',
           code: `
-import App from 'overmind'
-import createConnect from 'overmind-${view}'
-import queryString from 'query-string'
 import page from 'page'
-import * as state from './state'
-import * as actions from './actions'
-import * as effects from './effects'
 
-const app = new App({
-  state,
-  actions,
-  effects
-})
+export default (app) => {
+  const withParamsAndQuery = (action) => ({ params, querystring }) =>
+    action(Object.assign({}, params, queryString.parse(querystring)))
 
-const withParamsAndQuery = (action) => ({ params, querystring }) =>
-  action(Object.assign({}, params, queryString.parse(querystring)))
-
-page('/', withParamsAndQuery(app.actions.showHomePage))
-page('/users', withParamsAndQuery(app.actions.showUsersPage))
-page('/users/:id', withParamsAndQuery(app.actions.showUserModal))
-
-...
+  page('/', withParamsAndQuery(app.actions.showHomePage))
+  page('/users', withParamsAndQuery(app.actions.showUsersPage))
+  page('/users/:id', withParamsAndQuery(app.actions.showUserModal))
+}
 `,
         },
       ]
