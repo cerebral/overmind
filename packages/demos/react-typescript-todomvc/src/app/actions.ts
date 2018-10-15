@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { Action } from 'overmind'
-import { Todo } from './state'
-import * as operations from './operations'
+
+import { Action } from './'
 import * as mutations from './mutations'
+import * as operations from './operations'
+import { Todo } from './state'
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
-export const changeNewTodoTitle: Action<ChangeEvent> = (action) =>
+export const changeNewTodoTitle: Action<ChangeEvent, string> = (action) =>
   action.map(operations.getEventValue).mutate(mutations.setNewTodoTitle)
 
 export const addTodo: Action<React.FormEvent> = (action) =>

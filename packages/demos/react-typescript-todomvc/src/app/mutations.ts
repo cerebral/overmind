@@ -1,4 +1,4 @@
-import { Mutate } from 'overmind'
+import { Mutate } from './'
 import { Todo } from './state'
 
 let nextTodoId = 0
