@@ -1,6 +1,6 @@
 import App, {
   TAction,
-  TApp,
+  TConfig,
   TContext,
   TDerive,
   TMutate,
@@ -12,7 +12,7 @@ import * as actions from './actions'
 import * as context from './context'
 import * as state from './state'
 
-const config = {
+export const config = {
   context,
   actions,
   state,
@@ -24,32 +24,36 @@ export type Connect = TConnect<typeof app>
 
 export const connect = createConnect(app)
 
-type IApp = TApp<typeof config>
+/*
+  OVERMIND TYPES
+*/
 
-export default app
-
-// ==== The following types are copied from overmind documentation ====
+type Config = TConfig<typeof config>
 
 export type Action<Value = void, ReturnValue = Value> = TAction<
-  IApp,
+  Config,
   Value,
   ReturnValue
 >
 
-export type Mutate<Value = any> = TMutate<IApp, Value>
+export type Mutate<Value = any> = TMutate<Config, Value>
 
-export type Context<Value> = TContext<IApp, Value>
+export type Context<Value> = TContext<Config, Value>
 
-// Operations
 export type Map<Value, ReturnValue = Value> = (
   ctx: Context<Value>
 ) => ReturnValue
+
 export type Filter<Value = any> = (ctx: Context<Value>) => boolean
+
 export type When<Value = any> = (ctx: Context<Value>) => boolean
+
 export type Run<Value = any> = (ctx: Context<Value>) => void
+
 export type Fork<Value = any> = (ctx: Context<Value>) => string
+
 export type Attempt<Value, ReturnValue> = (ctx: Context<Value>) => ReturnValue
 
-export type Derive<Value> = TDerive<IApp, Value>
+export type Derive<Value> = TDerive<Config, Value>
 
-export type Reaction = TReaction<IApp>
+export type Reaction = TReaction<Config>
