@@ -1,4 +1,4 @@
-import { Derive } from 'overmind'
+import { Derive } from './'
 
 export type Todo = {
   id: string
