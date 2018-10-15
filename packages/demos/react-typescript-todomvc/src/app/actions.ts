@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 import { Action } from './'
 import * as mutations from './mutations'
 import * as operations from './operations'
