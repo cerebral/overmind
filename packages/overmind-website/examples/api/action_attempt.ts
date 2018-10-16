@@ -6,8 +6,8 @@ export default (ts) =>
           code: `
 import { Operation } from 'overmind'
 
-export const getItems: Operation.Attempt<Promise<Items>> = ({ effects }) =>
-  effects.http.get('/items')
+export const getItems: Operation.Attempt<any, Promise<Items>> = ({ http }) =>
+  http.get('/items')
   `,
         },
         {
@@ -32,8 +32,8 @@ export const doThis: Action = action =>
         {
           fileName: 'app/operations.js',
           code: `
-export const getItems = ({ effects }) =>
-  effects.http.get('/items')
+export const getItems = ({ http }) =>
+  http.get('/items')
   `,
         },
         {

@@ -44,7 +44,9 @@ h(Example, { name: "guide/getstarted/actions" })
 
 As you can see we have not really written any logic yet, we are just describing what we want to happen. This is what we call **declarative** code and is a concept in programming used to manage complexity. In this application it might seem unnecessary, but it is very important to manage complexity as your application grows.
 
-## Mutations
+## Operations
+
+All logic you write for your app is considered an operation. These operation functions have different signatures based on the **operator** that consumes it in an action. The most important operation is the mutation operation.
 
 ```marksy
 h(Example, { name: "guide/getstarted/mutations" })
@@ -52,15 +54,13 @@ h(Example, { name: "guide/getstarted/mutations" })
 
 Functions used with the **mutate** operator are passed the current state of the application and the current value of the action. These functions are the only functions allowed to change the state of your application. This restriction combined with being just a simple function gives you several benefits as you will see when diving deeper into Overmind.
 
-## Operations
-
-All logic that is not related to changing the state of the application is considered an operation. These functions have different signatures based on the **operator** that consumes it in an action. In this example we are using the **map** operator which expects a function. This function is just like the mutation function above, but it will also receives all the **effects** configured for your application.
+Other operations like **map** has a very similar signature, though it will also receive all the **effects** configured for your application.
 
 ```marksy
 h(Example, { name: "guide/getstarted/operations" })
 ```
 
-By default the **effects** contain the state of the application, but here, we also want to extend it with a **jsonPlaceholder** api. Let us look at effects.
+We want to add an effect to our application called **jsonPlaceholder** api, which we can use with the **map** operation to grab some data.
 
 ## Effects
 

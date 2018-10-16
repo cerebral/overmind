@@ -6,8 +6,8 @@ export default (ts) =>
           code: `
 import { Operation } from 'overmind'
 
-export const hasToken: Operation.When = ({ effects }) =>
-  Boolean(effects.localStorage.get('token'))
+export const hasToken: Operation.When = ({ localStorage }) =>
+  Boolean(localStorage.get('token'))
   `,
         },
         {
@@ -32,8 +32,8 @@ export const doThis: Action = action =>
         {
           fileName: 'app/operations.js',
           code: `
-export const hasToken = ({ effects }) =>
-  Boolean(effects.localStorage.get('token'))
+export const hasToken = ({ localStorage }) =>
+  Boolean(localStorage.get('token'))
   `,
         },
         {
