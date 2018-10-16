@@ -1,6 +1,5 @@
 import * as React from 'react'
-
-import { Action } from './'
+import { Action } from 'overmind'
 import * as mutations from './mutations'
 import * as operations from './operations'
 import { Todo } from './state'

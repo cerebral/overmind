@@ -1,20 +1,20 @@
-import { Mutate } from './'
+import { Operation } from 'overmind'
 import { Todo } from './state'
 
 let nextTodoId = 0
 
-export const setNewTodoTitle: Mutate<string> = ({ state, value }) =>
+export const setNewTodoTitle: Operation.Mutate<string> = ({ state, value }) =>
   (state.newTodoTitle = value)
 
-export const addTodo: Mutate = ({ state }) =>
+export const addTodo: Operation.Mutate = ({ state }) =>
   state.todos.unshift({
     id: String(nextTodoId++),
     title: state.newTodoTitle,
     completed: false,
   })
 
-export const clearNewTodoTitle: Mutate = ({ state }) =>
+export const clearNewTodoTitle: Operation.Mutate = ({ state }) =>
   (state.newTodoTitle = '')
 
-export const toggleCompleted: Mutate<Todo> = ({ value: todo }) =>
+export const toggleCompleted: Operation.Mutate<Todo> = ({ value: todo }) =>
   (todo.completed = !todo.completed)
