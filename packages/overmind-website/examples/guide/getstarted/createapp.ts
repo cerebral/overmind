@@ -33,17 +33,15 @@ export let isLoadingPosts = false
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind'
-import createConnect from 'overmind-${view}'
+import { Overmind } from 'overmind'
+import { createConnect } from 'overmind-${view}'
 import * as state from './state'
 
-const app = new App({
+export const app = new Overmind({
   state
 })
 
 export const connect = createConnect(app)
-
-export default app
     `,
         },
       ]

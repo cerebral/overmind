@@ -49,21 +49,19 @@ export const jsonPlaceholder = {
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind'
-import createConnect from 'overmind-${view}'
+import { Overmind } from 'overmind'
+import { createConnect } from 'overmind-${view}'
 import * as state from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 
-const app = new App({
+export const app = new Overmind({
   state,
   actions,
   effects
 })
 
 export const connect = createConnect(app)
-
-export default app
     `,
         },
       ]

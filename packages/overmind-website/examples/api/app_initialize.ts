@@ -25,18 +25,19 @@ const config = {
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind-${view}'
+import { Overmind } from 'overmind'
+import { createConnect } from 'overmind-${view}'
 import * as state from './state'
 import * as effects from './effects'
 import * as actions from './actions'
 
-const app = new App({
+export const app = new Overmind({
   state,
   effects,
   actions
 })
 
-export default app
+export const connect = createConnect(app)
 `,
         },
       ]
