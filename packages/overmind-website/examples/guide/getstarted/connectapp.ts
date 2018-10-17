@@ -51,7 +51,7 @@ const typescript = {
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import app, { Connect } from './app'
+import { Connect, connect } from './app'
 
 class Posts extends React.Component<Connect> {
   render() {

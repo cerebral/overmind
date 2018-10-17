@@ -40,7 +40,7 @@ const typescript = {
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import app, { Connect } from './app'
+import { Connect } from './app'
 
 const List: React.SFC<Connect> = ({ app }) => (
   <h1>{app.state.items}</h1>

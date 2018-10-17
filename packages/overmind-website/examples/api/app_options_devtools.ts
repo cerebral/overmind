@@ -8,11 +8,9 @@ export default (ts, view) =>
           code: `
 ...
 
-const app = new App(config, {
+export const app = new Overmind(config, {
   devtools: 'localhost:3031'
 })
-
-export default app 
         `,
         },
       ]
@@ -22,11 +20,9 @@ export default app
           code: `
 ...
 
-const app = new App(config, {
+export const app = new Overmind(config, {
   devtools: 'localhost:3031'
 })
-
-export default app
 `,
         },
       ]

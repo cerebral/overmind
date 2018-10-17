@@ -4,7 +4,8 @@ export default (ts, view) =>
         {
           fileName: 'app/actions.ts',
           code: `
-import App, { TConnect } from 'overmind-${view}'
+import { Overmind, TApp } from 'overmind'
+import { createConnect, TConnect } from 'overmind-${view}'
 import * as page from 'page'
 import * as state from './state'
 import * as actions from './actions'
@@ -17,11 +18,10 @@ const config = {
 }
 
 declare module 'overmind' {
-  interface IState extends TState<typeof config> {}
-  interface IEffects extends TEffects<typeof config> {}
+  interface App extends TApp<typeof config> {}
 }
 
-const app = new App(config)
+export const app = new Overmind(config)
 
 const withParams = <T>(action: (payload: T) => any) => ({ params }) => action(params)
 
@@ -33,7 +33,7 @@ page.start()
 
 export type Connect = TConnect<typeof app>
 
-export default app
+export connect = createConnect(app)
     `,
         },
       ]
@@ -41,14 +41,14 @@ export default app
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind'
-import createConnect from 'overmind-${view}'
+import { Overmind } from 'overmind'
+import { createConnect } from 'overmind-${view}'
 import page from 'page'
 import * as state from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 
-const app = new App({
+const app = new Overmind({
   state,
   actions,
   effects
