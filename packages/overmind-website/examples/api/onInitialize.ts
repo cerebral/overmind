@@ -7,8 +7,13 @@ export default (ts, view) =>
           fileName: 'app/onInitialize.ts',
           code: `
 import { OnInitialize } from 'overmind'
+import * as operations from './operations'
+import * as mutations from './mutations'
 
-const onInitialize: OnInitialize = (app) => app.actions.loadData()
+const onInitialize: OnInitialize = action =>
+  action
+    .map(operations.getInitialData)
+    .mutate(mutations.setInitialData)
 
 export default onInitialize
 `,
@@ -35,18 +40,26 @@ const config = {
         {
           fileName: 'app/onInitialize.ts',
           code: `
-export default = (app) => app.actions.loadData()
+import * as operations from './operations'
+import * as mutations from './mutations'
+
+const onInitialize = action =>
+  action
+    .map(operations.getInitialData)
+    .mutate(mutations.setInitialData)
+
+export default onInitialize
 `,
         },
         {
           fileName: 'app/index.js',
           code: `
-import App from 'overmind-${view}'
+import { Overmind } from 'overmind'
 import onInitialize from './onInitialize'
 import * as state from './state'
 import * as actions from './actions'
 
-const app = new App({
+const app = new Overmind({
   onInitialize,
   state,
   actions
