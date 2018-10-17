@@ -74,7 +74,7 @@ export const toggleAwesomeApp: Action = action =>
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import app, { Connect } from './app'
+import { Connect, connect } from './app'
 
 const App: React.SFC<Connect> = ({ app }) => (
   <button onClick={() => app.actions.toggleAwesomeApp()}>

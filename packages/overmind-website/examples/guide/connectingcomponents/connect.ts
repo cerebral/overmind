@@ -47,7 +47,7 @@ const typescript = {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import app, { Connect } from './app'
+import { Connect } from './app'
 
 const App: React.SFC<Connect> = ({ app }) => {
   if (app.state.isLoading) {

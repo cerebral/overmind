@@ -4,12 +4,12 @@ export default (ts) =>
         {
           fileName: 'app/mutations.ts',
           code: `
-import { Mutate } from 'overmind'
+import { Operation } from 'overmind'
 
-export const setLoading: Mutate = ({ state }) =>
+export const setLoading: Operation.Mutate = ({ state }) =>
   state.isLoading = true
 
-export const setInputValue: Mutate<string> = ({ state, value }) =>
+export const setInputValue: Operation.Mutate<string> = ({ state, value }) =>
   state.inputValue = value
     `,
         },

@@ -1,7 +1,8 @@
-import App from 'overmind'
-import createConnect, { TConnect } from 'overmind-react'
-import * as effects from './effects'
+import { Overmind, TApp } from 'overmind'
+import { TConnect, createConnect } from 'overmind-react'
+
 import * as actions from './actions'
+import * as effects from './effects'
 import * as state from './state'
 
 const config = {
@@ -11,14 +12,11 @@ const config = {
 }
 
 declare module 'overmind' {
-  interface IState extends TState<typeof config> {}
-  interface IEffects extends TEffects<typeof config> {}
+  interface App extends TApp<typeof config> {}
 }
 
-const app = new App(config)
+export const app = new Overmind(config)
 
 export type Connect = TConnect<typeof app>
 
 export const connect = createConnect(app)
-
-export default app
