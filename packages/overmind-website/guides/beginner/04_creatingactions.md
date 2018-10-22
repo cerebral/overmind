@@ -1,36 +1,37 @@
 # Creating actions
 
-When an event triggers in your application, that being a user interaction, a websocket message etc., you want to run logic that changes the state of the application and/or runs side effects. This logic we express with a concept called **actions**. What is important to understand about actions is that they are an orchestration tool. That means you use actions to compose together different small pieces of logic into a flow of execution. This separation pushes you into a functional approach, giving you several benefits that will be highlighted in this guide.
+When an event triggers in your application, that being a user interaction, a websocket message etc., you want to run logic that changes the state of the application and/or run side effects. This logic we express with a concept called **actions**. What is important to understand about actions is that they are an orchestration tool. That means you use actions to compose together different small pieces of logic into a flow of execution. This separation pushes you into a functional approach, giving you several benefits that will be highlighted in this guide.
 
-## Action factory
+## Action
 
-You define your actions in files named **actions**. From this file you export functions that will receive the action factory function as its only argument.
+You define your actions in files named **actions**. From this file you export functions that will receive the action as its only argument.
 
 ```marksy
 h(Example, { name: "guide/creatingactions/factory" })
 ```
 
-When you call this action factory you create the action. Now... why do we have this factory? Why could you not just do something like this:
+Your job now is to extend this action with functionality. But first... why do we have this function? Why could you not just do something like this:
 
 ```marksy
 h(Example, { name: "guide/creatingactions/instead" })
 ```
 
-1. We want actions to be defined as a callback. This allows actions to compose actions from other files, even in circular reference. This is an important flexibility which callbacks enable
-2. Since actions can be composed into other actions we want to ensure that every composition is unique. By using an action factory we ensure this
-3. Overmind is built with Typescript and this affects the surface API to properly do typing
+1. We want actions to be lazily evaluated. This allows actions to compose actions from other files, even in circular reference. This is an important flexibility
+2. Functions ensure that when composing the same action multiple times each composition is unique, as the
+function is called multiple times
+3. Overmind is built with Typescript and this affects the surface API to do proper typing
 
 This might not make too much sense right now, but it will become more clear as we move on in this guide.
 
 ## A chaining API
 
-The action returned by the factory has a chaining API. This is the concept that forces you into a functional world. One of the big benefits of this approach is that your code becomes declarative. That means you describe **what** your application is doing in the action chain and then you have small separate functions that actually describes the **how**.
+The action has a chaining API. This is the concept that forces you into a functional world. One of the big benefits of this approach is that your code becomes declarative. That means you describe **what** your application is doing in the action chain and then you have small separate functions that actually describes the **how**.
 
 ```marksy
 h(Example, { name: "guide/creatingactions/chain" })
 ```
 
-Each of the methods on the action we call an **operator**. So **mutation** and **map** are operators.
+Each of the methods on the action we call an **operator**. So **mutate** and **map** are operators.
 
 ## Calling an action
 
@@ -43,14 +44,14 @@ h(Example, { name: "guide/creatingactions/trigger" })
 Here we have three different examples of actions.
 
 1. **actionA** is called without a value and maps to a new value
-2. **actionB** is also called without a value, but maps to a promised value
+2. **actionB** is also called without a value and maps to a promised value
 3. **actionC** is called with a value and that value is transformed
 
 What to learn from this is that calling an action is just like calling a plain function that returns its input by default. It is the attaching of operators that gives the action behaviour.
 
 ## Changing state
 
-The most common thing you will do is changing the state of the application. You perform a **mutation**. To express this in an action you will use the **mutation** operator. You will define all your mutations in their own files called **mutations**. The reason for that is to be explicit about where mutations actually happens in your application.
+The most common thing you will do is changing the state of the application. You perform a **mutation**. To express this in an action you will use the **mutate** operator. You will define your mutations in their own files called **mutations**. The reason for that is to be explicit about where mutations actually happens in your application.
 
 ```marksy
 h(Example, { name: "guide/creatingactions/mutations" })
@@ -72,7 +73,7 @@ A powerful concept in Overmind is that you can compose actions together. There a
 h(Example, { name: "guide/creatingactions/composing" })
 ```
 
-Since each action is defined with a function we call that function and pass it the action factory. This ensures that every composition is unique. Also since each function is defined as a function we can now import actions from anywhere else, even circular imports.
+Since each action is defined with a function Overminds calls that function and pass the current action. This ensures that every composition is unique. Also since each function is defined as a function we can now import actions from anywhere else, even circular imports.
 
 ## Summary
 

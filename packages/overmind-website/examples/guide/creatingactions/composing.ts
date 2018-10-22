@@ -17,7 +17,7 @@ export const initializeApp: Action = action =>
   action
     .when(operations.hasValidToken, {
       true: loadApplication,
-      false: action => getValidToken(action).compose(loadApplication)
+      false: getValidToken
     })
   `,
         },
@@ -38,7 +38,7 @@ export const initializeApp = action =>
   action
     .when(operations.hasValidToken, {
       true: loadApplication,
-      false: action => getValidToken(action).compose(loadApplication)
+      false: getValidToken
     })
   `,
         },

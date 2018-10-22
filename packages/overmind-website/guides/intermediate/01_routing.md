@@ -23,7 +23,13 @@ We are not going into details on exactly how the state is set and how the data i
 
 ## Initialize the router
 
-**Page js** is pretty straight forward. We basically want to map a url to trigger an action. We can do so simply by:
+**Page js** is pretty straight forward. We basically want to map a url to trigger an action. To get started let us first add Page js as an effect and let us take the opportunity to create a custom API. We want to pass the params to our actions:
+
+```marksy
+h(Example, { name: "guide/routing/effect" })
+```
+
+Now we can now use Overminds **onInitialize** to configure the router. onInitialize is an action that receives the application instance:
 
 ```marksy
 h(Example, { name: "guide/routing/pagejs" })
@@ -59,7 +65,7 @@ h(Example, { name: "guide/routing/parallel" })
 
 ## The tab query param
 
-**Page js** also allows us to manage query strings, the stuff after the **?** in the url. Page js does not parse it though, so we introduce a library which does just that, [query-string](https://www.npmjs.com/package/query-string). With this we can update our route to also pass in any query params.
+**Page js** also allows us to manage query strings, the stuff after the **?** in the url. Page js does not parse it though, so we introduce a library which does just that, [query-string](https://www.npmjs.com/package/query-string). With this we can update our router to also pass in any query params.
 
 
 ```marksy

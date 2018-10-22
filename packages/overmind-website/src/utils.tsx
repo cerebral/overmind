@@ -159,7 +159,7 @@ export const compile = marksy({
     Image: ({ src }) => (
       <img src={`/images/${src}`} style={{ width: '100%' }} />
     ),
-    Notice: ({ children }) => <Notice>{compile(children[0]).tree}</Notice>,
+    Notice: ({ children }) => <Notice>{compile(children).tree}</Notice>,
   },
   elements: {
     a({ href, children }) {

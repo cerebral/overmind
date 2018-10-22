@@ -83,7 +83,7 @@ const typescript = {
       fileName: 'components/Item.jsx',
       code: `
 import React from 'react'
-import { Connect } from './app'
+import { connect, Connect } from './app'
 
 type Props = {
   item: { title: string }
@@ -100,7 +100,7 @@ export default connect(Item)
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { Connect } from './app'
+import { connect, Connect } from './app'
 import Item from './Item'
 
 const List: React.SFC<Connect> = ({ app }) => (
