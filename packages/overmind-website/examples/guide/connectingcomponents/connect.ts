@@ -47,7 +47,7 @@ const typescript = {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { Connect } from './app'
+import { connect, Connect } from '../app'
 
 const App: React.SFC<Connect> = ({ app }) => {
   if (app.state.isLoading) {
@@ -64,7 +64,7 @@ export default connect(App)
   vue: javascript.vue,
   angular: [
     {
-      fileName: 'app.component.js',
+      fileName: 'app.component.ts',
       code: `
 import { Component } from '@angular/core';
 import { connect } from '../app'

@@ -60,7 +60,7 @@ Other operations like **map** has a very similar signature, though it will also 
 h(Example, { name: "guide/getstarted/operations" })
 ```
 
-We want to add an effect to our application called **jsonPlaceholder** api, which we can use with the **map** operation to grab some data.
+Let us see how we define this effect called **jsonPlaceholder**.
 
 ## Effects
 
@@ -72,7 +72,7 @@ We can expose any kind of side effects to our Overmind instance. Think of it as 
 
 ## Devtools
 
-At this stage, the benefits of writing an application code this way might not be obvious. It is usually when we start to deal with more complexity that the benefits become more obvious. But even with a somple app, there is one big benefit that comes right out of the box. In our **package.json** file, we add the following and the run the script.
+At this stage, the benefits of writing an application code this way might not be obvious. It is usually when we start to deal with more complexity that the benefits become more obvious. But even with a simple app, there is one big benefit that comes right out of the box. In our **package.json** file, we add the following and the run the script.
 
 ```marksy
 h(Example, { name: "guide/getstarted/devtools" })

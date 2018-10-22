@@ -1,22 +1,27 @@
-export default (ts, view) =>
+export default (ts) =>
   ts
     ? [
         {
+          fileName: 'app/operations.ts',
+          code: `
+import { App, Operation } from 'overmind'
+
+export const initializeRouter: Operation.Run<App> = ({ router, value: app }) => {
+  router.route('/', app.actions.showHomePage)
+  router.route('/users', app.actions.showUsersPage)
+  router.route<{ id: string }>('/users/:id', app.actions.showUserModal)
+  router.start()
+}             
+`,
+        },
+        {
           fileName: 'app/onInitialize.ts',
           code: `
-import { OnInitialize } from 'overmind'
-import page from 'page'
+import { OnInitialize} from 'overmind'
+import * as operations from './operations'
 
-const onInitialize: OnInitialize = (app) => {
-  const withParams = <T>(action: (payload: T) => any) => ({ params }) =>
-    action(params)
-
-  page('/', withParams(app.actions.showHomePage))
-  page('/users', withParams(app.actions.showUsersPage))
-  page('/users/:id', withParams<{
-    id: string
-  }>(app.actions.showUserModal))
-}
+const onInitialize: OnInitialize = (action) => 
+  action.run(operations.initializeRouter)
 
 export default onInitialize
 `,
@@ -24,17 +29,25 @@ export default onInitialize
       ]
     : [
         {
-          fileName: 'app/onInitialize.js',
+          fileName: 'app/operations.js',
           code: `
-import page from 'page'
+export const initializeRouter = ({ router, value: app }) => {
+  router.route('/', app.actions.showHomePage)
+  router.route('/users', app.actions.showUsersPage)
+  router.route('/users/:id', app.actions.showUserModal)
+  router.start()
+}             
+`,
+        },
+        {
+          fileName: 'app/onInitialize.ts',
+          code: `
+import * as operations from './operations'
 
-export default (app) => {
-  const withParams = (action) => ({ params }) => action(params)
+const onInitialize = (action) => 
+  action.run(operations.initializeRouter)
 
-  page('/', withParams(app.actions.showHomePage))
-  page('/users', withParams(app.actions.showUsersPage))
-  page('/users/:id', withParams(app.actions.showUserModal))
-}
+export default onInitialize
 `,
         },
       ]

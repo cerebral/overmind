@@ -2,7 +2,7 @@
 
 Now that you have state defined, describing your application, you want to transform that state into a user interface. There are many ways to express this and Overmind supports the most popular libraries and frameworks for doing this transformation, typically called a view layer. You can also implement a custom view layer if you want to.
 
-The Overmind application instance has a **connect** method and this is used to connect components to the application, exposing the state defined.
+By installing the view layer of choice you will get access to a **connect** function and this is used to connect components to the application, exposing the state and actions defined.
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/connect" })
@@ -18,7 +18,7 @@ The story is a bit different if the state value is an object or an array. These 
 
 ### Arrays
 
-When we just access en array in a component it will rerender if the array itself is replaced or removed, or we do a mutation to it. That would mean we push a new item to it, we splice it or sort it.
+When we just access en array in a component it will rerender if the array itself is replaced, removed or we do a mutation to it. That would mean we push a new item to it, we splice it or sort it.
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/array_1" })
@@ -30,7 +30,7 @@ But what happens if we iterate the array and access a property on the item?
 h(Example, { name: "guide/connectingcomponents/array_2" })
 ```
 
-Now Overmind also sees that this component is interested in the id and title of every item. Meaning that if any id or title changes this component would render again. The id would typically not change, This is typically not what you want. That is why it is a good idea to pass this item to a child component.
+Now Overmind also sees that this component is interested in the id and title of every item. Meaning that if any id or title changes this component would render again. This is typically not what you want. That is why it is a good idea to pass this item to a child component.
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/array_3" })
@@ -39,14 +39,13 @@ h(Example, { name: "guide/connectingcomponents/array_3" })
 In this situation the **List** component will only render when there is a change to the actual list. While each individual **Item** component will render when its respective title changes.
 
 ```marksy
-<Notice>
-Take notice that our **Item** component still has to connect to Overmind, even though we did not explicitly access the application. That is because Overmind needs to connect to the component to track how it accesses application state.
-</Notice>
+h(Notice, {}, "Take notice that our **Item** component still has to connect to Overmind, even though we did not explicitly access the application. That is because Overmind needs to connect to the component to track how it accesses application state."
+)
 ```
 
 ### Objects
 
-Objects are similar to arrays. If you access an object you track if that object is replaced or removed. Like arrays you can mutate the object itself. When you add, replace or remove a key from the object that is considered a mutation of the object. That means if you just access the object, the component will render if any keys are added, replaced or removed.
+Objects are similar to arrays. If you access an object you track if that object is replaced or removed. Also like arrays you can mutate the object itself. When you add, replace or remove a key from the object that is considered a mutation of the object. That means if you just access the object, the component will render if any keys are added, replaced or removed.
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/object_1" })
@@ -60,7 +59,7 @@ h(Example, { name: "guide/connectingcomponents/object_2" })
 
 ## Calling actions
 
-All the actions defined in the Overmind application is available to connected components. The actions are defined as functions that receives an action argument, but this action is something Overmind provides. When Overmind has consumed the actions it spits out plain functions that you can call with an optional value.
+All the actions defined in the Overmind application is available to connected components. When Overmind consumes an action defined it will produce a function for components to call.
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/actions" })

@@ -1,6 +1,6 @@
 # Running side effects
 
-Developing applications is not only about managing state, but also managing side effects. A side effect is typically exampled with an http request or talking to local storage. In Overmind we just call this **effects**. Actually the state is also a type of effect. Unlike state all other effects has to be defined.
+Developing applications is not only about managing state, but also managing side effects. A side effect is typically exampled with an http request or talking to local storage. In Overmind we just call this **effects**.
 
 Let us start with a simple example.
 

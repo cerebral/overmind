@@ -28,7 +28,7 @@ Arrays are in a way similar to objects in the sense that they hold other values,
 
 ### Strings
 
-Strings are of course used to represent text values. Names, descriptions and what not. But strings are also used for ids, types, etc: values used to reference other values. This is an important part in structuring state. For example in our **objects** example above we chose to use an array to represent the tabs, using an index to point to the current tab, but we could also do:
+Strings are of course used to represent text values. Names, descriptions and what not. But strings are also used for ids, types, etc. Strings can be used as values to reference other values. This is an important part in structuring state. For example in our **objects** example above we chose to use an array to represent the tabs, using an index to point to the current tab, but we could also do:
 
 ```marksy
 h(Example, { name: "guide/definingstate/strings" })
@@ -56,7 +56,7 @@ We define the state of the application in **state** files. For example, the top 
 h(Example, { name: "guide/definingstate/define" })
 ```
 
-Note that we are exporting variables from our state module. We use **let** for values that can be replaced and **const** for values that can not be replaced. That would typically be derived or computed values, but you might also have arrays or objects that should not be replaced.
+Note that we are exporting variables from our state module. We use **let** for values that can be replaced and **const** for values that can not be replaced. That would typically be derived values, but you might also have arrays or objects that should not be replaced.
 
 As your application grows you will most likely move parts of the state to their own namespaces. An example of that could be:
 

@@ -48,7 +48,7 @@ const typescript = {
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { Connect } from './app'
+import { connect, Connect } from './app'
 
 const List: React.SFC<Connect> = ({ app }) => (
   <ul>
