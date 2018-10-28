@@ -18,7 +18,7 @@ class FrontPage extends React.Component {
             this.node = node
           }}
         >
-          <Quickstart>
+          <Quickstart href="/videos/overmind-introduction">
             <Icon>movie</Icon>
             {viewport.isMobile ? null : <span>Video introduction</span>}
           </Quickstart>

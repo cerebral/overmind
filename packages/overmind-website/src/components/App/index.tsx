@@ -11,6 +11,7 @@ import Api from '../Api'
 import TopBar from '../TopBar'
 import MobileTopBar from '../MobileTopBar'
 import { Wrapper } from './elements'
+import Workshop from '../Workshop'
 
 const routesMap = {
   '/': FrontPage,
@@ -19,6 +20,7 @@ const routesMap = {
   '/videos': Videos,
   '/videos/:title': Videos,
   '/api/:title': Api,
+  '/workshop': Workshop,
 }
 
 export type TVideo = {
