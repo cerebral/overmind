@@ -24,7 +24,7 @@ const Workshop: React.SFC = () => (
             frameBorder="0"
             // @ts-ignore
             allow="autoplay; encrypted-media"
-            allowFullscreen
+            allowFullScreen
           />
         </Cell>
         <Cell>

@@ -90,7 +90,7 @@ export const Content = styled.div`
   }
 
   > div > div > pre * {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New,
+    font-family: 'Source Code Pro', Menlo, Monaco, Consolas, Courier New,
       monospace;
     font-size: 12px;
     -webkit-font-smoothing: antialiased;
