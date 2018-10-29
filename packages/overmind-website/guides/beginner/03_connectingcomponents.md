@@ -14,7 +14,7 @@ In this example we are accessing the **isLoading** state. When this component re
 
 When Overmind detects that the **App** component is interested in our **isLoading** state, it is not looking at the value itself, it is looking at the path. The component pointed to **state.isLoading**, which means when a mutation occurs on that path in the state, the component will render again. Since the value is a boolean value this can only happen when **isLoading** is replaced or removed. The same goes for strings and numbers as well. We do not say that we mutate a string, boolean or a number. We mutate the object or array that holds those values.
 
-The story is a bit different if the state value is an object or an array. These values can not only be replaced and removed, they can also mutate themselves. En object can have keys added or removed. An array can have items added, removed and even change order of items. Overmind knows this and will notify components respectively. Let us look at how Overmind treats the following scenarios to get a better understanding.
+The story is a bit different if the state value is an object or an array. These values can not only be replaced and removed, they can also mutate themselves. An object can have keys added or removed. An array can have items added, removed and even change order of items. Overmind knows this and will notify components respectively. Let us look at how Overmind treats the following scenarios to get a better understanding.
 
 ### Arrays
 
