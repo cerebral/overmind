@@ -1,19 +1,27 @@
 import * as React from 'react'
 import { Action } from 'overmind'
-import * as mutations from './mutations'
-import * as operations from './operations'
-import { Todo } from './state'
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
-export const changeNewTodoTitle: Action<ChangeEvent, string> = (action) =>
-  action.map(operations.getEventValue).mutate(mutations.setNewTodoTitle)
+let nextTodoId = 0
 
-export const addTodo: Action<React.FormEvent> = (action) =>
-  action
-    .run(operations.preventEventDefault)
-    .mutate(mutations.addTodo)
-    .mutate(mutations.clearNewTodoTitle)
+export const changeNewTodoTitle: Action<ChangeEvent> = ({
+  value: event,
+  state,
+}) => {
+  state.newTodoTitle = event.target.value
+}
 
-export const toggleCompleted: Action<Todo> = ({ mutate }) =>
-  mutate(mutations.toggleCompleted)
+export const addTodo: Action = ({ state }) => {
+  state.todos.unshift({
+    id: String(nextTodoId++),
+    title: state.newTodoTitle,
+    completed: false,
+  })
+  state.newTodoTitle = ''
+}
+
+export const toggleCompleted: Action<string> = ({ value: todoId, state }) => {
+  const todo = state.todos.find((todo) => todo.id === todoId)
+  todo.completed = !todo.completed
+}

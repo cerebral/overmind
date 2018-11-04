@@ -6,13 +6,12 @@ import * as effects from './effects'
 import * as state from './state'
 
 const config = {
-  effects,
   actions,
   state,
 }
 
 declare module 'overmind' {
-  interface App extends TApp<typeof config> {}
+  interface IApp extends TApp<typeof config> {}
 }
 
 export const app = new Overmind(config)
