@@ -8,7 +8,7 @@ type Props = {
 } & Connect
 
 const Todo: React.SFC<Props> = ({ todo, app }) => (
-  <Item onClick={() => app.actions.toggleCompleted(todo)}>
+  <Item onClick={() => app.actions.toggleCompleted(todo.id)}>
     <Completed completed={todo.completed}>✔</Completed> {todo.title}
   </Item>
 )

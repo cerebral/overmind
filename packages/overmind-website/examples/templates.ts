@@ -7,7 +7,7 @@ import { TConnect, createConnect } from 'overmind-${view}'
 ${config.trim()}
 
 declare module 'overmind' {
-  interface App extends TApp<typeof config> {}
+  interface IApp extends TApp<typeof config> {}
 }
 
 export const app = new Overmind(config)

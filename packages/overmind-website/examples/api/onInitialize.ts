@@ -7,13 +7,11 @@ export default (ts, view) =>
           fileName: 'app/onInitialize.ts',
           code: `
 import { OnInitialize } from 'overmind'
-import * as operations from './operations'
-import * as mutations from './mutations'
 
-const onInitialize: OnInitialize = action =>
-  action
-    .map(operations.getInitialData)
-    .mutate(mutations.setInitialData)
+const onInitialize: OnInitialize = async ({ value: actions, state, api }) => {
+  const initialData = await api.getInitialData()
+  state.initialData = initialData
+}
 
 export default onInitialize
 `,
@@ -38,15 +36,12 @@ const config = {
       ]
     : [
         {
-          fileName: 'app/onInitialize.ts',
+          fileName: 'app/onInitialize.js',
           code: `
-import * as operations from './operations'
-import * as mutations from './mutations'
-
-const onInitialize = action =>
-  action
-    .map(operations.getInitialData)
-    .mutate(mutations.setInitialData)
+const onInitialize = async ({ value: actions, state, api }) => {
+  const initialData = await api.getInitialData()
+  state.initialData = initialData
+}
 
 export default onInitialize
 `,

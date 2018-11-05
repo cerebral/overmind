@@ -11,17 +11,12 @@ import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
 const config = modules({
-  state: {
-    title: 'My app'
-  },
-  modules: {
-    moduleA,
-    moduleB
-  }
+  moduleA,
+  moduleB
 })
 
 declare module 'overmind' {
-  interface App extends TApp<typeof config> {}
+  interface IApp extends TApp<typeof config> {}
 }
 
 const app = new Overmind(config)
@@ -43,13 +38,8 @@ import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
 const config = modules({
-  state: {
-    title: 'My app'
-  },
-  modules: {
-    moduleA,
-    moduleB
-  }
+  moduleA,
+  moduleB
 })
 
 const app = new Overmind(config)

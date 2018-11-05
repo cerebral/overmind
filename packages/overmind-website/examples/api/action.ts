@@ -5,20 +5,36 @@ export default (ts) =>
           code: `
 import { Action } from 'overmind'
 
-export const doThis: Action<number> = action =>
-  action
-    .map(operations.getUser)
-    .mutate(mutations.setUser)
+export const changeTitle: Action<string> = ({ value: title, state }) => {
+  state.title = title
+}
+`,
+        },
+        {
+          code: `
+import { Action } from 'overmind'
+
+export const getItem: Action<number> = async ({ value: id, state, api }) => {
+  const item = await api.getItem(id)
+  state.items.push(item)
+}
   `,
         },
       ]
     : [
         {
           code: `
-export const doThis = action => 
-  action
-    .map(operations.getUser)
-    .mutate(mutations.setUser)
+export const changeTitle = ({ value: title, state }) => {
+  state.title = title
+}
+`,
+        },
+        {
+          code: `
+export const getItem = async ({ value: id, state, api }) => {
+  const item = await api.getItem(id)
+  state.items.push(item)
+}
   `,
         },
       ]
