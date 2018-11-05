@@ -7,6 +7,7 @@ import * as state from './state'
 
 const config = {
   actions,
+  effects,
   state,
 }
 
