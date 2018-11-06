@@ -10,7 +10,7 @@ When you have your project up and running install the Overmind dependency by usi
 h(Example, { name: "guide/getstarted/install" })
 ```
 
-Great, we are good to go! In this guide we will create a very simple application, but we will use the conventions for structuring a scalable app. That means we will be creating some files that seem unnecessary, but this is just as important as learning the API.
+Great, we are good to go!
 
 ## Our first state
 
@@ -28,7 +28,7 @@ This will of course result in an error. To make this work we have to create an O
 h(Example, { name: "guide/getstarted/createapp" })
 ```
 
-We add the state to our main module and configure that module in our **app.ts** file. In addition to exporting the app itself we export a way to connect to the app. Let us do that now.
+In addition to exporting the app itself we export a way to connect to the app. Let us do that now.
 
 ```marksy
 h(Example, { name: "guide/getstarted/connectapp" })
@@ -42,24 +42,6 @@ We want to load some posts from [jsonplaceholder](https://jsonplaceholder.typico
 h(Example, { name: "guide/getstarted/actions" })
 ```
 
-As you can see we have not really written any logic yet, we are just describing what we want to happen. This is what we call **declarative** code and is a concept in programming used to manage complexity. In this application it might seem unnecessary, but it is very important to manage complexity as your application grows.
-
-## Operations
-
-All logic you write for your app is considered an operation. These operation functions have different signatures based on the **operator** that consumes it in an action. The most important operation is the mutation operation.
-
-```marksy
-h(Example, { name: "guide/getstarted/mutations" })
-```
-
-Functions used with the **mutate** operator are passed the current state of the application and the current value of the action. These functions are the only functions allowed to change the state of your application. This restriction combined with being just a simple function gives you several benefits as you will see when diving deeper into Overmind.
-
-Other operations like **map** has a very similar signature, though it will also receive all the **effects** configured for your application.
-
-```marksy
-h(Example, { name: "guide/getstarted/operations" })
-```
-
 Let us see how we define this effect called **jsonPlaceholder**.
 
 ## Effects
@@ -68,7 +50,7 @@ Let us see how we define this effect called **jsonPlaceholder**.
 h(Example, { name: "guide/getstarted/effects" })
 ```
 
-We can expose any kind of side effects to our Overmind instance. Think of it as injecting libraries and tools. For example, it could be the [axios]() library itself, some class instance we created or just a plain object as we see in this example. Doing this injection keeps our operation functions pure and Overmind knows when these injected libraries are accessed.
+We can expose any kind of side effects to our Overmind instance. Think of it as injecting libraries and tools. For example, it could be the [axios](https://www.npmjs.com/package/axios) library itself, some class instance we created or just a plain object as we see in this example. Doing this injection keeps our actions pure and Overmind knows when these injected libraries are accessed.
 
 ## Devtools
 

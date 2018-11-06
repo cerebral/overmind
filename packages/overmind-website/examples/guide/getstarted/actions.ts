@@ -7,15 +7,12 @@ export default (ts, view) =>
           fileName: 'app/actions.js',
           code: `
 import { Action } from 'overmind'
-import * as mutations from './mutations'
-import * as operations from './operations'
 
-export const loadPosts: Action = action =>
-  action
-    .mutate(mutations.setLoadingPosts)
-    .map(operations.getPosts)
-    .mutate(mutations.setPosts)
-    .mutate(mutations.unsetLoadingPosts)
+export const loadPosts: Action = async ({ state, jsonPlaceholder }) => {
+  state.isLoadingPosts = true
+  state.posts = await jsonPlaceholder.getPosts()
+  state.isLoadingPosts = false
+}
     `,
         },
         {
@@ -36,30 +33,23 @@ const config = {
       ]
     : [
         {
-          fileName: 'app/actions.js',
-          code: `
-import * as mutations from './mutations'
-import * as operations from './operations'
-
-export const loadPosts = action =>
-  action
-    .mutate(mutations.setLoadingPosts)
-    .map(operations.getPosts)
-    .mutate(mutations.setPosts)
-    .mutate(mutations.unsetLoadingPosts)
-    `,
-        },
-        {
           fileName: 'app/index.js',
           code: `
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
-import * as state from './state'
-import * as actions from './actions'
 
 export const app = new Overmind({
-  state,
-  actions
+  state: {
+    isLoadingPosts: false,
+    posts: []
+  },
+  actions: {
+    loadPosts: async ({ state, jsonPlaceholder }) => {
+      state.isLoadingPosts = true
+      state.posts = await jsonPlaceholder.getPosts()
+      state.isLoadingPosts = false
+    }
+  }
 })
 
 export const connect = createConnect(app)

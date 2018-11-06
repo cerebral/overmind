@@ -6,7 +6,14 @@ export default (ts, view) =>
         {
           fileName: 'app/state.ts',
           code: `
+export type Post = {
+  title: string
+  body: string
+}
+
 export let isLoadingPosts: boolean = false
+
+export let posts: Post[] = []
     `,
         },
         {
@@ -25,20 +32,15 @@ const config = {
       ]
     : [
         {
-          fileName: 'app/state.js',
-          code: `
-export let isLoadingPosts = false
-    `,
-        },
-        {
           fileName: 'app/index.js',
           code: `
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
-import * as state from './state'
 
 export const app = new Overmind({
-  state
+  state: {
+    isLoadingPosts: false
+  }
 })
 
 export const connect = createConnect(app)

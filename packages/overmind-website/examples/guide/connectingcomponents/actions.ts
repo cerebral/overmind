@@ -3,11 +3,8 @@ const javascript = {
     {
       fileName: 'app/actions.js',
       code: `
-import * as mutations from './mutations'
-
-export const toggleAwesomeApp = action =>
-  action
-    .mutate(mutations.toggleAwesomeApp)
+export const toggleAwesomeApp = ({ state }) =>
+  state.isAwesome = !state.isAwesome
     `,
     },
     {
@@ -31,11 +28,8 @@ export default connect(App)
     {
       fileName: 'app/actions.js',
       code: `
-import * as mutations from './mutations'
-
-export const toggleAwesomeApp: Action = action =>
-  action
-    .mutate(mutations.toggleAwesomeApp)
+export const toggleAwesomeApp = ({ state }) =>
+  state.isAwesome = !state.isAwesome
     `,
     },
     {
@@ -63,11 +57,10 @@ const typescript = {
     {
       fileName: 'app/actions.ts',
       code: `
-import * as mutations from './mutations'
+import { Action } from 'overmind'
 
-export const toggleAwesomeApp: Action = action =>
-  action
-    .mutate(mutations.toggleAwesomeApp)
+export const toggleAwesomeApp: Action = ({ state }) =>
+  state.isAwesome = !state.isAwesome
     `,
     },
     {
@@ -91,11 +84,10 @@ export default connect(App)
     {
       fileName: 'app/actions.ts',
       code: `
-import * as mutations from './mutations'
+import { Action } from 'overmind'
 
-export const toggleAwesomeApp: Action = action =>
-  action
-    .mutate(mutations.toggleAwesomeApp)
+export const toggleAwesomeApp: Action = ({ state }) =>
+  state.isAwesome = !state.isAwesome
     `,
     },
     {
