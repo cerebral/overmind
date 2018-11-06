@@ -5,9 +5,10 @@ export default (ts) =>
           fileName: 'app/operators.ts',
           code: `
 import { fork, Operator } from 'overmind'
+import { User } from './state'
 
 export const forkUserType = (paths: {
-  [key: string]: Operator<User>
+  [key: string]: Operator<User, any>
 }) => fork<User>(({ value: user }) => user.type, paths)
 `,
         },

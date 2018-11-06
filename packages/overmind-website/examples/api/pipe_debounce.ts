@@ -6,7 +6,7 @@ export default (ts) =>
 import { Pipe, pipe, debounce } from 'overmind'
 import { performSearch } from './operators'
 
-export const search: Pipe<string> = pipe(
+export const search: Pipe<string, string> = pipe(
   debounce(200),
   performSearch
 )

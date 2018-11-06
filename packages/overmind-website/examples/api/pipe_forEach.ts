@@ -4,9 +4,10 @@ export default (ts) =>
         {
           code: `
 import { Pipe, pipe, forEach } from 'overmind'
+import { Post } from './state'
 import { getPosts, getAuthor, setAuthor } from './operators'
 
-export const openPosts: Pipe<string> = pipe(
+export const openPosts: Pipe<string, Post[]> = pipe(
   getPosts,
   forEach(pipe(
     getAuthor,

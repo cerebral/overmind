@@ -4,6 +4,7 @@ export default (ts) =>
         {
           code: `
 import { Pipe, pipe, debounce } from 'overmind'
+import { QueryResult } from './state'
 import {
   setQuery,
   filterValidQuery,
@@ -12,7 +13,7 @@ import {
   setResult
 } from './operators'
 
-export const search: Pipe<string> = pipe(
+export const search: Pipe<string, QueryResult[]> = pipe(
   setQuery,
   filterValidQuery,
   debounce(200),
