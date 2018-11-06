@@ -3,14 +3,15 @@ export default (ts) =>
     ? [
         {
           code: `
-import { pipe } from 'overmind'
+import { Pipe, pipe } from 'overmind'
+import { Item } from './state'
 
-export const openItems = pipe(
+export const openItems: Pipe<void, Item[]> = pipe(
   getItems,
   setItems
 )
 
-export const openItem = pipe(
+export const openItem: Pipe<void, Item> = pipe(
   openItems,
   getItem,
   setItem
