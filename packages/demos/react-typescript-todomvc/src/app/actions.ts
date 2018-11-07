@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Action } from 'overmind'
+import { Todo } from './state'
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -21,7 +22,6 @@ export const addTodo: Action = ({ state }) => {
   state.newTodoTitle = ''
 }
 
-export const toggleCompleted: Action<string> = ({ value: todoId, state }) => {
-  const todo = state.todos.find((todo) => todo.id === todoId)
+export const toggleCompleted: Action<Todo> = ({ value: todo }) => {
   todo.completed = !todo.completed
 }
