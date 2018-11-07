@@ -57,6 +57,13 @@ The pipe is an operator in itself. Use it to compose other operators and pipes.
 h(Example, { name: "api/pipe_pipe" })
 ```
 
+## run
+This operator is useful to run effects. It will just pass the current value a long.
+
+```marksy
+h(Example, { name: "api/pipe_run" })
+```
+
 ## wait
 Hold execution for set time.
 
