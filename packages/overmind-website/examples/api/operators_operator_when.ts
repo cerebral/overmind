@@ -15,11 +15,11 @@ export const whenAwesomeUser = (paths: {
         {
           fileName: 'app/actions.ts',
           code: `
-import { Pipe, pipe } from 'overmind'
+import { Operator, pipe } from 'overmind'
 import { User } from './state'
 import { whenAwesomeUser, doThis, doThat } from './operators'
 
-export const getUser: Pipe<string, User> = pipe(
+export const getUser: Operator<string, User> = pipe(
   getUser,
   whenAwesomeUser({
     true: doThis,

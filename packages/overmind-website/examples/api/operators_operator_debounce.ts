@@ -3,10 +3,10 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Pipe, pipe, debounce } from 'overmind'
+import { Operator, pipe, debounce } from 'overmind'
 import { performSearch } from './operators'
 
-export const search: Pipe<string, string> = pipe(
+export const search: Operator<string, string> = pipe(
   debounce(200),
   performSearch
 )

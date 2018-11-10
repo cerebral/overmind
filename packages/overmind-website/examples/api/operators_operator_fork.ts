@@ -15,10 +15,10 @@ export const forkUserType = (paths: {
         {
           fileName: 'app/actions.ts',
           code: `
-import { Pipe, pipe } from 'overmind'
+import { Operator, pipe } from 'overmind'
 import { forkUserType, doThis, doThat } from './operators'
 
-export const getUser: Pipe<string> = pipe(
+export const getUser: Operator<string> = pipe(
   getUser,
   forkUserType({
     admin: doThis,
