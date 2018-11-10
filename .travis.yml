@@ -2,7 +2,7 @@ sudo: false
 language: node_js
 node_js: '8'
 install:
-  - npm ci
+  - travis_wait npm ci
 cache:
   directories:
     - '$HOME/.npm'
