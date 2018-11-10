@@ -5,7 +5,7 @@ import Todo from '../Todo'
 
 const Todos = ({ app }) => (
   <List>
-    {app.state.todos.map((todo) => <Todo key={todo.id} todo={todo} />)}
+    {app.state.todos.map((todo, index) => <Todo key={index} todo={todo} />)}
   </List>
 )
 
