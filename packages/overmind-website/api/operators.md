@@ -56,6 +56,13 @@ You are only allowed to change the state in the mutate operator.
 h(Example, { name: "api/operators_operator_mutate" })
 ```
 
+## parallel
+Will run every operator and wait for all of them to finish before moving on. Works like *Promise.all*.
+
+```marksy
+h(Example, { name: "api/operators_operator_parallel" })
+```
+
 ## pipe
 The pipe is an operator in itself. Use it to compose other operators and pipes.
 
