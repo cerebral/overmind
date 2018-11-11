@@ -1,5 +1,5 @@
 import { Overmind } from 'overmind'
-import { createConnect } from 'overmind-react'
+import { createHook } from 'overmind-react'
 
 const app = new Overmind({
   state: {
@@ -17,6 +17,7 @@ const app = new Overmind({
         title: state.newTodoTitle,
         completed: false,
       })
+      state.newTodoTitle = ''
     },
     toggleCompleted({ value: todo }) {
       todo.completed = !todo.completed
@@ -24,6 +25,6 @@ const app = new Overmind({
   },
 })
 
-export const connect = createConnect(app)
+export const useOvermind = createHook(app)
 
 export default app
