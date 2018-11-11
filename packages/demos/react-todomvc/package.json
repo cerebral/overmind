@@ -17,8 +17,8 @@
 	"dependencies": {
 		"overmind-react": "next",
 		"color": "^3.0.0",
-		"react": "^16.4.1",
-		"react-dom": "^16.4.1",
+    "react": "^16.7.0-alpha",
+    "react-dom": "^16.7.0-alpha",
 		"styled-components": "^3.3.3"
 	},
 	"devDependencies": {
