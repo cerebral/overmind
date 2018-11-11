@@ -24,6 +24,7 @@
 	},
 	"devDependencies": {
 		"babel-plugin-transform-vue-jsx": "^3.7.0",
+		"babel-preset-vue": "^2.0.2",
 		"parcel-bundler": "^1.9.7"
 	}
 }

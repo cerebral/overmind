@@ -1,27 +1,19 @@
-import { injectGlobal } from './styled-components'
-import App from './components/App'
-import Vue from 'vue'
+import Vue from 'vue/dist/vue'
+import AddTodo from './components/AddTodo.vue'
+import Todos from './components/Todos.vue'
+import './styling'
 
-injectGlobal`
-  html, body {
-    margin: 0;
-    height: 100%;
-  }
-  body {
-    background-color: #133046;
-    color: #FAFAFA;
-    font-family: Helvetica Neue;
-    overflow: hidden;
-  }
-  #app {
-    height: 100%;
-  }
-`
 Vue.config.productionTip = false
 // eslint-disable-next-line no-new
 new Vue({
   el: '#app',
-  render() {
-    return <App />
-  },
+  template: `
+  <div class="wrapper">
+    <div class="wrapper-inner">
+      <add-todo></add-todo>
+      <todos></todos>
+    </div>
+  </div>
+  `,
+  components: { AddTodo, Todos },
 })
