@@ -3,7 +3,7 @@ import { useOvermind } from '../../app'
 import { Item, Completed } from './elements'
 
 function Todo({ todo }) {
-  const { actions } = useOvermind(Todo)
+  const { actions } = useOvermind()
 
   return (
     <Item onClick={() => actions.toggleCompleted(todo)}>

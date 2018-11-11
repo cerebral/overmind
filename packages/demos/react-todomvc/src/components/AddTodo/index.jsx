@@ -3,7 +3,7 @@ import { useOvermind } from '../../app'
 import { Wrapper, Input, Button, Form } from './elements'
 
 function AddTodo() {
-  const { state, actions } = useOvermind(AddTodo)
+  const { state, actions } = useOvermind()
 
   return (
     <Wrapper>

@@ -4,7 +4,7 @@ import { List } from './elements'
 import Todo from '../Todo'
 
 function Todos() {
-  const { state } = useOvermind(Todos)
+  const { state } = useOvermind()
 
   return (
     <List>
