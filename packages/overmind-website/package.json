@@ -23,7 +23,8 @@
 			"src",
 			"package.json",
 			"tsconfig.json",
-			"videos.json",
+      "videos.json",
+      "demos.json",
 			"webpack.config.js"
 		]
 	},
