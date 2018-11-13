@@ -1,18 +1,49 @@
 import * as React from 'react'
+import { getTypescript, getTheme, viewport } from '../../utils'
 import Logo from '../Logo'
-import { Wrapper, QuickstartWrapper, Quickstart } from './elements'
+import {
+  Wrapper,
+  QuickstartWrapper,
+  Quickstart,
+  Iframe,
+  IframeWrapper,
+} from './elements'
 import Icon from '../Icon'
-import { viewport } from '../../utils'
+import { TDemo } from '../App'
 
-class FrontPage extends React.Component {
+type Props = {
+  demos: TDemo[]
+}
+
+class FrontPage extends React.Component<Props> {
   node: HTMLElement
   componentDidMount() {
     requestAnimationFrame(() => (this.node.style.bottom = '0'))
+  }
+  renderDemo() {
+    if (!this.props.demos.length) {
+      return null
+    }
+
+    const typescript = getTypescript()
+    const theme = getTheme()
+    const view = theme === 'react' && typescript ? 'react_ts' : theme
+    const demoUrl = this.props.demos[0].sandboxes[view]
+    return (
+      <Iframe
+        key={demoUrl}
+        src={demoUrl}
+        sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+      />
+    )
   }
   render() {
     return (
       <Wrapper>
         <Logo />
+        {viewport.isMobile ? null : (
+          <IframeWrapper>{this.renderDemo()}</IframeWrapper>
+        )}
         <QuickstartWrapper
           innerRef={(node) => {
             this.node = node

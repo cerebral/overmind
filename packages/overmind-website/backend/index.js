@@ -26,6 +26,10 @@ function getVideos() {
   return fs.readFileSync(path.resolve('videos.json')).toString()
 }
 
+function getDemos() {
+  return fs.readFileSync(path.resolve('demos.json')).toString()
+}
+
 function getApis() {
   return fs.readdirSync(path.resolve('api')).reduce((acc, fileName) => {
     const content = fs.readFileSync(path.resolve('api', fileName)).toString()
@@ -74,6 +78,7 @@ function getSearchData() {
 
 const guides = getGuides()
 const videos = getVideos()
+const demos = getDemos()
 const apis = getApis()
 
 const searchData = getSearchData()
@@ -85,6 +90,9 @@ app.get('/backend/guides', (_, res) =>
 )
 app.get('/backend/videos', (_, res) =>
   res.send(IS_PRODUCTION ? videos : getVideos())
+)
+app.get('/backend/demos', (_, res) =>
+  res.send(IS_PRODUCTION ? demos : getDemos())
 )
 app.get('/backend/apis', (_, res) => res.send(IS_PRODUCTION ? apis : getApis()))
 app.get('/backend/search', (req, res) => {

@@ -32,3 +32,25 @@ export const Quickstart = styled.a`
     color: ${({ theme }) => theme.color.white};
   }
 `
+
+export const IframeWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: ${({ theme }) => '4rem'};
+  justify-content: center;
+  align-items: center;
+`
+
+export const Iframe = styled.iframe`
+  border: 0;
+  width: calc(100% - 200px);
+  height: calc(100% - 200px);
+  box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+  overflow: hidden;
+`

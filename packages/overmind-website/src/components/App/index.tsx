@@ -42,11 +42,19 @@ export type TApi = {
   fileName: string
 }
 
+export type TDemo = {
+  title: string
+  sandboxes: {
+    [view: string]: string
+  }
+}
+
 type State = {
   currentPage: string
   currentPath: string
   videos: TVideo[]
   guides: TGuide[]
+  demos: TDemo[]
   apis: TApi[]
   isLoading: boolean
 }
@@ -56,6 +64,7 @@ class App extends React.Component<{}, State> {
     currentPage: null,
     currentPath: null,
     videos: [],
+    demos: [],
     guides: [],
     apis: [],
     isLoading: true,
@@ -85,12 +94,14 @@ class App extends React.Component<{}, State> {
     Promise.all([
       fetch('/backend/guides').then((response) => response.json()),
       fetch('/backend/videos').then((response) => response.json()),
+      fetch('/backend/demos').then((response) => response.json()),
       fetch('/backend/apis').then((response) => response.json()),
-    ]).then(([guides, videos, apis]) =>
+    ]).then(([guides, videos, demos, apis]) =>
       this.setState({
         isLoading: false,
         guides,
         videos,
+        demos,
         apis,
       })
     )
@@ -120,6 +131,7 @@ class App extends React.Component<{}, State> {
             currentPath={currentPath}
             isLoading={this.state.isLoading}
             videos={this.state.videos}
+            demos={this.state.demos}
             apis={this.state.apis}
             guides={this.state.guides}
           />

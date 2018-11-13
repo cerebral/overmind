@@ -1,4 +1,0 @@
-{
-  "presets": ["vue"],
-  "plugins": ["transform-vue-jsx"]
-}
