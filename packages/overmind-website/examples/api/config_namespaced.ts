@@ -1,0 +1,48 @@
+export default (ts, view) =>
+  ts
+    ? [
+        {
+          fileName: 'app.ts',
+          code: `
+import { Overmind, TApp } from 'overmind'
+import { namespaced } from 'overmind/config'
+import * as moduleA from './moduleA'
+import * as moduleB from './moduleB'
+
+const config = namespaced({
+  moduleA,
+  moduleB
+})
+
+declare module 'overmind' {
+  interface IApp extends TApp<typeof config> {}
+}
+
+const app = new Overmind(config)
+
+export type Connect = TConnect<typeof app>
+
+export default app
+`,
+        },
+      ]
+    : [
+        {
+          fileName: 'app/index.js',
+          code: `
+import { Overmind} from 'overmind'
+import { namespaced } from 'overmind/config'
+import * as moduleA from './moduleA'
+import * as moduleB from './moduleB'
+
+const config = namespaced({
+  moduleA,
+  moduleB
+})
+
+const app = new Overmind(config)
+
+export default app
+`,
+        },
+      ]
