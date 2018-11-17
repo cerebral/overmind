@@ -71,7 +71,8 @@ h(Example, { name: "api/operators_operator_pipe" })
 ```
 
 ## run
-This operator is useful to run effects. It will just pass the current value a long.
+This operator is useful to run effects. It will just pass the current value a long. You may return a promise which will hold further
+execution until it is resolved.
 
 ```marksy
 h(Example, { name: "api/operators_operator_run" })
