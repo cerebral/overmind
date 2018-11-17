@@ -22,7 +22,7 @@ export default onInitialize
             view,
             `
 import onInitialize from './onInitialize'
-import * as state from './state'
+import { state } from './state'
 import * as actions from './actions'
 
 const config = {
@@ -51,7 +51,7 @@ export default onInitialize
           code: `
 import { Overmind } from 'overmind'
 import onInitialize from './onInitialize'
-import * as state from './state'
+import { state } from './state'
 import * as actions from './actions'
 
 const app = new Overmind({

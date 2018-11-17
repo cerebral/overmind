@@ -7,7 +7,7 @@ export default (ts, view) =>
 import { Overmind, TApp } from 'overmind'
 import { createConnect, TConnect } from 'overmind-${view}'
 import * as page from 'page'
-import * as state from './state'
+import { state } from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 
@@ -44,7 +44,7 @@ export connect = createConnect(app)
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
 import page from 'page'
-import * as state from './state'
+import state from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 

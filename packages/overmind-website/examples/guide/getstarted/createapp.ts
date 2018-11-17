@@ -11,9 +11,15 @@ export type Post = {
   body: string
 }
 
-export let isLoadingPosts: boolean = false
+export type State = {
+  isLoadingPosts: boolean
+  posts: Post[]
+}
 
-export let posts: Post[] = []
+export const state: State = {
+  isLoadingPosts: false,
+  posts: []
+}
     `,
         },
         {
@@ -21,7 +27,7 @@ export let posts: Post[] = []
           code: tsAppIndex(
             view,
             `
-import * as state from './state'
+import { state } from './state'
 
 const config = {
   state,

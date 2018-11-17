@@ -14,7 +14,7 @@ export { default as http } from 'axios'
           code: tsAppIndex(
             view,
             `
-import * as state from './state'
+import { state } from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 
@@ -39,7 +39,7 @@ export { default as http } from 'axios'
           code: `
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
-import * as state from './state'
+import state from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 

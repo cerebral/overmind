@@ -9,9 +9,15 @@ export type User = {
   bio: string
 }
 
-export let isLoading: boolean = false
+export type State = {
+  isLoading: boolean
+  user: User
+}
 
-export let user: User = null
+export const state: State = {
+  isLoading: false,
+  user: null
+}
   `,
         },
       ]
@@ -19,9 +25,10 @@ export let user: User = null
         {
           fileName: 'app/state.js',
           code: `
-export let isLoading = false
-
-export let user = null
+export default {
+  isLoading: false,
+  user: null
+}
   `,
         },
       ]

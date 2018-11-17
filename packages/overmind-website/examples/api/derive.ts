@@ -11,10 +11,16 @@ export type Item = {
   completed: boolean
 }
 
-export const items: Item[] = []
+export type State = {
+  items: Item[]
+  completedItems: Derive<State, Item[]>
+}
 
-export const completedItems: Derive<Item[]> = (state, rootState) =>
-  state.items.filter(item => item.completed)
+export const state: State = {
+  items: [],
+  completedItems: (state, rootState) =>
+    state.items.filter(item => item.completed)
+}
     `,
         },
       ]
@@ -24,10 +30,11 @@ export const completedItems: Derive<Item[]> = (state, rootState) =>
           code: `
 import * as derived from './derived'
 
-export const items = []
-
-export const completedItems = (state, rootState) =>
-  state.items.filter(item => item.completed)
+export default {
+  items: [],
+  completedItems: (state, rootState) =>
+    state.items.filter(item => item.completed)
+}
     `,
         },
       ]

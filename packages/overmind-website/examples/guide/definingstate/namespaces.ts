@@ -13,14 +13,31 @@ export type Users = {
   [username: string]: User
 }
 
-export let isLoadingUsers: boolean = false
+export type State = {
+  isLoadingUsers: boolean
+  users: Users
+}
 
-export const users: Users = {}
+export const state: State = {
+  isLoadingUsers: false,
+  users: {}
+}
   `,
         },
         {
           fileName: 'app/issues/state.ts',
           code: `
+export type Issue = {
+  id: string
+  username: string
+  title: string
+  description: string
+}
+
+export type Issues = {
+  [id: string]: Issue
+}
+
 export enum SortKey = {
   Date = 'date',
   Title = 'title'
@@ -36,13 +53,18 @@ export type Sorting {
   type: SortDirection
 }
 
-export let isLoading = false
+export type State = {
+  isLoading: boolean
+  issues: Issues
+}
 
-export const issues = {}
-
-export const sorting: Sorting = {
-  key: SortKey.Date,
-  direction: SortDirection.Asc
+export const state: State = {
+  isLoading: false,
+  issues: {},
+  sorting: {
+    key: SortKey.Date,
+    direction: SortDirection.Asc
+  }
 }
   `,
         },
@@ -51,21 +73,22 @@ export const sorting: Sorting = {
         {
           fileName: 'app/admin/state.js',
           code: `
-export let isLoadingUsers = false
-
-export const users = {}
+export default {
+  isLoadingUsers: false,
+  users: {}
+}
   `,
         },
         {
           fileName: 'app/issues/state.js',
           code: `
-export let isLoading = false
-
-export const issues = {}
-
-export const sorting = {
-  key: 'date',
-  type: 'asc'
+export default {
+  isLoading: false,
+  issues: {},
+  sorting: {
+    key: 'date',
+    type: 'asc'
+  }
 }
   `,
         },
