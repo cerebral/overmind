@@ -13,7 +13,7 @@ export type Item = {
 
 export const items: Item[] = []
 
-export const completedItems: Derive<Item[]> = state =>
+export const completedItems: Derive<Item[]> = (state, rootState) =>
   state.items.filter(item => item.completed)
     `,
         },
@@ -26,7 +26,7 @@ import * as derived from './derived'
 
 export const items = []
 
-export const completedItems = state =>
+export const completedItems = (state, rootState) =>
   state.items.filter(item => item.completed)
     `,
         },
