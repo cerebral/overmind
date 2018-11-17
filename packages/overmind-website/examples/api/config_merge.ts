@@ -5,12 +5,11 @@ export default (ts, view) =>
           fileName: 'app.ts',
           code: `
 import { Overmind, TApp } from 'overmind'
-import { modules } from 'overmind/modules'
-import { TConnect, createConnect } from 'overmind-${view}'
+import { merge } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
-const config = modules({
+const config = merge({
   moduleA,
   moduleB
 })
@@ -32,12 +31,11 @@ export default app
           fileName: 'app/index.js',
           code: `
 import { Overmind} from 'overmind'
-import { modules } from 'overmind/modules'
-import createConnect from 'overmind-${view}'
+import { merge } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
-const config = modules({
+const config = merge({
   moduleA,
   moduleB
 })
