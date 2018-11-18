@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   justify-content: center;
 
   h2 {
-    color: ${({ theme }) => theme.color.primary};
+    color: ${({ theme }) => theme.color.dark};
   }
 `
 

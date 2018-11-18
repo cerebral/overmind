@@ -1,6 +1,4 @@
-import { tsAppIndex } from '../../templates'
-
-export default (ts, view) =>
+export default (ts) =>
   ts
     ? [
         {

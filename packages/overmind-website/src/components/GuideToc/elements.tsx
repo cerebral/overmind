@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   position: fixed;
   top: 100px;
   left: calc(50vw + 400px);
-  color: ${({ theme }) => theme.color.fade(theme.color.black, 0.2)};
+  color: ${({ theme }) => theme.color.black};
 
   ul {
     list-style-type: none;
@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
     text-decoration: none;
   }
   a:hover {
-    color: ${({ theme }) => theme.color.black};
+    color: ${({ theme }) => theme.color.fade(theme.color.black, 0.2)};
   }
 
   @media (max-width: 1279px) {
