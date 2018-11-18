@@ -3,11 +3,9 @@ import styled from '../../styled-components'
 export const Wrapper = styled.div`
   position: fixed;
   z-index: 2;
-  background-color: ${({ theme }) =>
-    theme.color.lighten(theme.color.dark, -0.25)};
   height: 50px;
   top: -50px;
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.color.black};
   transition: top 0.5s ease-out;
   width: 100%;
   display: flex;

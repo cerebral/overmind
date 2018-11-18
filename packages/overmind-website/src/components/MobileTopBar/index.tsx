@@ -59,23 +59,38 @@ class MobileTopBar extends React.Component<Props> {
             <Link href="/api/action" selected={currentPath === '/api/action'}>
               Api - Action
             </Link>
-            <Link href="/api/app" selected={currentPath === '/api/app'}>
-              Api - App
-            </Link>
-            <Link href="/api/compute" selected={currentPath === '/api/compute'}>
-              Api - Compute
+            <Link href="/api/config" selected={currentPath === '/api/config'}>
+              Api - Config
             </Link>
             <Link href="/api/connect" selected={currentPath === '/api/connect'}>
               Api - Connect
             </Link>
             <Link href="/api/derive" selected={currentPath === '/api/derive'}>
-              Api - Derived
+              Api - Derive
             </Link>
             <Link href="/api/effects" selected={currentPath === '/api/effects'}>
               Api - Effects
             </Link>
-            <Link href="/api/modules" selected={currentPath === '/api/modules'}>
-              Api - Modules
+            <Link href="/api/log" selected={currentPath === '/api/log'}>
+              Api - Log
+            </Link>
+            <Link
+              href="/api/oninitialize"
+              selected={currentPath === '/api/oninitialize'}
+            >
+              Api - OnInitialize
+            </Link>
+            <Link
+              href="/api/operators"
+              selected={currentPath === '/api/operators'}
+            >
+              Api - Operators
+            </Link>
+            <Link
+              href="/api/overmind"
+              selected={currentPath === '/api/overmind'}
+            >
+              Api - Overmind
             </Link>
             <Link
               href="/api/reaction"
