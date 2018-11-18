@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   position: fixed;
   top: 100px;
   left: calc(50vw + 400px);
-  color: ${({ theme }) => theme.color.fade(theme.color.black, 0.5)};
+  color: ${({ theme }) => theme.color.fade(theme.color.black, 0.2)};
 
   ul {
     list-style-type: none;

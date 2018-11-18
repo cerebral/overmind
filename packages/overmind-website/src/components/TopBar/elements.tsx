@@ -16,14 +16,14 @@ export const Wrapper = styled.div`
 
 export const Link = styled<{ selected?: boolean }, 'a'>('a')`
   text-decoration: none;
-  color: ${({ selected, theme }) =>
-    selected ? theme.color.primary : theme.color.fade(theme.color.black, 0.5)};
+  color: ${({ theme }) => theme.color.black};
+  border-bottom: 2px solid
+    ${({ selected, theme }) => (selected ? theme.color.primary : 'transparent')};
   font-weight: ${({ selected }) => (selected ? 'bold' : 'normal')};
   margin: ${({ theme }) => theme.padding.small};
   cursor: pointer;
   text-transform: uppercase;
   :hover {
-    color: ${({ selected, theme }) =>
-      selected ? theme.color.primary : theme.color.black};
+    color: ${({ theme }) => theme.color.fade(theme.color.black, 0.2)};
   }
 `
