@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 
 export const ListWrapper = styled.div`
   position: fixed;
-  top: 0;
+  top: 35px;
   z-index: 1;
   box-sizing: border-box;
   width: 150px;
@@ -26,9 +26,9 @@ export const List = styled.ul`
   a {
     text-decoration: none;
     display: block;
-    color: ${({ theme }) => theme.color.white};
+    color: ${({ theme }) => theme.color.black};
     :hover {
-      color: #fff;
+      color: ${({ theme }) => theme.color.dark};
     }
   }
 `
@@ -40,11 +40,9 @@ export const Item = styled<
   'li'
 >('li')`
   padding: ${({ theme }) => `${theme.padding.smaller} ${theme.padding.small}`};
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.color.primary};
   border-left: 2px solid
     ${({ theme, selected }) => (selected ? theme.color.primary : 'transparent')};
-  background-color: ${({ theme, selected }) =>
-    selected ? theme.color.lighten(theme.color.dark, 0.2) : 'transparent'};
 `
 
 export const TocList = styled.ul`

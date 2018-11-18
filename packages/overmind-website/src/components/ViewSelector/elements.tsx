@@ -12,18 +12,18 @@ export const Selector = styled<{ isOpen: boolean }, 'div'>('div')`
   flex: 1;
   align-items: center;
   cursor: pointer;
-  background-color: ${({ theme }) =>
-    theme.color.lighten(theme.color.dark, -0.5)};
+  background-color: ${({ isOpen, theme }) =>
+    isOpen ? theme.color.lighten(theme.color.black, 3.75) : 'transparent'};
   cursor: pointer;
   padding: ${({ theme }) => theme.padding.smaller};
-  color: ${({ theme }) => theme.color.fade(theme.color.white, 0.25)};
+  color: ${({ theme }) => theme.color.fade(theme.color.black, 0.25)};
   font-size: ${({ theme }) => theme.fontSize.small};
   border-top-right-radius: ${({ theme }) => theme.borderRadius.normal};
   border-bottom-right-radius: ${({ theme }) => theme.borderRadius.normal};
   text-transform: lowercase;
   :hover {
-    background-color: ${({ isOpen, theme }) =>
-      theme.color.lighten(theme.color.dark, isOpen ? -0.5 : -0.4)};
+    background-color: ${({ theme }) =>
+      theme.color.lighten(theme.color.black, 3.75)};
   }
   > img {
     margin-right: 5px;
@@ -43,9 +43,9 @@ export const Dropdown = styled<
 >('div')`
   position: absolute;
   width: 100%;
-  ${({ above }) => `${above ? 'bottom' : 'top'}: calc(100% - 1px)`};
   background-color: ${({ theme }) =>
-    theme.color.lighten(theme.color.dark, -0.5)};
+    theme.color.lighten(theme.color.black, 3.75)};
+  ${({ above }) => `${above ? 'bottom' : 'top'}: calc(100% - 1px)`};
   border-bottom-left-radius: ${({ theme }) => theme.borderRadius.normal};
   border-bottom-right-radius: ${({ theme }) => theme.borderRadius.normal};
 `
@@ -54,13 +54,13 @@ export const Option = styled.div`
   display: flex;
   align-items: center;
   padding: ${({ theme }) => theme.padding.smaller};
-  color: ${({ theme }) => theme.color.fade(theme.color.white, 0.25)};
+  color: ${({ theme }) => theme.color.fade(theme.color.black, 0.25)};
   font-size: ${({ theme }) => theme.fontSize.small};
   text-transform: lowercase;
   cursor: pointer;
   :hover {
     background-color: ${({ theme }) =>
-      theme.color.lighten(theme.color.dark, -0.4)};
+      theme.color.lighten(theme.color.black, 3.5)};
   }
   :last-child {
     border-bottom-left-radius: ${({ theme }) => theme.borderRadius.normal};
@@ -74,13 +74,9 @@ export const Option = styled.div`
 export const TsImageWrapper = styled.div`
   display: flex;
   padding: 4px;
-  background-color: ${({ theme }) =>
-    theme.color.lighten(theme.color.dark, -0.5)};
   align-items: center;
   border-top-left-radius: ${({ theme }) => theme.borderRadius.normal};
   border-bottom-left-radius: ${({ theme }) => theme.borderRadius.normal};
-  border-right: 1px solid
-    ${({ theme }) => theme.color.lighten(theme.color.dark, -0.3)};
 `
 
 export const TSImage = styled<

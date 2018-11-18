@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="shortcut icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAABwgAAAcIAHND5ueAAAG
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="shortcut icon"
+      href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAABwgAAAcIAHND5ueAAAG
   AGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0w
   TXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRh
   LyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2
@@ -56,113 +57,119 @@
   qz0Df+FlMe1n/M+PktIxMixuIxfE7bEjI8DZ5KzoY3pBQm9hTs/QF/hOLImuKtc2iw9EH9O7qYa5
   XWPfi9nwq+jcKuv12Em8ItZ7ViNlPX2Df4jNzWdiWVymec1UZ8Qzx3P4UGbPII3pHf6m+PT5n7bO
   TianeXo65lXz9HTM6fb5vwEB1kNwNpL0bgAAAABJRU5ErkJggg=="
-    type="image/x-icon" />
-  <title>Overmind</title>
-  <style>
-    html,
-    body {
-      margin: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    #overmind-app {
-      height: 100%;
-      background-color: #333;
-      transition: background-color 0.2s ease-in, color 0.2s ease-in;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    #overmind-loader {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      display: flex;
-      background-color: #333;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      font-family: monospace;
-      color: #EAEAEA;
-    }
-
-    #overmind-circle {
-      position: absolute;
-      background-color: #EAEAEA;
-      border-radius: 50%;
-      width: 125px;
-      height: 125px;
-      box-shadow: 0 0 0 rgba(206, 206, 206, 0.4);
-      animation: pulse 2s infinite 0.5s;
-    }
-
-    #overmind-inner-circle {
-      position: absolute;
-      background-color: inherit;
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-    }
-
-    #overmind-text {
-      position: absolute;
-      text-transform: uppercase;
-      letter-spacing: 10px;
-      text-indent: 10px;
-    }
-
-    #overmind-block {
-      position: absolute;
-      background-color: inherit;
-      height: 25px;
-      width: 125px;
-    }
-
-    @-webkit-keyframes pulse {
-      0% {
-        -webkit-box-shadow: 0 0 0 0 rgba(206, 206, 206, 0.4);
+      type="image/x-icon"
+    />
+    <title>Overmind</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
       }
 
-      70% {
-        -webkit-box-shadow: 0 0 0 20px rgba(211, 211, 211, 0);
+      #overmind-app {
+        height: 100%;
+        background-color: #fff;
+        transition: background-color 0.2s ease-in, color 0.2s ease-in;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
       }
 
-      100% {
-        -webkit-box-shadow: 0 0 0 0 rgba(199, 199, 199, 0);
-      }
-    }
-
-    @keyframes pulse {
-      0% {
-        -moz-box-shadow: 0 0 0 0 rgba(201, 201, 201, 0.4);
-        box-shadow: 0 0 0 0 rgba(196, 196, 196, 0.4);
-      }
-
-      70% {
-        -moz-box-shadow: 0 0 0 20px rgba(202, 202, 202, 0);
-        box-shadow: 0 0 0 20px rgba(209, 209, 209, 0);
+      #overmind-loader {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        display: flex;
+        background-color: #fff;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        font-family: monospace;
+        color: #eaeaea;
       }
 
-      100% {
-        -moz-box-shadow: 0 0 0 0 rgba(206, 206, 206, 0);
-        box-shadow: 0 0 0 0 rgba(202, 202, 202, 0);
+      #overmind-circle {
+        position: absolute;
+        background-color: #eaeaea;
+        border-radius: 50%;
+        width: 125px;
+        height: 125px;
+        box-shadow: 0 0 0 rgba(206, 206, 206, 0.4);
+        animation: pulse 2s infinite 0.5s;
       }
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
-</head>
 
-<body>
-  <div id="overmind-app">
-    <div id="overmind-loader">
-      <div id="overmind-circle"></div>
-      <div id="overmind-inner-circle"></div>
-      <div id="overmind-block"></div>
-      <div id="overmind-text">overmind</div>
+      #overmind-inner-circle {
+        position: absolute;
+        background-color: inherit;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+      }
+
+      #overmind-text {
+        position: absolute;
+        text-transform: uppercase;
+        letter-spacing: 10px;
+        text-indent: 10px;
+      }
+
+      #overmind-block {
+        position: absolute;
+        background-color: inherit;
+        height: 25px;
+        width: 125px;
+      }
+
+      @-webkit-keyframes pulse {
+        0% {
+          -webkit-box-shadow: 0 0 0 0 rgba(206, 206, 206, 0.4);
+        }
+
+        70% {
+          -webkit-box-shadow: 0 0 0 20px rgba(211, 211, 211, 0);
+        }
+
+        100% {
+          -webkit-box-shadow: 0 0 0 0 rgba(199, 199, 199, 0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          -moz-box-shadow: 0 0 0 0 rgba(201, 201, 201, 0.4);
+          box-shadow: 0 0 0 0 rgba(196, 196, 196, 0.4);
+        }
+
+        70% {
+          -moz-box-shadow: 0 0 0 20px rgba(202, 202, 202, 0);
+          box-shadow: 0 0 0 20px rgba(209, 209, 209, 0);
+        }
+
+        100% {
+          -moz-box-shadow: 0 0 0 0 rgba(206, 206, 206, 0);
+          box-shadow: 0 0 0 0 rgba(202, 202, 202, 0);
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:400,700"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="overmind-app">
+      <div id="overmind-loader">
+        <div id="overmind-circle"></div>
+        <div id="overmind-inner-circle"></div>
+        <div id="overmind-block"></div>
+        <div id="overmind-text">overmind</div>
+      </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

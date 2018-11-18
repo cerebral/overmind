@@ -20,13 +20,12 @@ export const Guide = styled.a`
   text-decoration: none;
   padding: ${({ theme }) => theme.padding.small};
   margin: ${({ theme }) => theme.padding.small};
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.color.black};
   font-size: ${({ theme }) => theme.fontSize.large};
   cursor: pointer;
   width: 200px;
   height: 125px;
-  background-color: ${({ theme }) =>
-    theme.color.lighten(theme.color.dark, 0.2)};
+  border-bottom: 2px solid ${({ theme }) => theme.color.primary};
   transition: box-shadow 0.1s ease-out;
   box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
   :hover {
@@ -37,6 +36,6 @@ export const Guide = styled.a`
     bottom: ${({ theme }) => theme.padding.smaller};
     right: ${({ theme }) => theme.padding.smaller};
     font-size: ${({ theme }) => theme.fontSize.smallest};
-    color: ${({ theme }) => theme.color.fade(theme.color.white, 0.5)};
+    color: ${({ theme }) => theme.color.fade(theme.color.black, 0.5)};
   }
 `

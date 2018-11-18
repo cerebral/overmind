@@ -2,7 +2,40 @@ import styled from '../../styled-components'
 
 export const Wrapper = styled.div`
   background-color: inherit;
+  padding-top: 100px;
+  display: flex;
+  box-sizing: border-box;
+  height: 100vh;
+  justify-content: center;
+
+  h2 {
+    color: ${({ theme }) => theme.color.primary};
+  }
 `
+
+export const Container = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1100px;
+`
+
+export const ValueProposition = styled.div<{ isMobile: boolean }>`
+  display: flex;
+  flex-direction: ${({ isMobile }) => (isMobile ? 'column' : 'row')};
+  width: 100%;
+  padding: ${({ isMobile, theme }) =>
+    isMobile ? `0 ${theme.padding.large}` : '0'};
+  box-sizing: border-box;
+  align-items: center;
+  > div {
+    flex: 1;
+  }
+  > div:nth-child(1) {
+    margin-right: 40px;
+  }
+  margin-bottom: 100px;
+`
+
 export const QuickstartWrapper = styled.div`
   height: 75px;
   position: fixed;
@@ -54,3 +87,11 @@ export const Iframe = styled.iframe`
   border-radius: 4px;
   overflow: hidden;
 `
+
+export const Banner = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 150px;
+`
+
+export const Button = styled.div``
