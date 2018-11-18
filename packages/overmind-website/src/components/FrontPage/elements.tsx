@@ -17,6 +17,7 @@ export const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
   max-width: 1100px;
+  width: 100%;
 `
 
 export const ValueProposition = styled.div<{ isMobile: boolean }>`
@@ -24,16 +25,17 @@ export const ValueProposition = styled.div<{ isMobile: boolean }>`
   flex-direction: ${({ isMobile }) => (isMobile ? 'column' : 'row')};
   width: 100%;
   padding: ${({ isMobile, theme }) =>
-    isMobile ? `0 ${theme.padding.large}` : '0'};
+    isMobile ? `0 ${theme.padding.normal}` : '0'};
   box-sizing: border-box;
   align-items: center;
   > div {
     flex: 1;
+    width: ${({ isMobile }) => (isMobile ? '100%' : 'auto')};
   }
   > div:nth-child(1) {
-    margin-right: 40px;
+    margin-right: ${({ isMobile }) => (isMobile ? '0' : '40px')};
   }
-  margin-bottom: 100px;
+  margin-bottom: ${({ isMobile }) => (isMobile ? '25px' : '100px')};
 `
 
 export const QuickstartWrapper = styled.div`
@@ -88,10 +90,10 @@ export const Iframe = styled.iframe`
   overflow: hidden;
 `
 
-export const Banner = styled.div`
+export const Banner = styled.div<{ isMobile: boolean }>`
   display: flex;
   align-items: center;
-  margin-bottom: 150px;
+  margin-bottom: ${({ isMobile }) => (isMobile ? '50px' : '150px')};
 `
 
 export const Button = styled.div``

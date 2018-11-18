@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   z-index: 2;
   height: 50px;
   top: -50px;
+  background-color: ${({ theme }) => theme.color.white};
   color: ${({ theme }) => theme.color.black};
   transition: top 0.5s ease-out;
   width: 100%;
@@ -13,6 +14,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   padding: ${({ theme }) => `0 ${theme.padding.small}`};
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.01);
 `
 
 export const MenuWrapper = styled.div`

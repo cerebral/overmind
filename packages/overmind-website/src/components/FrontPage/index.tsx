@@ -45,7 +45,7 @@ class FrontPage extends React.Component<Props> {
     return (
       <Wrapper>
         <Container>
-          <Banner>
+          <Banner isMobile={viewport.isMobile}>
             <Logo />
           </Banner>
           <ValueProposition isMobile={viewport.isMobile}>
