@@ -69,6 +69,7 @@ class App extends React.Component<{}, State> {
     apis: [],
     isLoading: true,
   }
+  wrapper: HTMLDivElement
   componentWillMount() {
     const routes = Object.keys(routesMap)
 
@@ -84,11 +85,15 @@ class App extends React.Component<{}, State> {
     if (prevState.currentPath !== this.state.currentPath) {
       document.querySelector('#overmind-app').scrollTop = 0
     }
+    if (!prevState.currentPage && this.state.currentPage) {
+      this.wrapper.style.opacity = '1'
+    }
   }
   componentDidMount() {
     const el = document.querySelector('#overmind-app') as HTMLElement
 
-    el.style.backgroundColor = themes[getTheme()].color.dark
+    el.style.backgroundColor = 'rgb(250,250,250)'
+    el.style.opacity = '1'
     page.start({})
 
     Promise.all([
@@ -117,7 +122,7 @@ class App extends React.Component<{}, State> {
 
     return (
       <ThemeProvider theme={themes[getTheme()]}>
-        <Wrapper>
+        <Wrapper innerRef={(node) => (this.wrapper = node)}>
           {viewport.isMobile ? (
             <MobileTopBar
               currentPage={currentPage}

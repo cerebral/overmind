@@ -4,74 +4,71 @@ export default (ts) =>
         {
           fileName: 'app/actions.ts',
           code: `
-import { Action } from 'overmind'
-import * as mutations from './mutations'
-import * as operations from './operations'
+import { Operator, pipe, parallel } from 'overmind'
+import * as o from './operators'
 
-...
+export const showHomePage: Operator<void, any> =
+  o.setPage('home')
 
-export const showUsersPage: Action<any> = action =>
-  action
-    .mutate(mutations.unsetModalUserId)
-    .mutate(mutations.setPage('users'))
-    .mutate(mutations.setLoadingUsers(true))
-    .map(operations.getUsers)
-    .mutate(mutations.setUsers)
-    .mutate(mutations.setLoadingUsers(false))
+export const showUsersPage: Operator<void, any> = pipe(
+  o.unsetModalUserId,
+  o.setPage('users'),
+  o.setLoadingUsers(true),
+  o.getUsers,
+  o.setUsers,
+  o.setLoadingUsers(false)
+)
 
-const getUserWithDetails: Action<string> = action =>
-  action
-    .mutate(mutations.setLoadingUserWithDetails(true))
-    .map(operations.getUserWithDetails)
-    .mutate(mutations.updateUserWithDetails)
-    .mutate(mutations.setLoadingUserWithDetails(false))
+const getUserWithDetails: Operator<{ id: string }, any> = pipe(
+  o.setLoadingUserWithDetails(true),
+  o.getUserWithDetails,
+  o.updateUserWithDetails,
+  o.setLoadingUserWithDetails(false)
+)
 
-export const showUserModal: Action<string> = action =>
-  action
-    .mutate(mutations.setModalUserId)
-    .parallel([
-      showUsersPage,
-      getUserWithDetails
-    ])
-
-...
-  `,
+export const showUserModal: Operator<{ id: string }, any> = pipe(
+  o.setModalUserId,
+  parallel([
+    showUsersPage,
+    getUserWithDetails
+  ])
+)
+    `,
         },
       ]
     : [
         {
           fileName: 'app/actions.js',
           code: `
-import * as mutations from './mutations'
-import * as operations from './operations'
+import { pipe, parallel } from 'overmind'
+import * as o from './operators'
 
-...
+export const showHomePage =
+  o.setPage('home')
 
-export const showUsersPage = action =>
-  action
-    .mutate(mutations.unsetModalUserId)
-    .mutate(mutations.setPage('users'))
-    .mutate(mutations.setLoadingUsers(true))
-    .map(operations.getUsers)
-    .mutate(mutations.setUsers)
-    .mutate(mutations.setLoadingUsers(false))
+export const showUsersPage = pipe(
+  o.unsetModalUserId,
+  o.setPage('users'),
+  o.setLoadingUsers(true),
+  o.getUsers,
+  o.setUsers,
+  o.setLoadingUsers(false)
+)
 
-const getUserWithDetails = action =>
-  action
-    .mutate(mutations.setLoadingUserWithDetails(true))
-    .map(operations.getUserWithDetails)
-    .mutate(mutations.updateUserWithDetails)
-    .mutate(mutations.setLoadingUserWithDetails(false))
+const getUserWithDetails = pipe(
+  o.setLoadingUserWithDetails(true),
+  o.getUserWithDetails,
+  o.updateUserWithDetails,
+  o.setLoadingUserWithDetails(false)
+)
 
-export const showUserModal = action =>
-  action
-    .mutate(mutations.setModalUserId)
-    .parallel([
-      showUsersPage,
-      getUserWithDetails
-    ])
-
-...
-  `,
+export const showUserModal = pipe(
+  o.setModalUserId,
+  parallel([
+    showUsersPage,
+    getUserWithDetails
+  ])
+)
+    `,
         },
       ]
