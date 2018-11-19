@@ -26,8 +26,9 @@ const getUserWithDetails: Operator<{ id: string }, any> = pipe(
   o.setLoadingUserWithDetails(false)
 )
 
-export const showUserModal: Operator<{ id: string }, any> = pipe(
+export const showUserModal: Operator<{ id: string, tab: string }, any> = pipe(
   o.setModalUserId,
+  o.setUserModalTabIndex,
   parallel([
     showUsersPage,
     getUserWithDetails
@@ -64,6 +65,7 @@ const getUserWithDetails = pipe(
 
 export const showUserModal = pipe(
   o.setModalUserId,
+  o.setUserModalTabIndex,
   parallel([
     showUsersPage,
     getUserWithDetails

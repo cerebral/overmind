@@ -43,7 +43,7 @@ export const state: State = {
 export default = {
   posts: {}
   postsList: state =>
-    Object.keys(state.posts).map(id => state.posts[id])
+    Object.keys(state.posts)
       .map(id => state.posts[id])
       .sort((postA, postB) => {
         if (postA.datetime > postB.datetime) {

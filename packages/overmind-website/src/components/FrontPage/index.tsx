@@ -3,8 +3,6 @@ import { getTypescript, getTheme, viewport, compile } from '../../utils'
 import Logo from '../Logo'
 import {
   Wrapper,
-  QuickstartWrapper,
-  Quickstart,
   Iframe,
   IframeWrapper,
   ValueProposition,
@@ -20,10 +18,6 @@ type Props = {
 }
 
 class FrontPage extends React.Component<Props> {
-  node: HTMLElement
-  componentDidMount() {
-    requestAnimationFrame(() => (this.node.style.bottom = '0'))
-  }
   renderDemo() {
     if (!this.props.demos.length) {
       return null
@@ -54,7 +48,8 @@ class FrontPage extends React.Component<Props> {
               <p>
                 Building your application as a single state tree is the most
                 straight forward mental model. No matter how you choose to
-                structure it, you will always have access to it
+                structure it, you will always have access to the state wherever
+                you need it
               </p>
             </div>
             <div>
@@ -131,31 +126,13 @@ h(Example, { name: "frontpage/typings" })
               </div>,
             ][viewport.isMobile ? 'reverse' : 'slice']()}
           </ValueProposition>
+          {viewport.isMobile ? null : (
+            <>
+              <h1>DEMO</h1>
+              <IframeWrapper>{this.renderDemo()}</IframeWrapper>
+            </>
+          )}
         </Container>
-
-        {/* viewport.isMobile ? null : (
-          <IframeWrapper>{this.renderDemo()}</IframeWrapper>
-        ) */}
-        <QuickstartWrapper
-          innerRef={(node) => {
-            this.node = node
-          }}
-        >
-          {/*
-          <Quickstart href="/videos/overmind-introduction">
-            <Icon>movie</Icon>
-            {viewport.isMobile ? null : <span>Video introduction</span>}
-          </Quickstart>
-          <Quickstart href="/guides/beginner/01_getstarted">
-            <Icon>guide</Icon>
-            {viewport.isMobile ? null : <span>Get started guide</span>}
-          </Quickstart>
-          <Quickstart href="https://spectrum.chat/overmindjs" target="_blank">
-            <Icon>chat</Icon>
-            {viewport.isMobile ? null : <span>Chat Support</span>}
-          </Quickstart>
-          */}
-        </QuickstartWrapper>
       </Wrapper>
     )
   }
