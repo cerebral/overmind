@@ -16,7 +16,7 @@ export type Post {
 export type State = {
   posts: { [id: string] : Post }
   showCount: number
-  postsList: Derive<Post[], State>
+  postsList: Derive<State, Post[]>
 }
 
 export const state: State = {
