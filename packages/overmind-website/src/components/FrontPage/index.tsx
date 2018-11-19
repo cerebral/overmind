@@ -94,7 +94,7 @@ h(Example, { name: "frontpage/actions" })
               <h2>FUNCTIONAL ACTIONS</h2>
               <p>
                 When pieces of logic becomes complex it is beneficial to write
-                functional code. Overmind provides and API named{' '}
+                functional code. Overmind provides an API named{' '}
                 <strong>operators</strong> which gives you functional power as
                 simple actions
               </p>
