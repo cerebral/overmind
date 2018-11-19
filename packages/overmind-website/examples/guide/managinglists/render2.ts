@@ -107,7 +107,7 @@ import Post from './Post'
 const Posts: React.SFC<Connect> = ({ app }) => (
   <ul>
     {app.state.postsList.map(post => 
-      <Item key={post.id} post={post} />
+      <Post key={post.id} post={post} />
     )}
   </ul>
 )
