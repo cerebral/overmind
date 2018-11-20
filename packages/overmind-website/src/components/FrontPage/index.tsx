@@ -41,6 +41,7 @@ class FrontPage extends React.Component<Props> {
         <Container>
           <Banner isMobile={viewport.isMobile}>
             <Logo />
+            <h1>a next generation state management solution</h1>
           </Banner>
           <ValueProposition isMobile={viewport.isMobile}>
             <div>
@@ -128,7 +129,7 @@ h(Example, { name: "frontpage/typings" })
           </ValueProposition>
           {viewport.isMobile ? null : (
             <>
-              <h1>DEMO</h1>
+              <h1>EXAMPLE</h1>
               <IframeWrapper>{this.renderDemo()}</IframeWrapper>
             </>
           )}

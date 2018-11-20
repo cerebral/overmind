@@ -4,7 +4,7 @@ export default (ts, view) =>
         {
           fileName: 'app.ts',
           code: `
-import { Overmind, TApp } from 'overmind'
+import { Overmind, TConfig } from 'overmind'
 import { merge } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
@@ -15,7 +15,7 @@ const config = merge({
 })
 
 declare module 'overmind' {
-  interface IApp extends TApp<typeof config> {}
+  interface IConfig extends TConfig<typeof config> {}
 }
 
 const app = new Overmind(config)

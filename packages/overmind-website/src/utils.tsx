@@ -74,12 +74,9 @@ class Example extends React.Component<{
   currentExampleName = null
   constructor(props) {
     super(props)
-    const localContent = JSON.parse(
-      localStorage.getItem(this.getKey()) || 'null'
-    )
     this.state = {
-      isLoading: !localContent,
-      content: localContent,
+      isLoading: true,
+      content: null,
     }
   }
   componentDidMount() {
@@ -97,7 +94,7 @@ class Example extends React.Component<{
       if (!content) {
         return console.warn('Missing content for ' + this.getKey())
       }
-      localStorage.setItem(this.getKey(), JSON.stringify(content))
+
       this.setState({
         content,
         isLoading: false,
