@@ -12,3 +12,13 @@ The function defining your derived state receives two arguments. The first argum
 ```marksy
 h(Notice, null, "Accessing **rootState** might cause unnecessary updates to the derived function as it will track more state, though typically not an issue")
 ```
+
+An other use case for derived is to return a function. This allows you to insert functions into your state tree which can execute logic, even based on existing state. Even the function itself might be changed out based on the state of the application.
+
+```marksy
+h(Example, { name: "api/derive_function" })
+```
+
+```marksy
+h(Notice, null, "Using state inside the returned function will not be tracked. You have to access the state in the scope of the derived function")
+```

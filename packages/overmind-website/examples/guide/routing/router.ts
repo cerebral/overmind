@@ -4,7 +4,7 @@ export default (ts, view) =>
         {
           fileName: 'app/actions.ts',
           code: `
-import { Overmind, TApp } from 'overmind'
+import { Overmind, TConfig } from 'overmind'
 import { createConnect, TConnect } from 'overmind-${view}'
 import * as page from 'page'
 import { state } from './state'
@@ -18,7 +18,7 @@ const config = {
 }
 
 declare module 'overmind' {
-  interface App extends TApp<typeof config> {}
+  interface IConfig extends TConfig<typeof config> {}
 }
 
 export const app = new Overmind(config)

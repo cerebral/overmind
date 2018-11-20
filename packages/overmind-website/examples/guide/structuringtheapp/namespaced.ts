@@ -4,7 +4,7 @@ export default (ts, view) =>
         {
           fileName: 'app/index.ts',
           code: `
-import { Overmind, TApp } from 'overmind'
+import { Overmind, TConfig } from 'overmind'
 import { namespaced } from 'overmind/config'
 import * as posts from './posts'
 import * as admin from './admin'
@@ -15,7 +15,7 @@ const config = namespaced({
 })
 
 declare module 'overmind' {
-  interface IApp extends TApp<typeof config> {}
+  interface IConfig extends TConfig<typeof config> {}
 }
 
 const app = new Overmind(config)
