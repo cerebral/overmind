@@ -48,6 +48,25 @@ Are things loading or not, is the user logged in or not ? These are typical usag
 
 All values, with the exception of booleans, can also be **null**. Non existing. You can have a non existing object, array, string or number. That means if we have not selected a tab both the string version and number version would have the value **null**.
 
+## Deriving state
+
+Not all state should be explicitly defined. Some state are values based off of other state. This is what we call **derived state**. A simple example of this would be:
+
+```marksy
+h(Example, { name: "guide/definingstate/derived" })
+```
+
+The first argument of the function is the state the derived function is attached to. A second argument is also passed and that is the root state of the application, allowing you to access whatever you would need. Two important traits of the derived function is:
+
+1. The state accessed is tracked
+2. The value returned is cached
+
+That means the function only runs when accessed and the depending state has changed since last access.
+
+```marksy
+h(Notice, null, "Even though derived state is defined as functions you consume them as plain values. You do not have to call the derived function to get the value")
+```
+
 ## Defining state
 
 We define the state of the application in **state** files. For example, the top level state could be defined as:
@@ -55,8 +74,6 @@ We define the state of the application in **state** files. For example, the top 
 ```marksy
 h(Example, { name: "guide/definingstate/define" })
 ```
-
-Note that we are exporting variables from our state module. We use **let** for values that can be replaced and **const** for values that can not be replaced. That would typically be derived values, but you might also have arrays or objects that should not be replaced.
 
 As your application grows you will most likely move parts of the state to their own namespaces. An example of that could be:
 
