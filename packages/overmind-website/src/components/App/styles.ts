@@ -1,6 +1,6 @@
-import styled from '../../styled-components'
+import { css } from 'emotion'
 
-export const Wrapper = styled.div`
+export const wrapper = css`
   font-family: Nunito, 'helvetica neue';
   background-color: inherit;
   opacity: 0;
@@ -8,8 +8,8 @@ export const Wrapper = styled.div`
 
   pre {
     color: #ccc;
-    background: ${({ theme }) => theme.color.lighten(theme.color.dark, -0.2)};
-    border-radius: ${({ theme }) => theme.borderRadius.normal};
+    background: var(--color-dark-2);
+    border-radius: var(--border-radius-1);
     padding: 1em;
     margin: 0.5em 0;
     line-height: 18px;

@@ -1,17 +1,23 @@
-import * as React from 'react'
-import { Content, Edit } from './elements'
+import { h } from 'overmind-components'
+import * as styles from './styles'
+import { Component } from '../../app'
+import { useScrollToTop } from '../../utils'
 
 type Props = {
   url: string
 }
 
-const Doc: React.SFC<Props> = ({ url, children }) => (
-  <Content>
-    <Edit href={url} target="_blank">
-      edit on github
-    </Edit>
-    {children}
-  </Content>
-)
+const Doc: Component<Props> = ({ url, children }) => {
+  useScrollToTop(url)
+
+  return (
+    <div className={styles.content}>
+      <a className={styles.edit} href={url} target="_blank">
+        edit on github
+      </a>
+      {children}
+    </div>
+  )
+}
 
 export default Doc

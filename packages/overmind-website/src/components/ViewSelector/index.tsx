@@ -1,132 +1,88 @@
-import * as React from 'react'
-import {
-  Wrapper,
-  Selector,
-  Chevron,
-  Dropdown,
-  Option,
-  TSImage,
-  TsImageWrapper,
-  ViewOption,
-} from './elements'
+import { h, useState, useRef } from 'overmind-components'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
 import * as AngularImage from '../../images/angular.png'
 import * as TsImage from '../../images/ts.png'
 import * as TsImageGrayscale from '../../images/ts-grayscale.png'
 import Icon from '../Icon'
-import { getTypescript, getTheme } from '../../utils'
+import { Component } from '../../app'
+import * as styles from './styles'
+import { css } from 'emotion'
 
-type State = {
-  isOpen: boolean
-}
+const ViewSelector: Component = ({ state, actions }) => {
+  const [isOpen, setOpen] = useState(false)
+  const selectorRef = useRef()
 
-type Props = {
-  selectedTheme: string
-  above?: boolean
-}
+  function onSelectorClick() {
+    setOpen(true)
 
-class ViewSelector extends React.Component<Props, State> {
-  state = {
-    isOpen: false,
+    const onDocumentClick = function() {
+      document.removeEventListener('click', onDocumentClick)
+      setOpen(false)
+    }
+    document.addEventListener('click', onDocumentClick)
   }
-  selector: Node
-  onSelectorClick = () => {
-    if (this.state.isOpen) {
-      document.removeEventListener('click', this.onDocumentClick)
-    } else {
-      document.addEventListener('click', this.onDocumentClick)
-    }
 
-    this.setState((state) => ({
-      isOpen: !state.isOpen,
-    }))
+  const options = {
+    react: (
+      <div className={styles.viewOption}>
+        <img src={ReactImage} width={25} />
+        React
+      </div>
+    ),
+    vue: (
+      <div className={styles.viewOption}>
+        <img src={VueImage} width={25} />
+        Vue
+      </div>
+    ),
+    angular: (
+      <div className={styles.viewOption}>
+        <img src={AngularImage} width={25} />
+        Angular
+      </div>
+    ),
   }
-  onDocumentClick = (event: MouseEvent) => {
-    let node = event.target as Node
 
-    while (node.parentNode) {
-      if (node === this.selector) {
-        return
-      }
-      node = node.parentNode
-    }
-
-    this.onSelectorClick()
-  }
-  onTsClick(event) {
-    event.stopPropagation()
-    if (getTheme() === 'angular') {
-      return
-    }
-
-    if (getTypescript()) {
-      localStorage.removeItem('typescript')
-    } else {
-      localStorage.setItem('typescript', 'true')
-    }
-    window.rerender()
-  }
-  selectTheme(theme) {
-    localStorage.setItem('theme', theme)
-    if (theme === 'angular') {
-      localStorage.setItem('typescript', 'true')
-    }
-    window.rerender()
-  }
-  render() {
-    const { isOpen } = this.state
-
-    const options = {
-      react: (
-        <ViewOption>
-          <img src={ReactImage} width={25} />React
-        </ViewOption>
-      ),
-      vue: (
-        <ViewOption>
-          <img src={VueImage} width={25} />Vue
-        </ViewOption>
-      ),
-      angular: (
-        <ViewOption>
-          <img src={AngularImage} width={25} />Angular
-        </ViewOption>
-      ),
-    }
-
-    return (
-      <Wrapper
-        onClick={this.onSelectorClick}
-        innerRef={(node) => {
-          this.selector = node
-        }}
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.tsImageWrapper} onClick={actions.toggleTypescript}>
+        {state.typescript ? (
+          <img className={styles.image} src={TsImage} width="20" height="20" />
+        ) : (
+          <img
+            className={css(styles.image, styles.grayscale)}
+            src={TsImageGrayscale}
+            width="20"
+            height="20"
+          />
+        )}
+      </div>
+      <div
+        ref={selectorRef}
+        onClick={onSelectorClick}
+        className={css(styles.selector, isOpen && styles.selectorOpen)}
       >
-        <TsImageWrapper onClick={this.onTsClick}>
-          {getTypescript() ? (
-            <TSImage src={TsImage} width="20" height="20" />
-          ) : (
-            <TSImage src={TsImageGrayscale} width="20" height="20" grayscale />
-          )}
-        </TsImageWrapper>
-        <Selector isOpen={isOpen}>
-          {options[getTheme()]}
-          <Chevron>
-            <Icon>chevron-down</Icon>
-          </Chevron>
-        </Selector>
-        {this.state.isOpen ? (
-          <Dropdown>
-            {Object.keys(options).map((theme) => (
-              <Option key={theme} onClick={() => this.selectTheme(theme)}>
-                {options[theme]}
-              </Option>
-            ))}
-          </Dropdown>
-        ) : null}
-      </Wrapper>
-    )
-  }
+        {options[state.theme]}
+        <span className={styles.chevron}>
+          <Icon>chevron-down</Icon>
+        </span>
+      </div>
+      {isOpen ? (
+        <div className={styles.dropdown}>
+          {Object.keys(options).map((viewTheme) => (
+            <div
+              key={viewTheme}
+              className={styles.option}
+              onClick={() => actions.selectTheme(viewTheme)}
+            >
+              {options[viewTheme]}
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  )
 }
 
 export default ViewSelector

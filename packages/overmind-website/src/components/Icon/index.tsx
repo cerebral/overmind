@@ -1,10 +1,9 @@
-import * as React from 'react'
-import { IconElement } from './elements'
+import { h } from 'overmind-components'
+import { Component } from '../../app'
+import { icon, icons } from './styles'
 
-type Props = {
-  children: string
-}
-
-const Icon: React.SFC<Props> = ({ children }) => <IconElement icon={children} />
+const Icon: Component<{}, keyof typeof icons> = ({ children }) => (
+  <span className={icon(String(children))} />
+)
 
 export default Icon

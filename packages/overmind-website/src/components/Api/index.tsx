@@ -1,90 +1,76 @@
-import * as React from 'react'
+import { h, useState, useEffect } from 'overmind-components'
 import Doc from '../Doc'
-import { Wrapper, List, Item, ListWrapper, TocList, TocItem } from './elements'
+import * as styles from './styles'
 import { compile, getGithubBaseUrl } from '../../utils'
-import { TApi } from '../App'
+import { Api as TApi } from '../../app/types'
+import { Component } from '../../app'
+import { css } from 'emotion'
 
-type State = {
-  content: string
+function getGithubUrl(name) {
+  return getGithubBaseUrl() + '/api/' + name + '.md'
 }
 
-type Props = {
-  currentPath: string
-  apis: TApi[]
-  isLoading: boolean
-}
+const Api: Component = ({ state }) => {
+  const [content, setContent] = useState(null)
 
-class Api extends React.Component<Props, State> {
-  state = {
-    content: null,
-  }
-  componentDidMount() {
-    this.getContent()
-  }
-  componentDidUpdate(prevProps) {
-    if (this.props.currentPath !== prevProps.currentPath) {
-      this.getContent()
-    }
-  }
-  getContent() {
-    import('../../../api/' + this.getFileNameFromUrl() + '.md').then((module) =>
-      this.setState({ content: module })
-    )
-  }
-  getFileNameFromUrl() {
-    return this.props.currentPath.split('/').pop()
-  }
-  renderToc(children) {
-    return (
-      <TocList>
-        {children.map((child) => (
-          <TocItem key={child.id}>
-            <a href={`#${child.id}`}>{child.title}</a>
-            {child.children.length ? this.renderToc(child.children) : null}
-          </TocItem>
-        ))}
-      </TocList>
-    )
-  }
-  getGithubUrl() {
-    return getGithubBaseUrl() + this.props.currentPath + '.md'
-  }
-  render() {
-    if (!this.state.content) {
-      return (
-        <Wrapper>
-          <ListWrapper />
-          <Doc url={this.getGithubUrl()} />
-        </Wrapper>
+  useEffect(
+    () => {
+      import('../../../api/' + state.currentApi + '.md').then((module) =>
+        setContent(module)
       )
-    }
+    },
+    [state.currentApi]
+  )
 
-    const compiled = compile(this.state.content)
-    const currentFileName = this.getFileNameFromUrl()
-
+  function renderToc(children) {
     return (
-      <Wrapper>
-        <ListWrapper>
-          <List>
-            {this.props.apis.map((api) => {
-              const fileShortName = api.fileName.replace('.md', '')
-              const isSelected = currentFileName === fileShortName
-
-              return (
-                <Item key={api.fileName} selected={isSelected}>
-                  <a href={`/api/${fileShortName}`}>{api.title}</a>
-                  {isSelected && compiled.toc[0].children.length
-                    ? this.renderToc(compiled.toc[0].children)
-                    : null}
-                </Item>
-              )
-            })}
-          </List>
-        </ListWrapper>
-        <Doc url={this.getGithubUrl()}>{compiled.tree}</Doc>
-      </Wrapper>
+      <ul className={styles.tocList}>
+        {children.map((child) => (
+          <li className={styles.tocItem} key={child.id}>
+            <a href={`#${child.id}`}>{child.title}</a>
+            {child.children.length ? renderToc(child.children) : null}
+          </li>
+        ))}
+      </ul>
     )
   }
+
+  if (!content) {
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.listWrapper} />
+        <Doc url={getGithubUrl(state.currentApi)} />
+      </div>
+    )
+  }
+
+  const compiled = compile(content)
+
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.listWrapper}>
+        <ul className={styles.list}>
+          {state.apis.map((api) => {
+            const fileShortName = api.fileName.replace('.md', '')
+            const isSelected = state.currentApi === fileShortName
+
+            return (
+              <li
+                className={css(styles.item, isSelected && styles.itemSelected)}
+                key={api.fileName}
+              >
+                <a href={`/api/${fileShortName}`}>{api.title}</a>
+                {isSelected && compiled.toc[0].children.length
+                  ? renderToc(compiled.toc[0].children)
+                  : null}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+      <Doc url={getGithubUrl(state.currentApi)}>{compiled.tree}</Doc>
+    </div>
+  )
 }
 
 export default Api

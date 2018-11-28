@@ -1,6 +1,6 @@
-import styled from '../../styled-components'
+import { css } from 'emotion'
 
-export const Wrapper = styled.div`
+export const wrapper = css`
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   z-index: 3;
 `
 
-export const Backdrop = styled.a`
+export const backdrop = css`
   position: absolute;
   top: 0;
   left: 0;
@@ -24,7 +24,7 @@ export const Backdrop = styled.a`
   opacity: 0.5;
 `
 
-export const Video = styled.div`
+export const video = css`
   position: relative;
   display: inline-block;
   width: 560px;
@@ -37,7 +37,7 @@ export const Video = styled.div`
   background-color: #000;
 `
 
-export const Loader = styled.div`
+export const loader = css`
   position: absolute;
   width: 560px;
   top: 50%;
@@ -45,10 +45,10 @@ export const Loader = styled.div`
     width: 300px;
   }
   text-align: center;
-  color: ${({ theme }) => theme.color.white};
+  color: var(--color-white-1);
 `
 
-export const Iframe = styled.iframe`
+export const iframe = css`
   position: absolute;
   top: 0;
   left: 0;

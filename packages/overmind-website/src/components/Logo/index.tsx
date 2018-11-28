@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { Wrapper, Circle, InnerCircle, Block, Text } from './elements'
+import { h } from 'overmind-components'
+import * as styles from './styles'
 
 const Logo: React.SFC = () => (
-  <Wrapper>
-    <Circle />
-    <InnerCircle />
-    <Block />
-    <Text>overmind</Text>
-  </Wrapper>
+  <div className={styles.wrapper}>
+    <div className={styles.circle} />
+    <div className={styles.innerCircle} />
+    <div className={styles.block} />
+    <div className={styles.text}>overmind</div>
+  </div>
 )
 
 export default Logo

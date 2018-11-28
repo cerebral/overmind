@@ -1,14 +1,14 @@
-import styled from '../../styled-components'
+import { css } from 'emotion'
 
-export const Wrapper = styled.div`
+export const wrapper = css`
   position: fixed;
   top: 100px;
   left: calc(50vw + 400px);
-  color: ${({ theme }) => theme.color.black};
+  color: var(--color-black-1);
 
   ul {
     list-style-type: none;
-    padding-left: ${({ theme }) => theme.padding.small};
+    padding-left: var(--padding-2);
     font-size: 0.9em;
     line-height: 20px;
   }
@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
     text-decoration: none;
   }
   a:hover {
-    color: ${({ theme }) => theme.color.fade(theme.color.black, 0.2)};
+    color: var(--color-black-2);
   }
 
   @media (max-width: 1279px) {

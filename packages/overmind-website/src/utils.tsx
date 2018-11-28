@@ -1,7 +1,8 @@
-import * as React from 'react'
+import { h, useState, useEffect } from 'overmind-components'
 import marksy from 'marksy'
-import styled from './styled-components'
-import * as Prism from './prismjs.js'
+import * as Prism from '../src/prismjs.js'
+import { Component } from './app'
+import { css } from 'emotion'
 
 export const viewport = {
   isMobile: window.innerWidth <= 1024,
@@ -22,40 +23,39 @@ export const getTheme = () => localStorage.getItem('theme') || 'react'
 
 export const getTypescript = () => localStorage.getItem('typescript') || false
 
-const LoadingExample = styled.div`
+const loadingExample = css`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100px;
-  color: ${({ theme }) => theme.color.fade(theme.color.black, 0.5)};
-  background-color: ${({ theme }) => theme.color.gray};
-  border-radius: ${({ theme }) => theme.borderRadius.normal};
+  color: var(--color-black-2);
+  background-color: var(--color-gray-1);
+  border-radius: var(--border-radius-1);
 `
 
-const FileName = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.small};
+const fileName = css`
+  font-size: var(--font-size-3);
   font-weight: bold;
 `
 
-const GithubLink = styled.a`
+const githubLink = css`
   position: absolute;
   right: 10px;
-  font-size: ${({ theme }) => theme.fontSize.smallest} !important;
-  color: ${({ theme }) => theme.color.white} !important;
+  font-size: var(--font-size-1) !important;
+  color: var(--color-white) !important;
   opacity: 0.3;
   :hover {
     opacity: 0.8;
   }
 `
 
-const Notice = styled.div`
-  background-color: ${({ theme }) =>
-    theme.color.lighten(theme.color.white, -0.02)};
-  border: 1px solid ${({ theme }) => theme.color.primary};
-  border-left: 6px solid ${({ theme }) => theme.color.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.normal};
-  padding: ${({ theme }) => `${theme.padding.small} ${theme.padding.normal}`};
-  font-size: ${({ theme }) => theme.fontSize.normal};
+const notice = css`
+  background-color: var(--color-white-2);
+  border: 1px solid var(--color-primary);
+  border-left: 6px solid var(--color-primary);
+  border-radius: var(--border-radius-1);
+  padding: var(--padding-3) var(--padding-4);
+  font-size: var(--font-size-3);
 `
 
 type TExample = {
@@ -64,90 +64,79 @@ type TExample = {
   target: string
 }
 
-class Example extends React.Component<{
-  name: string
-}> {
-  state: {
-    isLoading: boolean
-    content: TExample[]
-  }
-  currentExampleName = null
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLoading: true,
-      content: null,
-    }
-  }
-  componentDidMount() {
-    this.getExample()
-  }
-  componentDidUpdate() {
-    if (this.currentExampleName !== this.getExampleName()) {
-      this.getExample()
-    }
-  }
-  getExample() {
-    import('../examples/' + this.props.name).then((module) => {
-      this.currentExampleName = this.getExampleName()
-      const content = module.default(Boolean(getTypescript()), getTheme())
-      if (!content) {
-        return console.warn('Missing content for ' + this.getKey())
-      }
+const Example: Component<{ name: string }> = ({ name, state }) => {
+  const [localState, setLocalState] = useState({
+    isLoading: true,
+    content: null,
+  })
 
-      this.setState({
-        content,
-        isLoading: false,
+  function getExampleName() {
+    return state.theme + '.' + (state.typescript ? 'ts' : 'js')
+  }
+
+  function getKey() {
+    return `${name}.${getExampleName()}`
+  }
+
+  useEffect(
+    () => {
+      import('../examples/' + name).then((module) => {
+        const content = module.default(state.typescript, state.theme)
+        if (!content) {
+          return console.warn('Missing content for ' + getKey())
+        }
+
+        setLocalState({
+          content,
+          isLoading: false,
+        })
       })
-    })
-  }
-  getKey() {
-    return `${this.props.name}.${this.getExampleName()}`
-  }
-  getExampleName() {
-    return getTheme() + '.' + (getTypescript() ? 'ts' : 'js')
-  }
-  render() {
-    if (this.state.isLoading) {
-      return <LoadingExample>{'<loading/>'}</LoadingExample>
-    }
+    },
+    [name, state.theme, state.typescript]
+  )
 
-    if (!this.state.content) {
-      return (
-        <span style={{ color: 'red', fontWeight: 'bold' }}>
-          MISSING EXAMPLE ({this.props.name})
-        </span>
-      )
-    }
+  if (localState.isLoading) {
+    return <div className={loadingExample}>{'<loading/>'}</div>
+  }
 
-    const url = `${getGithubBaseUrl()}examples/${this.props.name}.ts`
+  if (!localState.content) {
     return (
-      <div>
-        {this.state.content.map((example, index) => (
-          <div key={index} style={{ position: 'relative' }}>
-            {example.fileName ? <FileName>{example.fileName}</FileName> : null}
-            <GithubLink
-              href={url}
-              target="_blank"
-              style={{ top: example.fileName ? '32px' : '5px' }}
-            >
-              edit on github
-            </GithubLink>
-            {
-              compile(
-                `\`\`\`${example.target ||
-                  'ts'}\n${example.code.trim()}\n\`\`\``
-              ).tree
-            }
-          </div>
-        ))}
-      </div>
+      <span style={{ color: 'red', fontWeight: 'bold' }}>
+        MISSING EXAMPLE ({name})
+      </span>
     )
   }
+
+  const url = `${getGithubBaseUrl()}examples/${name}.ts`
+
+  return (
+    <div>
+      {localState.content.map((example, index) => (
+        <div key={index} style={{ position: 'relative' }}>
+          {example.fileName ? (
+            <span className={fileName}>{example.fileName}</span>
+          ) : null}
+          <a
+            className={githubLink}
+            href={url}
+            target="_blank"
+            style={{ top: example.fileName ? '32px' : '5px' }}
+          >
+            edit on github
+          </a>
+          {
+            compile(
+              `\`\`\`${example.target || 'ts'}\n${example.code.trim()}\n\`\`\``
+            ).tree
+          }
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export const compile = marksy({
-  createElement: React.createElement,
+  createElement: h,
   highlight(language, code) {
     return Prism.highlight(code, Prism.languages[language], language)
   },
@@ -156,7 +145,9 @@ export const compile = marksy({
     Image: ({ src }) => (
       <img src={`/images/${src}`} style={{ width: '100%' }} />
     ),
-    Notice: ({ children }) => <Notice>{compile(children).tree}</Notice>,
+    Notice: ({ children }) => {
+      return <div className={notice}>{compile(String(children)).tree}</div>
+    },
   },
   elements: {
     a({ href, children }) {
@@ -168,3 +159,30 @@ export const compile = marksy({
     },
   },
 })
+
+export const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024)
+
+  useEffect(() => {
+    let currentWidth = window.innerWidth
+    window.addEventListener('resize', () => {
+      if (currentWidth > 1024 && window.innerWidth <= 1024) {
+        setIsMobile(true)
+      } else if (currentWidth <= 1024 && window.innerWidth > 1024) {
+        setIsMobile(false)
+      }
+      currentWidth = window.innerWidth
+    })
+  }, [])
+
+  return isMobile
+}
+
+export const useScrollToTop = (value) => {
+  useEffect(
+    () => {
+      document.querySelector('#overmind-app').scrollTop = 0
+    },
+    [value]
+  )
+}

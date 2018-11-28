@@ -1,46 +1,40 @@
-import * as React from 'react'
+import { h, useState, useEffect } from 'overmind-components'
 import GuideToc from '../GuideToc'
 import Doc from '../Doc'
-import { Wrapper } from './elements'
+import * as styles from './styles'
 import { compile, getGithubBaseUrl } from '../../utils'
+import { Component } from '../../app'
 
-type State = {
-  content: string
+function getGithubUrl(guide) {
+  return (
+    getGithubBaseUrl() + '/guides/' + guide.type + '/' + guide.title + '.md'
+  )
 }
 
-type Props = {
-  currentPath: string
-}
+const Guide: Component = ({ state }) => {
+  const [content, setContent] = useState(null)
 
-class Guide extends React.Component<Props, State> {
-  state = {
-    content: null,
-  }
-  componentDidMount() {
-    const pathArray = this.props.currentPath.split('/')
-    const name = pathArray.pop()
-    const type = pathArray.pop()
-    import('../../../guides/' + type + '/' + name + '.md').then((module) =>
-      this.setState({ content: module })
-    )
-  }
-  getGithubUrl() {
-    return getGithubBaseUrl() + this.props.currentPath + '.md'
-  }
-  render() {
-    if (!this.state.content) {
-      return null
-    }
+  useEffect(() => {
+    import('../../../guides/' +
+      state.currentGuide.type +
+      '/' +
+      state.currentGuide.title +
+      '.md').then((module) => setContent(module))
+  }, [])
 
-    const compiled = compile(this.state.content)
-
-    return (
-      <Wrapper>
-        <Doc url={this.getGithubUrl()}>{compiled.tree}</Doc>
-        <GuideToc toc={compiled.toc} />
-      </Wrapper>
-    )
+  if (!content) {
+    console.log('null')
+    return null
   }
+
+  const compiled = compile(content)
+
+  return (
+    <div className={styles.wrapper}>
+      <Doc url={getGithubUrl(state.currentGuide)}>{compiled.tree}</Doc>
+      <GuideToc toc={compiled.toc} />
+    </div>
+  )
 }
 
 export default Guide

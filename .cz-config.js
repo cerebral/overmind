@@ -32,6 +32,7 @@ module.exports = {
     { name: 'website' },
     { name: 'overmind' },
     { name: 'overmind-devtools' },
+    { name: 'overmind-components' },
     { name: 'overmind-react' },
     { name: 'overmind-vue' },
     { name: 'overmind-angular' },

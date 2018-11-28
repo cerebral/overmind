@@ -1,26 +1,26 @@
-import styled from '../../styled-components'
+import { css } from 'emotion'
 
-export const Edit = styled.a`
+export const edit = css`
   position: absolute;
   top: 85px;
-  right: ${({ theme }) => theme.padding.large};
+  right: var(--padding-5);
 `
 
-export const Content = styled.div`
+export const content = css`
   position: relative;
   width: 700px;
   min-height: 100vh;
   margin: 0 auto;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.color.white};
-  padding: ${({ theme }) => theme.padding.large};
+  background-color: var(--color-white-1);
+  padding: var(--padding-6) var(--padding-5);
   font-family: 'Nunito', sans-serif;
   font-size: 17px;
-  color: ${({ theme }) => theme.color.black};
+  color: var(--color-black-1);
 
   @media (max-width: 700px) {
     width: 100%;
-    padding: ${({ theme }) => `${theme.padding.large} ${theme.padding.normal}`};
+    padding: var(--padding-5) var(--padding-4);
   }
 
   ol {
@@ -32,7 +32,7 @@ export const Content = styled.div`
   }
   ol li::before {
     content: counter(li);
-    color: ${({ theme }) => theme.color.primary};
+    color: var(--color-primary);
     font-weight: bold;
     display: inline-block;
     width: 1em;
@@ -40,8 +40,8 @@ export const Content = styled.div`
   }
   ol,
   ul {
-    margin-top: ${({ theme }) => theme.padding.large};
-    margin-bottom: ${({ theme }) => theme.padding.large};
+    margin-top: var(--padding-5);
+    margin-bottom: var(--padding-5);
   }
   li {
     margin-bottom: 15px;
@@ -61,7 +61,7 @@ export const Content = styled.div`
     padding-top: 50px;
   }
   a {
-    color: ${({ theme }) => theme.color.lighten(theme.color.dark, 1.5)};
+    color: var(--color-black-2);
     text-decoration: none;
     font-size: 14px;
     text-transform: uppercase;

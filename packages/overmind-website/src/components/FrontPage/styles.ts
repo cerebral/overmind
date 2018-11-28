@@ -1,6 +1,6 @@
-import styled from '../../styled-components'
+import { css } from 'emotion'
 
-export const Wrapper = styled.div`
+export const wrapper = css`
   background-color: inherit;
   padding-top: 100px;
   display: flex;
@@ -10,36 +10,47 @@ export const Wrapper = styled.div`
 
   h1,
   h2 {
-    color: ${({ theme }) => theme.color.dark};
+    color: var(--color-dark-1);
   }
 `
 
-export const Container = styled.div`
+export const container = css`
   margin-left: auto;
   margin-right: auto;
   max-width: 1100px;
   width: 100%;
 `
 
-export const ValueProposition = styled.div<{ isMobile: boolean }>`
+export const valueProposition = css`
   display: flex;
-  flex-direction: ${({ isMobile }) => (isMobile ? 'column' : 'row')};
+  flex-direction: row;
   width: 100%;
-  padding: ${({ isMobile, theme }) =>
-    isMobile ? `0 ${theme.padding.normal}` : '0'};
+  padding: 0 var(--padding-4);
   box-sizing: border-box;
   align-items: center;
   > div {
     flex: 1;
-    width: ${({ isMobile }) => (isMobile ? '100%' : 'auto')};
+    width: auto;
   }
   > div:nth-child(1) {
-    margin-right: ${({ isMobile }) => (isMobile ? '0' : '40px')};
+    margin-right: 40px;
   }
-  margin-bottom: ${({ isMobile }) => (isMobile ? '25px' : '100px')};
+  margin-bottom: 100px;
 `
 
-export const IframeWrapper = styled.div`
+export const valuePropositionMobile = css`
+  flex-direction: column;
+  padding: 0;
+  > div {
+    width: 100%;
+  }
+  > div:nth-child(1) {
+    margin-right: 0;
+  }
+  margin-bottom: 25px;
+`
+
+export const iframeWrapper = css`
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -48,7 +59,7 @@ export const IframeWrapper = styled.div`
   align-items: center;
 `
 
-export const Iframe = styled.iframe`
+export const iframe = css`
   border: 0;
   width: 100%;
   height: 500px;
@@ -57,11 +68,11 @@ export const Iframe = styled.iframe`
   overflow: hidden;
 `
 
-export const Banner = styled.div<{ isMobile: boolean }>`
+export const banner = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: ${({ isMobile }) => (isMobile ? '50px' : '150px')};
+  margin-bottom: 150px;
   > h1 {
     font-weight: normal;
     letter-spacing: 0.2rem;
@@ -70,4 +81,6 @@ export const Banner = styled.div<{ isMobile: boolean }>`
   }
 `
 
-export const Button = styled.div``
+export const bannerMobile = css`
+  margin-bottom: 50px;
+`
