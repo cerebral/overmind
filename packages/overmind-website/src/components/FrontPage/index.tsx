@@ -35,7 +35,7 @@ const FrontPage: Component = ({ state }) => {
           )}
         >
           <Logo />
-          <h1>a next generation state management solution</h1>
+          <h1>frictionless webapp development</h1>
         </div>
         <div
           className={css(
