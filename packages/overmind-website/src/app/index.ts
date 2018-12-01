@@ -16,11 +16,7 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-export type Component<Props = {}, Children = any> = TComponent<
-  typeof config,
-  Props,
-  Children
->
+export type Component<Props = {}> = TComponent<typeof config, Props>
 
 const app = new Overmind(config)
 

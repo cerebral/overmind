@@ -2,7 +2,11 @@ import { h } from 'overmind-components'
 import { Component } from '../../app'
 import { icon, icons } from './styles'
 
-const Icon: Component<{}, keyof typeof icons> = ({ children }) => (
+type Props = {
+  children: keyof typeof icons
+}
+
+const Icon: Component<Props> = ({ children }) => (
   <span className={icon(String(children))} />
 )
 
