@@ -2,6 +2,7 @@ import { h, useState, useRef } from 'overmind-components'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
 import * as AngularImage from '../../images/angular.png'
+import * as OvermindImage from '../../images/overmind.png'
 import * as TsImage from '../../images/ts.png'
 import * as TsImageGrayscale from '../../images/ts-grayscale.png'
 import Icon from '../Icon'
@@ -24,6 +25,12 @@ const ViewSelector: Component = ({ state, actions }) => {
   }
 
   const options = {
+    components: (
+      <div className={styles.viewOption}>
+        <img src={OvermindImage} width={25} />
+        Components
+      </div>
+    ),
     react: (
       <div className={styles.viewOption}>
         <img src={ReactImage} width={25} />

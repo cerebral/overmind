@@ -1,4 +1,28 @@
 const javascript = {
+  components: [
+    {
+      fileName: 'app/actions.js',
+      code: `
+export const toggleAwesomeApp = ({ state }) =>
+  state.isAwesome = !state.isAwesome
+    `,
+    },
+    {
+      fileName: 'components/App.js',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+
+const App = ({ app }) => (
+  <button onClick={app.actions.toggleAwesomeApp}>
+    Toggle awesome
+  </button>
+)
+
+export default App
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'app/actions.js',
@@ -15,7 +39,7 @@ import React from 'react'
 import { connect } from '../app'
 
 const App = ({ app }) => (
-  <button onClick={() => app.actions.toggleAwesomeApp()}>
+  <button onClick={app.actions.toggleAwesomeApp}>
     Toggle awesome
   </button>
 )
@@ -53,6 +77,32 @@ export default connect({})
 }
 
 const typescript = {
+  components: [
+    {
+      fileName: 'app/actions.ts',
+      code: `
+import { Action } from 'overmind'
+
+export const toggleAwesomeApp: Action = ({ state }) =>
+  state.isAwesome = !state.isAwesome
+    `,
+    },
+    {
+      fileName: 'components/App.tsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component } from '../app'
+
+const App: Component = ({ actions }) => (
+  <button onClick={actions.toggleAwesomeApp}>
+    Toggle awesome
+  </button>
+)
+
+export default App
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'app/actions.ts',
@@ -67,10 +117,10 @@ export const toggleAwesomeApp: Action = ({ state }) =>
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { Connect, connect } from './app'
+import { Connect, connect } from '../app'
 
 const App: React.SFC<Connect> = ({ app }) => (
-  <button onClick={() => app.actions.toggleAwesomeApp()}>
+  <button onClick={app.actions.toggleAwesomeApp}>
     Toggle awesome
   </button>
 )

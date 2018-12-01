@@ -1,5 +1,4 @@
 import { css } from 'emotion'
-import { ThemeInterface } from 'overmind-themes'
 
 export const wrapper = css`
   position: relative;
@@ -88,7 +87,7 @@ export const option = css`
     border-bottom-left-radius: var(--border-radius-1);
     border-bottom-right-radius: var(--border-radius-1);
   }
-  > img {
+  img {
     margin-right: 5px;
   }
 `

@@ -1,4 +1,23 @@
 const javascript = {
+  components: [
+    {
+      fileName: 'App.js',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+
+const App = ({ state }) => {
+  if (state.isLoading) {
+    return <div>Loading app...</div>
+  }
+
+  return <h1>My awesome app</h1>
+}
+
+export default App
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'App.js',
@@ -42,12 +61,31 @@ export default connect({})
 }
 
 const typescript = {
+  components: [
+    {
+      fileName: 'components/App.tsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component } from '../../app'
+
+const App: Component = ({ state }) => {
+  if (state.isLoading) {
+    return <div>Loading app...</div>
+  }
+
+  return <h1>My awesome app</h1>
+}
+
+export default App
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../../app'
 
 const App: React.SFC<Connect> = ({ app }) => {
   if (app.state.isLoading) {

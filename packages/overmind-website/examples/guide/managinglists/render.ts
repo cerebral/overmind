@@ -1,4 +1,23 @@
 const javascript = {
+  components: [
+    {
+      fileName: 'components/Posts.jsx',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+
+const Posts = ({ state }) => (
+  <ul>
+    {state.postsList.map(post => 
+      <li key={post.id}>{post.title}</li>
+    )}
+  </ul>
+)
+
+export default Posts
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/Posts.jsx',
@@ -43,12 +62,31 @@ export default connect({})
 }
 
 const typescript = {
+  components: [
+    {
+      fileName: 'components/Posts.tsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component} from '../app'
+
+const Posts: Component = ({ state }) => (
+  <ul>
+    {state.postsList.map(post => 
+      <li key={post.id}>{post.title}</li>
+    )}
+  </ul>
+)
+
+export default App
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from './app'
+import { connect, Connect } from '../app'
 
 const Posts: React.SFC<Connect> = ({ app }) => (
   <ul>

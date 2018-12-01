@@ -17,15 +17,15 @@ const MobileTopBar: Component = ({ state }) => {
   const menu = useRef()
 
   useEffect(() => {
-    requestAnimationFrame(() => (bar.target.style.top = '0'))
+    requestAnimationFrame(() => (bar.current.style.top = '0'))
   }, [])
 
   function openMenu() {
-    menu.target.style.transform = 'translate3d(0, 0, 0)'
+    menu.current.style.transform = 'translate3d(0, 0, 0)'
   }
 
   function closeMenu() {
-    menu.target.style.transform = 'translate3d(-110vw, 0, 0)'
+    menu.current.style.transform = 'translate3d(-110vw, 0, 0)'
   }
 
   return (

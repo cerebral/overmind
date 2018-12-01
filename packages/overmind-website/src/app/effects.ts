@@ -25,6 +25,7 @@ export const storage = {
 export const css = {
   changePrimary(theme: string) {
     const colors = {
+      components: 'hsl(206, 57%, 17%)',
       react: '#61dafb',
       angular: '#dd0330',
       vue: '#41b883',

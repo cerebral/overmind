@@ -14,7 +14,7 @@ const VideoPlayer: Component<Props> = () => {
   const isMobile = useIsMobile()
 
   useEffect(() => {
-    requestAnimationFrame(() => (ref.target.style.opacity = '1'))
+    requestAnimationFrame(() => (ref.current.style.opacity = '1'))
   })
 
   return (

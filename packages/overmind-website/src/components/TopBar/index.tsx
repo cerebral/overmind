@@ -10,7 +10,7 @@ const TopBar: Component = ({ state }) => {
   const mainRef = useRef()
 
   useEffect(() => {
-    requestAnimationFrame(() => (mainRef.target.style.top = '0'))
+    requestAnimationFrame(() => (mainRef.current.style.top = '0'))
   })
 
   return (

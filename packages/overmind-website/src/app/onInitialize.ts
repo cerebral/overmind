@@ -1,8 +1,15 @@
 import { OnInitialize } from 'overmind'
 
-const onInitialize: OnInitialize = ({ value: app, router, state, storage }) => {
+const onInitialize: OnInitialize = ({
+  value: app,
+  router,
+  state,
+  storage,
+  css,
+}) => {
   state.typescript = storage.get('typescript') || false
   state.theme = storage.get('theme') || 'react'
+  css.changePrimary(state.theme)
 
   router.route('/', app.actions.openHome)
   router.route('/guides', app.actions.openGuides)

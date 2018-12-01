@@ -58,12 +58,6 @@ const notice = css`
   font-size: var(--font-size-3);
 `
 
-type TExample = {
-  fileName: string
-  code: string
-  target: string
-}
-
 const Example: Component<{ name: string }> = ({ name, state }) => {
   const [localState, setLocalState] = useState({
     isLoading: true,

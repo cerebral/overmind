@@ -32,13 +32,10 @@ const App: Component = ({ state }) => {
   const mainRef = useRef()
   const isMobile = useIsMobile()
   useScrollToTop(state.page)
-  useEffect(
-    () => {
-      fadeInPage()
-      mainRef.target.style.opacity = '1'
-    },
-    [mainRef.target]
-  )
+  useEffect(() => {
+    fadeInPage()
+    mainRef.current.style.opacity = '1'
+  }, [])
 
   if (!state.page) {
     return null
