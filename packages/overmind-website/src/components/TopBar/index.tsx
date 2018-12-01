@@ -1,44 +1,57 @@
-import * as React from 'react'
-import { Wrapper, Link } from './elements'
-import Search from '../Search'
+import { h, useRef, useEffect } from 'overmind-components'
+import { Component } from '../../app'
+import * as styles from './styles'
+import { Page } from '../../app/types'
 import ViewSelector from '../ViewSelector'
+import { css } from 'emotion'
+import Search from '../Search'
 
-type Props = {
-  currentPage: string
-  selectedTheme: string
-}
+const TopBar: Component = ({ state }) => {
+  const mainRef = useRef()
 
-class TopBar extends React.Component<Props> {
-  node: HTMLElement
-  componentDidMount() {
-    requestAnimationFrame(() => (this.node.style.top = '0'))
-  }
-  render() {
-    const { selectedTheme, currentPage } = this.props
+  useEffect(() => {
+    requestAnimationFrame(() => (mainRef.current.style.top = '0'))
+  })
 
-    return (
-      <Wrapper
-        innerRef={(node) => {
-          this.node = node
-        }}
+  return (
+    <div ref={mainRef} className={styles.wrapper}>
+      <a
+        href="/"
+        className={css(
+          styles.link,
+          state.page === Page.HOME && styles.selected
+        )}
       >
-        <Link href="/" selected={currentPage === '/'}>
-          Home
-        </Link>
-        <Link href="/guides" selected={currentPage.indexOf('/guides') === 0}>
-          Guides
-        </Link>
-        <Link href="/videos" selected={currentPage.indexOf('/videos') === 0}>
-          Videos
-        </Link>
-        <Link href="/api" selected={currentPage.indexOf('/api') === 0}>
-          Api
-        </Link>
-        <Search />
-        <ViewSelector selectedTheme={selectedTheme} />
-      </Wrapper>
-    )
-  }
+        Home
+      </a>
+      <a
+        href="/guides"
+        className={css(
+          styles.link,
+          state.page === Page.GUIDES && styles.selected
+        )}
+      >
+        Guides
+      </a>
+      <a
+        href="/videos"
+        className={css(
+          styles.link,
+          state.page === Page.VIDEOS && styles.selected
+        )}
+      >
+        Videos
+      </a>
+      <a
+        href="/api"
+        className={css(styles.link, state.page === Page.API && styles.selected)}
+      >
+        Api
+      </a>
+      <Search />
+      <ViewSelector />
+    </div>
+  )
 }
 
 export default TopBar

@@ -1,4 +1,37 @@
 const javascript = {
+  components: [
+    {
+      fileName: 'components/Item.js',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+
+const Item = ({ item }) => (
+  <li>{item.title}</li>
+)
+
+export default Item
+    `,
+    },
+    {
+      fileName: 'components/App.js',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+import Item from './Item'
+
+const App = ({ state }) => (
+  <ul>
+    {Object.keys(state.items).map(key => 
+      <Item key={key} item={state.items[key]} />
+    )}
+  </ul>
+)
+
+export default App
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/Item.js',
@@ -78,12 +111,49 @@ export default connect({
 }
 
 const typescript = {
+  components: [
+    {
+      fileName: 'components/Item.jsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component } from '../app'
+
+type Props = {
+  item: { title: string }
+}
+
+const Item: Component<Props> = ({ item }) => (
+  <li>{item.title}</li>
+)
+
+export default Item
+    `,
+    },
+    {
+      fileName: 'components/List.tsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component } from '../app'
+import Item from './Item'
+
+const List: Component = ({ state }) => (
+  <ul>
+    {Object.keys(state.items).map(key => 
+      <Item key={key} item={state.items[key]} />
+    )}
+  </ul>
+)
+
+export default List
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/Item.jsx',
       code: `
 import React from 'react'
-import { connect, Connect } from './app'
+import { connect, Connect } from '../app'
 
 type Props = {
   item: { title: string }
@@ -100,7 +170,7 @@ export default connect(Item)
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from './app'
+import { connect, Connect } from '../app'
 import Item from './Item'
 
 const List: React.SFC<Connect> = ({ app }) => (

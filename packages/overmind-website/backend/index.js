@@ -55,6 +55,7 @@ function getSearchData() {
             type: 'guide',
             title: content.split('\n')[0].replace('# ', ''),
             content: content.toLowerCase(),
+            path: path.join('guides', type, fileName.replace('.md', '')),
             fileName,
           })
         }, [])
@@ -70,6 +71,7 @@ function getSearchData() {
           type: 'api',
           title: content.split('\n')[0].replace('# ', ''),
           content: content.toLowerCase(),
+          path: path.join('api', fileName.replace('.md', '')),
           fileName,
         })
       }, [])
@@ -105,6 +107,7 @@ app.get('/backend/search', (req, res) => {
         return acc.concat({
           count: matches.length,
           title: data.title,
+          path: data.path,
           type: data.type,
           fileName: data.fileName,
         })

@@ -1,4 +1,37 @@
 const javascript = {
+  components: [
+    {
+      fileName: 'components/Post.jsx',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+
+const Post = ({ post }) => (
+  <li>{post.title}</li>
+)
+
+export default Post
+    `,
+    },
+    {
+      fileName: 'components/Posts.jsx',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+import Post from './Post'
+
+const Posts = ({ state }) => (
+  <ul>
+    {state.postsList.map(post => 
+      <Post key={post.id} post={post} />
+    )}
+  </ul>
+)
+
+export default Posts
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/Post.jsx',
@@ -78,6 +111,44 @@ export default connect({
 }
 
 const typescript = {
+  components: [
+    {
+      fileName: 'components/Post.tsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component } from '../app'
+import { Post as TPost } from '../app/state'
+
+type Props = {
+  post: TPost
+}
+
+const Post: Component<Props> = ({ post }) => (
+  <li>{post.title}</li>
+)
+
+export default Post
+    `,
+    },
+    {
+      fileName: 'components/Posts.tsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component } from '../app'
+import Post from './Post'
+
+const Posts: Component = ({ state }) => (
+  <ul>
+    {state.postsList.map(post => 
+      <Item key={post.id} post={post} />
+    )}
+  </ul>
+)
+
+export default Posts
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/Post.tsx',

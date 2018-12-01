@@ -1,144 +1,55 @@
-import * as React from 'react'
-import {
-  InputElement,
-  SearchResult,
-  SearchResultItem,
-  Wrapper,
-  SearchText,
-} from './elements'
+import { h } from 'overmind-components'
+import * as styles from './styles'
+import { Component } from '../../app'
+import { SearchResult } from '../../app/types'
 
-function debounce(func, wait, immediate?) {
-  var timeout
-  return function() {
-    var context = this
-
-    var args = arguments
-    var later = function() {
-      timeout = null
-      if (!immediate) func.apply(context, args)
+export const Search: Component = ({ state, actions }) => {
+  function onClick() {
+    const onClose = () => {
+      document.removeEventListener('click', onClose)
+      actions.closeSearch()
     }
-    var callNow = immediate && !timeout
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-    if (callNow) func.apply(context, args)
+    document.addEventListener('click', onClose)
   }
-}
 
-type TSearchResult = {
-  type: string
-  title: string
-  count: number
-  fileName: string
-}
-
-type State = {
-  query: string
-  isLoading: boolean
-  searchResult: TSearchResult[]
-  showSearchResult: boolean
-}
-
-class Search extends React.Component<{}, State> {
-  state = {
-    query: '',
-    isLoading: false,
-    searchResult: [],
-    showSearchResult: false,
-  }
-  isUnmounting: boolean
-  componentDidMount() {
-    document.addEventListener('click', () => {
-      this.setState({
-        showSearchResult: false,
-      })
-    })
-  }
-  componentWillUnmount() {
-    this.isUnmounting = true
-  }
-  onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value
-    this.setState({
-      query,
-      showSearchResult: query.length > 2,
-      isLoading: query.length > 2,
-    })
-
-    if (query.length < 3) {
-      return
-    }
-
-    this.search()
-  }
-  search = debounce(function() {
-    if (this.isUnmounting) {
-      return
-    }
-
-    this.setState({
-      isLoading: true,
-    })
-    fetch('/backend/search?query=' + this.state.query)
-      .then((response) => response.json())
-      .then((searchResult) =>
-        this.setState({
-          searchResult,
-          isLoading: false,
-        })
-      )
-  }, 200)
-  renderSearchResultItem = (item: TSearchResult) => {
+  function renderSearchResultItem(item: SearchResult) {
+    console.log(item)
     return (
-      <SearchResultItem
+      <a
+        className={styles.searchResultItem}
         key={item.fileName}
-        href={`/${
-          item.type === 'guide' ? 'guides' : 'api'
-        }/${item.fileName.replace('.md', '')}`}
+        href={'/' + item.path}
       >
         <span>{item.type}</span>
         {item.title}
-      </SearchResultItem>
+      </a>
     )
   }
-  renderSearchResult() {
-    if (this.state.isLoading) {
-      return <SearchText>Searching...</SearchText>
+  function renderSearchResult() {
+    if (state.isLoadingSearchResult) {
+      return <div className={styles.searchText}>Searching...</div>
     }
-    if (this.state.searchResult.length === 0) {
-      return <SearchText>Sorry, no result :(</SearchText>
+    if (state.searchResult.length === 0) {
+      return <div className={styles.searchText}>Sorry, no result :(</div>
     }
 
-    return this.state.searchResult.map(this.renderSearchResultItem)
+    return state.searchResult.map(renderSearchResultItem)
   }
-  onClick = () => {
-    if (this.state.searchResult.length) {
-      // Let closing click event go through first
-      setTimeout(() => {
-        if (this.isUnmounting) {
-          return
-        }
 
-        this.setState({
-          showSearchResult: true,
-        })
-      }, 0)
-    }
-  }
-  render() {
-    return (
-      <Wrapper>
-        <InputElement
-          onClick={this.onClick}
-          placeholder="Search..."
-          onChange={this.onChange}
-          value={this.state.query}
-        />
-        {this.state.showSearchResult ? (
-          <SearchResult>{this.renderSearchResult()}</SearchResult>
-        ) : null}
-      </Wrapper>
-    )
-  }
+  return (
+    <div className={styles.wrapper}>
+      <input
+        className={styles.inputElement}
+        onClick={onClick}
+        placeholder="Search..."
+        onInput={actions.changeQuery}
+        value={state.query}
+      />
+      {state.showSearchResult ? (
+        <div className={styles.searchResult}>{renderSearchResult()}</div>
+      ) : null}
+    </div>
+  )
 }
 
 export default Search

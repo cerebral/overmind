@@ -1,4 +1,4 @@
-export default (ts, view) =>
+export default (ts) =>
   ts
     ? [
         {

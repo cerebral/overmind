@@ -2,14 +2,11 @@
   {
     "title": "Simple app",
     "sandboxes": {
-      "react":
-        "https://codesandbox.io/embed/qv1n35yrlj?fontsize=12&codemirror=1&module=%2Fsrc%2FPosts.jsx",
-      "react_ts":
-        "https://codesandbox.io/embed/0yz8k00orv?fontsize=12&codemirror=1&module=%2Fsrc%2FPosts.tsx",
-      "angular":
-        "https://stackblitz.com/edit/overmind-demo1-angular-next?embed=1&file=src/app/app.component.html",
-      "vue":
-        "https://codesandbox.io/embed/k094r7rmyr?fontsize=12&codemirror=1&module=%2Fsrc%2FPosts.vue"
+      "components": "https://codesandbox.io/embed/qv1n35yrlj?fontsize=12&codemirror=1&module=%2Fsrc%2FPosts.jsx",
+      "react": "https://codesandbox.io/embed/qv1n35yrlj?fontsize=12&codemirror=1&module=%2Fsrc%2FPosts.jsx",
+      "react_ts": "https://codesandbox.io/embed/0yz8k00orv?fontsize=12&codemirror=1&module=%2Fsrc%2FPosts.tsx",
+      "angular": "https://stackblitz.com/edit/overmind-demo1-angular-next?embed=1&file=src/app/app.component.html",
+      "vue": "https://codesandbox.io/embed/k094r7rmyr?fontsize=12&codemirror=1&module=%2Fsrc%2FPosts.vue"
     }
   }
 ]

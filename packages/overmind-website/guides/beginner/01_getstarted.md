@@ -14,25 +14,27 @@ Great, we are good to go!
 
 ## Our first state
 
-Applications are about state and we are going to introduce our first state, **isLoadingPosts**. Typically you would be tempted to isolate this state in your component, but this is exactly what Overmind discourages. In Overmind you rather define the state of your application outside of your view layer. This gives you several benefits which will become clear as we move on.
+Applications are about state and we are going to introduce our first state, **isLoadingPosts**. Typically you would be tempted to isolate this state in your component, but this is exactly what Overmind discourages. In Overmind you primarily define the state of your application outside of your view layer. This gives you several benefits which will become clear as we move on.
 
-In the component we are going to imagine that we receive the Overmind application:
+Let us imagine we get what we need from Overmind in a component:
 
 ```marksy
 h(Example, { name: "guide/getstarted/loadingposts" })
 ```
 
-This will of course result in an error. To make this work we have to create an Overmind application instance.
+This will of course not work. To make this work we have to create an Overmind application instance.
 
 ```marksy
 h(Example, { name: "guide/getstarted/createapp" })
 ```
 
-In addition to exporting the app itself we export a way to connect to the app. Let us do that now.
+Now that we have our application, let us expose it to our component.
 
 ```marksy
 h(Example, { name: "guide/getstarted/connectapp" })
 ```
+
+That is it, your component will now render whenever the state accessed changes. 
 
 ## Loading posts
 

@@ -1,4 +1,19 @@
 const javascript = {
+  components: [
+    {
+      fileName: 'components/List.js',
+      target: 'jsx',
+      code: `
+import { h } from 'overmind-components'
+
+const List = ({ state }) => (
+  <h1>{state.items}</h1>
+)
+
+export default List
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/List.js',
@@ -35,12 +50,27 @@ export default connect({})
 }
 
 const typescript = {
+  components: [
+    {
+      fileName: 'components/List.tsx',
+      code: `
+import { h } from 'overmind-components'
+import { Component } from '../app'
+
+const List: Component = ({ state }) => (
+  <h1>{state.items}</h1>
+)
+
+export default List
+    `,
+    },
+  ],
   react: [
     {
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from './app'
+import { connect, Connect } from '../app'
 
 const List: React.SFC<Connect> = ({ app }) => (
   <h1>{app.state.items}</h1>

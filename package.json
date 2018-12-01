@@ -46,7 +46,8 @@
     "preact": "8.3.1",
     "preact-compat": "3.18.4",
     "react": "16.7.0-alpha.1",
-    "react-dom": "16.7.0-alpha.1"
+    "react-dom": "16.7.0-alpha.1",
+    "emotion": "9.2.12"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -97,7 +98,8 @@
     "webpack-cli": "3.0.8",
     "webpack-dev-server": "3.1.5",
     "react": "16.7.0-alpha.1",
-    "react-dom": "16.7.0-alpha.1"
+    "react-dom": "16.7.0-alpha.1",
+    "@babel/plugin-transform-react-jsx": "7.1.6"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

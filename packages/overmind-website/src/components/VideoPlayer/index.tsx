@@ -1,6 +1,7 @@
-import * as React from 'react'
-import { Wrapper, Video, Backdrop, Loader, Iframe } from './elements'
-import { viewport } from '../../utils'
+import { h, useRef, useEffect } from 'overmind-components'
+import * as styles from './styles'
+import { Component } from '../../app'
+import { useIsMobile } from '../../utils'
 
 type Props = {
   url: string
@@ -8,39 +9,35 @@ type Props = {
 
 // https://www.youtube.com/watch?v=RA1_cCgEWws
 
-class VideoPlayer extends React.Component<Props> {
-  node: HTMLElement
-  componentDidMount() {
-    setTimeout(() => {
-      this.node.style.opacity = '1'
-    })
-  }
-  render() {
-    return (
-      <Wrapper
-        innerRef={(node) => {
-          this.node = node
-        }}
-      >
-        <Backdrop href="/videos" />
-        <Video>
-          <Loader>loading video...</Loader>
-          <Iframe
-            width={viewport.isMobile ? '300' : '560'}
-            height={viewport.isMobile ? '169' : '315'}
-            src={
-              this.props.url.replace('watch?v=', 'embed/') +
-              '?rel=0&amp;showinfo=0'
-            }
-            frameBorder="0"
-            // @ts-ignore
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-          />
-        </Video>
-      </Wrapper>
-    )
-  }
+const VideoPlayer: Component<Props> = () => {
+  const ref = useRef()
+  const isMobile = useIsMobile()
+
+  useEffect(() => {
+    requestAnimationFrame(() => (ref.current.style.opacity = '1'))
+  })
+
+  return (
+    <div className={styles.wrapper} ref={ref}>
+      <a className={styles.backdrop} href="/videos" />
+      <div className={styles.video}>
+        <div className={styles.loader}>loading video...</div>
+        <iframe
+          className={styles.iframe}
+          width={isMobile ? '300' : '560'}
+          height={isMobile ? '169' : '315'}
+          src={
+            this.props.url.replace('watch?v=', 'embed/') +
+            '?rel=0&amp;showinfo=0'
+          }
+          frameBorder="0"
+          // @ts-ignore
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+        />
+      </div>
+    </div>
+  )
 }
 
 export default VideoPlayer

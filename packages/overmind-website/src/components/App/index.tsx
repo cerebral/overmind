@@ -1,149 +1,54 @@
-import * as React from 'react'
+import { h, useRef, useEffect } from 'overmind-components'
+import { Component } from '../../app'
+import * as styles from './styles'
+import TopBar from '../TopBar'
 import FrontPage from '../FrontPage'
-import * as page from 'page'
-import * as themes from 'overmind-themes'
-import { ThemeProvider } from '../../styled-components'
-import { getTheme, viewport } from '../../utils'
 import Guides from '../Guides'
-import Videos from '../Videos'
+import { Page } from '../../app/types'
 import Guide from '../Guide'
 import Api from '../Api'
-import TopBar from '../TopBar'
 import MobileTopBar from '../MobileTopBar'
-import { Wrapper } from './elements'
-import Workshop from '../Workshop'
+import { useIsMobile, useScrollToTop } from '../../utils'
 
-const routesMap = {
-  '/': FrontPage,
-  '/guides': Guides,
-  '/guides/:type/:title': Guide,
-  '/videos': Videos,
-  '/videos/:title': Videos,
-  '/api/:title': Api,
-  '/workshop': Workshop,
+const pages = {
+  [Page.HOME]: FrontPage,
+  [Page.GUIDES]: Guides,
+  [Page.GUIDE]: Guide,
+  [Page.API]: Api,
 }
 
-export type TVideo = {
-  title: string
-  type: string
-  fileName: string
-  url: string
-  shortName: string
+const fadeInPage = () => {
+  const el = document.querySelector('#overmind-app') as HTMLElement
+  const logo = document.querySelector('#overmind-loader') as HTMLElement
+  el.style.backgroundColor = 'rgb(250,250,250)'
+  el.style.opacity = '1'
+  logo.addEventListener('transitionend', () => {
+    logo.style.display = 'none'
+  })
+  logo.style.opacity = '0'
 }
 
-export type TGuide = {
-  title: string
-  type: string
-  fileName: string
-}
+const App: Component = ({ state }) => {
+  const mainRef = useRef()
+  const isMobile = useIsMobile()
+  useScrollToTop(state.page)
+  useEffect(() => {
+    fadeInPage()
+    mainRef.current.style.opacity = '1'
+  }, [])
 
-export type TApi = {
-  title: string
-  fileName: string
-}
-
-export type TDemo = {
-  title: string
-  sandboxes: {
-    [view: string]: string
+  if (!state.page) {
+    return null
   }
-}
 
-type State = {
-  currentPage: string
-  currentPath: string
-  videos: TVideo[]
-  guides: TGuide[]
-  demos: TDemo[]
-  apis: TApi[]
-  isLoading: boolean
-}
+  const Page = pages[state.page]
 
-class App extends React.Component<{}, State> {
-  state = {
-    currentPage: null,
-    currentPath: null,
-    videos: [],
-    demos: [],
-    guides: [],
-    apis: [],
-    isLoading: true,
-  }
-  wrapper: HTMLDivElement
-  componentWillMount() {
-    const routes = Object.keys(routesMap)
-
-    routes.forEach((route) =>
-      page(route, (context) =>
-        this.setState({ currentPage: route, currentPath: context.path })
-      )
-    )
-
-    page.redirect('/api', '/api/action')
-  }
-  componentDidUpdate(_, prevState) {
-    if (prevState.currentPath !== this.state.currentPath) {
-      document.querySelector('#overmind-app').scrollTop = 0
-    }
-    if (!prevState.currentPage && this.state.currentPage) {
-      this.wrapper.style.opacity = '1'
-    }
-  }
-  componentDidMount() {
-    const el = document.querySelector('#overmind-app') as HTMLElement
-
-    el.style.backgroundColor = 'rgb(250,250,250)'
-    el.style.opacity = '1'
-    page.start({})
-
-    Promise.all([
-      fetch('/backend/guides').then((response) => response.json()),
-      fetch('/backend/videos').then((response) => response.json()),
-      fetch('/backend/demos').then((response) => response.json()),
-      fetch('/backend/apis').then((response) => response.json()),
-    ]).then(([guides, videos, demos, apis]) =>
-      this.setState({
-        isLoading: false,
-        guides,
-        videos,
-        demos,
-        apis,
-      })
-    )
-  }
-  render() {
-    const { currentPage, currentPath } = this.state
-
-    if (!currentPage) {
-      return null
-    }
-
-    const Page = routesMap[this.state.currentPage]
-
-    return (
-      <ThemeProvider theme={themes[getTheme()]}>
-        <Wrapper innerRef={(node) => (this.wrapper = node)}>
-          {viewport.isMobile ? (
-            <MobileTopBar
-              currentPage={currentPage}
-              selectedTheme={getTheme()}
-              currentPath={currentPath}
-            />
-          ) : (
-            <TopBar currentPage={currentPage} selectedTheme={getTheme()} />
-          )}
-          <Page
-            currentPath={currentPath}
-            isLoading={this.state.isLoading}
-            videos={this.state.videos}
-            demos={this.state.demos}
-            apis={this.state.apis}
-            guides={this.state.guides}
-          />
-        </Wrapper>
-      </ThemeProvider>
-    )
-  }
+  return (
+    <div ref={mainRef} className={styles.wrapper}>
+      {isMobile ? <MobileTopBar /> : <TopBar />}
+      <Page />
+    </div>
+  )
 }
 
 export default App
