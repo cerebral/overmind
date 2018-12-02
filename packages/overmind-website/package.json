@@ -39,7 +39,6 @@
 		"install": "^0.12.1",
 		"marksy": "^6.1.0",
 		"npm": "^6.3.0",
-		"overmind-react": "next",
     "overmind-components": "next",
 		"page": "^1.8.6",
 		"prismjs": "^1.15.0"
