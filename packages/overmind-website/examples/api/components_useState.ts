@@ -3,7 +3,7 @@ export default (ts) =>
     ? [
         {
           code: `
-import { useState } from 'overmind-components'
+import { h, Component, useState } from 'overmind-components'
 
 const MyComponent: Component = () => {
   const [shout, setShout] = useState(false)
@@ -24,7 +24,7 @@ const MyComponent: Component = () => {
     : [
         {
           code: `
-import { useState } from 'overmind-components'
+import { h, useState } from 'overmind-components'
 
 const MyComponent = () => {
   const [shout, setShout] = useState(false)

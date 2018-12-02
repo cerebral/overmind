@@ -4,11 +4,15 @@ const javascript = {
       fileName: 'components/List.js',
       target: 'jsx',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 
-const List = ({ state }) => (
-  <h1>{state.items}</h1>
-)
+const List = () => {
+  const { state } = useOvermind()
+
+  return (
+    <h1>{state.items}</h1>
+  )
+}
 
 export default List
     `,
@@ -22,8 +26,8 @@ export default List
 import React from 'react'
 import { connect } from '../app'
 
-const List = ({ app }) => (
-  <h1>{app.state.items}</h1>
+const List = ({ overmind }) => (
+  <h1>{overmind.state.items}</h1>
 )
 
 export default connect(List)
@@ -35,7 +39,7 @@ export default connect(List)
       fileName: 'components/List.vue (template)',
       target: 'markup',
       code: `
-<h1>{{app.state.items}}</h1>
+<h1>{{overmind.state.items}}</h1>
     `,
     },
     {
@@ -54,12 +58,15 @@ const typescript = {
     {
       fileName: 'components/List.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component, useOvermind } from 'overmind-components'
 
-const List: Component = ({ state }) => (
-  <h1>{state.items}</h1>
-)
+const List: Component = () => {
+  const { state } = useOvermind()
+
+  return (
+    <h1>{state.items}</h1>
+  )
+}
 
 export default List
     `,
@@ -72,8 +79,8 @@ export default List
 import * as React from 'react'
 import { connect, Connect } from '../app'
 
-const List: React.SFC<Connect> = ({ app }) => (
-  <h1>{app.state.items}</h1>
+const List: React.SFC<Connect> = ({ overmind }) => (
+  <h1>{overmind.state.items}</h1>
 )
 
 export default connect(List)
@@ -91,7 +98,7 @@ import { connect } from '../app'
 @Component({
   selector: 'app-list',
   template: \`
-  <h1>{{app.state.items}}</h1>
+  <h1>{{overmind.state.items}}</h1>
   \`
 })
 @connect()

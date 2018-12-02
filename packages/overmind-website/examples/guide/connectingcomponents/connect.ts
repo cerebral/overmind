@@ -4,9 +4,11 @@ const javascript = {
       fileName: 'App.js',
       target: 'jsx',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 
-const App = ({ state }) => {
+const App = () => {
+  const { state } = useOvermind()
+
   if (state.isLoading) {
     return <div>Loading app...</div>
   }
@@ -26,8 +28,8 @@ export default App
 import React from 'react'
 import { connect } from '../app'
 
-const App = ({ app }) => {
-  if (app.state.isLoading) {
+const App = ({ overmind }) => {
+  if (overmind.state.isLoading) {
     return <div>Loading app...</div>
   }
 
@@ -43,7 +45,7 @@ export default connect(App)
       fileName: 'components/App.vue (template)',
       target: 'markup',
       code: `
-<div v-if="app.state.isLoading">
+<div v-if="overmind.state.isLoading">
   Loading app...
 </div>
 <h1 v-else>My awesome app</h1>
@@ -65,10 +67,11 @@ const typescript = {
     {
       fileName: 'components/App.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../../app'
+import { h, Component, useOvermind } from 'overmind-components'
 
-const App: Component = ({ state }) => {
+const App: Component = () => {
+  const { state } = useOvermind()
+
   if (state.isLoading) {
     return <div>Loading app...</div>
   }
@@ -87,8 +90,8 @@ export default App
 import * as React from 'react'
 import { connect, Connect } from '../../app'
 
-const App: React.SFC<Connect> = ({ app }) => {
-  if (app.state.isLoading) {
+const App: React.SFC<Connect> = ({ overmind }) => {
+  if (overmind.state.isLoading) {
     return <div>Loading app...</div>
   }
 
@@ -110,10 +113,10 @@ import { connect } from '../app'
 @Component({
   selector: 'app-root',
   template: \`
-  <div *ngIf="app.state.isLoading">
+  <div *ngIf="overmind.state.isLoading">
     Loading app...
   </div>
-  <h1 *ngIf="!app.state.isLoading">
+  <h1 *ngIf="!overmind.state.isLoading">
     My awesome app
   </h1>
   \`

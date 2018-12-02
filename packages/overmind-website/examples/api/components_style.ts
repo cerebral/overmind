@@ -3,6 +3,8 @@ export default (ts) =>
     ? [
         {
           code: `
+import { h, Component, useState, useEffect } from 'overmind-components'
+
 const MyComponent: Component = () => {
   const [position, setPosition] = useState({
     x: 0,
@@ -38,6 +40,8 @@ const MyComponent: Component = () => {
     : [
         {
           code: `
+import { h, useState, useEffect } from 'overmind-components'
+
 const MyComponent = () => {
   const [position, setPosition] = useState({
     x: 0,

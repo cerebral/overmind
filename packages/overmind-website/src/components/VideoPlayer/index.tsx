@@ -1,6 +1,5 @@
-import { h, useRef, useEffect } from 'overmind-components'
+import { h, Component, useRef, useEffect } from 'overmind-components'
 import * as styles from './styles'
-import { Component } from '../../app'
 import { useIsMobile } from '../../utils'
 
 type Props = {

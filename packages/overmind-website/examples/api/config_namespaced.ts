@@ -20,8 +20,6 @@ declare module 'overmind' {
 
 const app = new Overmind(config)
 
-export type Connect = TConnect<typeof app>
-
 export default app
 `,
         },

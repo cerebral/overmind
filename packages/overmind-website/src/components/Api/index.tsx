@@ -1,16 +1,21 @@
-import { h, useState, useEffect } from 'overmind-components'
+import {
+  h,
+  Component,
+  useState,
+  useEffect,
+  useOvermind,
+} from 'overmind-components'
 import Doc from '../Doc'
 import * as styles from './styles'
 import { compile, getGithubBaseUrl } from '../../utils'
-import { Api as TApi } from '../../app/types'
-import { Component } from '../../app'
 import { css } from 'emotion'
 
 function getGithubUrl(name) {
   return getGithubBaseUrl() + '/api/' + name + '.md'
 }
 
-const Api: Component = ({ state }) => {
+const Api: Component = () => {
+  const { state } = useOvermind()
   const [content, setContent] = useState(null)
 
   useEffect(

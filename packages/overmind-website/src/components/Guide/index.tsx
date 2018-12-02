@@ -1,9 +1,14 @@
-import { h, useState, useEffect } from 'overmind-components'
+import {
+  h,
+  Component,
+  useState,
+  useEffect,
+  useOvermind,
+} from 'overmind-components'
 import GuideToc from '../GuideToc'
 import Doc from '../Doc'
 import * as styles from './styles'
 import { compile, getGithubBaseUrl } from '../../utils'
-import { Component } from '../../app'
 
 function getGithubUrl(guide) {
   return (
@@ -11,7 +16,8 @@ function getGithubUrl(guide) {
   )
 }
 
-const Guide: Component = ({ state }) => {
+const Guide: Component = () => {
+  const { state } = useOvermind()
   const [content, setContent] = useState(null)
 
   useEffect(() => {

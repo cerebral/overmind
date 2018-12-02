@@ -22,9 +22,9 @@ import { connect } from '../app'
 
 class Posts extends React.Component {
   render() {
-    const { app } = this.props
+    const { overmind } = this.props
 
-    if (app.state.isLoadingPosts) {
+    if (overmind.state.isLoadingPosts) {
       return <h4>Loading posts...</h4>
     }
   
@@ -41,7 +41,7 @@ export default connect(Posts)
       fileName: 'Posts.vue (template)',
       target: 'markup',
       code: `
-<h4 v-if="app.state.isLoadingPosts">
+<h4 v-if="overmind.state.isLoadingPosts">
   Loading posts...
 </h4>
 <div v-else></div>
@@ -80,9 +80,9 @@ import { Connect, connect } from '../app'
 
 class Posts extends React.Component<Connect> {
   render() {
-    const { app } = this.props
+    const { overmind } = this.props
 
-    if (app.state.isLoadingPosts) {
+    if (overmind.state.isLoadingPosts) {
       return <h4>Loading posts...</h4>
     }
   
@@ -105,10 +105,10 @@ import { connect } from '../app'
 @Component({
   selector: 'posts-list',
   template: \`
-  <h4 *ngIf="app.state.isLoadingPosts">
+  <h4 *ngIf="overmind.state.isLoadingPosts">
     Loading posts...
   </h4>
-  <div *ngIf="!app.state.isLoadingPosts"></div>
+  <div *ngIf="!overmind.state.isLoadingPosts"></div>
   \`
 })
 @connect()

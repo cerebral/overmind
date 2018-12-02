@@ -17,16 +17,20 @@ export default Item
       fileName: 'components/App.js',
       target: 'jsx',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 import Item from './Item'
 
-const App = ({ state }) => (
-  <ul>
-    {state.items.map(item => 
-      <Item key={item.id} item={item} />
-    )}
-  </ul>
-)
+const App = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.items.map(item => 
+        <Item key={item.id} item={item} />
+      )}
+    </ul>
+  )
+}
 
 export default App
     `,
@@ -55,9 +59,9 @@ import React from 'react'
 import { connect } from '../app'
 import Item from './Item'
 
-const App = ({ app }) => (
+const App = ({ overmind }) => (
   <ul>
-    {app.state.items.map(item => 
+    {overmind.state.items.map(item => 
       <Item key={item.id} item={item} />
     )}
   </ul>
@@ -90,7 +94,7 @@ export default connect({
       target: 'markup',
       code: `
 <ul>
-  <li is="Item" v-for="item in app.state.items" v-bind:item="item" :key="item.id" />
+  <li is="Item" v-for="item in overmind.state.items" v-bind:item="item" :key="item.id" />
 </ul>
     `,
     },
@@ -115,8 +119,7 @@ const typescript = {
     {
       fileName: 'components/Item.jsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component } from 'overmind-components'
 
 type Props = {
   item: { title: string }
@@ -132,17 +135,20 @@ export default Item
     {
       fileName: 'components/List.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component, useOvermind } from 'overmind-components'
 import Item from './Item'
 
-const List: Component = ({ state }) => (
-  <ul>
-    {state.items.map(item => 
-      <Item key={item.id} item={item} />
-    )}
-  </ul>
-)
+const List: Component = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.items.map(item => 
+        <Item key={item.id} item={item} />
+      )}
+    </ul>
+  )
+}
 
 export default List
     `,
@@ -173,9 +179,9 @@ import * as React from 'react'
 import { connect, Connect } from '../app'
 import Item from './Item'
 
-const List: React.SFC<Connect> = ({ app }) => (
+const List: React.SFC<Connect> = ({ overmind }) => (
   <ul>
-    {app.state.items.map(item => 
+    {overmind.state.items.map(item => 
       <Item key={item.id} item={item} />
     )}
   </ul>
@@ -190,7 +196,7 @@ export default connect(List)
     {
       fileName: 'components/item.component.ts',
       code: `
-import { Component,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { connect } from '../app'
 import { Item } from '../app/state'
 
@@ -219,7 +225,7 @@ import { connect } from '../app'
   template: \`
   <ul>
     <app-list-item
-      *ngFor="let item of app.state.items;trackby: trackById"
+      *ngFor="let item of overmind.state.items;trackby: trackById"
       [item]="item"
     ></app-list-item>
   </ul>

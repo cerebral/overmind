@@ -1,9 +1,10 @@
-import { h } from 'overmind-components'
+import { h, Component, useOvermind } from 'overmind-components'
 import * as styles from './styles'
-import { Component } from '../../app'
 import { SearchResult } from '../../app/types'
 
-export const Search: Component = ({ state, actions }) => {
+export const Search: Component = () => {
+  const { state, actions } = useOvermind()
+
   function onClick() {
     const onClose = () => {
       document.removeEventListener('click', onClose)

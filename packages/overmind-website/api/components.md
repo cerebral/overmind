@@ -2,14 +2,6 @@
 
 Overmind ships with its own view layer, called **overmind-components**. It delivers an experience where the connection and tracking of state between Overmind and the components is completely transparent.
 
-## actions
-
-All components receives a **prop** called **actions**. These are all the actions you have defined in your Overmind application.
-
-```marksy
-h(Example, { name: "api/components_actions"})
-```
-
 ## component
 
 All components are defined as plain functions.
@@ -71,14 +63,6 @@ The render function allows you to render your UI structure to a target element. 
 h(Example, { name: "api/components_render"})
 ```
 
-## state
-
-All components receives a **prop** called **state**. This is all the state defined in your Overmind application instance. Any state your component accesses will cause the component to render again when changed. 
-
-```marksy
-h(Example, { name: "api/components_state"})
-```
-
 ## style
 
 With **jsx** you define styles as an object. That does not mean you should define all the styling of your application this way. There are several solutions for managing CSS and styling, though when you do want to inline styles you define it as an object.
@@ -90,6 +74,14 @@ h(Example, { name: "api/components_style"})
 ## useEffect
 
 The **useEffect** hook allows you to run arbitrary logic when the component mounts and optionally whenever it rerenders. You can also control when the effect runs again by referencing one or multiple values. If the values change, the effect runs again. You can return a function from the effect which runs whenever the effect is rererun or the component unmounts. This is typically used to clean up the effect.
+
+```marksy
+h(Example, { name: "api/components_useEffect"})
+```
+
+## useOvermind
+
+To expose Overmind state and actions to your component use this hook.
 
 ```marksy
 h(Example, { name: "api/components_useEffect"})

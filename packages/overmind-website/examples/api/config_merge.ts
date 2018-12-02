@@ -18,11 +18,7 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-const app = new Overmind(config)
-
-export type Connect = TConnect<typeof app>
-
-export default app
+export default new Overmind(config)
 `,
         },
       ]
@@ -40,9 +36,7 @@ const config = merge({
   moduleB
 })
 
-const app = new Overmind(config)
-
-export default app
+export default new Overmind(config)
 `,
         },
       ]

@@ -4,14 +4,11 @@ export const tsAppIndex = (view, config) => {
   if (view === 'components') {
     return `
 import { Overmind, TConfig } from 'overmind'
-import { TComponent } from 'overmind-components'
 ${config.trim()}
 
 declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
-
-export type Component<Props = {}> = TComponent<typeof config, Props>
 
 export default new Overmind(config)
     `
@@ -25,11 +22,13 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-export const app = new Overmind(config)
+export type Connect = TConnect<typeof config>
 
-export type Connect = TConnect<typeof app>
+export const overmind = new Overmind(config)
 
-export const connect = createConnect(app)
+export const connect = createConnect(overmind)
+
+export default overmind
 `
 }
 

@@ -9,10 +9,9 @@ const MyComponent: Component = () => {
   const { state, actions } = useOvermind()
 
   return (
-    <input
-      value={state.inputValue}
-      onInput={event => actions.changeInputValue(event.currentTarget.value)}
-    />
+    <h1 onClick={actions.toggleShouting}>
+      {state.isShouting ? 'HELLO' : 'hello'}
+    </h1>
   )
 }
 `,
@@ -23,12 +22,13 @@ const MyComponent: Component = () => {
           code: `
 import { h, useOvermind } from 'overmind-components'
 
-const MyComponent = ({ state, actions }) => {
+const MyComponent = () => {
+  const { state, actions } = useOvermind()
+
   return (
-    <input
-      value={state.inputValue}
-      onInput={event => actions.changeInputValue(event.currentTarget.value)}
-    />
+    <h1 onClick={actions.toggleShouting}>
+      {state.isShouting ? 'HELLO' : 'hello'}
+    </h1>
   )
 }
 `,

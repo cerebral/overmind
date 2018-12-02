@@ -3,7 +3,7 @@ export default (ts) =>
     ? [
         {
           code: `
-import { useRef, useEffect } from 'overmind-components'
+import { h, Component, useRef, useEffect } from 'overmind-components'
 
 const MyComponent: Component = () => {
   const el = useRef()
@@ -22,7 +22,7 @@ const MyComponent: Component = () => {
     : [
         {
           code: `
-import { useRef, useEffect } from 'overmind-components'
+import { h, useRef, useEffect } from 'overmind-components'
 
 const MyComponent = () => {
   const el = useRef()

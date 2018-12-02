@@ -1,12 +1,18 @@
-import { h, useRef, useEffect } from 'overmind-components'
-import { Component } from '../../app'
+import {
+  h,
+  Component,
+  useRef,
+  useEffect,
+  useOvermind,
+} from 'overmind-components'
 import * as styles from './styles'
 import { Page } from '../../app/types'
 import ViewSelector from '../ViewSelector'
 import { css } from 'emotion'
 import Search from '../Search'
 
-const TopBar: Component = ({ state }) => {
+const TopBar: Component = () => {
+  const { state } = useOvermind()
   const mainRef = useRef()
 
   useEffect(() => {

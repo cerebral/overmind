@@ -1,5 +1,10 @@
-import { h, useRef, useEffect } from 'overmind-components'
-import { Component } from '../../app'
+import {
+  h,
+  Component,
+  useRef,
+  useEffect,
+  useOvermind,
+} from 'overmind-components'
 import * as styles from './styles'
 import TopBar from '../TopBar'
 import FrontPage from '../FrontPage'
@@ -28,7 +33,8 @@ const fadeInPage = () => {
   logo.style.opacity = '0'
 }
 
-const App: Component = ({ state }) => {
+const App: Component = () => {
+  const { state } = useOvermind()
   const mainRef = useRef()
   const isMobile = useIsMobile()
   useScrollToTop(state.page)

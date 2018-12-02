@@ -1,9 +1,8 @@
-import { h } from 'overmind-components'
-import { Component } from '../../app'
-import { icon, icons } from './styles'
+import { h, Component } from 'overmind-components'
+import { icon } from './styles'
 
 type Props = {
-  children: keyof typeof icons
+  children: string
 }
 
 const Icon: Component<Props> = ({ children }) => (

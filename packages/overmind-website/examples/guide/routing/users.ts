@@ -8,14 +8,14 @@ import React from 'react'
 import { connect } from '../app'
 import Users from './Users'
 
-const App = ({ app }) => (
+const App = ({ overmind }) => (
   <div class="container">
     <nav>
       <a href="/">Home</a>
       <a href="/users">Users</a>
     </nav>
-    {app.state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
-    {app.state.currentPage === 'users' ? <Users /> : null}
+    {overmind.state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
+    {overmind.state.currentPage === 'users' ? <Users /> : null}
   </div>
 )
 
@@ -30,20 +30,20 @@ import React from 'react'
 import { connect } from '../app'
 import UserModal from './UserModal'
 
-const Users = ({ app }) => (
+const Users = ({ overmind }) => (
   <div class="content">
-    {app.state.isLoadingUsers ? (
+    {overmind.state.isLoadingUsers ? (
       <h4>Loading users...</h4>
     ) : (
       <ul>
-        {app.state.users.map(user => (
+        {overmind.state.users.map(user => (
           <li key={user.id}>
             <a href={"/users/" + user.id}>{user.name}</a>
           </li>
         ))}
       </ul>
     )}
-    {app.state.modalUser ? <UserModal /> : null}
+    {overmind.state.modalUser ? <UserModal /> : null}
   </div>
 )
 
@@ -57,14 +57,14 @@ export default connect(Users)
 import React from 'react'
 import { connect } from '../app'
 
-const UserModal = ({ app }) => {
-  const modalUser = app.state.modalUser
-  const currentUserModalTabIndex = app.state.currentUserModalTabIndex
+const UserModal = ({ overmind }) => {
+  const modalUser = overmind.state.modalUser
+  const currentUserModalTabIndex = overmind.state.currentUserModalTabIndex
 
   return (
     <a href="/users" class="backdrop">
       <div class="modal">
-        {app.state.isLoadingUserDetails ? (
+        {overmind.state.isLoadingUserDetails ? (
           <h4>Loading user details...</h4>
         ) : (
           <>
@@ -102,14 +102,14 @@ import * as React from 'react'
 import { connect, Connect } from '../app'
 import Users from './Users'
 
-const App: React.SFC<Connect> = ({ app }) => (
+const App: React.SFC<Connect> = ({ overmind }) => (
   <div class="container">
     <nav>
       <a href="/">Home</a>
       <a href="/users">Users</a>
     </nav>
-    {app.state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
-    {app.state.currentPage === 'users' ? <Users /> : null}
+    {overmind.state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
+    {overmind.state.currentPage === 'users' ? <Users /> : null}
   </div>
 )
 
@@ -123,20 +123,20 @@ import * as React from 'react'
 import { connect, Connect } from '../app'
 import UserModal from './UserModal'
 
-const Users: React.SFC<Connect> = ({ app }) => (
+const Users: React.SFC<Connect> = ({ overmind }) => (
   <div class="content">
-    {app.state.isLoadingUsers ? (
+    {overmind.state.isLoadingUsers ? (
       <h4>Loading users...</h4>
     ) : (
       <ul>
-        {app.state.users.map(user => (
+        {overmind.state.users.map(user => (
           <li key={user.id}>
             <a href={"/users/" + user.id}>{user.name}</a>
           </li>
         ))}
       </ul>
     )}
-    {app.state.modalUser ? <UserModal /> : null}
+    {overmind.state.modalUser ? <UserModal /> : null}
   </div>
 )
 
@@ -149,14 +149,14 @@ export default connect(Users)
 import * as React from 'react'
 import { connect, Connect } from '../app'
 
-const UserModal: React.SFC<Connect> = ({ app }) => {
-  const modalUser = app.state.modalUser
-  const currentUserModalTabIndex = app.state.currentUserModalTabIndex
+const UserModal: React.SFC<Connect> = ({ overmind }) => {
+  const modalUser = overmind.state.modalUser
+  const currentUserModalTabIndex = overmind.state.currentUserModalTabIndex
 
   return (
     <a href="/users" class="backdrop">
       <div class="modal">
-        {app.state.isLoadingUserDetails ? (
+        {overmind.state.isLoadingUserDetails ? (
           <h4>Loading user details...</h4>
         ) : (
           <>

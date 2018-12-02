@@ -18,7 +18,7 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-const app = new Overmind(config)
+const overmind = new Overmind(config)
 `,
         },
       ]
@@ -36,7 +36,7 @@ const config = namespaced({
   admin
 })
 
-const app = new Overmind(config)
+const overmind = new Overmind(config)
 `,
         },
       ]

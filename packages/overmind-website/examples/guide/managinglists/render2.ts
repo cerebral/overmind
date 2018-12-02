@@ -17,16 +17,20 @@ export default Post
       fileName: 'components/Posts.jsx',
       target: 'jsx',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 import Post from './Post'
 
-const Posts = ({ state }) => (
-  <ul>
-    {state.postsList.map(post => 
-      <Post key={post.id} post={post} />
-    )}
-  </ul>
-)
+const Posts = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <Post key={post.id} post={post} />
+      )}
+    </ul>
+  )
+}
 
 export default Posts
     `,
@@ -55,9 +59,9 @@ import React from 'react'
 import { connect } from '../app'
 import Post from './Post'
 
-const Posts = ({ app }) => (
+const Posts = ({ overmind }) => (
   <ul>
-    {app.state.postsList.map(post => 
+    {overmind.state.postsList.map(post => 
       <Post key={post.id} post={post} />
     )}
   </ul>
@@ -90,7 +94,7 @@ export default connect({
       target: 'markup',
       code: `
 <ul>
-  <li is="Post" v-for="post in app.state.postsList" v-bind:post="post" :key="post.id" />
+  <li is="Post" v-for="post in overmind.state.postsList" v-bind:post="post" :key="post.id" />
 </ul>
     `,
     },
@@ -115,8 +119,7 @@ const typescript = {
     {
       fileName: 'components/Post.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component } from 'overmind-components'
 import { Post as TPost } from '../app/state'
 
 type Props = {
@@ -133,17 +136,20 @@ export default Post
     {
       fileName: 'components/Posts.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component, useOvermind } from 'overmind-components'
 import Post from './Post'
 
-const Posts: Component = ({ state }) => (
-  <ul>
-    {state.postsList.map(post => 
-      <Item key={post.id} post={post} />
-    )}
-  </ul>
-)
+const Posts: Component = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <Item key={post.id} post={post} />
+      )}
+    </ul>
+  )
+}
 
 export default Posts
     `,
@@ -175,9 +181,9 @@ import * as React from 'react'
 import { connect, Connect } from '../app'
 import Post from './Post'
 
-const Posts: React.SFC<Connect> = ({ app }) => (
+const Posts: React.SFC<Connect> = ({ overmind }) => (
   <ul>
-    {app.state.postsList.map(post => 
+    {overmind.state.postsList.map(post => 
       <Item key={post.id} post={post} />
     )}
   </ul>
@@ -221,7 +227,7 @@ import { connect } from '../app'
   template: \`
   <ul>
     <app-post
-      *ngFor="let post of app.state.postsList;trackby: trackById"
+      *ngFor="let post of overmind.state.postsList;trackby: trackById"
       [post]="post"
     ></app-post>
   </ul>

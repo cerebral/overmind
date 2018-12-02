@@ -3,9 +3,11 @@ const javascript = {
     {
       fileName: 'SomeComponent.js',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 
-const SomeComponent = ({ state, actions }) => {
+const SomeComponent = () => {
+  const { state, actions } = useOvermind()
+
   return (
     <div onClick={actions.onClick}>
       {state.foo}
@@ -24,10 +26,10 @@ export default SomeComponent
 import React from 'react'
 import { connect } from '../app'
 
-const SomeComponent = ({ app }) => {
+const SomeComponent = ({ overmind }) => {
   return (
-    <div onClick={app.actions.onClick}>
-      {app.state.foo}
+    <div onClick={overmind.actions.onClick}>
+      {overmind.state.foo}
     </div>
   )
 }
@@ -40,8 +42,8 @@ export default connect(SomeComponent)
     {
       fileName: 'SomeComponent.vue (template)',
       code: `
-<div v-on:click="app.actions.onClick">
-  {{app.state.foo}}
+<div v-on:click="overmind.actions.onClick">
+  {{overmind.state.foo}}
 </div>
     `,
     },
@@ -61,10 +63,11 @@ const typescript = {
     {
       fileName: 'SomeComponent.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component, useOvermind } from 'overmind-components'
 
-const SomeComponent: Component = ({ state, actions }) => {
+const SomeComponent: Component = () => {
+  const { state, actions } = useOvermind()
+
   return (
     <div onClick={actions.onClick}>
       {state.foo}
@@ -83,10 +86,10 @@ export default SomeComponent
 import * as React from 'react'
 import { connect, Connect } from '../app'
 
-const SomeComponent: React.SFC<Connect> = ({ app }) => {
+const SomeComponent: React.SFC<Connect> = ({ overmind }) => {
   return (
-    <div onClick={app.actions.onClick}>
-      {app.state.foo}
+    <div onClick={overmind.actions.onClick}>
+      {overmind.state.foo}
     </div>
   )
 }
@@ -106,8 +109,8 @@ import { connect } from '../app'
 @Component({
   selector: 'some-component',
   template: \`
-  <div (click)="app.actions.onClick()">
-    {{app.state.foo}}
+  <div (click)="overmind.actions.onClick()">
+    {{overmind.state.foo}}
   </div>
   \`
 })

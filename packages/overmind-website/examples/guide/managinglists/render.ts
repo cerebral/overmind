@@ -4,15 +4,19 @@ const javascript = {
       fileName: 'components/Posts.jsx',
       target: 'jsx',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 
-const Posts = ({ state }) => (
-  <ul>
-    {state.postsList.map(post => 
-      <li key={post.id}>{post.title}</li>
-    )}
-  </ul>
-)
+const Posts = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <li key={post.id}>{post.title}</li>
+      )}
+    </ul>
+  )
+}
 
 export default Posts
     `,
@@ -26,9 +30,9 @@ export default Posts
 import React from 'react'
 import { connect } from '../app'
 
-const Posts = ({ app }) => (
+const Posts = ({ overmind }) => (
   <ul>
-    {app.state.postsList.map(post => 
+    {overmind.state.postsList.map(post => 
       <li key={post.id}>{post.title}</li>
     )}
   </ul>
@@ -44,7 +48,7 @@ export default connect(Posts)
       target: 'markup',
       code: `
 <ul>
-  <li v-for="post in app.state.postsList" :key="post.id>
+  <li v-for="post in overmind.state.postsList" :key="post.id>
   {{ post.title }}
   </li>
 </ul>
@@ -66,16 +70,19 @@ const typescript = {
     {
       fileName: 'components/Posts.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component} from '../app'
+import { h, Component, useOvermind } from 'overmind-components'
 
-const Posts: Component = ({ state }) => (
-  <ul>
-    {state.postsList.map(post => 
-      <li key={post.id}>{post.title}</li>
-    )}
-  </ul>
-)
+const Posts: Component = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <li key={post.id}>{post.title}</li>
+      )}
+    </ul>
+  )
+}
 
 export default App
     `,
@@ -88,9 +95,9 @@ export default App
 import * as React from 'react'
 import { connect, Connect } from '../app'
 
-const Posts: React.SFC<Connect> = ({ app }) => (
+const Posts: React.SFC<Connect> = ({ overmind }) => (
   <ul>
-    {app.state.postsList.map(post => 
+    {overmind.state.postsList.map(post => 
       <li key={post.id}>{post.title}</li>
     )}
   </ul>
@@ -112,7 +119,7 @@ import { connect } from '../app'
   selector: 'app-posts',
   template: \`
   <ul>
-    <li *ngFor="let post of app.state.postsList;trackby: trackById">
+    <li *ngFor="let post of overmind.state.postsList;trackby: trackById">
       {{post.title}}
     </li>
   </ul>

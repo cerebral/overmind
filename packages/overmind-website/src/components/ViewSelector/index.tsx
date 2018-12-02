@@ -1,4 +1,10 @@
-import { h, useState, useRef } from 'overmind-components'
+import {
+  h,
+  Component,
+  useState,
+  useRef,
+  useOvermind,
+} from 'overmind-components'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
 import * as AngularImage from '../../images/angular.png'
@@ -6,11 +12,11 @@ import * as OvermindImage from '../../images/overmind.png'
 import * as TsImage from '../../images/ts.png'
 import * as TsImageGrayscale from '../../images/ts-grayscale.png'
 import Icon from '../Icon'
-import { Component } from '../../app'
 import * as styles from './styles'
 import { css } from 'emotion'
 
-const ViewSelector: Component = ({ state, actions }) => {
+const ViewSelector: Component = () => {
+  const { state, actions } = useOvermind()
   const [isOpen, setOpen] = useState(false)
   const selectorRef = useRef()
 

@@ -11,13 +11,16 @@ export const toggleAwesomeApp = ({ state }) =>
       fileName: 'components/App.js',
       target: 'jsx',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 
-const App = ({ app }) => (
-  <button onClick={app.actions.toggleAwesomeApp}>
-    Toggle awesome
-  </button>
-)
+const App = () => {
+  const { actions } = useOvermind()
+  return (
+    <button onClick={actions.toggleAwesomeApp}>
+      Toggle awesome
+    </button>
+  )
+}
 
 export default App
     `,
@@ -38,8 +41,8 @@ export const toggleAwesomeApp = ({ state }) =>
 import React from 'react'
 import { connect } from '../app'
 
-const App = ({ app }) => (
-  <button onClick={app.actions.toggleAwesomeApp}>
+const App = ({ overmind }) => (
+  <button onClick={overmind.actions.toggleAwesomeApp}>
     Toggle awesome
   </button>
 )
@@ -60,7 +63,7 @@ export const toggleAwesomeApp = ({ state }) =>
       fileName: 'components/App.vue (template)',
       target: 'markup',
       code: `
-<button v-on:click="app.actions.toggleAwesomeApp()">
+<button v-on:click="overmind.actions.toggleAwesomeApp()">
   Toggle awesome
 </button>
     `,
@@ -90,14 +93,17 @@ export const toggleAwesomeApp: Action = ({ state }) =>
     {
       fileName: 'components/App.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component, useOvermind } from 'overmind-components'
 
-const App: Component = ({ actions }) => (
-  <button onClick={actions.toggleAwesomeApp}>
-    Toggle awesome
-  </button>
-)
+const App: Component = () => {
+  const { actions } = useOvermind()
+
+  return (
+    <button onClick={actions.toggleAwesomeApp}>
+      Toggle awesome
+    </button>
+  )
+}
 
 export default App
     `,
@@ -119,8 +125,8 @@ export const toggleAwesomeApp: Action = ({ state }) =>
 import * as React from 'react'
 import { Connect, connect } from '../app'
 
-const App: React.SFC<Connect> = ({ app }) => (
-  <button onClick={app.actions.toggleAwesomeApp}>
+const App: React.SFC<Connect> = ({ overmind }) => (
+  <button onClick={overmind.actions.toggleAwesomeApp}>
     Toggle awesome
   </button>
 )
@@ -149,7 +155,7 @@ import { connect } from '../app'
 @Component({
   selector: 'app-root',
   template: \`
-  <button (click)="app.actions.toggleAwesomeApp()">
+  <button (click)="overmind.actions.toggleAwesomeApp()">
     Toggle awesome
   </button>
   \`

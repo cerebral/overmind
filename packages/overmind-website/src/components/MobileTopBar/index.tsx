@@ -1,8 +1,13 @@
-import { h, useRef, useEffect } from 'overmind-components'
+import {
+  h,
+  Component,
+  useRef,
+  useEffect,
+  useOvermind,
+} from 'overmind-components'
 import * as styles from './styles'
 import ViewSelector from '../ViewSelector'
 import Icon from '../Icon'
-import { Component } from '../../app'
 import { Page } from '../../app/types'
 import { css } from 'emotion'
 
@@ -12,7 +17,8 @@ type Props = {
   currentPath: string
 }
 
-const MobileTopBar: Component = ({ state }) => {
+const MobileTopBar: Component = () => {
+  const { state } = useOvermind()
   const bar = useRef()
   const menu = useRef()
 

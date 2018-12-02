@@ -3,6 +3,8 @@ export default (ts) =>
     ? [
         {
           code: `
+import { h, Component, useState } from 'overmind-components'
+
 const ChooseColor: Component = () => {
   const [color, setColor] = useState('blue')
 
@@ -22,6 +24,8 @@ const ChooseColor: Component = () => {
     : [
         {
           code: `
+import { h, useState } from 'overmind-components'
+        
 const ChooseColor = () => {
   const [color, setColor] = useState('blue')
 

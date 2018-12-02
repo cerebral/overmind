@@ -1,11 +1,11 @@
-import { h } from 'overmind-components'
+import { h, Component, useOvermind } from 'overmind-components'
 import { viewport, compile } from '../../utils'
 import Logo from '../Logo'
 import * as styles from './styles'
-import { Component } from '../../app'
 import { css } from 'emotion'
 
-const Demo: Component = ({ state }) => {
+const Demo: Component = () => {
+  const { state } = useOvermind()
   if (!state.demos.length) {
     return null
   }
@@ -24,7 +24,7 @@ const Demo: Component = ({ state }) => {
   )
 }
 
-const FrontPage: Component = ({ state }) => {
+const FrontPage: Component = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>

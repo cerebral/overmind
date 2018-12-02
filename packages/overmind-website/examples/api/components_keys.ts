@@ -3,7 +3,11 @@ export default (ts) =>
     ? [
         {
           code: `
-const Items: Component = ({ state }) => {
+import { h, Component, useOvermind } from 'overmind-components'
+
+const Items: Component = () => {
+  const { state } = useOvermind()
+
   return (
     <ul>
       {state.items.map((item) => (
@@ -18,7 +22,11 @@ const Items: Component = ({ state }) => {
     : [
         {
           code: `
-const Items = ({ state }) => {
+import { h, useOvermind } from 'overmind-components'
+
+const Items = () => {
+  const { state } = useOvermind()
+
   return (
     <ul>
       {state.items.map((item) => (

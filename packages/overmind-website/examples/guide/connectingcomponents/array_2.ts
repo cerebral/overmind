@@ -4,15 +4,19 @@ const javascript = {
       fileName: 'components/List.js',
       target: 'jsx',
       code: `
-import { h } from 'overmind-components'
+import { h, useOvermind } from 'overmind-components'
 
-const List = ({ state }) => (
-  <ul>
-    {state.items.map(item => 
-      <li key={item.id}>{item.title}</li>
-    )}
-  </ul>
-)
+const List = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.items.map(item => 
+        <li key={item.id}>{item.title}</li>
+      )}
+    </ul>
+  )
+}
 
 export default List
     `,
@@ -26,9 +30,9 @@ export default List
 import React from 'react'
 import { connect } from '../app'
 
-const List = ({ app }) => (
+const List = ({ overmind }) => (
   <ul>
-    {app.state.items.map(item => 
+    {overmind.state.items.map(item => 
       <li key={item.id}>{item.title}</li>
     )}
   </ul>
@@ -44,7 +48,7 @@ export default connect(List)
       target: 'markup',
       code: `
 <ul>
-  <li v-for="item in app.state.items" :key="item.id>
+  <li v-for="item in overmind.state.items" :key="item.id>
   {{ item.title }}
   </li>
 </ul>
@@ -66,16 +70,19 @@ const typescript = {
     {
       fileName: 'components/List.tsx',
       code: `
-import { h } from 'overmind-components'
-import { Component } from '../app'
+import { h, Component, useOvermind } from 'overmind-components'
 
-const List: Component = ({ state }) => (
-  <ul>
-    {state.items.map(item => 
-      <li key={item.id}>{item.title}</li>
-    )}
-  </ul>
-)
+const List: Component = () => {
+  const { state } = useOvermind()
+
+  return (
+    <ul>
+      {state.items.map(item => 
+        <li key={item.id}>{item.title}</li>
+      )}
+    </ul>
+  )
+}
 
 export default App
     `,
@@ -88,9 +95,9 @@ export default App
 import * as React from 'react'
 import { connect, Connect } from '../app'
 
-const List: React.SFC<Connect> = ({ app }) => (
+const List: React.SFC<Connect> = ({ overmind }) => (
   <ul>
-    {app.state.items.map(item => 
+    {overmind.state.items.map(item => 
       <li key={item.id}>{item.title}</li>
     )}
   </ul>
@@ -112,7 +119,7 @@ import { connect } from '../app'
   selector: 'app-list',
   template: \`
   <ul>
-    <li *ngFor="let item of app.state.items;trackby: trackById">
+    <li *ngFor="let item of overmind.state.items;trackby: trackById">
       {{item.title}}
     </li>
   </ul>
