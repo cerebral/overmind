@@ -1,5 +1,4 @@
 import { css } from 'emotion'
-import { ThemeInterface } from 'overmind-themes'
 
 export const wrapper = css`
   position: relative;
