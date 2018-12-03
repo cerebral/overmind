@@ -15,4 +15,11 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-export default new Overmind(config)
+export default new Overmind(
+  config,
+  process.env.NODE_ENV === 'production'
+    ? {
+        devtools: false,
+      }
+    : {}
+)
