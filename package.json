@@ -15,7 +15,7 @@
     "lint": "eslint \"**/*.js\" \"**/*.ts\"",
     "precommit": "lint-staged",
     "release": "repo-cooker --release",
-    "test": "repo-cooker test"
+    "test": "repo-cooker test --no-parallel"
   },
   "repository": {
     "type": "git",
