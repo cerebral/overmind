@@ -84,7 +84,7 @@ h(Example, { name: "api/components_useEffect"})
 To expose Overmind state and actions to your component use this hook.
 
 ```marksy
-h(Example, { name: "api/components_useEffect"})
+h(Example, { name: "api/components_useOvermind"})
 ```
 
 ## useRef
