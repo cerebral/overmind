@@ -101,8 +101,8 @@ const apis = getApis()
 
 const searchData = getSearchData()
 
-app.use(express.static('dist'))
-app.use('/images', express.static('images'))
+app.use(express.static(path.join(__dirname, '..', 'dist')))
+app.use('/images', express.static(path.join(__dirname, '..', 'images')))
 app.get('/backend/guides', (_, res) =>
   res.send(IS_PRODUCTION ? guides : getGuides())
 )
