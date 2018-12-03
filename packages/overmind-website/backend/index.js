@@ -5,76 +5,92 @@ const fs = require('fs')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 
 function getGuides() {
-  return fs.readdirSync(path.resolve('guides')).reduce((acc, type) => {
-    return acc.concat(
-      fs.readdirSync(path.resolve('guides', type)).reduce((acc, fileName) => {
-        const content = fs
-          .readFileSync(path.resolve('guides', type, fileName))
-          .toString()
+  return fs
+    .readdirSync(path.join(__dirname, '..', 'guides'))
+    .reduce((acc, type) => {
+      return acc.concat(
+        fs
+          .readdirSync(path.join(__dirname, '..', 'guides', type))
+          .reduce((acc, fileName) => {
+            const content = fs
+              .readFileSync(
+                path.join(__dirname, '..', 'guides', type, fileName)
+              )
+              .toString()
 
-        return acc.concat({
-          title: content.split('\n')[0].replace('# ', ''),
-          type,
-          fileName,
-        })
-      }, [])
-    )
-  }, [])
+            return acc.concat({
+              title: content.split('\n')[0].replace('# ', ''),
+              type,
+              fileName,
+            })
+          }, [])
+      )
+    }, [])
 }
 
 function getVideos() {
-  return fs.readFileSync(path.resolve('videos.json')).toString()
+  return fs.readFileSync(path.join(__dirname, '..', 'videos.json')).toString()
 }
 
 function getDemos() {
-  return fs.readFileSync(path.resolve('demos.json')).toString()
+  return fs.readFileSync(path.join(__dirname, '..', 'demos.json')).toString()
 }
 
 function getApis() {
-  return fs.readdirSync(path.resolve('api')).reduce((acc, fileName) => {
-    const content = fs.readFileSync(path.resolve('api', fileName)).toString()
+  return fs
+    .readdirSync(path.join(__dirname, '..', 'api'))
+    .reduce((acc, fileName) => {
+      const content = fs
+        .readFileSync(path.join(__dirname, '..', 'api', fileName))
+        .toString()
 
-    return acc.concat({
-      title: content.split('\n')[0].replace('# ', ''),
-      fileName,
-    })
-  }, [])
+      return acc.concat({
+        title: content.split('\n')[0].replace('# ', ''),
+        fileName,
+      })
+    }, [])
 }
 
 function getSearchData() {
   return fs
-    .readdirSync(path.resolve('guides'))
+    .readdirSync(path.join(__dirname, '..', 'guides'))
     .reduce((acc, type) => {
       return acc.concat(
-        fs.readdirSync(path.resolve('guides', type)).reduce((acc, fileName) => {
-          const content = fs
-            .readFileSync(path.resolve('guides', type, fileName))
-            .toString()
+        fs
+          .readdirSync(path.join(__dirname, '..', 'guides', type))
+          .reduce((acc, fileName) => {
+            const content = fs
+              .readFileSync(
+                path.join(__dirname, '..', 'guides', type, fileName)
+              )
+              .toString()
 
-          return acc.concat({
-            type: 'guide',
-            title: content.split('\n')[0].replace('# ', ''),
-            content: content.toLowerCase(),
-            path: path.join('guides', type, fileName.replace('.md', '')),
-            fileName,
-          })
-        }, [])
+            return acc.concat({
+              type: 'guide',
+              title: content.split('\n')[0].replace('# ', ''),
+              content: content.toLowerCase(),
+              path: path.join('guides', type, fileName.replace('.md', '')),
+              fileName,
+            })
+          }, [])
       )
     }, [])
     .concat(
-      fs.readdirSync(path.resolve('api')).reduce((acc, fileName) => {
-        const content = fs
-          .readFileSync(path.resolve('api', fileName))
-          .toString()
+      fs
+        .readdirSync(path.join(__dirname, '..', 'api'))
+        .reduce((acc, fileName) => {
+          const content = fs
+            .readFileSync(path.join(__dirname, '..', 'api', fileName))
+            .toString()
 
-        return acc.concat({
-          type: 'api',
-          title: content.split('\n')[0].replace('# ', ''),
-          content: content.toLowerCase(),
-          path: path.join('api', fileName.replace('.md', '')),
-          fileName,
-        })
-      }, [])
+          return acc.concat({
+            type: 'api',
+            title: content.split('\n')[0].replace('# ', ''),
+            content: content.toLowerCase(),
+            path: path.join('api', fileName.replace('.md', '')),
+            fileName,
+          })
+        }, [])
     )
 }
 
@@ -119,6 +135,8 @@ app.get('/backend/search', (req, res) => {
 
   res.send(hits.slice(0, 5))
 })
-app.get('/*', (_, res) => res.sendFile(path.resolve('dist', 'index.html')))
+app.get('/*', (_, res) =>
+  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
+)
 
 app.listen(process.env.PORT || 5000, () => console.log('Server started!'))
