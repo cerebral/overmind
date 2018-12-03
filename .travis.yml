@@ -17,7 +17,7 @@ git:
   depth: 9999
 notifications:
   email: false
-before_install: dpkg --compare-versions `npm -v` ge 6.3 || npm i -g npm@^6.3
+before_install: dpkg --compare-versions `npm -v` ge 6.4.1 || npm i -g npm@^6.4.1
 script:
   - |
     if [[ $SKIP_TESTS != 'true' ]]; then
