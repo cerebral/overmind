@@ -24,7 +24,7 @@ script:
       npm prune
       npm run checkdeps
       npm run lint
-      npm test
+      npm test -- --no-parallel
     fi
 after_success:
   - |
@@ -36,7 +36,7 @@ after_success:
     if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
       printf "//registry.npmjs.org/:_authToken=$NPM_TOKEN\n" > ~/.npmrc
       npm install --no-save nodegit@0.20.3
-      npm run release
+      npm run release -- --no-parallel
     fi
 branches:
   except:
