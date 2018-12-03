@@ -121,4 +121,4 @@ app.get('/backend/search', (req, res) => {
 })
 app.get('/*', (_, res) => res.sendFile(path.resolve('dist', 'index.html')))
 
-app.listen(5000, () => console.log('Example app listening on port 5000!'))
+app.listen(process.env.PORT || 5000, () => console.log('Server started!'))

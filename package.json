@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "start": "node packages/overmind-website/backend/index.js",
     "build": "repo-cooker --build",
     "checkdeps": "repo-cooker --check-dependencies",
     "commit": "git-cz",
@@ -14,7 +15,6 @@
     "link": "repo-cooker --link",
     "lint": "eslint \"**/*.js\" \"**/*.ts\"",
     "precommit": "lint-staged",
-    "release": "repo-cooker --release",
     "test": "repo-cooker test"
   },
   "repository": {
