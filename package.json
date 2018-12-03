@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "node packages/overmind-website/backend/index.js",
     "build": "repo-cooker --build",
     "checkdeps": "repo-cooker --check-dependencies",
     "commit": "git-cz",
