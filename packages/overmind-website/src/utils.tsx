@@ -47,7 +47,7 @@ const githubLink = css`
   position: absolute;
   right: 10px;
   font-size: var(--font-size-1) !important;
-  color: var(--color-white) !important;
+  color: var(--color-white-1) !important;
   opacity: 0.3;
   :hover {
     opacity: 0.8;
@@ -120,7 +120,7 @@ const Example: Component<{ name: string }> = ({ name }) => {
             className={githubLink}
             href={url}
             target="_blank"
-            style={{ top: example.fileName ? '32px' : '5px' }}
+            style={{ top: example.fileName ? '37px' : '10px' }}
           >
             edit on github
           </a>
