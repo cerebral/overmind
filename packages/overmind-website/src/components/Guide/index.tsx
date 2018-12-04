@@ -29,7 +29,6 @@ const Guide: Component = () => {
   }, [])
 
   if (!content) {
-    console.log('null')
     return null
   }
 
