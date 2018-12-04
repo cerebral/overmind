@@ -11,7 +11,7 @@ import { Config as ModuleBConfig } from './moduleB'
 
 const config = lazy({
   moduleA: (): Promise<ModuleAConfig> => import('./moduleA'),
-  moduleB: (): Promise<ModuleBConfig> => import('./moduleB)
+  moduleB: (): Promise<ModuleBConfig> => import('./moduleB')
 })
 
 declare module 'overmind' {
@@ -35,7 +35,7 @@ import { lazy } from 'overmind/config'
 
 const config = lazy({
   moduleA: () => import('./moduleA'),
-  moduleB: () => import('./moduleB)
+  moduleB: () => import('./moduleB')
 })
 
 const app = new Overmind(config)
