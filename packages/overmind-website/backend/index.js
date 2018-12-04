@@ -135,8 +135,26 @@ app.get('/backend/search', (req, res) => {
 
   res.send(hits.slice(0, 5))
 })
-app.get('/*', (_, res) =>
-  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
-)
+
+let indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'))
+
+if (IS_PRODUCTION) {
+  indexHtml = indexHtml.replace(
+    '</body>',
+    `
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129590749-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129590749-1');
+  </script>
+</body>
+  `
+  )
+}
+
+app.get('/*', (_, res) => res.send(indexHtml))
 
 app.listen(process.env.PORT || 5000, () => console.log('Server started!'))
