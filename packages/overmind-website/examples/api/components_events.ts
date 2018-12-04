@@ -23,7 +23,9 @@ const MyComponent: Component = () => {
           code: `
 import { h, useOvermind } from 'overmind-components'
 
-const MyComponent = ({ state, actions }) => {
+const MyComponent = () => {
+  const { state, actions } = useOvermind()
+
   return (
     <input
       value={state.inputValue}
