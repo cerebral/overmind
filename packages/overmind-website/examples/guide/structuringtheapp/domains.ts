@@ -8,13 +8,11 @@ app/
     state.ts
     actions.ts
     effects.ts
-    reactions.ts
     index.ts
   admin/
     state.ts
     actions.ts
     effects.ts
-    reactions.ts
     index.ts
   index.ts
               `,
@@ -28,13 +26,11 @@ app/
     state.js
     actions.js
     effects.js
-    reactions.js
     index.js
   admin/
     state.js
     actions.js
     effects.js
-    reactions.js
     index.js
   index.js
             `,

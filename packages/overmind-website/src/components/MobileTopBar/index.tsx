@@ -168,17 +168,6 @@ const MobileTopBar: Component = () => {
           >
             Api - Overmind
           </a>
-          <a
-            href="/api/reaction"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'reaction' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Reaction
-          </a>
         </div>
       </div>
     </div>
