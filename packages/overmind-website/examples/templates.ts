@@ -18,6 +18,7 @@ import { Overmind, TConfig } from 'overmind'
 import { TConnect, createConnect } from 'overmind-${view}'
 ${config.trim()}
 
+// For explicit typing check the Typescript guide
 declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }

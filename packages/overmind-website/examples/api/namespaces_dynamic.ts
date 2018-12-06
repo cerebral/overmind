@@ -6,8 +6,7 @@ function createJsCode() {
 export default (namespace) => ({
   state: {},
   effects: {},
-  actions: action => ({}),
-  reactions: (reaction, action) => ({})
+  actions: action => ({})
 })
         `,
     },
@@ -23,8 +22,7 @@ import { Namespace } from 'overmind-${view}'
 export default (namespace: Namespace) => ({
   state: {},
   effects: {},
-  actions: action => ({}),
-  reactions: (reaction, action) => ({})
+  actions: action => ({})
 })
         `,
     },

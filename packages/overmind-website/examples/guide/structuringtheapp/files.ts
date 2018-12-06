@@ -7,7 +7,6 @@ app/
   state.ts
   actions.ts
   effects.ts
-  reactions.ts
   index.ts
               `,
         },
@@ -19,7 +18,6 @@ app/
   state.js
   actions.js
   effects.js
-  reactions.js
   index.js
             `,
         },

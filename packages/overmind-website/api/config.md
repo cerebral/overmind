@@ -2,7 +2,7 @@
 
 The base configuration of your application is:
 
-`{ state, actions, effects, reactions }`
+`{ state, actions, effects }`
 
 When your application grows it will be necessary to split up your configuration. Overmind provides some helpers allowing you to structure and scale up your configuration.
 
