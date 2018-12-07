@@ -136,7 +136,7 @@ app.get('/backend/search', (req, res) => {
   res.send(hits.slice(0, 5))
 })
 
-let indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'))
+let indexHtml = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
 
 if (IS_PRODUCTION) {
   indexHtml = indexHtml.replace(
