@@ -15,7 +15,12 @@ export const request = (url: string) =>
 export const storage = {
   get(key: string) {
     const value = localStorage.getItem(key)
-    return value ? JSON.parse(value) : null
+    let returnValue = null
+    try {
+      returnValue = value ? JSON.parse(value) : null
+    } catch (e) {}
+
+    return returnValue
   },
   set(key: string, value: any) {
     localStorage.setItem(key, JSON.stringify(value))

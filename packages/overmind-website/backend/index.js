@@ -136,9 +136,12 @@ app.get('/backend/search', (req, res) => {
   res.send(hits.slice(0, 5))
 })
 
-let indexHtml = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
+let indexHtml
 
 if (IS_PRODUCTION) {
+  indexHtml = fs
+    .readFileSync(path.join(__dirname, '..', 'dist', 'index.html'))
+    .toString()
   indexHtml = indexHtml.replace(
     '</body>',
     `
@@ -153,6 +156,8 @@ if (IS_PRODUCTION) {
 </body>
   `
   )
+} else {
+  indexHtml = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
 }
 
 app.get('/*', (_, res) => res.send(indexHtml))

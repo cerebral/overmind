@@ -8,7 +8,7 @@ const onInitialize: OnInitialize = ({
   css,
 }) => {
   state.typescript = storage.get('typescript') || false
-  state.theme = storage.get('theme') || 'react'
+  state.theme = storage.get('theme') || 'components'
   css.changePrimary(state.theme)
 
   router.route('/', app.actions.openHome)
