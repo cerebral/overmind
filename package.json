@@ -45,16 +45,17 @@
     "ws": "5.2.1",
     "preact": "8.3.1",
     "preact-compat": "3.18.4",
-    "react": "16.7.0-alpha.1",
-    "react-dom": "16.7.0-alpha.1",
-    "emotion": "9.2.12"
+    "react": "16.7.0-alpha.2",
+    "react-dom": "16.7.0-alpha.2",
+    "emotion": "9.2.12",
+    "petit-dom": "0.2.2"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.0.0",
     "@types/jest": "23.1.4",
-    "@types/react": "16.4.6",
+    "@types/react": "16.7.13",
     "@types/react-dom": "16.0.6",
     "@vue/component-compiler-utils": "2.1.0",
     "babel-loader": "8.0.0-beta.4",
@@ -97,8 +98,8 @@
     "webpack": "4.15.1",
     "webpack-cli": "3.0.8",
     "webpack-dev-server": "3.1.5",
-    "react": "16.7.0-alpha.1",
-    "react-dom": "16.7.0-alpha.1",
+    "react": "16.7.0-alpha.2",
+    "react-dom": "16.7.0-alpha.2",
     "@babel/plugin-transform-react-jsx": "7.1.6"
   },
   "lint-staged": {
