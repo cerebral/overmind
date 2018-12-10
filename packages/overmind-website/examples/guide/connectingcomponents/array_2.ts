@@ -1,27 +1,4 @@
 const javascript = {
-  components: [
-    {
-      fileName: 'components/List.js',
-      target: 'jsx',
-      code: `
-import { h, useOvermind } from 'overmind-components'
-
-const List = () => {
-  const { state } = useOvermind()
-
-  return (
-    <ul>
-      {state.items.map(item => 
-        <li key={item.id}>{item.title}</li>
-      )}
-    </ul>
-  )
-}
-
-export default List
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'components/List.js',
@@ -66,28 +43,6 @@ export default connect({})
 }
 
 const typescript = {
-  components: [
-    {
-      fileName: 'components/List.tsx',
-      code: `
-import { h, Component, useOvermind } from 'overmind-components'
-
-const List: Component = () => {
-  const { state } = useOvermind()
-
-  return (
-    <ul>
-      {state.items.map(item => 
-        <li key={item.id}>{item.title}</li>
-      )}
-    </ul>
-  )
-}
-
-export default App
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'components/List.tsx',

@@ -1,19 +1,14 @@
-import {
-  h,
-  Component,
-  useRef,
-  useEffect,
-  useOvermind,
-} from 'overmind-components'
+import { createElement, SFC, useRef, useEffect } from 'react'
+import { useOvermind } from '../../app'
 import * as styles from './styles'
 import { Page } from '../../app/types'
 import ViewSelector from '../ViewSelector'
 import { css } from 'emotion'
 import Search from '../Search'
 
-const TopBar: Component = () => {
+const TopBar: SFC = () => {
   const { state } = useOvermind()
-  const mainRef = useRef()
+  const mainRef = useRef(null)
 
   useEffect(() => {
     requestAnimationFrame(() => (mainRef.current.style.top = '0'))

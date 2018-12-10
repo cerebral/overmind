@@ -1,4 +1,4 @@
-import { h, Component } from 'overmind-components'
+import { createElement, SFC } from 'react'
 import * as styles from './styles'
 
 type Props = {
@@ -18,7 +18,7 @@ function renderLinks(links) {
   )
 }
 
-const GuideToc: Component<Props> = ({ toc }) => {
+const GuideToc: SFC<Props> = ({ toc }) => {
   return (
     <div className={styles.wrapper}>
       <h6>TABLE OF CONTENTS</h6>

@@ -1,9 +1,8 @@
 import { mutate, Operator, map, filter } from 'overmind'
 import { SearchResult } from './types'
-import { FormEvent } from 'overmind-components'
 
 export const getTargetValue: Operator<
-  FormEvent<HTMLInputElement>,
+  React.ChangeEvent<HTMLInputElement>,
   string
 > = map(({ value: event }) => event.currentTarget.value)
 

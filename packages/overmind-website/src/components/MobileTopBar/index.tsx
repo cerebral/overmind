@@ -1,10 +1,5 @@
-import {
-  h,
-  Component,
-  useRef,
-  useEffect,
-  useOvermind,
-} from 'overmind-components'
+import { createElement, SFC, useRef, useEffect } from 'react'
+import { useOvermind } from '../../app'
 import * as styles from './styles'
 import ViewSelector from '../ViewSelector'
 import Icon from '../Icon'
@@ -17,10 +12,10 @@ type Props = {
   currentPath: string
 }
 
-const MobileTopBar: Component = () => {
+const MobileTopBar: SFC = () => {
   const { state } = useOvermind()
-  const bar = useRef()
-  const menu = useRef()
+  const bar = useRef(null)
+  const menu = useRef(null)
 
   useEffect(() => {
     requestAnimationFrame(() => (bar.current.style.top = '0'))

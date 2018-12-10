@@ -1,31 +1,4 @@
 const javascript = {
-  components: [
-    {
-      fileName: 'app/actions.js',
-      code: `
-export const toggleAwesomeApp = ({ state }) =>
-  state.isAwesome = !state.isAwesome
-    `,
-    },
-    {
-      fileName: 'components/App.js',
-      target: 'jsx',
-      code: `
-import { h, useOvermind } from 'overmind-components'
-
-const App = () => {
-  const { actions } = useOvermind()
-  return (
-    <button onClick={actions.toggleAwesomeApp}>
-      Toggle awesome
-    </button>
-  )
-}
-
-export default App
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'app/actions.js',
@@ -80,35 +53,6 @@ export default connect({})
 }
 
 const typescript = {
-  components: [
-    {
-      fileName: 'app/actions.ts',
-      code: `
-import { Action } from 'overmind'
-
-export const toggleAwesomeApp: Action = ({ state }) =>
-  state.isAwesome = !state.isAwesome
-    `,
-    },
-    {
-      fileName: 'components/App.tsx',
-      code: `
-import { h, Component, useOvermind } from 'overmind-components'
-
-const App: Component = () => {
-  const { actions } = useOvermind()
-
-  return (
-    <button onClick={actions.toggleAwesomeApp}>
-      Toggle awesome
-    </button>
-  )
-}
-
-export default App
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'app/actions.ts',

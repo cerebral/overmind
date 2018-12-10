@@ -1,4 +1,4 @@
-import { h, Component } from 'overmind-components'
+import { createElement, SFC } from 'react'
 import * as styles from './styles'
 import { useScrollToTop } from '../../utils'
 
@@ -6,7 +6,7 @@ type Props = {
   url: string
 }
 
-const Doc: Component<Props> = ({ url, children }) => {
+const Doc: SFC<Props> = ({ url, children }) => {
   useScrollToTop(url)
 
   return (

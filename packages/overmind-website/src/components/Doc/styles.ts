@@ -12,7 +12,6 @@ export const content = css`
   min-height: 100vh;
   margin: 0 auto;
   box-sizing: border-box;
-  background-color: var(--color-white-1);
   padding: var(--padding-6) var(--padding-5);
   font-family: 'Nunito', sans-serif;
   font-size: 17px;

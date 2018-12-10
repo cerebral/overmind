@@ -1,41 +1,4 @@
 const javascript = {
-  components: [
-    {
-      fileName: 'components/Item.js',
-      target: 'jsx',
-      code: `
-import { h } from 'overmind-components'
-
-const Item = ({ item }) => (
-  <li>{item.title}</li>
-)
-
-export default Item
-    `,
-    },
-    {
-      fileName: 'components/App.js',
-      target: 'jsx',
-      code: `
-import { h, useOvermind } from 'overmind-components'
-import Item from './Item'
-
-const App = () => {
-  const { state } = useOvermind()
-
-  return (
-    <ul>
-      {state.items.map(item => 
-        <Item key={item.id} item={item} />
-      )}
-    </ul>
-  )
-}
-
-export default App
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'components/Item.js',
@@ -115,45 +78,6 @@ export default connect({
 }
 
 const typescript = {
-  components: [
-    {
-      fileName: 'components/Item.jsx',
-      code: `
-import { h, Component } from 'overmind-components'
-
-type Props = {
-  item: { title: string }
-}
-
-const Item: Component<Props> = ({ item }) => (
-  <li>{item.title}</li>
-)
-
-export default Item
-    `,
-    },
-    {
-      fileName: 'components/List.tsx',
-      code: `
-import { h, Component, useOvermind } from 'overmind-components'
-import Item from './Item'
-
-const List: Component = () => {
-  const { state } = useOvermind()
-
-  return (
-    <ul>
-      {state.items.map(item => 
-        <Item key={item.id} item={item} />
-      )}
-    </ul>
-  )
-}
-
-export default List
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'components/Item.jsx',

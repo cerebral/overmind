@@ -1,10 +1,5 @@
-import {
-  h,
-  Component,
-  useState,
-  useEffect,
-  useOvermind,
-} from 'overmind-components'
+import { createElement, useState, useEffect } from 'react'
+import { useOvermind } from './app'
 import marksy from 'marksy'
 import * as Prism from '../src/prismjs.js'
 import { css } from 'emotion'
@@ -63,7 +58,7 @@ const notice = css`
   font-size: var(--font-size-3);
 `
 
-const Example: Component<{ name: string }> = ({ name }) => {
+const Example: React.SFC<{ name: string }> = ({ name }) => {
   const { state } = useOvermind()
   const [localState, setLocalState] = useState({
     isLoading: true,
@@ -136,7 +131,7 @@ const Example: Component<{ name: string }> = ({ name }) => {
 }
 
 export const compile = marksy({
-  createElement: h,
+  createElement,
   highlight(language, code) {
     return Prism.highlight(code, Prism.languages[language], language)
   },

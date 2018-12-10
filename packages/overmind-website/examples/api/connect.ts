@@ -1,24 +1,4 @@
 const javascript = {
-  components: [
-    {
-      fileName: 'SomeComponent.js',
-      code: `
-import { h, useOvermind } from 'overmind-components'
-
-const SomeComponent = () => {
-  const { state, actions } = useOvermind()
-
-  return (
-    <div onClick={actions.onClick}>
-      {state.foo}
-    </div>
-  )
-}
-
-export default SomeComponent
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'SomeComponent.js',
@@ -59,26 +39,6 @@ export default connect({})
 }
 
 const typescript = {
-  components: [
-    {
-      fileName: 'SomeComponent.tsx',
-      code: `
-import { h, Component, useOvermind } from 'overmind-components'
-
-const SomeComponent: Component = () => {
-  const { state, actions } = useOvermind()
-
-  return (
-    <div onClick={actions.onClick}>
-      {state.foo}
-    </div>
-  )
-}
-
-export default SomeComponent
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'SomeComponent.tsx',

@@ -1,7 +1,7 @@
-import { h } from 'overmind-components'
+import { createElement, SFC } from 'react'
 import * as styles from './styles'
 
-const Logo: React.SFC = () => (
+const Logo: SFC = () => (
   <div className={styles.wrapper}>
     <div className={styles.circle} />
     <div className={styles.innerCircle} />

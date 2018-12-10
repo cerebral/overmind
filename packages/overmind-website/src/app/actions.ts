@@ -1,7 +1,6 @@
 import { Action, Operator, debounce, pipe } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
 import * as o from './operators'
-import { FormEvent } from 'overmind-components'
 
 export const openHome: Action<RouteContext> = async ({ state, request }) => {
   state.page = Page.HOME
@@ -72,7 +71,10 @@ export const closeSearch: Action = ({ state }) => {
   state.query = ''
 }
 
-export const changeQuery: Operator<FormEvent<HTMLInputElement>, any> = pipe(
+export const changeQuery: Operator<
+  React.ChangeEvent<HTMLInputElement>,
+  any
+> = pipe(
   o.getTargetValue,
   o.setQuery,
   o.isValidQuery,

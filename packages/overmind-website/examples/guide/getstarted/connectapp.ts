@@ -1,17 +1,4 @@
 const javascript = {
-  components: [
-    {
-      fileName: 'index.js',
-      target: 'jsx',
-      code: `
-import { h, render } from 'overmind-components'
-import app from './app'
-import Posts from './Posts'
-
-render(app, <Posts />, document.querySelector('#app'))
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'Posts.js',
@@ -59,18 +46,6 @@ export default connect({})
 }
 
 const typescript = {
-  components: [
-    {
-      fileName: 'index.tsx',
-      code: `
-import { h, render } from 'overmind-components'
-import app from './app'
-import Posts from './Posts'
-
-render(app, <Posts />, document.querySelector('#app'))
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'components/Posts.tsx',

@@ -1,8 +1,8 @@
+import { createElement } from 'react'
+import { render } from 'react-dom'
 import { injectGlobal } from 'emotion'
-import { h, render } from 'overmind-components'
 import * as iconFont from './icomoon.woff2'
 import App from './components/App'
-import app from './app'
 
 injectGlobal`
   @font-face {
@@ -41,4 +41,4 @@ injectGlobal`
   }
 `
 
-render(app, <App />, document.querySelector('#overmind-app'))
+render(<App />, document.querySelector('#overmind-app'))

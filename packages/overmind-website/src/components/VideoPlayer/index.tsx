@@ -1,4 +1,4 @@
-import { h, Component, useRef, useEffect } from 'overmind-components'
+import { createElement, SFC, useRef, useEffect } from 'react'
 import * as styles from './styles'
 import { useIsMobile } from '../../utils'
 
@@ -8,8 +8,8 @@ type Props = {
 
 // https://www.youtube.com/watch?v=RA1_cCgEWws
 
-const VideoPlayer: Component<Props> = () => {
-  const ref = useRef()
+const VideoPlayer: SFC<Props> = () => {
+  const ref = useRef(null)
   const isMobile = useIsMobile()
 
   useEffect(() => {

@@ -1,8 +1,9 @@
-import { h, Component, useOvermind } from 'overmind-components'
+import { createElement, SFC } from 'react'
+import { useOvermind } from '../../app'
 import * as styles from './styles'
 import { SearchResult } from '../../app/types'
 
-export const Search: Component = () => {
+export const Search: SFC = () => {
   const { state, actions } = useOvermind()
 
   function onClick() {
@@ -14,7 +15,6 @@ export const Search: Component = () => {
   }
 
   function renderSearchResultItem(item: SearchResult) {
-    console.log(item)
     return (
       <a
         className={styles.searchResultItem}
@@ -43,7 +43,7 @@ export const Search: Component = () => {
         className={styles.inputElement}
         onClick={onClick}
         placeholder="Search..."
-        onInput={actions.changeQuery}
+        onChange={actions.changeQuery}
         value={state.query}
       />
       {state.showSearchResult ? (

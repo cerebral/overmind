@@ -1,10 +1,5 @@
-import {
-  h,
-  Component,
-  useState,
-  useRef,
-  useOvermind,
-} from 'overmind-components'
+import { createElement, SFC, useRef, useState } from 'react'
+import { useOvermind } from '../../app'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
 import * as AngularImage from '../../images/angular.png'
@@ -15,10 +10,10 @@ import Icon from '../Icon'
 import * as styles from './styles'
 import { css } from 'emotion'
 
-const ViewSelector: Component = () => {
+const ViewSelector: SFC = () => {
   const { state, actions } = useOvermind()
   const [isOpen, setOpen] = useState(false)
-  const selectorRef = useRef()
+  const selectorRef = useRef(null)
 
   function onSelectorClick() {
     setOpen(true)
@@ -31,12 +26,6 @@ const ViewSelector: Component = () => {
   }
 
   const options = {
-    components: (
-      <div className={styles.viewOption}>
-        <img src={OvermindImage} width={25} />
-        Components
-      </div>
-    ),
     react: (
       <div className={styles.viewOption}>
         <img src={ReactImage} width={25} />

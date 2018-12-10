@@ -1,11 +1,13 @@
-import { h, Component, useOvermind } from 'overmind-components'
+import { createElement, SFC } from 'react'
+import { useOvermind } from '../../app'
 import { viewport, compile } from '../../utils'
 import Logo from '../Logo'
 import * as styles from './styles'
 import { css } from 'emotion'
 
-const Demo: Component = () => {
+const Demo: SFC = () => {
   const { state } = useOvermind()
+
   if (!state.demos.length) {
     return null
   }
@@ -24,7 +26,7 @@ const Demo: Component = () => {
   )
 }
 
-const FrontPage: Component = () => {
+const FrontPage: SFC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -69,7 +71,7 @@ h(Example, { name: "frontpage/statetree" })
           )}
         >
           {[
-            <div>
+            <div key="0">
               {
                 compile(`
 \`\`\`marksy
@@ -78,7 +80,7 @@ h(Example, { name: "frontpage/actions" })
               `).tree
               }
             </div>,
-            <div>
+            <div key="1">
               <h2>SAFE AND PREDICTABLE CHANGES</h2>
               <p>
                 When you build applications that performs many state changes
@@ -121,7 +123,7 @@ h(Example, { name: "frontpage/operators" })
           )}
         >
           {[
-            <div>
+            <div key="0">
               {
                 compile(`
 \`\`\`marksy
@@ -130,7 +132,7 @@ h(Example, { name: "frontpage/typings" })
               `).tree
               }
             </div>,
-            <div>
+            <div key="1">
               <h2>WE WROTE THE TYPING</h2>
               <p>
                 Overmind has you covered on typing. If you choose to use

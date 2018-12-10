@@ -1,8 +1,9 @@
-import { h, Component, useOvermind } from 'overmind-components'
+import { createElement, SFC } from 'react'
+import { useOvermind } from '../../app'
 import * as styles from './styles'
 import VideoPlayer from '../VideoPlayer'
 
-const Videos: Component = () => {
+const Videos: SFC = () => {
   const { state } = useOvermind()
   const video = state.videos.find(
     (video) => video.shortName === state.currentVideo

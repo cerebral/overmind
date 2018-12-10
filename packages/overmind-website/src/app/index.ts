@@ -3,6 +3,7 @@ import state from './state'
 import onInitialize from './onInitialize'
 import * as actions from './actions'
 import * as effects from './effects'
+import { createHook } from 'overmind-react'
 
 const config = {
   onInitialize,
@@ -15,7 +16,7 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-export default new Overmind(
+const app = new Overmind(
   config,
   process.env.NODE_ENV === 'production'
     ? {
@@ -23,3 +24,5 @@ export default new Overmind(
       }
     : {}
 )
+
+export const useOvermind = createHook(app)

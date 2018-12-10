@@ -1,10 +1,5 @@
-import {
-  h,
-  Component,
-  useState,
-  useEffect,
-  useOvermind,
-} from 'overmind-components'
+import { createElement, SFC, useState, useEffect } from 'react'
+import { useOvermind } from '../../app'
 import Doc from '../Doc'
 import * as styles from './styles'
 import { compile, getGithubBaseUrl } from '../../utils'
@@ -14,7 +9,7 @@ function getGithubUrl(name) {
   return getGithubBaseUrl() + '/api/' + name + '.md'
 }
 
-const Api: Component = () => {
+const Api: SFC = () => {
   const { state } = useOvermind()
   const [content, setContent] = useState(null)
 

@@ -1,7 +1,8 @@
-import { h, Component, useOvermind } from 'overmind-components'
+import { createElement, SFC } from 'react'
+import { useOvermind } from '../../app'
 import * as styles from './styles'
 
-const Guides: Component = () => {
+const Guides: SFC = () => {
   const { state } = useOvermind()
 
   return (

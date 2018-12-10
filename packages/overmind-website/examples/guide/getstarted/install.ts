@@ -2,13 +2,6 @@ import { getPackageWithVersion } from '../../templates'
 
 export default (_, view) =>
   ({
-    components: [
-      {
-        code: `
-npm install ${getPackageWithVersion('overmind-components')}
-    `,
-      },
-    ],
     react: [
       {
         code: `

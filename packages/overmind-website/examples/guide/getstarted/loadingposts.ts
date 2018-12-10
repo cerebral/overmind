@@ -1,25 +1,4 @@
 const javascript = {
-  components: [
-    {
-      fileName: 'Posts.js',
-      target: 'jsx',
-      code: `
-import { h, useOvermind } from 'overmind-components'
-
-const Posts = () => {
-  const { state } = useOvermind()
-
-  if (state.isLoadingPosts) {
-    return <h4>Loading posts...</h4>
-  }
-
-  return <div />
-}
-
-export default Posts
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'Posts.js',
@@ -64,26 +43,6 @@ export default {}
 }
 
 const typescript = {
-  components: [
-    {
-      fileName: 'components/Posts.tsx',
-      code: `
-import { h, Component, useOvermind } from 'overmind-components'
-
-const Posts: Overmind = () => {
-  const { state } = useOvermind()
-
-  if (state.isLoadingPosts) {
-    return <h4>Loading posts...</h4>
-  }
-
-  return <div />
-}
-
-export default Posts
-    `,
-    },
-  ],
   react: [
     {
       fileName: 'components/Posts.tsx',
