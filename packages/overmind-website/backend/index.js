@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const fs = require('fs')
+const api = require('./api')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 
 function getGuides() {
@@ -103,6 +104,7 @@ const searchData = getSearchData()
 
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use('/images', express.static(path.join(__dirname, '..', 'images')))
+app.get('/workshop/posts', api.posts)
 app.get('/backend/guides', (_, res) =>
   res.send(IS_PRODUCTION ? guides : getGuides())
 )
