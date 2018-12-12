@@ -8,6 +8,7 @@ import { css } from 'emotion'
 const Demo: SFC = () => {
   const { state } = useOvermind()
 
+  console.log(state.demos)
   if (!state.demos.length) {
     return null
   }
