@@ -1,5 +1,5 @@
 import { createElement, SFC, useRef, useEffect } from 'react'
-import { useOvermind } from '../../app'
+import { useOvermind, connect, Connect } from '../../app'
 import * as styles from './styles'
 import TopBar from '../TopBar'
 import FrontPage from '../FrontPage'
@@ -30,8 +30,7 @@ const fadeInPage = () => {
   logo.style.opacity = '0'
 }
 
-const App: SFC = () => {
-  const { state } = useOvermind()
+const App: SFC<Connect> = ({ overmind: { state } }) => {
   const mainRef = useRef(null)
   const isMobile = useIsMobile()
   useScrollToTop(state.page)
@@ -54,4 +53,4 @@ const App: SFC = () => {
   )
 }
 
-export default App
+export default connect(App)
