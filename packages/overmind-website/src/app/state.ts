@@ -25,7 +25,6 @@ type State = {
   isLoadingSearchResult: boolean
   searchResult: SearchResult[]
   showSearchResult: boolean
-  test: Derive<State, Guide[]>
 }
 
 const state: State = {
@@ -44,7 +43,6 @@ const state: State = {
   isLoadingSearchResult: false,
   searchResult: [],
   showSearchResult: false,
-  test: (state) => state.guides.filter((guide) => guide.type === 'beginner'),
 }
 
 export default state
