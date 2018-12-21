@@ -1,5 +1,5 @@
 import { Action, Operator, debounce, pipe } from 'overmind'
-import { Page, RouteContext, GuideParams, VideoParams, Guide } from './types'
+import { Page, RouteContext, GuideParams, VideoParams } from './types'
 import * as o from './operators'
 
 export const openHome: Action<RouteContext> = async ({ state, request }) => {

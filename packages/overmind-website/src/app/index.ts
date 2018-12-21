@@ -3,7 +3,7 @@ import state from './state'
 import onInitialize from './onInitialize'
 import * as actions from './actions'
 import * as effects from './effects'
-import { createHook, createConnect, TConnect } from 'overmind-react'
+import { createHook } from 'overmind-react'
 
 const config = {
   onInitialize,

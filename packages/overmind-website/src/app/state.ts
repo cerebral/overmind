@@ -25,6 +25,7 @@ type State = {
   isLoadingSearchResult: boolean
   searchResult: SearchResult[]
   showSearchResult: boolean
+  test: string
 }
 
 const state: State = {
@@ -43,6 +44,7 @@ const state: State = {
   isLoadingSearchResult: false,
   searchResult: [],
   showSearchResult: false,
+  test: '',
 }
 
 export default state
