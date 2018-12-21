@@ -7,22 +7,24 @@ import {
   TAction,
   TOperator,
   TDerive,
-  TReaction
+  TStateObject
 } from 'overmind'
 
 const config = {}
 
-export type Config = TConfig<typeof config>
+export type Config = TConfig<{
+  state: typeof config["state"]
+  actions: typeof config["actions"]
+  effects: typeof config["effects"]
+}>
 
 export type OnInitialize = TOnInitialize<Config>
 
-export type Action<Input> = TAction<Config, Input>
+export type Action<Input = void> = TAction<Config, Input>
 
 export type Operator<Input, Output> = TOperator<Config, Input, Output>
 
-export type Derive<Parent extends object, Output> = TDerive<Config, Parent, Output>
-
-export type Reaction = TReaction<Config>
+export type Derive<Parent extends TStateObject, Output> = TDerive<Config, Parent, Output>
         `,
   },
 ]
