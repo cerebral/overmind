@@ -7,7 +7,6 @@ import {
   Demo,
   SearchResult,
 } from './types'
-import { Derive } from 'overmind'
 
 type State = {
   page: Page
@@ -25,7 +24,6 @@ type State = {
   isLoadingSearchResult: boolean
   searchResult: SearchResult[]
   showSearchResult: boolean
-  test: string
 }
 
 const state: State = {
@@ -44,7 +42,6 @@ const state: State = {
   isLoadingSearchResult: false,
   searchResult: [],
   showSearchResult: false,
-  test: '',
 }
 
 export default state

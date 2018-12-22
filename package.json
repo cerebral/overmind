@@ -31,7 +31,7 @@
     "electron-json-storage": "4.1.0",
     "express": "4.16.3",
     "install": "0.12.1",
-    "is-plain-object": "2.0.4",
+    "is-plain-obj": "1.1.0",
     "marksy": "6.1.0",
     "npm": "6.3.0",
     "page": "1.8.6",
