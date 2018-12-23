@@ -9,10 +9,7 @@ import { merge } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
-const config = merge({
-  moduleA,
-  moduleB
-})
+const config = merge(moduleA, moduleB)
 
 declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
@@ -31,10 +28,7 @@ import { merge } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
 
-const config = merge({
-  moduleA,
-  moduleB
-})
+const config = merge(moduleA, moduleB)
 
 export default new Overmind(config)
 `,

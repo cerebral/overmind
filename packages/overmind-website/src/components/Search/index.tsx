@@ -3,7 +3,7 @@ import { useOvermind } from '../../app'
 import * as styles from './styles'
 import { SearchResult } from '../../app/types'
 
-export const Search: SFC = () => {
+const Search: SFC = () => {
   const { state, actions } = useOvermind()
 
   function onClick() {
