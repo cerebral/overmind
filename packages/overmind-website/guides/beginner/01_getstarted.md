@@ -1,6 +1,6 @@
 # Get started with Overmind
 
-Before you fire up your first Overmind application you might want to read the release article [There is more to state management than state](https://medium.com/@christianalfoni/there-is-more-to-state-management-than-state-60ad75e24ea6).
+If you are moving from an existing state management solution, please read the release article [Reducing the pain of developing apps](https://medium.com/@christianalfoni/reducing-the-pain-of-developing-apps-cd10b2e6a83c).
 
 To get started with Overmind you have to set up a project. You can do this with whatever tool your framework of choice provides or you can use [webpack](https://webpack.js.org/) or [parceljs](https://parceljs.org/). You can also use [codesandbox.io](https://codesandbox.io/) to play around with Overmind directly in the browser.
 
