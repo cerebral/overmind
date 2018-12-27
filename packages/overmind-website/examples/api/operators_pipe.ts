@@ -8,18 +8,14 @@ import { QueryResult } from './state'
 import {
   setQuery,
   filterValidQuery,
-  getResult,
-  catchResultError,
-  setResult
+  queryResult
 } from './operators'
 
 export const search: Operator<string, QueryResult[]> = pipe(
   setQuery,
   filterValidQuery,
   debounce(200),
-  getResult,
-  catchResultError,
-  setResult
+  queryResult
 )
 `,
         },
@@ -31,18 +27,14 @@ import { pipe, debounce } from 'overmind'
 import {
   setQuery,
   filterValidQuery,
-  getResult,
-  catchResultError,
-  setResult
+  queryResult
 } from './operators'
 
 export const search = pipe(
   setQuery,
   filterValidQuery,
   debounce(200),
-  getResult,
-  catchResultError,
-  setResult
+  queryResult
 )
 `,
         },

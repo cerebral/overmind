@@ -6,15 +6,14 @@ export default (ts) =>
 import { Operator, pipe } from 'overmind'
 import { Item } from './state'
 
-export const openItems: Operator<void, Item[]> = pipe(
+export const openItems: Operator<any, Item[]> = pipe(
   getItems,
-  setItems
+  forEach(getAuthor)
 )
 
-export const openItem: Operator<void, Item> = pipe(
+export const openItem: Operator<string, Item> = pipe(
   openItems,
-  getItem,
-  setItem
+  getItem
 )
 `,
         },
@@ -26,13 +25,12 @@ import { pipe } from 'overmind'
 
 export const openItems = pipe(
   getItems,
-  setItems
+  forEach(getAuthor)
 )
 
 export const openItem = pipe(
   openItems,
-  getItem,
-  setItem
+  getItem
 )
 `,
         },

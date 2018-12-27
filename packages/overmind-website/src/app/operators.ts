@@ -1,30 +1,20 @@
-import { mutate, Operator, map, filter } from 'overmind'
-import { SearchResult } from './types'
+import { action, map, filter } from 'overmind'
 
-export const getTargetValue: Operator<
-  React.ChangeEvent<HTMLInputElement>,
-  string
-> = map(({ value: event }) => event.currentTarget.value)
-
-export const setQuery: Operator<string, string> = mutate(
-  ({ value: query, state }) => {
-    state.query = query
-    state.showSearchResult = query.length > 2
-    state.isLoadingSearchResult = query.length > 2
-  }
+export const getTargetValue = map<React.ChangeEvent<HTMLInputElement>, string>(
+  ({ value: event }) => event.currentTarget.value
 )
 
-export const isValidQuery: Operator<string, string> = filter(
+export const setQuery = action<string>(({ value: query, state }) => {
+  state.query = query
+  state.showSearchResult = query.length > 2
+  state.isLoadingSearchResult = query.length > 2
+})
+
+export const isValidQuery = filter<string>(
   ({ value: query }) => query.length >= 3
 )
 
-export const query: Operator<string, SearchResult[]> = map(
-  ({ state, request }) => request('/backend/search?query=' + state.query)
-)
-
-export const setQueryResult: Operator<SearchResult[], any> = mutate(
-  ({ value: result, state }) => {
-    state.searchResult = result
-    state.isLoadingSearchResult = false
-  }
-)
+export const query = action<string>(async ({ state, request }) => {
+  state.searchResult = await request('/backend/search?query=' + state.query)
+  state.isLoadingSearchResult = false
+})

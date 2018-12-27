@@ -5,8 +5,8 @@ export default (ts) =>
           code: `
 import { action } from 'overmind'
 
-export const changeFoo = action(({ state }) => {
-  state.foo = 'bar'
+export const setUser = action<User>(({ value: user, state }) => {
+  state.user = user
 })
 `,
         },
@@ -16,8 +16,8 @@ export const changeFoo = action(({ state }) => {
           code: `
 import { action } from 'overmind'
 
-export const changeFoo = action(({ state }) => {
-  state.foo = 'bar'
+export const setUser = action(({ value: user, state }) => {
+  state.user = user
 })
 `,
         },
