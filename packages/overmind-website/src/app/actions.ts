@@ -79,6 +79,5 @@ export const changeQuery: Operator<
   o.setQuery,
   o.isValidQuery,
   debounce(200),
-  o.query,
-  o.setQueryResult
+  o.query
 )
