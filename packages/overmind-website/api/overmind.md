@@ -23,3 +23,10 @@ By default the application connects to the devtools on **localhost:3031**, but y
 ```marksy
 h(Example, { name: "api/app_options_devtools" })
 ```
+
+## options.logProxies
+By default, in **development**, Overmind will make sure that any usage of **console.log** will log out the actual object/array, instead of any proxy wrapping it. This is most likely what you want. If you want to turn off this behaviour, set this option to **true**.
+
+```marksy
+h(Example, { name: "api/app_options_logproxies" })
+```
