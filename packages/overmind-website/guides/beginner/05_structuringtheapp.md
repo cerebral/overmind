@@ -24,7 +24,35 @@ But if we want to split up into actual domains it would look more like this:
 h(Example, { name: "guide/structuringtheapp/domains" })
 ```
 
-In this case each domain **index** file bring its own state, actions and effects together and the **app/index** file is responsible for bringing the configuration together. Let us look at how that can be accomplished.
+In this case each domain **index** file bring its own state, actions and effects together and the **app/index** file is responsible for bringing the configuration together.
+
+## The state file
+
+You will typically define your **state** file by exporting a single constant named *state*.
+
+```marksy
+h(Example, { name: "guide/structuringtheapp/state" })
+```
+
+## The actions file
+
+The actions are exported individually by giving them a name and a definition.
+
+```marksy
+h(Example, { name: "guide/structuringtheapp/actions" })
+```
+
+## The effects file
+
+The effects are also exported individually where you would typically organize the methods in an object, but this could have been a class instance or just a plain function as well.
+
+```marksy
+h(Example, { name: "guide/structuringtheapp/effects" })
+```
+
+## Bring it together
+
+Now let us export the state, actions and effects for each module and bring it all together into a **namespaced** configuration.
 
 ```marksy
 h(Example, { name: "guide/structuringtheapp/namespaced" })

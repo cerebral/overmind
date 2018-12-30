@@ -2,6 +2,34 @@ export default (ts, view) =>
   ts
     ? [
         {
+          fileName: 'overmind/posts/index.ts',
+          code: `
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
+export {
+  state,
+  actions,
+  effects
+}
+`,
+        },
+        {
+          fileName: 'overmind/admin/index.ts',
+          code: `
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
+export {
+  state,
+  actions,
+  effects
+}
+`,
+        },
+        {
           fileName: 'overmind/index.ts',
           code: `
 import { Overmind, TConfig } from 'overmind'
@@ -23,6 +51,34 @@ const overmind = new Overmind(config)
         },
       ]
     : [
+        {
+          fileName: 'overmind/posts/index.js',
+          code: `
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
+export {
+  state,
+  actions,
+  effects
+}
+`,
+        },
+        {
+          fileName: 'overmind/admin/index.js',
+          code: `
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
+export {
+  state,
+  actions,
+  effects
+}
+`,
+        },
         {
           fileName: 'overmind/index.js',
           code: `
