@@ -37,7 +37,7 @@ export const overmind = new Overmind({
   actions
 })
 
-export const connect = createConnect(app)
+export const connect = createConnect(overmind)
 `,
         },
       ]
