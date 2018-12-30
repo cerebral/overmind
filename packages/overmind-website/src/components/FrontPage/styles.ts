@@ -8,10 +8,20 @@ export const wrapper = css`
   height: 100vh;
   justify-content: center;
 
+  @media (max-width: 700px) {
+    padding: var(--padding-5);
+  }
+
   h1,
   h2 {
     color: var(--color-dark-1);
   }
+`
+
+export const summary = css`
+  margin-top: 50px;
+  font-size: var(--font-size-4);
+  text-align: center;
 `
 
 export const container = css`
@@ -72,7 +82,7 @@ export const banner = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
   > h1 {
     font-weight: normal;
     letter-spacing: 0.2rem;

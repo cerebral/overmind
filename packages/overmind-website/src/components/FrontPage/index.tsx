@@ -38,6 +38,14 @@ const FrontPage: SFC = () => {
         >
           <Logo />
           <h1>frictionless webapp development</h1>
+          <div className={styles.summary}>
+            Web application development is about <strong>defining</strong>,{' '}
+            <strong>changing</strong> and <strong>consuming state</strong> to
+            produce a user experience. Overmind aims for a developer experience
+            where that is all you focus on, reducing the orchestration of state
+            management to a minimum. Making you a <strong>happier</strong> and
+            more <strong>productive</strong> developer!
+          </div>
         </div>
         <div
           className={css(
