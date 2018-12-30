@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/onInitialize.ts',
+          fileName: 'overmind/onInitialize.ts',
           code: `
 import { OnInitialize } from 'overmind'
 
@@ -19,7 +19,7 @@ export default onInitialize
       ]
     : [
         {
-          fileName: 'app/onInitialize.ts',
+          fileName: 'overmind/onInitialize.ts',
           code: `
 const onInitialize = ({ value: overmind, router }) => {
   router.route('/', overmind.actions.showHomePage)

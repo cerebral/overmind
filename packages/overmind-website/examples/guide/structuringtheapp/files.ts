@@ -3,7 +3,7 @@ export default (ts, view) =>
     ? [
         {
           code: `
-app/
+overmind/
   state.ts
   actions.ts
   effects.ts
@@ -14,7 +14,7 @@ app/
     : [
         {
           code: `
-app/
+overmind/
   state.js
   actions.js
   effects.js

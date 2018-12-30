@@ -1,5 +1,5 @@
 import { createElement, SFC } from 'react'
-import { useOvermind } from '../../app'
+import { useOvermind } from '../../overmind'
 import { viewport, compile } from '../../utils'
 import Logo from '../Logo'
 import * as styles from './styles'

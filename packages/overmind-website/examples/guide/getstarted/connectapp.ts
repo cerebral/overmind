@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 class Posts extends React.Component {
   render() {
@@ -37,7 +37,7 @@ export default connect(Posts)
     {
       fileName: 'Posts.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({})
   `,
@@ -51,7 +51,7 @@ const typescript = {
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import { Connect, connect } from '../app'
+import { Connect, connect } from '../overmind'
 
 class Posts extends React.Component<Connect> {
   render() {
@@ -75,7 +75,7 @@ export default connect(Posts)
       fileName: 'posts.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'posts-list',

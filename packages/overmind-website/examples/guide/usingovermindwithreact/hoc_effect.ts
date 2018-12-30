@@ -5,7 +5,7 @@ export default (ts) =>
           fileName: 'components/App.tsx',
           code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 
 type Props = {} & Connect
 
@@ -37,7 +37,7 @@ export default connect(App)
           fileName: 'components/App.jsx',
           code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 class App extends React.Component {
   componentDidMount() {

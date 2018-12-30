@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const App = ({ overmind }) => {
   if (overmind.state.isLoading) {
@@ -33,7 +33,7 @@ export default connect(App)
     {
       fileName: 'components/App.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({})
   `,
@@ -47,7 +47,7 @@ const typescript = {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../../app'
+import { connect, Connect } from '../../overmind'
 
 const App: React.SFC<Connect> = ({ overmind }) => {
   if (overmind.state.isLoading) {
@@ -67,7 +67,7 @@ export default connect(App)
       fileName: 'app.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'app-root',

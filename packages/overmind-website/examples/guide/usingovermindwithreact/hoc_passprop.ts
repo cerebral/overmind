@@ -5,7 +5,7 @@ export default (ts) =>
           fileName: 'components/Todos.tsx',
           code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 import Todo from './Todo'
 
 type Props = {} & Connect
@@ -27,7 +27,7 @@ export default connect(Todos)
           fileName: 'components/Todo.tsx',
           code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 
 type Props = {
   todo: Todo
@@ -46,7 +46,7 @@ export default connect(Todo)
           fileName: 'components/Todos.jsx',
           code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 import Todo from './Todo'
 
 const Todos = ({ overmind }) => {
@@ -66,7 +66,7 @@ export default connect(Todos)
           fileName: 'components/Todo.jsx',
           code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const Todo = ({ todo }) => {
   return <li>{todo.title}</li>

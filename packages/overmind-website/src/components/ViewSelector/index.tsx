@@ -1,5 +1,5 @@
 import { createElement, SFC, useRef, useState } from 'react'
-import { useOvermind } from '../../app'
+import { useOvermind } from '../../overmind'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
 import * as AngularImage from '../../images/angular.png'

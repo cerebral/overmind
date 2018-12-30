@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/effects.ts',
+          fileName: 'overmind/effects.ts',
           code: `
 import axios from 'axios'
 import { User } from './state'
@@ -30,7 +30,7 @@ export const http =
       ]
     : [
         {
-          fileName: 'app/effects.js',
+          fileName: 'overmind/effects.js',
           code: `
 import axios from 'axios'
 

@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app.ts',
+          fileName: 'overmind.ts',
           code: `
 import { Overmind, TConfig } from 'overmind'
 import { lazy } from 'overmind/config'
@@ -18,17 +18,17 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-const app = new Overmind(config)
+const overmind = new Overmind(config)
 
-app.actions.lazy.loadConfig('moduleA')
+overmind.actions.lazy.loadConfig('moduleA')
 
-export default app
+export default overmind
 `,
         },
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind } from 'overmind'
 import { lazy } from 'overmind/config'
@@ -38,11 +38,11 @@ const config = lazy({
   moduleB: () => import('./moduleB')
 })
 
-const app = new Overmind(config)
+const overmind = new Overmind(config)
 
-app.actions.lazy.loadConfig('moduleA')
+overmind.actions.lazy.loadConfig('moduleA')
 
-export default app
+export default overmind
 `,
         },
       ]

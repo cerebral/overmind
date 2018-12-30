@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/effects.ts',
+          fileName: 'overmind/effects.ts',
           code: `
 import axios from 'axios'
 import { User, Item } from './state'

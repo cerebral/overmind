@@ -6,7 +6,7 @@ export default (ts) =>
           code: `
 import * as React from 'react'
 import { useEffect } from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 
 const Todos: React.SFC = () => {
   const { state, addMutationListener } = useOvermind()
@@ -33,7 +33,7 @@ export default Todos
           fileName: 'components/App.jsx',
           code: `
 import React, { useEffect } from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 
 const App = () => {
   const { state, addMutationListener } = useOvermind()

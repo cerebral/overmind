@@ -4,7 +4,7 @@ const javascript = {
       fileName: 'SomeComponent.js',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 class SomeComponent extends React.Component {
   componentDidMount() {
@@ -44,7 +44,7 @@ export default connect(SomeComponent)
     {
       fileName: 'SomeComponent.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({
   mounted() {
@@ -67,7 +67,7 @@ const typescript = {
       fileName: 'SomeComponent.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 
 type Props = {} & Connect
 
@@ -104,7 +104,7 @@ export default connect(SomeComponent)
       fileName: 'some.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'some-component',

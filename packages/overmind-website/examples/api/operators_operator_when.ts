@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/actions.ts',
+          fileName: 'overmind/actions.ts',
           code: `
 import { Operator, pipe, when } from 'overmind'
 import { User } from './state'
@@ -20,7 +20,7 @@ export const getUser: Operator<string, User> = pipe(
       ]
     : [
         {
-          fileName: 'app/actions.ts',
+          fileName: 'overmind/actions.ts',
           code: `
 import { when, pipe } from 'overmind'
 import { doThis, doThat } from './operators'

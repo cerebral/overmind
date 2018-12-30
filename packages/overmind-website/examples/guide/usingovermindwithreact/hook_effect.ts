@@ -6,7 +6,7 @@ export default (ts) =>
           code: `
 import * as React from 'react'
 import { useEffect } from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 
 const App: React.SFC = () => {
   const { state } = useOvermind()
@@ -27,7 +27,7 @@ export default App
           fileName: 'components/App.jsx',
           code: `
 import React, { useEffect } from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 
 const App = () => {
   const { state } = useOvermind()

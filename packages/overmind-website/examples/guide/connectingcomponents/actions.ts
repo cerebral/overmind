@@ -1,7 +1,7 @@
 const javascript = {
   react: [
     {
-      fileName: 'app/actions.js',
+      fileName: 'overmind/actions.js',
       code: `
 export const toggleAwesomeApp = ({ state }) =>
   state.isAwesome = !state.isAwesome
@@ -12,7 +12,7 @@ export const toggleAwesomeApp = ({ state }) =>
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const App = ({ overmind }) => (
   <button onClick={overmind.actions.toggleAwesomeApp}>
@@ -26,7 +26,7 @@ export default connect(App)
   ],
   vue: [
     {
-      fileName: 'app/actions.js',
+      fileName: 'overmind/actions.js',
       code: `
 export const toggleAwesomeApp = ({ state }) =>
   state.isAwesome = !state.isAwesome
@@ -44,7 +44,7 @@ export const toggleAwesomeApp = ({ state }) =>
     {
       fileName: 'components/App.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({})
   `,
@@ -55,7 +55,7 @@ export default connect({})
 const typescript = {
   react: [
     {
-      fileName: 'app/actions.ts',
+      fileName: 'overmind/actions.ts',
       code: `
 import { Action } from 'overmind'
 
@@ -67,7 +67,7 @@ export const toggleAwesomeApp: Action = ({ state }) =>
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { Connect, connect } from '../app'
+import { Connect, connect } from '../overmind'
 
 const App: React.SFC<Connect> = ({ overmind }) => (
   <button onClick={overmind.actions.toggleAwesomeApp}>
@@ -82,7 +82,7 @@ export default connect(App)
   vue: javascript.vue,
   angular: [
     {
-      fileName: 'app/actions.ts',
+      fileName: 'overmind/actions.ts',
       code: `
 import { Action } from 'overmind'
 
@@ -94,7 +94,7 @@ export const toggleAwesomeApp: Action = ({ state }) =>
       fileName: 'components/app.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'app-root',

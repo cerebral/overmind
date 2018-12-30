@@ -4,7 +4,7 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app/index.ts',
+          fileName: 'overmind/index.ts',
           code: tsAppIndex(
             view,
             `
@@ -23,7 +23,7 @@ const config = {
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
@@ -31,7 +31,7 @@ import state from './state'
 import * as effects from './effects'
 import * as actions from './actions'
 
-export const app = new Overmind({
+export const overmind = new Overmind({
   state,
   effects,
   actions

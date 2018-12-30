@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app.ts',
+          fileName: 'overmind.ts',
           code: `
 import { Overmind, TConfig } from 'overmind'
 import { merge } from 'overmind/config'
@@ -21,7 +21,7 @@ export default new Overmind(config)
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind} from 'overmind'
 import { merge } from 'overmind/config'
