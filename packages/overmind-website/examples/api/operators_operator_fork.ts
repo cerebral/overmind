@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/operators.ts',
+          fileName: 'overmind/operators.ts',
           code: `
 import { fork, Operator } from 'overmind'
 import { User } from './state'
@@ -13,7 +13,7 @@ export const forkUserType = (paths: {
 `,
         },
         {
-          fileName: 'app/actions.ts',
+          fileName: 'overmind/actions.ts',
           code: `
 import { Operator, pipe } from 'overmind'
 import { forkUserType, doThis, doThat } from './operators'
@@ -30,7 +30,7 @@ export const getUser: Operator<string> = pipe(
       ]
     : [
         {
-          fileName: 'app/operators.ts',
+          fileName: 'overmind/operators.ts',
           code: `
 import { fork } from 'overmind'
 
@@ -38,7 +38,7 @@ export const forkUserType = (paths) => fork(({ value: user }) => user.type, path
 `,
         },
         {
-          fileName: 'app/actions.ts',
+          fileName: 'overmind/actions.ts',
           code: `
 import { pipe } from 'overmind'
 import { forkUserType, doThis, doThat } from './operators'

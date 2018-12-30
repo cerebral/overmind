@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const List = ({ overmind }) => (
   <h1>{overmind.state.items}</h1>
@@ -26,7 +26,7 @@ export default connect(List)
     {
       fileName: 'components/List.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({})
   `,
@@ -40,7 +40,7 @@ const typescript = {
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 
 const List: React.SFC<Connect> = ({ overmind }) => (
   <h1>{overmind.state.items}</h1>
@@ -56,7 +56,7 @@ export default connect(List)
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'app-list',

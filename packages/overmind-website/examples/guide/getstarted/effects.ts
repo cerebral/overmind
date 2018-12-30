@@ -4,7 +4,7 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app/effects.ts',
+          fileName: 'overmind/effects.ts',
           code: `
 import { Post } from './state'
     
@@ -17,7 +17,7 @@ export const jsonPlaceholder = {
       `,
         },
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: tsAppIndex(
             view,
             `
@@ -36,12 +36,12 @@ const config = {
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
 
-export const app = new Overmind({
+export const overmind = new Overmind({
   state: {
     isLoadingPosts: false,
     posts: []
@@ -61,7 +61,7 @@ export const app = new Overmind({
   }
 })
 
-export const connect = createConnect(app)
+export const connect = createConnect(overmind)
     `,
         },
       ]

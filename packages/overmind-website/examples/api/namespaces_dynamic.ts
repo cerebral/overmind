@@ -1,7 +1,7 @@
 function createJsCode() {
   return [
     {
-      fileName: 'app/moduleA/index.js',
+      fileName: 'overmind/moduleA/index.js',
       code: `
 export default (namespace) => ({
   state: {},

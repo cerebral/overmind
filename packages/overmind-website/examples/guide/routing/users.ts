@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 import Users from './Users'
 
 const App = ({ overmind }) => (
@@ -27,7 +27,7 @@ export default connect(App)
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 import UserModal from './UserModal'
 
 const Users = ({ overmind }) => (
@@ -55,7 +55,7 @@ export default connect(Users)
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const UserModal = ({ overmind }) => {
   const modalUser = overmind.state.modalUser
@@ -106,7 +106,7 @@ export default connect(UserModal)
   </div>
 </template>
 <script>
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({})
 </script>
@@ -127,7 +127,7 @@ export default connect({})
   </div>
 </template>
 <script>
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({})
 </script>
@@ -164,7 +164,7 @@ export default connect({})
   </a>
 </template>
 <script>
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({})
 </script>
@@ -179,7 +179,7 @@ const typescript = {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 import Users from './Users'
 
 const App: React.SFC<Connect> = ({ overmind }) => (
@@ -200,7 +200,7 @@ export default connect(App)
       fileName: 'components/Users.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 import UserModal from './UserModal'
 
 const Users: React.SFC<Connect> = ({ overmind }) => (
@@ -227,7 +227,7 @@ export default connect(Users)
       fileName: 'components/UserModal.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 
 const UserModal: React.SFC<Connect> = ({ overmind }) => {
   const modalUser = overmind.state.modalUser
@@ -269,7 +269,7 @@ export default connect(UserModal)
       fileName: 'components/app-component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'app-component',
@@ -292,7 +292,7 @@ export class AppComponent {}
       fileName: 'components/users-list.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'users-list',
@@ -320,7 +320,7 @@ export class UsersList {
       fileName: 'components/user-modal.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'user-modal',

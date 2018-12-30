@@ -1,5 +1,5 @@
 import { createElement, SFC } from 'react'
-import { useOvermind } from '../../app'
+import { useOvermind } from '../../overmind'
 import * as styles from './styles'
 import VideoPlayer from '../VideoPlayer'
 

@@ -1,5 +1,5 @@
 import { createElement, useState, useEffect } from 'react'
-import { useOvermind } from './app'
+import { useOvermind } from './overmind'
 import marksy from 'marksy'
 import * as Prism from '../src/prismjs.js'
 import { css } from 'emotion'

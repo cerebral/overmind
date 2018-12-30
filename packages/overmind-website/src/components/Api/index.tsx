@@ -1,5 +1,5 @@
 import { createElement, SFC, useState, useEffect } from 'react'
-import { useOvermind } from '../../app'
+import { useOvermind } from '../../overmind'
 import Doc from '../Doc'
 import * as styles from './styles'
 import { compile, getGithubBaseUrl } from '../../utils'

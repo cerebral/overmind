@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/index.ts',
+          fileName: 'overmind/index.ts',
           code: `
 import { Overmind, TConfig } from 'overmind'
 import { createConnect, TConnect } from 'overmind-react'
@@ -20,16 +20,16 @@ declare module 'overmind' {
 
 export type Connect = TConnect<typeof config>
 
-const app = new Overmind(config)
+const overmind = new Overmind(config)
 
-export const connect = createConnect(app)
+export const connect = createConnect(overmind)
   `,
         },
         {
           fileName: 'components/App.tsx',
           code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 
 type Props = {} & Connect
 
@@ -45,24 +45,24 @@ export default connect(App)
       ]
     : [
         {
-          fileName: 'app/index.jsx',
+          fileName: 'overmind/index.jsx',
           code: `
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-react'
 
-const app = new Overmind({
+const overmind = new Overmind({
   state: {},
   actions: {}
 })
 
-export const connect = createConnect(app)
+export const connect = createConnect(overmind)
 `,
         },
         {
           fileName: 'components/App.jsx',
           code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const App = ({ overmind }) => {
   const { state, actions } = overmind

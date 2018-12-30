@@ -4,7 +4,7 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app/state.ts',
+          fileName: 'overmind/state.ts',
           code: `
 export type Post = {
   title: string
@@ -23,7 +23,7 @@ export const state: State = {
     `,
         },
         {
-          fileName: 'app/index.ts',
+          fileName: 'overmind/index.ts',
           code: tsAppIndex(
             view,
             `
@@ -38,7 +38,7 @@ const config = {
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-${view}'

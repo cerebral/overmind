@@ -1,7 +1,7 @@
 import { createElement, SFC } from 'react'
-import { useOvermind } from '../../app'
+import { useOvermind } from '../../overmind'
 import * as styles from './styles'
-import { SearchResult } from '../../app/types'
+import { SearchResult } from '../../overmind/types'
 
 const Search: SFC = () => {
   const { state, actions } = useOvermind()

@@ -4,7 +4,7 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app/onInitialize.ts',
+          fileName: 'overmind/onInitialize.ts',
           code: `
 import { OnInitialize } from 'overmind'
 
@@ -17,7 +17,7 @@ export default onInitialize
 `,
         },
         {
-          fileName: 'app/index.ts',
+          fileName: 'overmind/index.ts',
           code: tsAppIndex(
             view,
             `
@@ -36,7 +36,7 @@ const config = {
       ]
     : [
         {
-          fileName: 'app/onInitialize.js',
+          fileName: 'overmind/onInitialize.js',
           code: `
 const onInitialize = async ({ value: overmind, state, api }) => {
   const initialData = await api.getInitialData()
@@ -47,20 +47,20 @@ export default onInitialize
 `,
         },
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind } from 'overmind'
 import onInitialize from './onInitialize'
 import { state } from './state'
 import * as actions from './actions'
 
-const app = new Overmind({
+const overmind = new Overmind({
   onInitialize,
   state,
   actions
 })
 
-export default app
+export default overmind
 `,
         },
       ]

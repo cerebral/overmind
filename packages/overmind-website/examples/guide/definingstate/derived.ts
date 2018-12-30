@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/state.ts',
+          fileName: 'overmind/state.ts',
           code: `
 import { Derive } from 'overmind'
 
@@ -20,7 +20,7 @@ export const state: State = {
       ]
     : [
         {
-          fileName: 'app/state.js',
+          fileName: 'overmind/state.js',
           code: `
 export const state = {
   title: 'My awesome title',

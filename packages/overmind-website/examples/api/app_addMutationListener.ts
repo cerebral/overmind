@@ -4,7 +4,7 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app/onInitialize.ts',
+          fileName: 'overmind/onInitialize.ts',
           code: `
 import { OnInitialize } from 'overmind'
 
@@ -22,7 +22,7 @@ export default onInitialize
       ]
     : [
         {
-          fileName: 'app/onInitialize.js',
+          fileName: 'overmind/onInitialize.js',
           code: `
 const onInitialize = async ({ value: overmind, state, localStorage }) => {
   overmind.addMutationListener((mutation) => {

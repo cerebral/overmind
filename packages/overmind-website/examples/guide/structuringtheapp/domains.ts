@@ -3,7 +3,7 @@ export default (ts) =>
     ? [
         {
           code: `
-app/
+overmind/
   posts/
     state.ts
     actions.ts
@@ -21,7 +21,7 @@ app/
     : [
         {
           code: `
-app/
+overmind/
   posts/
     state.js
     actions.js

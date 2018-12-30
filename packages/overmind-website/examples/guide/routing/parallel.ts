@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/actions.ts',
+          fileName: 'overmind/actions.ts',
           code: `
 import { Operator, pipe, parallel } from 'overmind'
 import * as o from './operators'
@@ -38,7 +38,7 @@ export const showUserModal: Operator<{ id: string }, any> = pipe(
       ]
     : [
         {
-          fileName: 'app/actions.js',
+          fileName: 'overmind/actions.js',
           code: `
 import { pipe, parallel } from 'overmind'
 import * as o from './operators'

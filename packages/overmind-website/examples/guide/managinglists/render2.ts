@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const Post = ({ post }) => (
   <li>{post.title}</li>
@@ -19,7 +19,7 @@ export default connect(Post)
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 import Post from './Post'
 
 const Posts = ({ overmind }) => (
@@ -45,7 +45,7 @@ export default connect(Posts)
     {
       fileName: 'components/Post.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({
   props: ['post']
@@ -64,7 +64,7 @@ export default connect({
     {
       fileName: 'components/Posts.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 import Post from './Post'
 
 export default connect({
@@ -83,8 +83,8 @@ const typescript = {
       fileName: 'components/Post.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
-import { Post as TPost } from '../app/state'
+import { connect, Connect } from '../overmind'
+import { Post as TPost } from '../overmind/state'
 
 type Props = {
   post: TPost
@@ -101,7 +101,7 @@ export default connect(Post)
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 import Post from './Post'
 
 const Posts: React.SFC<Connect> = ({ overmind }) => (
@@ -122,8 +122,8 @@ export default connect(Posts)
       fileName: 'components/post.component.ts',
       code: `
 import { Component,Input } from '@angular/core';
-import { connect } from '../app'
-import { Item } from '../app/state'
+import { connect } from '../overmind'
+import { Item } from '../overmind/state'
 
 @Component({
   selector: 'app-post',
@@ -143,7 +143,7 @@ export class List {
       fileName: 'components/posts.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'app-posts',

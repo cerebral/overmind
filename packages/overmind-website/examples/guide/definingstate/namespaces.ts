@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/admin/state.ts',
+          fileName: 'overmind/admin/state.ts',
           code: `
 export type User = {
   username: string
@@ -25,7 +25,7 @@ export const state: State = {
   `,
         },
         {
-          fileName: 'app/issues/state.ts',
+          fileName: 'overmind/issues/state.ts',
           code: `
 export type Issue = {
   id: string
@@ -71,7 +71,7 @@ export const state: State = {
       ]
     : [
         {
-          fileName: 'app/admin/state.js',
+          fileName: 'overmind/admin/state.js',
           code: `
 export default {
   isLoadingUsers: false,
@@ -80,7 +80,7 @@ export default {
   `,
         },
         {
-          fileName: 'app/issues/state.js',
+          fileName: 'overmind/issues/state.js',
           code: `
 export default {
   isLoading: false,

@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/effects.ts',
+          fileName: 'overmind/effects.ts',
           code: `
 import page from 'page'
 import queryString from 'query-string'
@@ -23,7 +23,7 @@ export const router = {
       ]
     : [
         {
-          fileName: 'app/effects.js',
+          fileName: 'overmind/effects.js',
           code: `
 import page from 'page'
 import queryString from 'query-string'

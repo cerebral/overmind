@@ -2,7 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app.ts',
+          fileName: 'overmind.ts',
           code: `
 import { Overmind, TConfig } from 'overmind'
 import { namespaced } from 'overmind/config'
@@ -18,15 +18,15 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-const app = new Overmind(config)
+const overmind = new Overmind(config)
 
-export default app
+export default overmind
 `,
         },
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind} from 'overmind'
 import { namespaced } from 'overmind/config'
@@ -38,9 +38,9 @@ const config = namespaced({
   moduleB
 })
 
-const app = new Overmind(config)
+const overmind = new Overmind(config)
 
-export default app
+export default overmind
 `,
         },
       ]

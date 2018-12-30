@@ -5,7 +5,7 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 const Item = ({ item }) => (
   <li>{item.title}</li>
@@ -19,7 +19,7 @@ export default connect(Item)
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../app'
+import { connect } from '../overmind'
 import Item from './Item'
 
 const App = ({ overmind }) => (
@@ -45,7 +45,7 @@ export default connect(App)
     {
       fileName: 'components/Item.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 export default connect({
   props: ['item']
@@ -64,7 +64,7 @@ export default connect({
     {
       fileName: 'components/List.vue (script)',
       code: `
-import { connect } from '../app'
+import { connect } from '../overmind'
 import Item from './Item'
 
 export default connect({
@@ -83,7 +83,7 @@ const typescript = {
       fileName: 'components/Item.jsx',
       code: `
 import React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 
 type Props = {
   item: { title: string }
@@ -100,7 +100,7 @@ export default connect(Item)
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../app'
+import { connect, Connect } from '../overmind'
 import Item from './Item'
 
 const List: React.SFC<Connect> = ({ overmind }) => (
@@ -121,8 +121,8 @@ export default connect(List)
       fileName: 'components/item.component.ts',
       code: `
 import { Component Input } from '@angular/core';
-import { connect } from '../app'
-import { Item } from '../app/state'
+import { connect } from '../overmind'
+import { Item } from '../overmind/state'
 
 @Component({
   selector: 'app-list-item',
@@ -142,7 +142,7 @@ export class List {
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../app'
+import { connect } from '../overmind'
 
 @Component({
   selector: 'app-list',

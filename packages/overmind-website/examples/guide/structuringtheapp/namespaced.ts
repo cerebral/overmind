@@ -2,7 +2,7 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'app/index.ts',
+          fileName: 'overmind/index.ts',
           code: `
 import { Overmind, TConfig } from 'overmind'
 import { namespaced } from 'overmind/config'
@@ -24,7 +24,7 @@ const overmind = new Overmind(config)
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 import { Overmind } from 'overmind'
 import { namespaced } from 'overmind/config'

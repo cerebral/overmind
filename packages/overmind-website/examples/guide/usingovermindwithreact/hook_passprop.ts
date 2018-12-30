@@ -5,7 +5,7 @@ export default (ts) =>
           fileName: 'components/Todos.tsx',
           code: `
 import * as React from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 import Todo from './Todo'
 
 const Todos: React.SFC = () => {
@@ -25,7 +25,7 @@ export default Todos
           fileName: 'components/Todo.tsx',
           code: `
 import * as React from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 
 type Props = {
   todo: Todo
@@ -46,7 +46,7 @@ export default Todo
           fileName: 'components/Todos.jsx',
           code: `
 import React from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 import Todo from './Todo'
 
 const Todos = () => {
@@ -66,7 +66,7 @@ export default Todos
           fileName: 'components/Todo.jsx',
           code: `
 import React from 'react'
-import { useOvermind } from '../app'
+import { useOvermind } from '../overmind'
 
 const Todo = ({ todo }) => {
   useOvermind()

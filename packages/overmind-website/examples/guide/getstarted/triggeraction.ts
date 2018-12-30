@@ -8,6 +8,9 @@ import React from 'react'
 import { connect } from '../overmind'
 
 class Posts extends React.Component {
+  componentDidMount() {
+    this.props.overmind.actions.loadPosts()
+  }
   render() {
     const { overmind } = this.props
 
@@ -15,7 +18,11 @@ class Posts extends React.Component {
       return <h4>Loading posts...</h4>
     }
   
-    return <div />
+    return (
+      <ul>
+        {overmind.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
+      </ul>
+    )
   }
 }
 
@@ -31,7 +38,11 @@ export default connect(Posts)
 <h4 v-if="overmind.state.isLoadingPosts">
   Loading posts...
 </h4>
-<div v-else></div>
+<ul v-else>
+  <li v-for="post in overmind.state.posts">
+    {{post.title}}
+  </li>
+</ul>
     `,
     },
     {
@@ -39,7 +50,11 @@ export default connect(Posts)
       code: `
 import { connect } from '../overmind'
 
-export default connect({})
+export default connect({
+  mounted() {
+    this.overmind.actions.loadPosts()
+  }
+})
   `,
     },
   ],
@@ -54,6 +69,9 @@ import * as React from 'react'
 import { Connect, connect } from '../overmind'
 
 class Posts extends React.Component<Connect> {
+  componentDidMount() {
+    this.props.overmind.actions.loadPosts()
+  }
   render() {
     const { overmind } = this.props
 
@@ -61,7 +79,11 @@ class Posts extends React.Component<Connect> {
       return <h4>Loading posts...</h4>
     }
   
-    return <div />
+    return (
+      <ul>
+        {overmind.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
+      </ul>
+    )
   }
 }
 
@@ -83,11 +105,19 @@ import { connect } from '../overmind'
   <h4 *ngIf="overmind.state.isLoadingPosts">
     Loading posts...
   </h4>
-  <div *ngIf="!overmind.state.isLoadingPosts"></div>
+  <ul *ngIf="!overmind.state.isLoadingPosts">
+    <li *ngFor="let post of overmind.state.posts">
+      {{post.title}}
+    </li>
+  </ul>
   \`
 })
 @connect()
-export class PostsList {}
+export class PostsList {
+  ngOnInit() {
+    this.overmind.actions.loadPosts()
+  }
+}
     `,
     },
   ],

@@ -1,9 +1,9 @@
 import { createElement, SFC, useRef, useEffect } from 'react'
-import { useOvermind } from '../../app'
+import { useOvermind } from '../../overmind'
 import * as styles from './styles'
 import ViewSelector from '../ViewSelector'
 import Icon from '../Icon'
-import { Page } from '../../app/types'
+import { Page } from '../../overmind/types'
 import { css } from 'emotion'
 
 type Props = {

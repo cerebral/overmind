@@ -19,7 +19,7 @@ export const content = css`
 
   @media (max-width: 700px) {
     width: 100%;
-    padding: var(--padding-5) var(--padding-4);
+    padding: var(--padding-5);
   }
 
   ol {

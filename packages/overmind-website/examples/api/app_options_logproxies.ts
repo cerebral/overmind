@@ -2,11 +2,11 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'app/index.ts',
+          fileName: 'overmind/index.ts',
           code: `
 ...
 
-export const app = new Overmind(config, {
+export const overmind = new Overmind(config, {
   logProxies: false
 })
         `,
@@ -14,11 +14,11 @@ export const app = new Overmind(config, {
       ]
     : [
         {
-          fileName: 'app/index.js',
+          fileName: 'overmind/index.js',
           code: `
 ...
 
-export const app = new Overmind(config, {
+export const overmind = new Overmind(config, {
   logProxies: false
 })
 `,
