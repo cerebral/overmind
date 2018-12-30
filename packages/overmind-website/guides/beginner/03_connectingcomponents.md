@@ -24,22 +24,22 @@ When we just access en array in a component it will rerender if the array itself
 h(Example, { name: "guide/connectingcomponents/array_1" })
 ```
 
-But what happens if we iterate the array and access a property on the item?
+But what happens if we iterate the array and access a property on each item?
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/array_2" })
 ```
 
-Now Overmind also sees that this component is interested in the id and title of every item. Meaning that if any id or title changes this component would render again. This is typically not what you want. That is why it is a good idea to pass this item to a child component.
+Now Overmind also sees that this component is interested in the id and title of every item. Meaning that if any id or title changes this component would render again. This is perfectly okay for the most part, but if each child renders a complex UI in itself it is a good idea to separate it into its own component. That means each item from the array will be passed to a component as a prop.
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/array_3" })
 ```
 
-In this situation the **List** component will only render when there is a change to the actual list. While each individual **Item** component will render when its respective title changes.
+The benefit now is that the **List** component will only render when there is a change to the actual list. While each individual **Item** component will render when its respective title changes.
 
 ```marksy
-h(Notice, {}, "Take notice that our **Item** component still has to connect to Overmind, even though we did not explicitly access the application. That is because Overmind needs to connect to the component to track how it accesses application state."
+h(Notice, {}, "Take notice that our **Item** component still has to connect to Overmind, even though we did not explicitly access any state or actions. That is because Overmind needs to connect to the component to track how it accesses state passed as props as well."
 )
 ```
 
