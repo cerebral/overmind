@@ -2,7 +2,7 @@
 
 There are two different ways to connect Overmind to React. You can either use a traditional **Higher Order Component** or you can use the new **hooks** api to expose state and actions.
 
-When you connect Overmind to a component you ensure that whenever any tracked state changes only components interested in that state will rerender and they will rerender "at their point in the UI structure". That means we remove a lot of unnecessary work from React. There is no reason for the whole React component tree to rerender when only one component is interested in a change.
+When you connect Overmind to a component you ensure that whenever any tracked state changes only components interested in that state will rerender and they will rerender "at their point in the component tree". That means we remove a lot of unnecessary work from React. There is no reason for the whole React component tree to rerender when only one component is interested in a change.
 
 ## With HOC
 ```marksy
@@ -11,7 +11,15 @@ h(Example, { name: "guide/usingovermindwithreact/hoc" })
 
 ### Rendering
 
-When you connect a component with the **connect** HOC it will automatically optimize with **PureComponent**, meaning that the only way your connected component can render is if the parent passes a changed prop or the state that is tracked changes.
+When you connect a component with the **connect HOC** it will be responsible for tracking and trigger a render when the tracked state is updated. The **overmind** prop passed to the component you defined holds the state and actions. If you want to detect inside your component that it was indeed an Overmind state change causing the render you can compare the **overmind** prop itself.
+
+```marksy
+h(Example, { name: "guide/usingovermindwithreact/hoc_compareprop" })
+```
+
+You will not be able to compare a previous state value in Overmind with the new. That is simply because Overmind is not immutable and it should not be. You will not use **shouldComponentUpdate** to compare state in Overmind, though you can of course still use it to compare props from a parent. This is a bit of a mindshift if you come from Redux, but it actually removes the mental burden of doing this stuff.
+
+If you previously used **componentDidUpdate** to trigger an effect, that is no longer necessary either. You rather listen to state changes in Overmind using **addMutationListener** specified below in *effects*.
 
 ### Passing state as props
 
@@ -23,7 +31,7 @@ h(Example, { name: "guide/usingovermindwithreact/hoc_passprop" })
 
 ### Effects
 
-To run effects in components based on changes to state you use the **subscribe** function in the lifecycle hooks of React.
+To run effects in components based on changes to state you use the **addMutationListener** function in the lifecycle hooks of React.
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hoc_effect" })
@@ -36,7 +44,7 @@ h(Example, { name: "guide/usingovermindwithreact/hook" })
 
 ### Rendering
 
-When you use the Overmind hook it will ensure that the component will render when any tracked state changes. It will not optimize related to checking if parent props has changed. That means whenever the parent renders, this component renders as well. You will need to wrap your component with [**React.memo**](https://reactjs.org/docs/react-api.html#reactmemo).
+When you use the Overmind hook it will ensure that the component will render when any tracked state changes. It will not do anything related to the props passed to the component. That means whenever the parent renders, this component renders as well. You will need to wrap your component with [**React.memo**](https://reactjs.org/docs/react-api.html#reactmemo) to optimize rendering caused by a parent.
 
 ### Passing state as props
 
