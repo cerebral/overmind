@@ -10,7 +10,7 @@ h(Example, { name: "guide/connectingcomponents/connect" })
 
 In this example we are accessing the **isLoading** state. When this component renders and this state is accessed, Overmind will automatically understand that this component is interested in this exact state. That means whenever the value is changed this component will render again.
 
-## Accessing state
+## State
 
 When Overmind detects that the **App** component is interested in our **isLoading** state, it is not looking at the value itself, it is looking at the path. The component pointed to **state.isLoading**, which means when a mutation occurs on that path in the state, the component will render again. Since the value is a boolean value this can only happen when **isLoading** is replaced or removed. The same goes for strings and numbers as well. We do not say that we mutate a string, boolean or a number. We mutate the object or array that holds those values.
 
@@ -57,10 +57,20 @@ And just like an array you can iterate the object keys to pass items to a child 
 h(Example, { name: "guide/connectingcomponents/object_2" })
 ```
 
-## Calling actions
+## Actions
 
 All the actions defined in the Overmind application is available to connected components. When Overmind consumes an action defined it will produce a function for components to call.
 
 ```marksy
 h(Example, { name: "guide/connectingcomponents/actions" })
+```
+
+## Effects
+
+Sometimes you want to make something happen inside a component related to a state change. This is typically doing some manual work on the DOM. When you connect a component to overmind it also gets access to **addMutationListener**. This function allows you to subscribe to changes in state, mutations as we call them. Each mutation holds information about what kind of mutation it was, at what path it happened and even any arguments used in the mutation. You can use all this information to create an effect.
+
+This example shows how you can scroll to the top of the page every time you change the current article of the app.
+
+```marksy
+h(Example, { name: "guide/connectingcomponents/effects" })
 ```

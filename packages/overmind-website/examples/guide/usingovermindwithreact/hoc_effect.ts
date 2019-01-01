@@ -42,7 +42,7 @@ import { connect } from '../overmind'
 class App extends React.Component {
   componentDidMount() {
     this.disposeMutationListener = this.props.overmind.addMutationListener((mutation) => {
-      if (mutation.path.includes('currentPage')) {
+      if (mutation.path === 'currentPage') {
         document.querySelector('#app').scrollTop = 0
       }
     })
