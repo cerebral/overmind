@@ -1,5 +1,9 @@
 import { css } from 'emotion'
 
+export const pageWrapper = css`
+  min-height: calc(100vh - 198px);
+`
+
 export const wrapper = css`
   font-family: Nunito, 'helvetica neue';
   background-color: inherit;

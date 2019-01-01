@@ -9,8 +9,8 @@
 	"scripts": {
 		"start": "node backend/index",
 		"dev": "concurrently \"node backend/index.js\" \"webpack-dev-server --port 4000 --mode development --hot --inline\"",
-    "build": "webpack --mode=production",
-    "now-build": "npm run build",
+		"build": "webpack --mode=production",
+		"now-build": "npm run build",
 		"typecheck": "tsc --noEmit",
 		"prepare": "npm run build",
 		"posttest": "npm run typecheck"
@@ -40,9 +40,10 @@
 		"install": "^0.12.1",
 		"marksy": "^6.1.0",
 		"npm": "^6.3.0",
-    "overmind-react": "next",
+		"overmind-react": "next",
 		"page": "^1.8.6",
-		"prismjs": "^1.15.0"
+		"prismjs": "^1.15.0",
+		"puppeteer": "^1.11.0"
 	},
 	"devDependencies": {
 		"@babel/plugin-transform-react-jsx": "^7.1.6",

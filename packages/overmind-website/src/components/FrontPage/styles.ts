@@ -5,7 +5,6 @@ export const wrapper = css`
   padding-top: 100px;
   display: flex;
   box-sizing: border-box;
-  height: 100vh;
   justify-content: center;
 
   @media (max-width: 700px) {

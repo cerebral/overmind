@@ -6,6 +6,7 @@ export const wrapper = css`
   height: 100px;
   justify-content: center;
   align-items: center;
+  margin-top: var(--padding-6);
   > * {
     margin: 0 var(--padding-4);
   }

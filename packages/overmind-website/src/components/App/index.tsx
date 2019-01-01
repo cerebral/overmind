@@ -50,7 +50,9 @@ const App: SFC = () => {
   return (
     <div ref={mainRef} className={styles.wrapper}>
       {isMobile ? <MobileTopBar /> : <TopBar />}
-      <Page />
+      <div className={styles.pageWrapper}>
+        <Page />
+      </div>
       <Footer />
     </div>
   )

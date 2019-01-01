@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const puppeteer = require('puppeteer')
 const app = express()
 const fs = require('fs')
 const api = require('./api')
@@ -102,6 +103,26 @@ const apis = getApis()
 
 const searchData = getSearchData()
 
+const googleCrawlMiddleware = async function ssr(req, res, next) {
+  if (
+    req
+      .get('user-agent')
+      .toLowerCase()
+      .indexOf('googlebot') >= 0
+  ) {
+    const browser = await puppeteer.launch({ headless: true })
+    const page = await browser.newPage()
+    await page.goto(req.hostname + req.path, { waitUntil: 'networkidle0' })
+    const html = await page.content()
+    await browser.close()
+
+    res.send(html)
+  } else {
+    next()
+  }
+}
+
+app.use(googleCrawlMiddleware)
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use('/images', express.static(path.join(__dirname, '..', 'images')))
 app.get('/workshop/posts', api.posts)
