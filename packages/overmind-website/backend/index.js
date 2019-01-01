@@ -1,6 +1,6 @@
 const path = require('path')
 const express = require('express')
-const puppeteer = require('puppeteer')
+const https = require('https')
 const app = express()
 const fs = require('fs')
 const api = require('./api')
@@ -113,15 +113,20 @@ const googleCrawlMiddleware = async function ssr(req, res, next) {
       .indexOf('googlebot') >= 0 &&
     !path.extname(url)
   ) {
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    })
-    const page = await browser.newPage()
-    await page.goto(url, { waitUntil: 'networkidle0' })
-    const html = await page.content()
-    await browser.close()
-
-    res.send(html)
+    res.send(
+      await new Promise((resolve) => {
+        https.get(
+          'https://pptraas.com/ssr?url=https://overmindjs.org' + req.path,
+          (res) => {
+            let html = ''
+            res.on('data', (chunk) => {
+              html += chunk
+            })
+            res.on('end', () => resolve(html))
+          }
+        )
+      })
+    )
   } else {
     next()
   }
