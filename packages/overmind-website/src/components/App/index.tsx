@@ -10,6 +10,7 @@ import Videos from '../Videos'
 import Api from '../Api'
 import MobileTopBar from '../MobileTopBar'
 import { useIsMobile, useScrollToTop } from '../../utils'
+import Footer from '../Footer'
 
 const pages = {
   [Page.HOME]: FrontPage,
@@ -50,6 +51,7 @@ const App: SFC = () => {
     <div ref={mainRef} className={styles.wrapper}>
       {isMobile ? <MobileTopBar /> : <TopBar />}
       <Page />
+      <Footer />
     </div>
   )
 }

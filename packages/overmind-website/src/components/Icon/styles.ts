@@ -8,6 +8,7 @@ export const icons = {
   chat: '\f086',
   guide: '\f0f6',
   bars: '\f0c9',
+  github: '\f09b',
 }
 
 export const icon = (icon: string) => css`

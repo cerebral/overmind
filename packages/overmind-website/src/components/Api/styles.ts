@@ -13,7 +13,6 @@ export const listWrapper = css`
   width: 150px;
 
   padding-top: 50px;
-  height: 100vh;
   right: calc(50% + 350px);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
