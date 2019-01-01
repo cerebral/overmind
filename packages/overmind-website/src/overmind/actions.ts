@@ -12,14 +12,18 @@ export const openHome: Action<RouteContext> = async ({ state, request }) => {
 export const openGuides: Action<RouteContext> = async ({ state, request }) => {
   state.page = Page.GUIDES
   if (!state.guides.length) {
+    state.isLoadingGuides = true
     state.guides = await request('/backend/guides')
+    state.isLoadingGuides = false
   }
 }
 
 export const openVideos: Action<RouteContext> = async ({ state, request }) => {
   state.page = Page.VIDEOS
   if (!state.videos.length) {
+    state.isLoadingVideos = true
     state.videos = await request('/backend/videos')
+    state.isLoadingVideos = false
   }
 }
 
@@ -47,7 +51,9 @@ export const openApi: Action<RouteContext<VideoParams>> = async ({
   state.page = Page.API
   state.currentApi = routeContext.params.title
   if (!state.apis.length) {
+    state.isLoadingApis = true
     state.apis = await request('/backend/apis')
+    state.isLoadingApis = false
   }
 }
 

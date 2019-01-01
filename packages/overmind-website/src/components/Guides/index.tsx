@@ -1,9 +1,14 @@
 import { createElement, SFC } from 'react'
 import { useOvermind } from '../../overmind'
 import * as styles from './styles'
+import Loader from '../Loader'
 
 const Guides: SFC = () => {
   const { state } = useOvermind()
+
+  if (state.isLoadingGuides) {
+    return <Loader />
+  }
 
   return (
     <div className={styles.wrapper}>

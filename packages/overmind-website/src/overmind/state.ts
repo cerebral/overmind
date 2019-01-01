@@ -24,6 +24,9 @@ type State = {
   isLoadingSearchResult: boolean
   searchResult: SearchResult[]
   showSearchResult: boolean
+  isLoadingGuides: boolean
+  isLoadingApis: boolean
+  isLoadingVideos: boolean
 }
 
 const state: State = {
@@ -42,6 +45,9 @@ const state: State = {
   isLoadingSearchResult: false,
   searchResult: [],
   showSearchResult: false,
+  isLoadingGuides: false,
+  isLoadingApis: false,
+  isLoadingVideos: false,
 }
 
 export default state
