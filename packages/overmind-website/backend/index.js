@@ -110,7 +110,10 @@ const googleCrawlMiddleware = async function ssr(req, res, next) {
       .toLowerCase()
       .indexOf('googlebot') >= 0
   ) {
-    const browser = await puppeteer.launch({ headless: true })
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox'],
+    })
     const page = await browser.newPage()
     await page.goto(req.hostname + req.path, { waitUntil: 'networkidle0' })
     const html = await page.content()
