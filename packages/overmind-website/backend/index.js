@@ -106,9 +106,11 @@ const searchData = getSearchData()
 const googleCrawlMiddleware = async function ssr(req, res, next) {
   const url = req.protocol + '://' + req.hostname + req.path
 
+  console.log(req.get('user-agent'))
+  console.log(req.get('User-Agent'))
   if (
     req
-      .get('user-agent')
+      .get('User-Agent')
       .toLowerCase()
       .indexOf('googlebot') >= 0 &&
     !path.extname(url)
