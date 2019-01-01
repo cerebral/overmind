@@ -20,7 +20,7 @@ const Footer: SFC = () => {
         <div> Copyright © 2019 Christian Alfoni</div>
       </div>
       <a
-        href="https://spectrum.chat/?t=ddc61ecd-56c7-4c54-8029-c42118d52975"
+        href="https://spectrum.chat/overmindjs"
         target="_new"
         className={styles.chat}
       >
