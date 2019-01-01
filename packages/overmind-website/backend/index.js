@@ -106,8 +106,11 @@ const searchData = getSearchData()
 const googleCrawlMiddleware = async function ssr(req, res, next) {
   const url = req.protocol + '://' + req.hostname + req.path
 
-  console.log(req.get('user-agent'))
-  console.log(req.get('User-Agent'))
+  console.log(
+    req.get('User-Agent'),
+    path.extname(url),
+    path.extname(url).length
+  )
   if (
     req
       .get('User-Agent')
@@ -115,6 +118,7 @@ const googleCrawlMiddleware = async function ssr(req, res, next) {
       .indexOf('googlebot') >= 0 &&
     !path.extname(url)
   ) {
+    console.log('grabbing from service')
     res.send(
       await new Promise((resolve) => {
         https.get(
@@ -130,6 +134,7 @@ const googleCrawlMiddleware = async function ssr(req, res, next) {
       })
     )
   } else {
+    console.log('next')
     next()
   }
 }
