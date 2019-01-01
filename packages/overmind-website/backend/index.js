@@ -104,18 +104,21 @@ const apis = getApis()
 const searchData = getSearchData()
 
 const googleCrawlMiddleware = async function ssr(req, res, next) {
+  const url = req.protocol + '://' + req.hostname + req.path
+
   if (
     req
       .get('user-agent')
       .toLowerCase()
-      .indexOf('googlebot') >= 0
+      .indexOf('googlebot') >= 0 &&
+    !path.extname(url)
   ) {
     const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox'],
     })
     const page = await browser.newPage()
-    await page.goto(req.hostname + req.path, { waitUntil: 'networkidle0' })
+    await page.goto(url, { waitUntil: 'networkidle0' })
     const html = await page.content()
     await browser.close()
 
