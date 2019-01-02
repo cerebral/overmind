@@ -7,8 +7,8 @@ export default (ts) =>
 import * as axios from 'axios'
 import { User } from './state'
 
-export const http = {
-  getUser() {
+export const api = {
+  getCurrentUser() {
     return axios.get<User>('/user')
   }
 }
@@ -22,7 +22,7 @@ export const http = {
 import axios from 'axios'
 
 export const http = {
-  getUser() {
+  getCurrentUser() {
     return axios.get('/user')
   }
 }

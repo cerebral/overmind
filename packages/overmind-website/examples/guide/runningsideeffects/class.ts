@@ -7,24 +7,24 @@ export default (ts) =>
 import axios from 'axios'
 import { User } from './state'
 
-interface IHttp {
+interface IRequest {
   get<T>(url: string): Promise<T>
 }
 
-class Http {
+export class Api {
   private baseUrl: string
-  private request: IHttp
-  constructor (baseUrl: string, request: IHttp) {
+  private request: IRequest
+  constructor (baseUrl: string, request: IRequest) {
     this.baseUrl = baseUrl
     this.request = request
   }
-  getUser(): Promise<User>  {
+  getCurrentUser(): Promise<User>  {
     return this.request.get(\`\${this.baseUrl}/user\`)
   }
 }
 
-export const http =
-  new Http(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
+export const api =
+  new Api(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
   `,
         },
       ]
@@ -34,7 +34,7 @@ export const http =
           code: `
 import axios from 'axios'
 
-class Http {
+export class Api {
   constructor (baseUrl, request) {
     this.baseUrl = baseUrl
     this.request = request
@@ -45,7 +45,7 @@ class Http {
 }
 
 export const http =
-  new Http(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
+  new Api(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
   `,
         },
       ]
