@@ -14,8 +14,7 @@ export const listWrapper = css`
 
   padding-top: 50px;
   right: calc(50% + 350px);
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 `
 
 export const list = css`
