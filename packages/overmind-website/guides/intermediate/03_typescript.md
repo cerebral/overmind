@@ -22,9 +22,3 @@ You can also explicitly type your application. This gives more flexibility.
 ```marksy
 h(Example, { name: "guide/typescript/explicit.ts" })
 ```
-
-If you use the **operators** api you just pass the config as the last type argument.
-
-```marksy
-h(Example, { name: "guide/typescript/explicit_operators.ts" })
-```
