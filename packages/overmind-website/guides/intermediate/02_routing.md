@@ -8,22 +8,20 @@ We will start with a simple naive approach and then we are going to tweak our ap
 
 ## Set up the app
 
-Before we go into the router we want to set up the application. We have some state helping us express the UI explained above. In addition we have four actions which we will define using the **operators** API.
+Before we go into the router we want to set up the application. We have some state helping us express the UI explained above. In addition we have three actions.
 
 1. **showHomePage** tells our application to set the current page to *home*
 2. **showUsersPage** tells our application to set the current page to *users* and fetches the users as well
-3. **showUserModal** tells our application to show the modal by setting an id of a user passed to the action
-4. **changeUserModalTab** tells our application to change the current tab of the user modal using the passed index
+3. **showUserModal** tells our application to show the modal by setting an id of a user passed to the action. This action will also handle the switching of tabs later
+
 
 ```marksy
 h(Example, { name: "guide/routing/setup" })
 ```
 
-We are not going into details on exactly how the state is set and how the data is fetched, that is the beauty of having a declarative concept to describe logic. We can talk about logic without implementing.
-
 ## Initialize the router
 
-**Page js** is pretty straight forward. We basically want to map a url to trigger an action. To get started let us first add Page js as an effect and let us take the opportunity to create a custom API. We want to pass the params to our actions:
+**Page js** is pretty straight forward. We basically want to map a url to trigger an action. To get started let us first add Page js as an effect and let us take the opportunity to create a custom API. When a url triggers we want to pass the params of the route to the action linked to the route:
 
 ```marksy
 h(Example, { name: "guide/routing/effect" })
@@ -51,17 +49,21 @@ But what if we try to refresh now... we get an error. The router tries to run ou
 
 ## Composing actions
 
-A straight forward way to solve this is to simply compose in the **showUsers** action to the **showUser** action. This will ensure that we get to the correct page, we get our list of users to be displayed and then the logic for our modal runs.
+A straight forward way to solve this is to simply also change the page in in the **showUserModal** action, though we would like the list of users to load in the background as well. The logic of **showUsers** might also be a lot more complex and we do not want to duplicate our code. When these scenarios occur, where you want to start calling actions from actions, it indicates you have reached a level of complexity where a functional approach might be better. We will explore that now. 
 
 ```marksy
 h(Example, { name: "guide/routing/compose" })
 ```
 
-But we could actually make this better. There is no reason to wait for the list of users to load before we load the specific user for the modal. We can do that in **parallel**. Let us change out the logic a little bit so that we run both actions. Now the list of users and the single user loads at the same time. That makes sense as loading a single user is probably faster than loading the whole list.
+By using the **action** operator from Overmind we made the **showUsers** action a composable piece of logic. Then we used the **pipe** operator to compose the two actions together. One running to completion before the next one runs.
+
+We could actually make this better though. There is no reason to wait for the list of users to load before we load the specific user for the modal. We can do that in **parallel**. Let us change out the logic a little bit so that we run both actions. Now the list of users and the single user loads at the same time. That makes sense as loading a single user is probably faster than loading the whole list.
 
 ```marksy
 h(Example, { name: "guide/routing/parallel" })
 ```
+
+Now you are starting to see how the operators can be quite useful to compose flow. This flow is also reflected in the development tool of Overmind.
 
 ## The tab query param
 
@@ -81,4 +83,4 @@ h(Example, { name: "guide/routing/tab" })
 
 ## Summary
 
-With very little effort we were able to build a custom "**application state first**" router for our application. Like many common tools needed in an application, like talking to the server, local storage etc., there are often small differences in the requirements. And even more often you do not need the full implementation of the tool you are using. By using simple tools you can meet the actual requirements of the application more "head on" and this was an example of that.
+With little effort we were able to build a custom "**application state first**" router for our application. Like many common tools needed in an application, like talking to the server, local storage etc., there are often small differences in the requirements. And even more often you do not need the full implementation of the tool you are using. By using simple tools you can meet the actual requirements of the application more "head on" and this was an example of that.

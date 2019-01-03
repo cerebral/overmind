@@ -9,7 +9,7 @@ import { connect } from '../overmind'
 import Users from './Users'
 
 const App = ({ overmind }) => (
-  <div class="container">
+  <div className="container">
     <nav>
       <a href="/">Home</a>
       <a href="/users">Users</a>
@@ -31,7 +31,7 @@ import { connect } from '../overmind'
 import UserModal from './UserModal'
 
 const Users = ({ overmind }) => (
-  <div class="content">
+  <div className="content">
     {overmind.state.isLoadingUsers ? (
       <h4>Loading users...</h4>
     ) : (
@@ -43,7 +43,7 @@ const Users = ({ overmind }) => (
         ))}
       </ul>
     )}
-    {overmind.state.modalUser ? <UserModal /> : null}
+    {overmind.state.isLoadingUserDetails || overmind.state.modalUser ? <UserModal /> : null}
   </div>
 )
 
@@ -62,8 +62,8 @@ const UserModal = ({ overmind }) => {
   const currentUserModalTabIndex = overmind.state.currentUserModalTabIndex
 
   return (
-    <a href="/users" class="backdrop">
-      <div class="modal">
+    <a href="/users" className="backdrop">
+      <div className="modal">
         {overmind.state.isLoadingUserDetails ? (
           <h4>Loading user details...</h4>
         ) : (
@@ -75,10 +75,10 @@ const UserModal = ({ overmind }) => {
               <a href={"/users/" + modalUser.id + "?tab=1"}>address</a>
             </nav>
             {currentUserModalTabIndex === 0 ? (
-              <div class="tab-content">{modalUser.details.bio}</div>
+              <div className="tab-content">{modalUser.details.bio}</div>
             ) : null}
             {currentUserModalTabIndex === 1 ? (
-              <div class="tab-content">{modalUser.details.address}</div>
+              <div className="tab-content">{modalUser.details.address}</div>
             ) : null}
           </>
         )}
@@ -123,7 +123,7 @@ export default connect({})
         <a href={"/users/" + user.id}>{{user.name}}</a>
       </li>
     </ul>
-    <user-modal v-if="overmind.state.userModal"></user-modal>
+    <user-modal v-if="overmind.state.isLoadingUserDetails || overmind.state.userModal"></user-modal>
   </div>
 </template>
 <script>
@@ -183,7 +183,7 @@ import { connect, Connect } from '../overmind'
 import Users from './Users'
 
 const App: React.SFC<Connect> = ({ overmind }) => (
-  <div class="container">
+  <div className="container">
     <nav>
       <a href="/">Home</a>
       <a href="/users">Users</a>
@@ -204,7 +204,7 @@ import { connect, Connect } from '../overmind'
 import UserModal from './UserModal'
 
 const Users: React.SFC<Connect> = ({ overmind }) => (
-  <div class="content">
+  <div className="content">
     {overmind.state.isLoadingUsers ? (
       <h4>Loading users...</h4>
     ) : (
@@ -216,7 +216,7 @@ const Users: React.SFC<Connect> = ({ overmind }) => (
         ))}
       </ul>
     )}
-    {overmind.state.modalUser ? <UserModal /> : null}
+    {overmind.state.isLoadingUserDetails || overmind.state.modalUser ? <UserModal /> : null}
   </div>
 )
 
@@ -234,8 +234,8 @@ const UserModal: React.SFC<Connect> = ({ overmind }) => {
   const currentUserModalTabIndex = overmind.state.currentUserModalTabIndex
 
   return (
-    <a href="/users" class="backdrop">
-      <div class="modal">
+    <a href="/users" className="backdrop">
+      <div className="modal">
         {overmind.state.isLoadingUserDetails ? (
           <h4>Loading user details...</h4>
         ) : (
@@ -247,10 +247,10 @@ const UserModal: React.SFC<Connect> = ({ overmind }) => {
               <a href={"/users/" + modalUser.id + "?tab=1"}>address</a>
             </nav>
             {currentUserModalTabIndex === 0 ? (
-              <div class="tab-content">{modalUser.details.bio}</div>
+              <div className="tab-content">{modalUser.details.bio}</div>
             ) : null}
             {currentUserModalTabIndex === 1 ? (
-              <div class="tab-content">{modalUser.details.address}</div>
+              <div className="tab-content">{modalUser.details.address}</div>
             ) : null}
           </>
         )}
@@ -304,7 +304,7 @@ import { connect } from '../overmind'
         <a href={"/users/" + user.id}>{{user.name}}</a>
       </li>
     </ul>
-    <user-modal *ngIf="overmind.state.userModal"></user-modal>
+    <user-modal *ngIf="overmind.state.isLoadingUserDetails || overmind.state.userModal"></user-modal>
   </div>
   \`
 })

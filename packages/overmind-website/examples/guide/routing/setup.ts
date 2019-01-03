@@ -4,28 +4,29 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Operator, pipe } from 'overmind'
-import * as o from './operators'
+import { Action } from 'overmind'
 
-export const showHomePage: Operator<void, any> =
-  o.setPage('home')
+export const routeHomePage: Action = ({ state }) => {
+  state.currentPage = 'home'
+}
 
-export const showUsersPage: Operator<void, any> = pipe(
-  o.unsetModalUserId,
-  o.setPage('users'),
-  o.setLoadingUsers(true),
-  o.getUsers,
-  o.setUsers,
-  o.setLoadingUsers(false)
-)
+export const routeUsersPage: Action = async ({ state, api }) => {
+  state.user = null
+  state.currentPage = 'users'
+  state.isLoadingUsers = true
+  state.users = await api.getUsers()
+  state.isLoadingUsers = false
+}
 
-export const showUserModal: Operator<{ id: string }, any> = pipe(
-  o.setModalUserId,
-  o.setLoadingUserWithDetails(true),
-  o.getUserWithDetails,
-  o.updateUserWithDetails,
-  o.setLoadingUserWithDetails(false)
-)
+export const routeUser: Action<{ id: string }> = async ({
+  value: params,
+  state,
+  api
+}) => {
+  state.isLoadingUserDetails = true
+  state.modalUser = await api.getUserWithDetails(params.id)
+  state.isLoadingUserDetails = false
+}
     `,
         },
       ]
@@ -33,28 +34,27 @@ export const showUserModal: Operator<{ id: string }, any> = pipe(
         {
           fileName: 'overmind/actions.js',
           code: `
-import { pipe } from 'overmind'
-import * as o from './operators'
+export const routeHomePage = ({ state }) => {
+  state.currentPage = 'home'
+}
 
-export const showHomePage =
-  o.setPage('home')
+export const routeUsersPage = async ({ state, api }) => {
+  state.user = null
+  state.currentPage = 'users'
+  state.isLoadingUsers = true
+  state.users = await api.getUsers()
+  state.isLoadingUsers = false
+}
 
-export const showUsersPage = pipe(
-  o.unsetModalUserId,
-  o.setPage('users'),
-  o.setLoadingUsers(true),
-  o.getUsers,
-  o.setUsers,
-  o.setLoadingUsers(false)
-)
-
-export const showUserModal = pipe(
-  o.setModalUserId,
-  o.setLoadingUserWithDetails(true),
-  o.getUserWithDetails,
-  o.updateUserWithDetails,
-  o.setLoadingUserWithDetails(false)
-)
+export const routeUser = async ({
+  value: params,
+  state,
+  api
+}) => {
+  state.isLoadingUserDetails = true
+  state.modalUser = await api.getUserWithDetails(params.id)
+  state.isLoadingUserDetails = false
+}
     `,
         },
       ]
