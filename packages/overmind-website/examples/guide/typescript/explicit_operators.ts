@@ -7,7 +7,7 @@ import { Config, Operator } from '../'
 const toUpperCase = map<string, string, Config>(...)
 const doSomething = run<string, Config>(...)
 
-export const doThis: Operator<string, string> = pipe(
+export const doThis: Operator<string> = pipe(
   toUpperCase,
   doSomething
 )

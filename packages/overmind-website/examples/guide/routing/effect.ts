@@ -6,8 +6,12 @@ export default (ts) =>
           code: `
 import page from 'page'
 
+interface IParams {
+  [param: string]: string  
+}
+
 export const router = {
-  route<T extends object>(route: string, action: (params: T) => void) {
+  route<T extends IParams>(route: string, action: (params: T) => void) {
     page(route, ({ params }) => action(params))
   },
   start: () => page.start(),

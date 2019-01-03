@@ -1,4 +1,4 @@
-import { Action, Operator, debounce, pipe, map } from 'overmind'
+import { Action, Operator, debounce, pipe, map, action } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
 import * as o from './operators'
 

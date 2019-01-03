@@ -5,10 +5,9 @@ export default (ts) =>
           fileName: 'overmind/actions.ts',
           code: `
 import { Action } from 'overmind'
-import { User } from './state'
 
-export const getCurrentUser: Action = async ({ http, state }) => {
-  state.currentUser = await http.get<User>('/user')
+export const getCurrentUser: Action = async ({ api, state }) => {
+  state.currentUser = await api.getCurrentUser()
 }
   `,
         },
@@ -17,8 +16,8 @@ export const getCurrentUser: Action = async ({ http, state }) => {
         {
           fileName: 'overmind/actions.js',
           code: `
-export const getCurrentUser = async ({ http, state }) => {
-  state.currentUser = await http.get('/user')
+export const getCurrentUser = async ({ api, state }) => {
+  state.currentUser = await api.getCurrentUser()
 }
   `,
         },

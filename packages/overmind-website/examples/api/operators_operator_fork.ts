@@ -7,9 +7,8 @@ export default (ts) =>
 import { fork, Operator } from 'overmind'
 import { User } from './state'
 
-export const forkUserType = (paths: {
-  [key: string]: Operator<User, any>
-}) => fork<User>(({ value: user }) => user.type, paths)
+export const forkUserType: (paths: { [key: string]: Operator<User> }) => Operator<User> =
+  (paths) => fork(({ value: user }) => user.type, paths)
 `,
         },
         {
@@ -18,7 +17,7 @@ export const forkUserType = (paths: {
 import { Operator, pipe } from 'overmind'
 import { forkUserType, doThis, doThat } from './operators'
 
-export const getUser: Operator<string> = pipe(
+export const getUser: Operator<string, User> = pipe(
   getUser,
   forkUserType({
     admin: doThis,

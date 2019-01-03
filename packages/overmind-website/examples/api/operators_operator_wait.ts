@@ -6,7 +6,7 @@ export default (ts) =>
 import { Operator, pipe, wait } from 'overmind'
 import { executeSomething } from './operators'
 
-export const search: Operator<string, string> = pipe(
+export const search: Operator<string> = pipe(
   wait(2000),
   executeSomething
 )
