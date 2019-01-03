@@ -3,10 +3,10 @@ export default (ts) =>
     ? [
         {
           code: `
-import { map } from 'overmind'
+import { Operator, map } from 'overmind'
 import { User } from './state'
 
-export const getEventTargetValue = map<Event, string>(({ value: event }) => event.currentTarget.value)
+export const getEventTargetValue: Operator<Event, string> = map(({ value: event }) => event.currentTarget.value)
 `,
         },
       ]

@@ -3,10 +3,10 @@ export default (ts) =>
     ? [
         {
           code: `
-import { filter } from 'overmind'
+import { Operator, filter } from 'overmind'
 
-export const lengthGreaterThan = (length: number) =>
-  filter<string>(({ value }) => value.length > length)
+export const lengthGreaterThan: (length: number) => Operator<string> =
+  (length) => filter(({ value }) => value.length > length)
 `,
         },
       ]
