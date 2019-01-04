@@ -4,6 +4,9 @@ export const edit = css`
   position: absolute;
   top: 85px;
   right: var(--padding-5);
+  @media (max-width: 700px) {
+    display: none;
+  }
 `
 
 export const content = css`

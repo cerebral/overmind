@@ -58,6 +58,15 @@ const notice = css`
   font-size: var(--font-size-3);
 `
 
+const contentWrapper = css`
+  position: relative;
+  @media (max-width: 700px) {
+    > a {
+      display: none;
+    }
+  }
+`
+
 const Example: React.SFC<{ name: string }> = ({ name }) => {
   const { state } = useOvermind()
   const [localState, setLocalState] = useState({
@@ -107,7 +116,7 @@ const Example: React.SFC<{ name: string }> = ({ name }) => {
   return (
     <div>
       {localState.content.map((example, index) => (
-        <div key={index} style={{ position: 'relative' }}>
+        <div key={index} className={contentWrapper}>
           {example.fileName ? (
             <span className={fileName}>{example.fileName}</span>
           ) : null}
