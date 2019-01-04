@@ -130,6 +130,15 @@ const googleCrawlMiddleware = async function ssr(req, res, next) {
   }
 }
 
+if (IS_PRODUCTION) {
+  app.use((req, res, next) => {
+    if (req.secure) {
+      next()
+    } else {
+      res.redirect('https://' + req.headers.host + req.url)
+    }
+  })
+}
 app.use(googleCrawlMiddleware)
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use('/images', express.static(path.join(__dirname, '..', 'images')))
