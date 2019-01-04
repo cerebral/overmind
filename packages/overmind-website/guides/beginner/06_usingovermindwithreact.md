@@ -23,7 +23,7 @@ If you previously used **componentDidUpdate** to trigger an effect, that is no l
 
 ### Passing state as props
 
-If you pass a state object or array as a property to a child component you will also in the child component need to **connect**. This ensures that the property you passed is tracked within that component, even though you do not access any state or actions. The devtools will help you identify where any components are left "unconnected".
+If you pass a state object or array as a property to a child component you will also in the child component need to **connect**. This ensures that the property you passed is tracked within that component, even though you do not access any state or actions from Overmind. The devtools will help you identify where any components are left "unconnected".
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hoc_passprop" })
