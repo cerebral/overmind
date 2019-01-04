@@ -37,7 +37,7 @@ const FrontPage: SFC = () => {
           )}
         >
           <Logo />
-          <h1>frictionless webapp development</h1>
+          <h1>frictionless state management</h1>
           <div className={styles.summary}>
             Web application development is about <strong>defining</strong>,{' '}
             <strong>changing</strong> and <strong>consuming state</strong> to
