@@ -19,8 +19,32 @@ export const wrapper = css`
 
 export const summary = css`
   margin-top: 50px;
+  position: relative;
   font-size: var(--font-size-4);
   text-align: center;
+  font-style: italic;
+  line-height: 32px;
+  :before {
+    content: '“';
+    color: var(--color-gray-1);
+    font-size: 48px;
+    font-weight: bold;
+  }
+  :after {
+    position: absolute;
+    color: var(--color-gray-1);
+    content: '”';
+    font-size: 48px;
+    font-weight: bold;
+  }
+  @media (max-width: 700px) {
+    font-size: var(--font-size-2);
+    line-height: 26px;
+    :before,
+    :after {
+      font-size: 32px;
+    }
+  }
 `
 
 export const container = css`

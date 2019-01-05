@@ -9,6 +9,7 @@ const onInitialize: OnInitialize = ({
 }) => {
   state.typescript = storage.get('typescript') || false
   state.theme = storage.get('theme') || 'react'
+  state.showViewHelp = !storage.get('theme')
   css.changePrimary(state.theme)
 
   router.route('/', app.actions.openHome)

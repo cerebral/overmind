@@ -91,3 +91,48 @@ export const option = css`
     margin-right: 5px;
   }
 `
+
+export const viewHelpWrapper = css`
+  position: absolute;
+  top: calc(100% + 10px);
+  width: 300px;
+  right: 0;
+`
+
+export const viewHelpArrow = css`
+  position: relative;
+  border-radius: 5px;
+  background-color: var(--color-dark-1);
+  box-shadow: 0px 3px 20px -10px rgba(0, 0, 0, 0.75);
+  :after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: var(--color-dark-1);
+    border-width: 10px;
+    margin-left: -10px;
+  }
+`
+
+export const viewHelpText = css`
+  font-size: var(--font-size-3);
+  color: var(--color-white-1);
+  padding: var(--padding-4);
+`
+
+export const viewHelpButton = css`
+  padding: var(--padding-3) 0;
+  cursor: pointer;
+  text-align: center;
+  color: var(--color-dark-1);
+  background-color: var(--color-white-2);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-weight: bold;
+`

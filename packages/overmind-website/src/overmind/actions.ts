@@ -68,8 +68,9 @@ export const selectTheme: Action<string> = ({
   storage.set('theme', theme)
 }
 
-export const toggleTypescript: Action = ({ state }) => {
+export const toggleTypescript: Action = ({ state, storage }) => {
   state.typescript = !state.typescript
+  storage.set('typescript', state.typescript)
 }
 
 export const closeSearch: Action = ({ state }) => {
@@ -87,3 +88,9 @@ export const changeQuery: Operator<
   debounce(200),
   o.query
 )
+
+export const viewHelpGotIt: Action = ({ state, storage }) => {
+  state.showViewHelp = false
+  storage.set('typescript', false)
+  storage.set('theme', 'react')
+}

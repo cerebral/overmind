@@ -107,7 +107,7 @@ import Post from './Post'
 const Posts: React.SFC<Connect> = ({ overmind }) => (
   <ul>
     {overmind.state.postsList.map(post => 
-      <Item key={post.id} post={post} />
+      <Post key={post.id} post={post} />
     )}
   </ul>
 )
@@ -123,7 +123,7 @@ export default connect(Posts)
       code: `
 import { Component,Input } from '@angular/core';
 import { connect } from '../overmind'
-import { Item } from '../overmind/state'
+import { Post } from '../overmind/state'
 
 @Component({
   selector: 'app-post',

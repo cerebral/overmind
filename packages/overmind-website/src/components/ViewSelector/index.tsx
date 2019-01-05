@@ -3,7 +3,6 @@ import { useOvermind } from '../../overmind'
 import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
 import * as AngularImage from '../../images/angular.png'
-import * as OvermindImage from '../../images/overmind.png'
 import * as TsImage from '../../images/ts.png'
 import * as TsImageGrayscale from '../../images/ts-grayscale.png'
 import Icon from '../Icon'
@@ -48,7 +47,10 @@ const ViewSelector: SFC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.tsImageWrapper} onClick={actions.toggleTypescript}>
+      <div
+        className={styles.tsImageWrapper}
+        onClick={state.showViewHelp ? null : actions.toggleTypescript}
+      >
         {state.typescript ? (
           <img className={styles.image} src={TsImage} width="20" height="20" />
         ) : (
@@ -62,7 +64,7 @@ const ViewSelector: SFC = () => {
       </div>
       <div
         ref={selectorRef}
-        onClick={onSelectorClick}
+        onClick={state.showViewHelp ? null : onSelectorClick}
         className={css(styles.selector, isOpen && styles.selectorOpen)}
       >
         {options[state.theme]}
@@ -81,6 +83,22 @@ const ViewSelector: SFC = () => {
               {options[viewTheme]}
             </div>
           ))}
+        </div>
+      ) : null}
+      {state.showViewHelp ? (
+        <div className={styles.viewHelpWrapper}>
+          <div className={styles.viewHelpArrow}>
+            <div className={styles.viewHelpText}>
+              You can select a different view layer and toggle Typescript up
+              here
+            </div>
+            <div
+              onClick={actions.viewHelpGotIt}
+              className={styles.viewHelpButton}
+            >
+              Got it!
+            </div>
+          </div>
         </div>
       ) : null}
     </div>

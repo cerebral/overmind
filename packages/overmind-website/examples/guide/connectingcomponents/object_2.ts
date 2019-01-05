@@ -87,9 +87,9 @@ import { connect, Connect } from '../overmind'
 
 type Props = {
   item: { title: string }
-}
+} & Connect
 
-const Item: React.SFC<Connect & Props> = ({ item }) => (
+const Item: React.SFC<Props> = ({ item }) => (
   <li>{item.title}</li>
 )
 
