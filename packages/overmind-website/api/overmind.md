@@ -18,7 +18,7 @@ h(Example, { name: "api/app_addMutationListener" })
 
 
 ## options.devtools
-By default the application connects to the devtools on **localhost:3031**, but you can change this in case you need to use an IP address ot the devtools has configured with a different port.
+If you develop your app on localhost the application connects to the devtools on **localhost:3031**. You can change this in case you need to use an IP address, the devtools is configured with a different port or you want to connect to localhost (with default port) even though the app is not on localhost.
 
 ```marksy
 h(Example, { name: "api/app_options_devtools" })

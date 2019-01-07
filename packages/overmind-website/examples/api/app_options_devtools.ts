@@ -7,7 +7,7 @@ export default (ts) =>
 ...
 
 export const overmind = new Overmind(config, {
-  devtools: 'localhost:3031'
+  devtools: true // 'localhost:3031'
 })
         `,
         },
@@ -19,7 +19,7 @@ export const overmind = new Overmind(config, {
 ...
 
 export const overmind = new Overmind(config, {
-  devtools: 'localhost:3031'
+  devtools: true // 'localhost:3031'
 })
 `,
         },
