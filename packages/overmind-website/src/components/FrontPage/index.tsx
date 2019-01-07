@@ -46,6 +46,12 @@ const FrontPage: SFC = () => {
             management to a minimum. Making you a <strong>happier</strong> and
             more <strong>productive</strong> developer!
           </div>
+          <div className={styles.evaluated}>
+            <strong>Note!</strong> Overmind is currently in release candidate
+            and is being evaluated for production. Please join us and battle
+            test. We are committed to nail any last bugs and optimizations
+            required
+          </div>
         </div>
         <div
           className={css(
