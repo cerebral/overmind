@@ -67,7 +67,16 @@ That means the function only runs when accessed and the depending state has chan
 h(Notice, null, "Even though derived state is defined as functions you consume them as plain values. You do not have to call the derived function to get the value")
 ```
 
-## Defining state
+## Getter
+
+A concept in Javascript called a [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) allows you to intercept accessing a property in an object. This is similar to deriving state, though they are dynamic. That means derived state can only be defined once and needs to stay in the state tree. A getter is just like a plain value, it can be added an removed at any point. Getters does **not** cache the result for that very reason, but whatever state they access is tracked.
+
+```marksy
+h(Example, { name: "guide/definingstate/getter" })
+```
+
+
+## Exposing the state
 
 We define the state of the application in **state** files. For example, the top level state could be defined as:
 
