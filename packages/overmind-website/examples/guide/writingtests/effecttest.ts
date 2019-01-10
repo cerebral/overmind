@@ -2,13 +2,13 @@ export default () => [
   {
     fileName: 'overmind/effects.test.ts',
     code: `
-import * as effects from './effects'
+import { Api } from './effects'
 
 describe('Effects', () => {
   describe('Api', () => {
-    test('should get a post', async () => {
+    test('should get a post using baseUrl and authToken in header', async () => {
       expect.assertions(3)
-      const api = new effects.Api({
+      const api = new Api({
         get(url, config) {
           expect(url).toBe('/test/posts/1')
           expect(config).toEqual({

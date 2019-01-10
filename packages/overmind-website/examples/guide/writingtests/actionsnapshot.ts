@@ -18,13 +18,9 @@ describe('Actions', () => {
         }
       })
 
-      await actions.getPost('1')
+      const mutations = await actions.getPost('1')
 
-      expect(mock.state).toEqual({
-        isLoadingPost: false,
-        currentPost: { id: '1' },
-        error: null
-      })
+      expect(mutations).toMatchSnapshot()
     })
     test('should handle errors', async () => {
       const mock = createMock(config, {
@@ -35,10 +31,9 @@ describe('Actions', () => {
         }
       })
 
-      await actions.getPost('1')
+      const mutations = await actions.getPost('1')
 
-      expect(mock.state.isLoadingPost).toBe(false)
-      expect(mock.state.error.message).toBe('test')
+      expect(mutations).toMatchSnapshot()
     })
   })
 })

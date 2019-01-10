@@ -1,10 +1,10 @@
 # Writing tests
 
-Testing is a broad subject and everybody has an opinion about it. We can only show you how we think about testing in general and how to effectively write those tests for your Overmind app. The benefit of Overmind is that you only test pure functions. That means there is no trickery to testing actions or operators. Your effects can also easily be made testable. These kinds of tests is what you would call **unit tests**. Since these unit tests covers the intention of each piece of logic we do not consider any need for writing integration tests on the logic. If you want to test how your application works when it is all put together we recommend doing integration tests as close to the user experience as possible. Testing solutions like [Cypress.io](https://www.cypress.io/) is a great way to do integration tests as close to the user experience as possible.
+Testing is a broad subject and everybody has an opinion on it. We can only show you how we think about testing in general and how to effectively write those tests for your Overmind app. It is encouraged to think **unit testing** of actions and effects. This will cover expected changes in state and that your side effects behaves in a predictable manner. If you want to test how your application works when it is all put together we recommend doing integration tests as close to the user experience as possible. Testing solutions like [Cypress.io](https://www.cypress.io/) is a great way to do exactly that.
 
 ## Testing actions
 
-Since all effects are "injected" into actions you can easily stub them out. That means if you for example have an action that looks like this:
+When testing an action you want to verify that changes to state are performed as expected. To give you the best possible testing experience Overmind has mocking tool called **createMock**. It takes your application configuration and allows you to run actions as if they were run from components.
 
 ```marksy
 h(Example, { name: "guide/writingtests/action.ts" })
@@ -18,23 +18,13 @@ h(Example, { name: "guide/writingtests/actiontest.ts" })
 
 If your actions can result in multiple scenarios a unit test is beneficial. But you will be surprised how straight forward the logic of your actions will become. Since effects are encouraged to be application specific you will most likely be testing those more than you will test any action.
 
-## Testing operators
-
-Operators are based on the [op-op specification](https://github.com/christianalfoni/op-op-spec), which means that they actually have a different signature when being called. This is not something you think about writing your application code, but when testing single operators it is important to get it right.
-
-So imagine you have an operator like:
+You do not have to explicitly write the expected state. You can also use for example [jest]() for snapshot testing. The action will return a list of mutations performed and effects run. This is perfect for snapshot testing.
 
 ```marksy
-h(Example, { name: "guide/writingtests/operator.ts" })
+h(Example, { name: "guide/writingtests/actionsnapshot.ts" })
 ```
 
-You might want to test that it does what you want it to:
-
-```marksy
-h(Example, { name: "guide/writingtests/operatortest.ts" })
-```
-
-You can even do tests of pipes that are composed of multiple operators. You just pass in a stubbed context and check it on the *complete* callback (the second one).
+In this scenario we would also ensure that the **isLoadingPost** state indeed flipped to *true* before moving to *false* at the end.
 
 ## Testing effects
 
