@@ -7,6 +7,7 @@ export const wrapper = css`
   padding: var(--padding-5);
   flex-wrap: wrap;
   margin-top: 50px;
+  justify-content: center;
 `
 
 export const video = css`

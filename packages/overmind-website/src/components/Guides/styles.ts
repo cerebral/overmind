@@ -8,6 +8,7 @@ export const wrapper = css`
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
+  justify-content: center;
 `
 
 export const guide = css`

@@ -1,7 +1,7 @@
 import { css } from 'emotion'
 
 export const pageWrapper = css`
-  min-height: calc(100vh - 198px);
+  min-height: calc(100vh);
 `
 
 export const wrapper = css`

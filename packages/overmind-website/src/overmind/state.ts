@@ -31,7 +31,7 @@ type State = {
 }
 
 const state: State = {
-  page: null,
+  page: Page.HOME,
   currentGuide: null,
   currentVideo: null,
   currentApi: null,
