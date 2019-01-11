@@ -58,14 +58,21 @@ export const openApi: Action<RouteContext<VideoParams>> = async ({
 }
 
 export const selectTheme: Action<string> = ({
-  value: theme,
+  value: selection,
   state,
   css,
   storage,
 }) => {
+  const selectionArray = selection.split('_')
+  const theme = selectionArray[0]
+  const typescript = Boolean(selectionArray[1])
+
   state.theme = theme
+  state.typescript = typescript
+
   css.changePrimary(theme)
   storage.set('theme', theme)
+  storage.set('typescript', typescript)
 }
 
 export const toggleTypescript: Action = ({ state, storage }) => {

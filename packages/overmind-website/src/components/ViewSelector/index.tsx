@@ -4,7 +4,7 @@ import * as ReactImage from '../../images/react.png'
 import * as VueImage from '../../images/vue.png'
 import * as AngularImage from '../../images/angular.png'
 import * as TsImage from '../../images/ts.png'
-import * as TsImageGrayscale from '../../images/ts-grayscale.png'
+import * as JsImage from '../../images/js.png'
 import Icon from '../Icon'
 import * as styles from './styles'
 import { css } from 'emotion'
@@ -25,22 +25,32 @@ const ViewSelector: SFC = () => {
   }
 
   const options = {
-    react: (
-      <div className={styles.viewOption}>
-        <img src={ReactImage} width={25} />
-        React
-      </div>
-    ),
     vue: (
       <div className={styles.viewOption}>
         <img src={VueImage} width={25} />
         Vue
+        <img className={styles.image} src={JsImage} width="20" height="20" />
       </div>
     ),
-    angular: (
+    react: (
+      <div className={styles.viewOption}>
+        <img src={ReactImage} width={25} />
+        React
+        <img className={styles.image} src={JsImage} width="20" height="20" />
+      </div>
+    ),
+    react_ts: (
+      <div className={styles.viewOption}>
+        <img src={ReactImage} width={25} />
+        React
+        <img className={styles.image} src={TsImage} width="20" height="20" />
+      </div>
+    ),
+    angular_ts: (
       <div className={styles.viewOption}>
         <img src={AngularImage} width={25} />
         Angular
+        <img className={styles.image} src={TsImage} width="20" height="20" />
       </div>
     ),
   }
@@ -48,26 +58,11 @@ const ViewSelector: SFC = () => {
   return (
     <div className={styles.wrapper}>
       <div
-        className={styles.tsImageWrapper}
-        onClick={state.showViewHelp ? null : actions.toggleTypescript}
-      >
-        {state.typescript ? (
-          <img className={styles.image} src={TsImage} width="20" height="20" />
-        ) : (
-          <img
-            className={css(styles.image, styles.grayscale)}
-            src={TsImageGrayscale}
-            width="20"
-            height="20"
-          />
-        )}
-      </div>
-      <div
         ref={selectorRef}
         onClick={state.showViewHelp ? null : onSelectorClick}
         className={css(styles.selector, isOpen && styles.selectorOpen)}
       >
-        {options[state.theme]}
+        {options[state.theme + (state.typescript ? '_ts' : '')]}
         <span className={styles.chevron}>
           <Icon>chevron-down</Icon>
         </span>
