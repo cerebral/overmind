@@ -36,22 +36,20 @@ h(Example, { name: "guide/getstarted/connectapp" })
 
 That is it, your component will now render whenever the state accessed changes. 
 
-## Loading posts
-
-We want to load some posts from [jsonplaceholder](https://jsonplaceholder.typicode.com/) when the **Posts** component mounts. To run logic in Overmind you trigger **actions**. Let us define an action that is responsible for getting our application up and running.
-
-```marksy
-h(Example, { name: "guide/getstarted/actions" })
-```
-
-Let us see how we define this effect called **jsonPlaceholder**.
-
 ## Effects
 
-We can expose any kind of side effects to our Overmind instance. Think of it as injecting libraries and tools. For example, it could be the [axios](https://www.npmjs.com/package/axios) library itself, some class instance we created or just a plain object as we see in the example below. Doing this injection keeps our actions pure and Overmind knows when these injected libraries are accessed.
+We want to load some posts from [jsonplaceholder](https://jsonplaceholder.typicode.com/) when the **Posts** component mounts. This requires a side effect and we can expose any kind of side effects to our Overmind instance. Think of it as injecting libraries and tools. For example, it could be the [axios](https://www.npmjs.com/package/axios) library itself, some class instance we created or just a plain object as we see in the example below. Doing this injection keeps our logic pure and Overmind knows when these injected libraries are accessed, giving you a better developer experience.
 
 ```marksy
 h(Example, { name: "guide/getstarted/effects" })
+```
+
+## Loading the posts
+
+ To run logic in Overmind you trigger **actions**. Let us define an action that is responsible for getting our application up and running.
+
+```marksy
+h(Example, { name: "guide/getstarted/actions" })
 ```
 
 Finally we need to trigger our action and we will do that when the component mounts.

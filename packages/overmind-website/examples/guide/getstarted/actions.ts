@@ -21,10 +21,12 @@ export const loadPosts: Action = async ({ state, jsonPlaceholder }) => {
             view,
             `
 import { state } from './state'
+import * as effects from './effects'
 import * as actions from './actions'
 
 const config = {
   state,
+  effects,
   actions
 }
 `
@@ -42,6 +44,12 @@ export const overmind = new Overmind({
   state: {
     isLoadingPosts: false,
     posts: []
+  },
+  effects: {
+    getPosts() {
+      return fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => response.json())
+    }
   },
   actions: {
     loadPosts: async ({ state, jsonPlaceholder }) => {

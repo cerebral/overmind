@@ -10,14 +10,10 @@ export const wrapper = css`
 export const viewOption = css`
   display: flex;
   align-items: center;
-`
-
-export const tsImageWrapper = css`
-  display: flex;
-  padding: 4px;
-  align-items: center;
-  border-top-left-radius: var(--border-radius-1);
-  border-bottom-left-radius: var(--border-radius-1);
+  width: 100%;
+  img:last-child {
+    margin-left: auto;
+  }
 `
 
 export const image = css`
@@ -59,7 +55,7 @@ export const selectorOpen = css`
 `
 
 export const chevron = css`
-  margin-left: auto;
+  margin-left: 5px;
   font-size: var(--font-size-1);
 `
 

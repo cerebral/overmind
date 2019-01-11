@@ -22,12 +22,10 @@ export const jsonPlaceholder = {
             view,
             `
 import state from './state'
-import * as actions from './actions'
 import * as effects from './effects'
 
 const config = {
   state,
-  actions,
   effects
 }
     `
@@ -45,13 +43,6 @@ export const overmind = new Overmind({
   state: {
     isLoadingPosts: false,
     posts: []
-  },
-  actions: {
-    loadPosts: async ({ state, jsonPlaceholder }) => {
-      state.isLoadingPosts = true
-      state.posts = await jsonPlaceholder.getPosts()
-      state.isLoadingPosts = false
-    }
   },
   effects: {
     getPosts() {
