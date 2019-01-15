@@ -34,7 +34,7 @@ import { connect, Connect } from '../overmind'
 type Props = {} & Connect
 
 const App: React.FunctionComponent<Props> = ({ overmind }) => {
-  const { state, actions } = overmind
+  const { state, actions, effects, addMutationListener } = overmind
 
   return <div />
 }
@@ -65,7 +65,7 @@ import React from 'react'
 import { connect } from '../overmind'
 
 const App = ({ overmind }) => {
-  const { state, actions } = overmind
+  const { state, actions, effects, addMutationListener } = overmind
 
   return <div />
 }

@@ -30,7 +30,7 @@ import * as React from 'react'
 import { useOvermind } from '../overmind'
 
 const App: React.FunctionComponent = () => {
-  const { state, actions } = useOvermind()
+  const { state, actions, effects, addMutationListener } = useOvermind()
 
   return <div />
 }
@@ -61,7 +61,7 @@ import React from 'react'
 import { useOvermind } from '../overmind'
 
 const App = () => {
-  const { state, actions } = useOvermind()
+  const { state, actions, effects, addMutationListener } = useOvermind()
 
   return <div />
 }

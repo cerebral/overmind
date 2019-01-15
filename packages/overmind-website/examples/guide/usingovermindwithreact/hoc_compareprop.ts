@@ -14,8 +14,6 @@ class App extends React.Component<Props> {
     return this.props.overmind !== nextProps.overmind
   }
   render() {
-    const { state, actions } = this.props.overmind
-
     return <div />
   }
 }
@@ -36,8 +34,6 @@ class App extends React.Component {
     return this.props.overmind !== nextProps.overmind
   }
   render() {
-    const { state, actions } = this.props.overmind
-
     return <div />
   }
 }

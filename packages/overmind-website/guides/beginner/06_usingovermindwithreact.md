@@ -29,7 +29,7 @@ If you pass a state object or array as a property to a child component you will 
 h(Example, { name: "guide/usingovermindwithreact/hoc_passprop" })
 ```
 
-### Effects
+### Reactions
 
 To run effects in components based on changes to state you use the **addMutationListener** function in the lifecycle hooks of React.
 
