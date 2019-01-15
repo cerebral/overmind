@@ -2,29 +2,25 @@ export default () => [
   {
     code: `
 import {
-  TConfig,
-  TOnInitialize,
-  TAction,
-  TOperator,
-  TDerive,
+  IConfig,
+  IOnInitialize,
+  IAction,
+  IOperator,
+  IDerive,
   TStateObject
 } from 'overmind'
 
 const config = {}
 
-type Config = TConfig<{
-  state: typeof config["state"]
-  actions: typeof config["actions"]
-  effects: typeof config["effects"]
-}>
+type Config = IConfig<typeof config>
 
-export type OnInitialize = TOnInitialize<Config>
+export interface OnInitialize extends IOnInitialize<Config> {}
 
-export type Action<Input = void> = TAction<Config, Input>
+export interface Action<Input = void> extends IAction<Config, Input> {}
 
-export type Operator<Input = void, Output = Input> = TOperator<Config, Input, Output>
+export interface Operator<Input = void, Output = Input> extends IOperator<Config, Input, Output> {}
 
-export type Derive<Parent extends TStateObject, Output> = TDerive<Config, Parent, Output>
+export interface Derive<Parent extends TStateObject, Output> extends IDerive<Config, Parent, Output> {}
         `,
   },
 ]

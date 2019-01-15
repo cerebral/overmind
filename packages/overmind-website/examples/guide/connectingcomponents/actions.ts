@@ -69,7 +69,7 @@ export const toggleAwesomeApp: Action = ({ state }) =>
 import * as React from 'react'
 import { Connect, connect } from '../overmind'
 
-const App: React.SFC<Connect> = ({ overmind }) => (
+const App: React.FunctionComponent<Connect> = ({ overmind }) => (
   <button onClick={overmind.actions.toggleAwesomeApp}>
     Toggle awesome
   </button>

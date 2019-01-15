@@ -1,4 +1,4 @@
-import { Overmind, TConfig } from 'overmind'
+import { Overmind, IConfig } from 'overmind'
 import state from './state'
 import onInitialize from './onInitialize'
 import * as actions from './actions'
@@ -13,7 +13,7 @@ const config = {
 }
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
 
 const app = new Overmind(

@@ -11,22 +11,22 @@ interface IRequest {
   get<T>(url: string): Promise<T>
 }
 
-interface IConfig {
+interface IOptions {
   authToken: string
   baseUrl: string
 }
 
 export class Api {
   request: IRequest
-  config: IConfig
-  constructor(request: IRequest, config: IConfig) {
+  options: IOptions
+  constructor(request: IRequest, options: IOptions) {
     this.request = request
-    this.config = config
+    this.options = options
   }
   getPost(id: string): Promise<Post> {
-    return this.request.get(this.config.baseUrl + '/posts/' + id, {
+    return this.request.get(this.options.baseUrl + '/posts/' + id, {
       headers: {
-        'Auth-Token': this.config.authToken
+        'Auth-Token': this.options.authToken
       }
     })
       .then(response => response.data)
@@ -48,14 +48,14 @@ export const api = new Api(axios, {
 import axios from 'axios'
 
 export class Api {
-  constructor(request, config) {
+  constructor(request, options) {
     this.request = request
-    this.config = config
+    this.options = options
   }
   getPost(id) {
-    return this.request.get(this.config.baseUrl + '/posts/' + id, {
+    return this.request.get(this.options.baseUrl + '/posts/' + id, {
       headers: {
-        'Auth-Token': this.config.authToken
+        'Auth-Token': this.options.authToken
       }
     })
       .then(response => response.data)

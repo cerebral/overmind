@@ -8,7 +8,7 @@ import * as React from 'react'
 import { useEffect } from 'react'
 import { useOvermind } from '../overmind'
 
-const App: React.SFC = () => {
+const App: React.FunctionComponent = () => {
   const { state } = useOvermind()
 
   useEffect(() => {

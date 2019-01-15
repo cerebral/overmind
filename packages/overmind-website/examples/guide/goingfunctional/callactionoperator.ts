@@ -93,7 +93,7 @@ import { connect, Connect } from '../overmind'
 
 type Props = Connect
 
-const MyComponent: React.SFC<Props> = ({ overmind }) => (
+const MyComponent: React.FunctionComponent<Props> = ({ overmind }) => (
   <button onClick={overmind.actions.grabData}>
     Grab some data
   </button>

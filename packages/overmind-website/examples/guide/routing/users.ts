@@ -182,7 +182,7 @@ import * as React from 'react'
 import { connect, Connect } from '../overmind'
 import Users from './Users'
 
-const App: React.SFC<Connect> = ({ overmind }) => (
+const App: React.FunctionComponent<Connect> = ({ overmind }) => (
   <div className="container">
     <nav>
       <a href="/">Home</a>
@@ -203,7 +203,7 @@ import * as React from 'react'
 import { connect, Connect } from '../overmind'
 import UserModal from './UserModal'
 
-const Users: React.SFC<Connect> = ({ overmind }) => (
+const Users: React.FunctionComponent<Connect> = ({ overmind }) => (
   <div className="content">
     {overmind.state.isLoadingUsers ? (
       <h4>Loading users...</h4>
@@ -229,7 +229,7 @@ export default connect(Users)
 import * as React from 'react'
 import { connect, Connect } from '../overmind'
 
-const UserModal: React.SFC<Connect> = ({ overmind }) => {
+const UserModal: React.FunctionComponent<Connect> = ({ overmind }) => {
   const modalUser = overmind.state.modalUser
   const currentUserModalTabIndex = overmind.state.currentUserModalTabIndex
 

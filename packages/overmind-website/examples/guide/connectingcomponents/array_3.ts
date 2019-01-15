@@ -89,7 +89,7 @@ type Props = {
   item: { title: string }
 } & Connect
 
-const Item: React.SFC<Props> = ({ item }) => (
+const Item: React.FunctionComponent<Props> = ({ item }) => (
   <li>{item.title}</li>
 )
 
@@ -103,7 +103,7 @@ import * as React from 'react'
 import { connect, Connect } from '../overmind'
 import Item from './Item'
 
-const List: React.SFC<Connect> = ({ overmind }) => (
+const List: React.FunctionComponent<Connect> = ({ overmind }) => (
   <ul>
     {overmind.state.items.map(item => 
       <Item key={item.id} item={item} />

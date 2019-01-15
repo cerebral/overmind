@@ -1,12 +1,12 @@
 export default () => [
   {
     code: `
-import { TConfig } from 'overmind'
+import { IConfig } from 'overmind'
 
 const config = {}
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
         `,
   },

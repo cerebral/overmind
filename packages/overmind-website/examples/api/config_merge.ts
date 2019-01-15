@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind.ts',
           code: `
-import { Overmind, TConfig } from 'overmind'
+import { Overmind, IConfig } from 'overmind'
 import { merge } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
@@ -12,7 +12,7 @@ import * as moduleB from './moduleB'
 const config = merge(moduleA, moduleB)
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
 
 export default new Overmind(config)
