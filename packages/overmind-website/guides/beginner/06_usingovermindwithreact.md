@@ -67,3 +67,11 @@ You can also here use the traditional approach adding a subscription to any upda
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hook_effect_subscription" })
 ```
+
+### Provider
+
+With the hooks API you can also expose the Overmind instance with a Provider. This detaches the overmind instance from the actual **useOvermind** hook. It is rather consumed from the React context. This makes it easier to test components and you can use component libraries which is built for Overmind.
+
+```marksy
+h(Example, { name: "guide/usingovermindwithreact/hook_provider" })
+```
