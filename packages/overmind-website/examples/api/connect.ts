@@ -46,7 +46,7 @@ const typescript = {
 import * as React from 'react'
 import { connect, Connect } from '../overmind'
 
-const SomeComponent: React.SFC<Connect> = ({ overmind }) => {
+const SomeComponent: React.FunctionComponent<Connect> = ({ overmind }) => {
   return (
     <div onClick={overmind.actions.onClick}>
       {overmind.state.foo}

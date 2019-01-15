@@ -49,7 +49,7 @@ const typescript = {
 import * as React from 'react'
 import { connect, Connect } from '../../overmind'
 
-const App: React.SFC<Connect> = ({ overmind }) => {
+const App: React.FunctionComponent<Connect> = ({ overmind }) => {
   if (overmind.state.isLoading) {
     return <div>Loading app...</div>
   }
