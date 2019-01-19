@@ -13,13 +13,13 @@ export const showHomePage: Action = ({ state }) => {
 export const showUsersPage: Operator<{ id?: string }> = action(async ({
   value: params,
   state,
-  api
+  effects
 }) => {
   if (!params.id) state.modalUser = null
 
   state.currentPage = 'users'
   state.isLoadingUsers = true
-  state.users = await api.getUsers()
+  state.users = await effects.api.getUsers()
   state.isLoadingUsers = false
 })
 
@@ -28,10 +28,10 @@ export const showUserModal: Operator<{ id: string }> = parallel(
   action(async ({
     value: params,
     state,
-    api
+    effects
   }) => {
     state.isLoadingUserDetails = true
-    state.modalUser = await api.getUserWithDetails(params.id)
+    state.modalUser = await effects.api.getUserWithDetails(params.id)
     state.isLoadingUserDetails = false
   })
 )
@@ -51,21 +51,21 @@ export const showHomePage = ({ state }) => {
 export const showUsersPage = action(async ({
   value: params,
   state,
-  api
+  effects
 }) => {
   if (!params.id) state.modalUser = null
 
   state.currentPage = 'users'
   state.isLoadingUsers = true
-  state.users = await api.getUsers()
+  state.users = await effects.api.getUsers()
   state.isLoadingUsers = false
 })
 
 export const showUserModal = parallel(
   showUsersPage,
-  action(async ({ value: params, state, api }) => {
+  action(async ({ value: params, state, effects }) => {
     state.isLoadingUserDetails = true
-    state.modalUser = await api.getUserWithDetails(params.id)
+    state.modalUser = await effects.api.getUserWithDetails(params.id)
     state.isLoadingUserDetails = false
   })
 )

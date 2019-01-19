@@ -8,9 +8,9 @@ export default (ts, view) =>
           code: `
 import { Action } from 'overmind'
 
-export const loadPosts: Action = async ({ state, jsonPlaceholder }) => {
+export const loadPosts: Action = async ({ state, effects }) => {
   state.isLoadingPosts = true
-  state.posts = await jsonPlaceholder.getPosts()
+  state.posts = await effects.jsonPlaceholder.getPosts()
   state.isLoadingPosts = false
 }
     `,
@@ -52,9 +52,9 @@ export const overmind = new Overmind({
     }
   },
   actions: {
-    loadPosts: async ({ state, jsonPlaceholder }) => {
+    loadPosts: async ({ state, effects }) => {
       state.isLoadingPosts = true
-      state.posts = await jsonPlaceholder.getPosts()
+      state.posts = await effects.jsonPlaceholder.getPosts()
       state.isLoadingPosts = false
     }
   }

@@ -6,11 +6,11 @@ export default (ts) =>
           code: `
 import { OnInitialize } from 'overmind'
 
-const onInitialize: OnInitialize = ({ value: overmind, router }) => {
-  router.route('/', overmind.actions.showHomePage)
-  router.route('/users', overmind.actions.showUsersPage)
-  router.route<{ id: string }>('/users/:id', overmind.actions.showUserModal)
-  router.start()
+const onInitialize: OnInitialize = ({ actions, effects }) => {
+  effects.router.route('/', actions.showHomePage)
+  effects.router.route('/users', actions.showUsersPage)
+  effects.router.route<{ id: string }>('/users/:id', actions.showUserModal)
+  effects.router.start()
 }
 
 export default onInitialize
@@ -21,11 +21,11 @@ export default onInitialize
         {
           fileName: 'overmind/onInitialize.ts',
           code: `
-const onInitialize = ({ value: overmind, router }) => {
-  router.route('/', overmind.actions.showHomePage)
-  router.route('/users', overmind.actions.showUsersPage)
-  router.route<{ id: string }>('/users/:id', overmind.actions.showUserModal)
-  router.start()
+const onInitialize = ({ actions, router }) => {
+  effects.router.route('/', actions.showHomePage)
+  effects.router.route('/users', actions.showUsersPage)
+  effects.router.route<{ id: string }>('/users/:id', actions.showUserModal)
+  effects.router.start()
 }
 
 export default onInitialize

@@ -7,8 +7,12 @@ export default (ts) =>
 import page from 'page'
 import queryString from 'query-string'
 
+interface IParams = {
+  [param: string]: string
+}
+
 export const router = {
-  route<T extends object>(route: string, action: (params: T) => void) {
+  route<T extends IParams>(route: string, action: (params: T) => void) {
     page(route, ({ params, querystring }) => {
       const payload = Object.assign({}, params, queryString.parse(querystring))
 

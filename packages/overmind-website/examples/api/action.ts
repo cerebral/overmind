@@ -14,8 +14,8 @@ export const changeTitle: Action<string> = ({ value: title, state }) => {
           code: `
 import { Action } from 'overmind'
 
-export const getItem: Action<number> = async ({ value: id, state, api }) => {
-  const item = await api.getItem(id)
+export const getItem: Action<number> = async ({ value: id, state, effects }) => {
+  const item = await effects.api.getItem(id)
   state.items.push(item)
 }
   `,
@@ -31,8 +31,8 @@ export const changeTitle = ({ value: title, state }) => {
         },
         {
           code: `
-export const getItem = async ({ value: id, state, api }) => {
-  const item = await api.getItem(id)
+export const getItem = async ({ value: id, state, effects }) => {
+  const item = await effects.api.getItem(id)
   state.items.push(item)
 }
   `,
