@@ -2,6 +2,7 @@ import { createElement, useState, useEffect } from 'react'
 import { useOvermind } from './overmind'
 import marksy from 'marksy'
 import * as Prism from '../src/prismjs.js'
+import * as tsLogo from './images/ts.png'
 import { css } from 'emotion'
 
 export const viewport = {
@@ -50,12 +51,25 @@ const githubLink = css`
 `
 
 const notice = css`
+  position: relative;
   background-color: var(--color-white-2);
   border: 1px solid var(--color-primary);
   border-left: 6px solid var(--color-primary);
   border-radius: var(--border-radius-1);
   padding: var(--padding-3) var(--padding-4);
   font-size: var(--font-size-3);
+`
+
+const typescriptNotice = css`
+  border: 1px solid #007acc;
+  border-left: 6px solid #007acc;
+`
+
+const tsLogoStyle = css`
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom-right-radius: var(--border-radius-1);
 `
 
 const contentWrapper = css`
@@ -151,6 +165,19 @@ export const compile = marksy({
     ),
     Notice: ({ children }) => {
       return <div className={notice}>{compile(String(children)).tree}</div>
+    },
+    TypescriptNotice: ({ children }) => {
+      const { state } = useOvermind()
+      if (!state.typescript) {
+        return null
+      }
+
+      return (
+        <div className={css(notice, typescriptNotice)}>
+          {compile(String(children)).tree}
+          <img className={tsLogoStyle} src={tsLogo} width="20" />
+        </div>
+      )
     },
   },
   elements: {

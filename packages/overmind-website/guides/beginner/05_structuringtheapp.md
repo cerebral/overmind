@@ -24,7 +24,11 @@ But if we want to split up into actual domains it would look more like this:
 h(Example, { name: "guide/structuringtheapp/domains" })
 ```
 
-In this case each domain **index** file bring its own state, actions and effects together and the **app/index** file is responsible for bringing the configuration together.
+In this case each domain **index** file bring its own state, actions and effects together and the **overmind/index** file is responsible for bringing the configuration together.
+
+```marksy
+h(TypescriptNotice, null, "Note that you do not define a **Config**, **Action** etc. type for each domain of your application. Only the main file that instantiates Overmind has this typing. This allows all the domains of the application to know about each other.")
+```
 
 ## The state file
 
