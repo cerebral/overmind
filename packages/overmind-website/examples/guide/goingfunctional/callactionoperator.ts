@@ -6,11 +6,11 @@ const javascript = {
 import { parallel, action } from 'overmind'
 
 export const grabData = parallel(
-  action(async ({ state, api }) => {
-    state.posts = await api.getPosts()
+  action(async ({ state, effects }) => {
+    state.posts = await effects.api.getPosts()
   }),
-  action(async ({ state, api }) => {
-    state.users = await api.getUsers()
+  action(async ({ state, effects }) => {
+    state.users = await effects.api.getUsers()
   })
 )  
 `,
@@ -39,11 +39,11 @@ export default connect(MyComponent)
 import { parallel, action } from 'overmind'
 
 export const grabData = parallel(
-  action(async ({ state, api }) => {
-    state.posts = await api.getPosts()
+  action(async ({ state, effects }) => {
+    state.posts = await effects.api.getPosts()
   }),
-  action(async ({ state, api }) => {
-    state.users = await api.getUsers()
+  action(async ({ state, effects }) => {
+    state.users = await effects.api.getUsers()
   })
 )  
 `,
@@ -76,11 +76,11 @@ const typescript = {
 import { Operator, parallel, action } from 'overmind'
 
 export const grabData: Operator = parallel(
-  action(async ({ state, api }) => {
-    state.posts = await api.getPosts()
+  action(async ({ state, effects }) => {
+    state.posts = await effects.api.getPosts()
   }),
-  action(async ({ state, api }) => {
-    state.users = await api.getUsers()
+  action(async ({ state, effects }) => {
+    state.users = await effects.api.getUsers()
   })
 )  
 `,
@@ -110,11 +110,11 @@ export default connect(MyComponent)
 import { Operator, parallel, action } from 'overmind'
 
 export const grabData: Operator = parallel(
-  action(async ({ state, api }) => {
-    state.posts = await api.getPosts()
+  action(async ({ state, effects }) => {
+    state.posts = await effects.api.getPosts()
   }),
-  action(async ({ state, api }) => {
-    state.users = await api.getUsers()
+  action(async ({ state, effects }) => {
+    state.users = await effects.api.getUsers()
   })
 )  
 `,
@@ -144,11 +144,11 @@ export default connect({})
 import { Operator, parallel, action } from 'overmind'
 
 export const grabData: Operator = parallel(
-  action(async ({ state, api }) => {
-    state.posts = await api.getPosts()
+  action(async ({ state, effects }) => {
+    state.posts = await effects.api.getPosts()
   }),
-  action(async ({ state, api }) => {
-    state.users = await api.getUsers()
+  action(async ({ state, effects }) => {
+    state.users = await effects.api.getUsers()
   })
 )  
 `,

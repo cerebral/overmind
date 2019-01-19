@@ -11,9 +11,9 @@ export const search: Operator<Event> = pipe(
   getEventTargetValue,
   lengthGreaterThan(2),
   debounce(200),
-  action(async ({ value: query, state, api }) => {
+  action(async ({ value: query, state, effects }) => {
     state.isSearching = true
-    state.searchResult = await api.search(query)
+    state.searchResult = await effects.api.search(query)
     state.isSearching = false
   })
 )
@@ -44,9 +44,9 @@ export const search = pipe(
   getEventTargetValue,
   lengthGreaterThan(2),
   debounce(200),
-  action(async ({ value: query, state, api }) => {
+  action(async ({ value: query, state, effects }) => {
     state.isSearching = true
-    state.searchResult = await api.search(query)
+    state.searchResult = await effects.api.search(query)
     state.isSearching = false
   })
 )

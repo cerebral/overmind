@@ -40,7 +40,7 @@ Operators is like the **Action** type, it can take an optional input, but it can
 h(Example, { name: "guide/typescript/operatorinputsandoutputs" })
 ```
 
-Now what is important to understand is that the **Operator** is used with all operators in Overmind, cause all of them is about "passing a value to the next operator". The arguments you give has to match the specific operator though. So for example if you type an **action** operator with a different output than the input:
+Now what is important to understand is that the **Operator** type is used with all operators in Overmind, cause all of them is about "passing a value to the next operator". The type arguments you give to **Operator** has to match the specific operator you use though. So for example if you type an **action** operator with a different output than the input:
 
 ```marksy
 h(Example, { name: "guide/typescript/wrongoperator" })

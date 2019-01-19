@@ -12,9 +12,9 @@ const onInitialize: OnInitialize = async ({
   value: overmind,
   state,
   actions,
-  api
+  effects
 }) => {
-  const initialData = await api.getInitialData()
+  const initialData = await effects.api.getInitialData()
   state.initialData = initialData
 }
 
@@ -47,9 +47,9 @@ const onInitialize = async ({
   value: overmind,
   state,
   actions,
-  api
+  effects
 }) => {
-  const initialData = await api.getInitialData()
+  const initialData = await effects.api.getInitialData()
   state.initialData = initialData
 }
 

@@ -15,7 +15,9 @@ export const isValidQuery: Operator<string> = filter(
   ({ value: query }) => query.length >= 3
 )
 
-export const query: Operator<string> = action(async ({ state, request }) => {
-  state.searchResult = await request('/backend/search?query=' + state.query)
+export const query: Operator<string> = action(async ({ state, effects }) => {
+  state.searchResult = await effects.request(
+    '/backend/search?query=' + state.query
+  )
   state.isLoadingSearchResult = false
 })
