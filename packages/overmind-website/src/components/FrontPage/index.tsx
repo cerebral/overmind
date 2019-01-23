@@ -63,9 +63,8 @@ const FrontPage: SFC = () => {
             <h2>A SINGLE STATE TREE</h2>
             <p>
               Building your application as a single state tree is the most
-              straight forward mental model. No matter how you choose to
-              structure it, you will always have access to the state wherever
-              you need it
+              straight forward mental model. You get a complete overview, but
+              can still organize the state by namespacing it into domains
             </p>
           </div>
           <div>
@@ -89,18 +88,18 @@ h(Example, { name: "frontpage/statetree" })
               {
                 compile(`
 \`\`\`marksy
-h(Example, { name: "frontpage/actions" })
+h(Example, { name: "frontpage/effects" })
 \`\`\`
               `).tree
               }
             </div>,
             <div key="1">
-              <h2>SAFE AND PREDICTABLE CHANGES</h2>
+              <h2>SEPARATION OF LOGIC</h2>
               <p>
-                When you build applications that performs many state changes
-                things can get out of hand. In Overmind you can only perform
-                state changes from <strong>actions</strong> and all changes are
-                tracked by the development tool
+                Separate 3rd party apis and logic not specific to your
+                application by using <strong>effects</strong>. This will keep
+                your application logic pure and without low level APIs
+                cluttering your code
               </p>
             </div>,
           ][viewport.isMobile ? 'reverse' : 'slice']()}
@@ -112,19 +111,72 @@ h(Example, { name: "frontpage/actions" })
           )}
         >
           <div>
-            <h2>FUNCTIONAL ACTIONS</h2>
+            <h2>SAFE AND PREDICTABLE CHANGES</h2>
             <p>
-              When pieces of logic becomes complex it is beneficial to write
-              functional code. Overmind provides and API named{' '}
-              <strong>operators</strong> which gives you functional power as
-              simple actions
+              When you build applications that performs many state changes
+              things can get out of hand. In Overmind you can only perform state
+              changes from <strong>actions</strong> and all changes are tracked
+              by the development tool
             </p>
           </div>
           <div>
             {
               compile(`
 \`\`\`marksy
+h(Example, { name: "frontpage/actions" })
+\`\`\`
+              `).tree
+            }
+          </div>
+        </div>
+        <div
+          className={css(
+            styles.valueProposition,
+            viewport.isMobile && styles.valuePropositionMobile
+          )}
+        >
+          {[
+            <div key="0">
+              {
+                compile(`
+\`\`\`marksy
 h(Example, { name: "frontpage/operators" })
+\`\`\`
+                      `).tree
+              }
+            </div>,
+            <div key="1">
+              <h2>FUNCTIONAL ACTIONS</h2>
+              <p>
+                When pieces of logic becomes complex it is beneficial to write
+                functional code. Overmind provides and API named{' '}
+                <strong>operators</strong> which gives you functional power as
+                simple actions
+              </p>
+            </div>,
+          ][viewport.isMobile ? 'reverse' : 'slice']()}
+          }
+        </div>
+        <div
+          className={css(
+            styles.valueProposition,
+            viewport.isMobile && styles.valuePropositionMobile
+          )}
+        >
+          <div>
+            <h2>SNAPSHOT TESTING OF LOGIC</h2>
+            <p>
+              Bring in your application configuration of state, effects and
+              actions. Create mocks for any effects. Take a snapshot of
+              mutations performed in an action to ensure all intermediate states
+              are met
+            </p>
+          </div>
+          <div>
+            {
+              compile(`
+\`\`\`marksy
+h(Example, { name: "frontpage/test" })
 \`\`\`
               `).tree
             }
