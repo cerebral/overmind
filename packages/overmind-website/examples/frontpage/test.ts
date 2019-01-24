@@ -1,17 +1,17 @@
 export default () => [
   {
     code: `
-import { createMock } from 'overmind'
+import { createOvermindMock } from 'overmind'
 import { config } from './'
 
 test('should get items', async () => {
-  const mock = createMock(config, {
+  const overmind = createOvermindMock(config, {
     api: {
-      getItems: () => Promise.resolve([{ id: 0, title: "foo" }])
+      fetchItems: () => Promise.resolve([{ id: 0, title: "foo" }])
     }
   })
 
-  const mutations = await actions.getItems()
+  const mutations = await overmind.actions.getItems()
   
   expect(mutations).toMatchSnapshot()
 })

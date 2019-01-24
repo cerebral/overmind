@@ -96,7 +96,7 @@ h(Example, { name: "frontpage/effects" })
             <div key="1">
               <h2>SEPARATION OF LOGIC</h2>
               <p>
-                Separate 3rd party apis and logic not specific to your
+                Separate 3rd party APIs and logic not specific to your
                 application by using <strong>effects</strong>. This will keep
                 your application logic pure and without low level APIs
                 cluttering your code
@@ -149,13 +149,12 @@ h(Example, { name: "frontpage/operators" })
               <h2>FUNCTIONAL ACTIONS</h2>
               <p>
                 When pieces of logic becomes complex it is beneficial to write
-                functional code. Overmind provides and API named{' '}
+                functional code. Overmind provides an API named{' '}
                 <strong>operators</strong> which gives you functional power as
                 simple actions
               </p>
             </div>,
           ][viewport.isMobile ? 'reverse' : 'slice']()}
-          }
         </div>
         <div
           className={css(

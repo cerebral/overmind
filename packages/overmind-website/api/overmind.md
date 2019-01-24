@@ -30,3 +30,10 @@ By default, in **development**, Overmind will make sure that any usage of **cons
 ```marksy
 h(Example, { name: "api/app_options_logproxies" })
 ```
+
+## options.name
+If you have multiple instances of Overmind on the same page you can name your app to differentiate it in the devtools.
+
+```marksy
+h(Example, { name: "api/app_options_name" })
+```
