@@ -1,6 +1,5 @@
-import { Action, Operator, debounce, pipe } from 'overmind'
+import { Action, fromOperator, pipe, action, filter, debounce } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
-import * as o from './operators'
 
 export const openHome: Action<RouteContext> = async ({ state, effects }) => {
   state.page = Page.HOME
@@ -84,15 +83,26 @@ export const closeSearch: Action = ({ state }) => {
   state.query = ''
 }
 
-export const changeQuery: Operator<
-  React.ChangeEvent<HTMLInputElement>,
-  any
-> = pipe(
-  o.getTargetValue,
-  o.setQuery,
-  o.isValidQuery,
-  debounce(200),
-  o.query
+export const changeQuery: Action<
+  React.ChangeEvent<HTMLInputElement>
+> = fromOperator(
+  pipe(
+    action(({ value: event, state }) => {
+      const query = event.currentTarget.value
+
+      state.query = query
+      state.showSearchResult = query.length > 2
+      state.isLoadingSearchResult = query.length > 2
+    }),
+    filter(({ state }) => state.query.length >= 3),
+    debounce(200),
+    action(async ({ state, effects }) => {
+      state.searchResult = await effects.request(
+        '/backend/search?query=' + state.query
+      )
+      state.isLoadingSearchResult = false
+    })
+  )
 )
 
 export const viewHelpGotIt: Action = ({ state, effects }) => {

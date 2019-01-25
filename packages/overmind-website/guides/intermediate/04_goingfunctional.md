@@ -18,7 +18,9 @@ h(Example, { name: "guide/goingfunctional/clean" })
 
 Now we have created a couple of custom operators that we can reuse in other compositions. In addition we have made our code declarative. Instead of showing implementation details we rather "tell the story of the code". 
 
-## Calling an operator
+## Structuring and calling operators
+
+You will typically rely on an **operators** file where all your composable pieces live. Inside your **actions** file you expose the operators that you actually want to call from components along side your other plain actions.
 
 To get going with functional code you can simply convert any existing action by using the **action** operator.
 
@@ -26,18 +28,15 @@ To get going with functional code you can simply convert any existing action by 
 h(Example, { name: "guide/goingfunctional/actionoperator" })
 ```
 
-This makes your action a composable piece to be used with other operators. Even though we converted our action into an operator it can still be called as normal from a component:
+Your first impression is probably "more syntax". But we are doing something important here. We have created a composable piece of logic. The **action** operator is one of many operators. The **action** operator just allows us to express logic as a traditional action, though other operators has other behaviours. The **fromOperator** function converts any operator into a callable action.
 
-```marksy
-h(Example, { name: "guide/goingfunctional/calloperator" })
-```
+Let us look at an example where we actually create two composable pieces and use them:
 
-But not only the **action** operator can be attached as a callable action on your Overmind instance, **any** operator can be used. That means you will have some operators that is only used for composition and some that are attached to the Overmind instance as an action to be called, typically from a component.
-
-Here we see the **parallel** operator being used as a callable action to run two action operators in parallel:
 ```marksy
 h(Example, { name: "guide/goingfunctional/callactionoperator" })
 ```
+
+Here we see the **parallel** operator being used as a callable action to run two action operators in parallel. Maybe this is the only place you use the **getPosts** and **getUsers** operator, and in that case there is not much difference than if you just created a plain action. But when you start using the same pieces of logic across different actions, then it is time to move functional!
 
 ## Piping
 

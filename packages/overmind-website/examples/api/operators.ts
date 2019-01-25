@@ -5,9 +5,11 @@ export default (ts) =>
           code: `
 import { Operator, action } from 'overmind'
 
-export const changeFoo: Operator = action(({ state }) => {
-  state.foo = 'bar'
-})
+export const changeFoo: Action = fromOperator(
+  action(({ state }) => {
+    state.foo = 'bar'
+  })
+)
 `,
         },
       ]

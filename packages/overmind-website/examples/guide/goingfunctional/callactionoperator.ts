@@ -1,177 +1,62 @@
-const javascript = {
-  react: [
-    {
-      fileName: 'overmind/actions.js',
-      code: `
-import { parallel, action } from 'overmind'
+export default (ts) =>
+  ts
+    ? [
+        {
+          fileName: 'overmind/operators.ts',
+          code: `
+import { Operator, action } from 'overmind'
 
-export const grabData = parallel(
-  action(async ({ state, effects }) => {
-    state.posts = await effects.api.getPosts()
-  }),
-  action(async ({ state, effects }) => {
-    state.users = await effects.api.getUsers()
-  })
-)  
-`,
-    },
-    {
-      fileName: 'components/MyComponent.jsx',
-      target: 'jsx',
-      code: `
-import React from 'react'
-import { connect } from '../overmind'
-
-const MyComponent = ({ overmind }) => (
-  <button onClick={overmind.actions.grabData}>
-    Grab some data
-  </button>
-)
-
-export default connect(MyComponent)
-    `,
-    },
-  ],
-  vue: [
-    {
-      fileName: 'overmind/actions.js',
-      code: `
-import { parallel, action } from 'overmind'
-
-export const grabData = parallel(
-  action(async ({ state, effects }) => {
-    state.posts = await effects.api.getPosts()
-  }),
-  action(async ({ state, effects }) => {
-    state.users = await effects.api.getUsers()
-  })
-)  
-`,
-    },
-    {
-      fileName: 'components/MyComponent.vue (template)',
-      target: 'markup',
-      code: `
-<button on:click="overmind.actions.grabData()">
-  Grab some data
-</button>
-    `,
-    },
-    {
-      fileName: 'components/MyComponent.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
-    },
-  ],
-}
-
-const typescript = {
-  react: [
-    {
-      fileName: 'overmind/actions.js',
-      code: `
-import { Operator, parallel, action } from 'overmind'
-
-export const grabData: Operator = parallel(
-  action(async ({ state, effects }) => {
-    state.posts = await effects.api.getPosts()
-  }),
-  action(async ({ state, effects }) => {
-    state.users = await effects.api.getUsers()
-  })
-)  
-`,
-    },
-    {
-      fileName: 'components/MyComponent.tsx',
-      code: `
-import * as React from 'react'
-import { connect, Connect } from '../overmind'
-
-type Props = Connect
-
-const MyComponent: React.FunctionComponent<Props> = ({ overmind }) => (
-  <button onClick={overmind.actions.grabData}>
-    Grab some data
-  </button>
-)
-
-export default connect(MyComponent)
-    `,
-    },
-  ],
-  vue: [
-    {
-      fileName: 'overmind/actions.ts',
-      code: `
-import { Operator, parallel, action } from 'overmind'
-
-export const grabData: Operator = parallel(
-  action(async ({ state, effects }) => {
-    state.posts = await effects.api.getPosts()
-  }),
-  action(async ({ state, effects }) => {
-    state.users = await effects.api.getUsers()
-  })
-)  
-`,
-    },
-    {
-      fileName: 'components/MyComponent.vue (template)',
-      target: 'markup',
-      code: `
-<button on:click="overmind.actions.grabData()">
-  Grab some data
-</button>
-    `,
-    },
-    {
-      fileName: 'components/MyComponent.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
-    },
-  ],
-  angular: [
-    {
-      fileName: 'overmind/actions.js',
-      code: `
-import { Operator, parallel, action } from 'overmind'
-
-export const grabData: Operator = parallel(
-  action(async ({ state, effects }) => {
-    state.posts = await effects.api.getPosts()
-  }),
-  action(async ({ state, effects }) => {
-    state.users = await effects.api.getUsers()
-  })
-)  
-`,
-    },
-    {
-      fileName: 'components/grabdata.component.ts',
-      code: `
-import { Component,Input } from '@angular/core';
-import { connect } from '../overmind'
-
-@Component({
-  selector: 'grab-data',
-  template: \`
-  <button (click)="overmind.actions.grabData()">
-    Grab some data
-  </button>
-  \`
+export const getPosts: Operator = action(async ({ state, effects }) => {
+  state.posts = await effects.api.getPosts()
 })
-@connect()
-export class GrabData {}
-    `,
-    },
-  ],
-}
 
-export default (ts, view) => (ts ? typescript[view] : javascript[view])
+export const getUsers: Operator = action(async ({ state, effects }) => {
+  state.users = await effects.api.getUsers()
+})
+`,
+        },
+        {
+          fileName: 'overmind/actions.ts',
+          code: `
+import { Action, fromOperator, parallel } from 'overmind'
+import { getPosts, getUsers } from './operators'
+
+export const grabData: Action = fromOperator(
+  parallel(
+    getPosts,
+    getUsers
+  )
+)  
+          `,
+        },
+      ]
+    : [
+        {
+          fileName: 'overmind/operators.js',
+          code: `
+import { action } from 'overmind'
+
+export const getPosts = action(async ({ state, effects }) => {
+  state.posts = await effects.api.getPosts()
+})
+
+export const getUsers = action(async ({ state, effects }) => {
+  state.users = await effects.api.getUsers()
+})
+`,
+        },
+        {
+          fileName: 'overmind/actions.js',
+          code: `
+import { fromOperator, parallel } from 'overmind'
+import { getPosts, getUsers } from './operators'
+
+export const grabData = fromOperator(
+  parallel(
+    getPosts,
+    getUsers
+  )
+)  
+        `,
+        },
+      ]
