@@ -18,15 +18,13 @@ export const getUsers: Operator = action(async ({ state, effects }) => {
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Action, fromOperator, parallel } from 'overmind'
+import { Operator, parallel } from 'overmind'
 import { getPosts, getUsers } from './operators'
 
-export const grabData: Action = fromOperator(
-  parallel(
-    getPosts,
-    getUsers
-  )
-)  
+export const grabData: Operator = parallel(
+  getPosts,
+  getUsers
+) 
           `,
         },
       ]
@@ -48,14 +46,12 @@ export const getUsers = action(async ({ state, effects }) => {
         {
           fileName: 'overmind/actions.js',
           code: `
-import { fromOperator, parallel } from 'overmind'
+import { parallel } from 'overmind'
 import { getPosts, getUsers } from './operators'
 
-export const grabData = fromOperator(
-  parallel(
-    getPosts,
-    getUsers
-  )
+export const grabData = parallel(
+  getPosts,
+  getUsers
 )  
         `,
         },

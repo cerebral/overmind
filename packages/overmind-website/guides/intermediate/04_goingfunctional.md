@@ -16,7 +16,11 @@ If we were to do this in a functional style it would look more like this:
 h(Example, { name: "guide/goingfunctional/clean" })
 ```
 
-Now we have created a couple of custom operators that we can reuse in other compositions. In addition we have made our code declarative. Instead of showing implementation details we rather "tell the story of the code". 
+Now we have created a couple of custom operators that we can reuse in other compositions, **getEventTargetValue** and **lengthGreaterThan**. In addition we have made our code declarative. Instead of showing implementation details we rather "tell the story of the code". 
+
+```marksy
+h(Notice, null, "Notice that instead of exporting **search** as a function, we export it as a pipe operator. That is perfectly okay. Any of the operators can act as a callable action on the Overmind instance.")
+```
 
 ## Structuring and calling operators
 
@@ -28,7 +32,7 @@ To get going with functional code you can simply convert any existing action by 
 h(Example, { name: "guide/goingfunctional/actionoperator" })
 ```
 
-Your first impression is probably "more syntax". But we are doing something important here. We have created a composable piece of logic. The **action** operator is one of many operators. The **action** operator just allows us to express logic as a traditional action, though other operators has other behaviours. The **fromOperator** function converts any operator into a callable action.
+Your first impression is probably "more syntax". But we are doing something important here. We have created a composable piece of logic. The **action** operator is one of many operators. The **action** operator just allows us to express logic as a traditional action, though other operators has other behaviours.
 
 Let us look at an example where we actually create two composable pieces and use them:
 

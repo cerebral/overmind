@@ -4,20 +4,18 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Action, fromOperator, pipe, debounce, action } from 'overmind'
+import { Operator, pipe, debounce, action } from 'overmind'
 import { getEventTargetValue, lengthGreaterThan } from './operators'
 
-export const search: Action<Event> = fromOperator(
-  pipe(
-    getEventTargetValue,
-    lengthGreaterThan(2),
-    debounce(200),
-    action(async ({ value: query, state, effects }) => {
-      state.isSearching = true
-      state.searchResult = await effects.api.search(query)
-      state.isSearching = false
-    })
-  )
+export const search: Operator<Event> = pipe(
+  getEventTargetValue,
+  lengthGreaterThan(2),
+  debounce(200),
+  action(async ({ value: query, state, effects }) => {
+    state.isSearching = true
+    state.searchResult = await effects.api.search(query)
+    state.isSearching = false
+  })
 )
   `,
         },
@@ -39,20 +37,18 @@ const lengthGreaterThan: (length: number) => Operator<string> =
         {
           fileName: 'overmind/actions.js',
           code: `
-import { fromOperator, pipe, debounce, action } from 'overmind'
+import { pipe, debounce, action } from 'overmind'
 import { getEventTargetValue, lengthGreaterThan } from './operators'
 
-export const search = fromOperator(
-  pipe(
-    getEventTargetValue,
-    lengthGreaterThan(2),
-    debounce(200),
-    action(async ({ value: query, state, effects }) => {
-      state.isSearching = true
-      state.searchResult = await effects.api.search(query)
-      state.isSearching = false
-    })
-  )
+export const search = pipe(
+  getEventTargetValue,
+  lengthGreaterThan(2),
+  debounce(200),
+  action(async ({ value: query, state, effects }) => {
+    state.isSearching = true
+    state.searchResult = await effects.api.search(query)
+    state.isSearching = false
+  })
 )
   `,
         },

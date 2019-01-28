@@ -1,6 +1,5 @@
-import { Action, fromOperator, pipe, action, filter, debounce } from 'overmind'
+import { Action, pipe, action, filter, debounce, Operator } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
-import * as operators from './operators'
 
 export const openHome: Action<RouteContext> = async ({ state, effects }) => {
   state.page = Page.HOME
@@ -18,12 +17,23 @@ export const openGuides: Action<RouteContext> = async ({ state, effects }) => {
   }
 }
 
-export const openVideos: Action<RouteContext> = fromOperator(
-  operators.openVideos<RouteContext>()
+export const openVideos: Operator<RouteContext<VideoParams>> = action(
+  async ({ state, effects }) => {
+    state.page = Page.VIDEOS
+    state.currentVideo = null
+    if (!state.videos.length) {
+      state.isLoadingVideos = true
+      state.videos = await effects.request('/backend/videos')
+      state.isLoadingVideos = false
+    }
+  }
 )
 
-export const openVideo: Action<RouteContext<VideoParams>> = fromOperator(
-  operators.openVideo
+export const openVideo: Operator<RouteContext<VideoParams>> = pipe(
+  openVideos,
+  action(({ value: routeContext, state }) => {
+    state.currentVideo = routeContext.params.title
+  })
 )
 
 export const openGuide: Action<RouteContext<GuideParams>> = async ({
@@ -75,26 +85,22 @@ export const closeSearch: Action = ({ state }) => {
   state.query = ''
 }
 
-export const changeQuery: Action<
-  React.ChangeEvent<HTMLInputElement>
-> = fromOperator(
-  pipe(
-    action(({ value: event, state }) => {
-      const query = event.currentTarget.value
+export const changeQuery: Operator<React.ChangeEvent<HTMLInputElement>> = pipe(
+  action(({ value: event, state }) => {
+    const query = event.currentTarget.value
 
-      state.query = query
-      state.showSearchResult = query.length > 2
-      state.isLoadingSearchResult = query.length > 2
-    }),
-    filter(({ state }) => state.query.length >= 3),
-    debounce(200),
-    action(async ({ state, effects }) => {
-      state.searchResult = await effects.request(
-        '/backend/search?query=' + state.query
-      )
-      state.isLoadingSearchResult = false
-    })
-  )
+    state.query = query
+    state.showSearchResult = query.length > 2
+    state.isLoadingSearchResult = query.length > 2
+  }),
+  filter(({ state }) => state.query.length >= 3),
+  debounce(200),
+  action(async ({ state, effects }) => {
+    state.searchResult = await effects.request(
+      '/backend/search?query=' + state.query
+    )
+    state.isLoadingSearchResult = false
+  })
 )
 
 export const viewHelpGotIt: Action = ({ state, effects }) => {
