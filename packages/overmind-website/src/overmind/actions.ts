@@ -1,5 +1,6 @@
 import { Action, fromOperator, pipe, action, filter, debounce } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
+import * as operators from './operators'
 
 export const openHome: Action<RouteContext> = async ({ state, effects }) => {
   state.page = Page.HOME
@@ -17,22 +18,13 @@ export const openGuides: Action<RouteContext> = async ({ state, effects }) => {
   }
 }
 
-export const openVideos: Action<RouteContext> = async ({ state, effects }) => {
-  state.page = Page.VIDEOS
-  if (!state.videos.length) {
-    state.isLoadingVideos = true
-    state.videos = await effects.request('/backend/videos')
-    state.isLoadingVideos = false
-  }
-}
+export const openVideos: Action<RouteContext> = fromOperator(
+  operators.openVideos<RouteContext>()
+)
 
-export const openVideo: Action<RouteContext<VideoParams>> = async ({
-  value: routeContext,
-  state,
-}) => {
-  state.page = Page.VIDEOS
-  state.currentVideo = routeContext.params.title
-}
+export const openVideo: Action<RouteContext<VideoParams>> = fromOperator(
+  operators.openVideo
+)
 
 export const openGuide: Action<RouteContext<GuideParams>> = async ({
   value: routeContext,

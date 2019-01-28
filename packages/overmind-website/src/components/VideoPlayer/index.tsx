@@ -6,9 +6,7 @@ type Props = {
   url: string
 }
 
-// https://www.youtube.com/watch?v=RA1_cCgEWws
-
-const VideoPlayer: SFC<Props> = () => {
+const VideoPlayer: SFC<Props> = ({ url }) => {
   const ref = useRef(null)
   const isMobile = useIsMobile()
 
@@ -25,10 +23,7 @@ const VideoPlayer: SFC<Props> = () => {
           className={styles.iframe}
           width={isMobile ? '300' : '560'}
           height={isMobile ? '169' : '315'}
-          src={
-            this.props.url.replace('watch?v=', 'embed/') +
-            '?rel=0&amp;showinfo=0'
-          }
+          src={url.replace('watch?v=', 'embed/') + '?rel=0&amp;showinfo=0'}
           frameBorder="0"
           // @ts-ignore
           allow="autoplay; encrypted-media"

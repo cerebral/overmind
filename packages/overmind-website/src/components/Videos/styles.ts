@@ -14,17 +14,18 @@ export const video = css`
   position: relative;
   display: flex;
   align-items: center;
-  text-decoration: none;
   justify-content: center;
   text-align: center;
   box-sizing: border-box;
-  padding: var(--padding-3);
-  color: var(--color-white-1);
+  text-decoration: none;
+  padding: var(--padding-4);
+  margin: var(--padding-3);
+  color: var(--color-black-1);
   font-size: var(--font-size-4);
   cursor: pointer;
   width: 200px;
   height: 125px;
-  background-color: var(--color-black-2);
+  border-bottom: 2px solid var(--color-primary);
   transition: box-shadow 0.1s ease-out;
   box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
   :hover {
@@ -35,6 +36,6 @@ export const video = css`
     bottom: var(--padding-2);
     right: var(--padding-2);
     font-size: var(--font-size-1);
-    color: var(--color-white-2);
+    color: var(--color-black-2);
   }
 `
