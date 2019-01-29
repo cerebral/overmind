@@ -23,6 +23,19 @@ You can also explicitly type your application. This gives more flexibility.
 h(Example, { name: "guide/typescript/explicit.ts" })
 ```
 
+You only have to set up these types once, where you instantiate Overmind. That means if you use multiple namespaced configuration you still only create one set of types, as shown above.
+
+Now you only have to make sure that you import your types from this file, instead of directly from the Overmind package.
+
+```marksy
+h(Example, { name: "guide/typescript/explicit_import.ts" })
+```
+
+```marksy
+h(Notice, null, "The Overmind documentation is written for implicit typing. That means whenever you see a type import directly from the Overmind package, you should rather import from your own defined types")
+```
+
+
 ## Actions
 
 The action type takes either no arguments or a single argument. If you give no arguments to the action it will be typed as not expecting an argument at all. When you do type with an argument that is the type of the **value** on the context. This value is populated when you call the action on the Overmind instance.
