@@ -70,6 +70,18 @@ At this stage, the benefits of writing an application code this way might not be
 h(Example, { name: "guide/getstarted/devtools" })
 ```
 
+You can also explicitly install the devtools with
+
+`npm install overmind-devtools`
+
+and rather:
+
+```marksy
+h(Example, { name: "guide/getstarted/devtools_explicit" })
+```
+
+This allows you to control the version you want to use.
+
 The Overmind devtools provides us with a pretty amazing experience. We get insights into all the state, changes to that state, actions run, which side effects are run and general stats. This visual overview becomes more and more valuable as complexity increases. 
 
 To connect to the devtools simply start the devtools application and refresh your app.
