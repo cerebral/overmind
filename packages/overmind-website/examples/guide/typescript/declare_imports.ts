@@ -4,7 +4,6 @@ export default () => [
 import {
   Action,
   Operator,
-  Reaction,
   Derive,
   pipe,
   map,

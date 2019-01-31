@@ -8,7 +8,7 @@ import * as React from 'react'
 import { useEffect } from 'react'
 import { useOvermind } from '../overmind'
 
-const Todos: React.SFC = () => {
+const Todos: React.FunctionComponent = () => {
   const { state, addMutationListener } = useOvermind()
 
   useEffect(() => {

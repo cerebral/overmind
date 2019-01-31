@@ -13,13 +13,13 @@ export const showHomePage: Action = ({ state }) => {
 export const showUsersPage: Operator<{ id?: string, tab?: string }> = action(async ({
   value: params,
   state,
-  api
+  effects
 }) => {
   if (!params.id) state.modalUser = null
 
   state.currentPage = 'users'
   state.isLoadingUsers = true
-  state.users = await api.getUsers()
+  state.users = await effects.api.getUsers()
   state.isLoadingUsers = false
 })
 
@@ -28,14 +28,14 @@ export const showUserModal: Operator<{ id: string, tab: string }> = parallel(
   action(async ({
     value: params,
     state,
-    api
+    effects
   }) => {
     state.currentUserModalTabIndex = Number(params.tab)
     
     if (state.modalUser && state.modalUser.id === params.id) return
 
     state.isLoadingUserDetails = true
-    state.modalUser = await api.getUserWithDetails(params.id)
+    state.modalUser = await effects.api.getUserWithDetails(params.id)
     state.isLoadingUserDetails = false
   })
 )
@@ -52,25 +52,25 @@ export const showHomePage = ({ state }) => {
   state.currentPage = 'home'
 }
 
-export const showUsersPage = async ({ value: params, state, api }) => {
+export const showUsersPage = async ({ value: params, state, effects }) => {
   if (!params.id) state.modalUser = null
 
   state.currentPage = 'users'
   state.isLoadingUsers = true
-  state.users = await api.getUsers()
+  state.users = await effects.api.getUsers()
   state.isLoadingUsers = false
 }
 
 export const showUserModal = pipe(
   parallel(
     showUsersPage,
-    action(async ({ value: params, state, api }) => {
+    action(async ({ value: params, state, effects }) => {
       state.currentUserModalTabIndex = Number(params.tab)
       
       if (state.modalUser && state.modalUser.id === params.id) return
 
       state.isLoadingUserDetails = true
-      state.modalUser = await api.getUserWithDetails(params.id)
+      state.modalUser = await effects.api.getUserWithDetails(params.id)
       state.isLoadingUserDetails = false
     })
   )

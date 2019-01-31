@@ -9,7 +9,7 @@ import { connect } from '../overmind'
 
 class Posts extends React.Component {
   componentDidMount() {
-    this.props.overmind.actions.loadPosts()
+    this.props.overmind.actions.getPosts()
   }
   render() {
     const { overmind } = this.props
@@ -52,7 +52,7 @@ import { connect } from '../overmind'
 
 export default connect({
   mounted() {
-    this.overmind.actions.loadPosts()
+    this.overmind.actions.getPosts()
   }
 })
   `,
@@ -70,7 +70,7 @@ import { Connect, connect } from '../overmind'
 
 class Posts extends React.Component<Connect> {
   componentDidMount() {
-    this.props.overmind.actions.loadPosts()
+    this.props.overmind.actions.getPosts()
   }
   render() {
     const { overmind } = this.props
@@ -115,7 +115,7 @@ import { connect } from '../overmind'
 @connect()
 export class PostsList {
   ngOnInit() {
-    this.overmind.actions.loadPosts()
+    this.overmind.actions.getPosts()
   }
 }
     `,

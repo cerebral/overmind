@@ -7,8 +7,8 @@ export default (ts) =>
 import { Action } from 'overmind'
 import { User } from './state'
 
-export const getCurrentUser: Action = async ({ http, state }) => {
-  state.currentUser = await http.get<User>('/user')
+export const getCurrentUser: Action = async ({ effects, state }) => {
+  state.currentUser = await effects.http.get<User>('/user')
 }
   `,
         },
@@ -17,8 +17,8 @@ export const getCurrentUser: Action = async ({ http, state }) => {
         {
           fileName: 'overmind/actions.js',
           code: `
-export const getCurrentUser = async ({ http, state }) => {
-  state.currentUser = await http.get('/user')
+export const getCurrentUser = async ({ effects, state }) => {
+  state.currentUser = await effects.http.get('/user')
 }
   `,
         },

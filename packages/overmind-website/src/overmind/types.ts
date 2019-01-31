@@ -15,7 +15,7 @@ export type GuideParams = {
 }
 
 export type VideoParams = {
-  title: string
+  title?: string
 }
 
 export type ApiParams = {

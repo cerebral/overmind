@@ -50,7 +50,7 @@ const typescript = {
 import * as React from 'react'
 import { connect, Connect } from '../overmind'
 
-const List: React.SFC<Connect> = ({ overmind }) => (
+const List: React.FunctionComponent<Connect> = ({ overmind }) => (
   <ul>
     {overmind.state.items.map(item => 
       <li key={item.id}>{item.title}</li>

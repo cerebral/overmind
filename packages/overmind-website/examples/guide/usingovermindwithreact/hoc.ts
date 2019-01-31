@@ -4,8 +4,8 @@ export default (ts) =>
         {
           fileName: 'overmind/index.ts',
           code: `
-import { Overmind, TConfig } from 'overmind'
-import { createConnect, TConnect } from 'overmind-react'
+import { Overmind, IConfig } from 'overmind'
+import { createConnect, IConnect } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
 
@@ -15,10 +15,10 @@ const config = {
 }
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
 
-export type Connect = TConnect<typeof config>
+export interface Connect extends IConnect<typeof config> {}
 
 const overmind = new Overmind(config)
 
@@ -33,8 +33,8 @@ import { connect, Connect } from '../overmind'
 
 type Props = {} & Connect
 
-const App: React.SFC<Props> = ({ overmind }) => {
-  const { state, actions } = overmind
+const App: React.FunctionComponent<Props> = ({ overmind }) => {
+  const { state, actions, effects, addMutationListener } = overmind
 
   return <div />
 }
@@ -65,7 +65,7 @@ import React from 'react'
 import { connect } from '../overmind'
 
 const App = ({ overmind }) => {
-  const { state, actions } = overmind
+  const { state, actions, effects, addMutationListener } = overmind
 
   return <div />
 }

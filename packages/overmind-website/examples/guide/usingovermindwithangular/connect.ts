@@ -2,8 +2,8 @@ export default () => [
   {
     fileName: 'overmind/index.ts',
     code: `
-import { Overmind, TConfig } from 'overmind'
-import { createConnect, TConnect } from 'overmind-angular'
+import { Overmind, IConfig } from 'overmind'
+import { createConnect, IConnect } from 'overmind-angular'
 import { state } from './state'
 import * as actions from './actions'
 
@@ -13,10 +13,10 @@ const config = {
 }
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
 
-export type Connect = TConnect<typeof config>
+export interface Connect extends IConnect<typeof config> {}
 
 const overmind = new Overmind(config)
 

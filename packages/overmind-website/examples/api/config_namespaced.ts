@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind.ts',
           code: `
-import { Overmind, TConfig } from 'overmind'
+import { Overmind, IConfig } from 'overmind'
 import { namespaced } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
@@ -15,7 +15,7 @@ const config = namespaced({
 })
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
 
 const overmind = new Overmind(config)

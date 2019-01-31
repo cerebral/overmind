@@ -1,26 +1,20 @@
 import { OnInitialize } from 'overmind'
 
-const onInitialize: OnInitialize = ({
-  value: app,
-  router,
-  state,
-  storage,
-  css,
-}) => {
-  state.typescript = storage.get('typescript') || false
-  state.theme = storage.get('theme') || 'react'
-  state.showViewHelp = !storage.get('theme')
-  css.changePrimary(state.theme)
+const onInitialize: OnInitialize = ({ value: app, effects, state }) => {
+  state.typescript = effects.storage.get('typescript') || false
+  state.theme = effects.storage.get('theme') || 'react'
+  state.showViewHelp = !effects.storage.get('theme')
+  effects.css.changePrimary(state.theme)
 
-  router.route('/', app.actions.openHome)
-  router.route('/guides', app.actions.openGuides)
-  router.route('/guides/:type/:title', app.actions.openGuide)
-  router.route('/videos', app.actions.openVideos)
-  router.route('/videos/:title', app.actions.openVideo)
-  router.route('/api/:title', app.actions.openApi)
-  router.redirect('/api', '/api/action')
+  effects.router.route('/', app.actions.openHome)
+  effects.router.route('/guides', app.actions.openGuides)
+  effects.router.route('/guides/:type/:title', app.actions.openGuide)
+  effects.router.route('/videos', app.actions.openVideos)
+  effects.router.route('/videos/:title', app.actions.openVideo)
+  effects.router.route('/api/:title', app.actions.openApi)
+  effects.router.redirect('/api', '/api/action')
 
-  router.start()
+  effects.router.start()
 }
 
 export default onInitialize

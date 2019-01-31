@@ -10,7 +10,7 @@ import Todo from './Todo'
 
 type Props = {} & Connect
 
-const Todos: React.SFC<Props> = ({ overmind }) => {
+const Todos: React.FunctionComponent<Props> = ({ overmind }) => {
   const { state } = overmind
 
   return (
@@ -33,7 +33,7 @@ type Props = {
   todo: Todo
 } & Connect
 
-const Todo: React.SFC<Props> = ({ todo }) => {
+const Todo: React.FunctionComponent<Props> = ({ todo }) => {
   return <li>{todo.title}</li>
 }
 

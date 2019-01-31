@@ -8,8 +8,13 @@ export default (ts, view) =>
           code: `
 import { OnInitialize } from 'overmind'
 
-const onInitialize: OnInitialize = async ({ value: overmind, state, api }) => {
-  const initialData = await api.getInitialData()
+const onInitialize: OnInitialize = async ({
+  value: overmind,
+  state,
+  actions,
+  effects
+}) => {
+  const initialData = await effects.api.getInitialData()
   state.initialData = initialData
 }
 
@@ -38,8 +43,13 @@ const config = {
         {
           fileName: 'overmind/onInitialize.js',
           code: `
-const onInitialize = async ({ value: overmind, state, api }) => {
-  const initialData = await api.getInitialData()
+const onInitialize = async ({
+  value: overmind,
+  state,
+  actions,
+  effects
+}) => {
+  const initialData = await effects.api.getInitialData()
   state.initialData = initialData
 }
 

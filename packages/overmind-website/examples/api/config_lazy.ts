@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind.ts',
           code: `
-import { Overmind, TConfig } from 'overmind'
+import { Overmind, IConfig } from 'overmind'
 import { lazy } from 'overmind/config'
 import { Config as ModuleAConfig } from './moduleA'
 import { Config as ModuleBConfig } from './moduleB'
@@ -15,7 +15,7 @@ const config = lazy({
 })
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
 
 const overmind = new Overmind(config)

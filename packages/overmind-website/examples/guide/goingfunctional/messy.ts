@@ -7,7 +7,7 @@ export default (ts) =>
 import { Action } from 'overmind'
 
 let debounce
-export const search: Action<Event> = ({ value: event, state, api }) => {
+export const search: Action<Event> = ({ value: event, state, effects }) => {
   state.query = event.currentTarget.value
 
   if (query.length < 3) return
@@ -16,7 +16,7 @@ export const search: Action<Event> = ({ value: event, state, api }) => {
 
   debounce = setTimeout(async () => {
     state.isSearching = true
-    state.searchResult = await api.search(state.query)
+    state.searchResult = await effects.api.search(state.query)
     state.isSearching = false
 
     debounce = null
@@ -30,7 +30,7 @@ export const search: Action<Event> = ({ value: event, state, api }) => {
           fileName: 'overmind/state.js',
           code: `
 let debounce
-export const search = ({ value: event, state, api }) => {
+export const search = ({ value: event, state, effects }) => {
   state.query = event.currentTarget.value
 
   if (query.length < 3) return
@@ -39,7 +39,7 @@ export const search = ({ value: event, state, api }) => {
 
   debounce = setTimeout(async () => {
     state.isSearching = true
-    state.searchResult = await api.search(state.query)
+    state.searchResult = await effects.api.search(state.query)
     state.isSearching = false
 
     debounce = null

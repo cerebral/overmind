@@ -4,6 +4,10 @@ If you are moving from an existing state management solution, please read the re
 
 To get started with Overmind you have to set up a project. You can do this with whatever tool your framework of choice provides or you can use [webpack](https://webpack.js.org/) or [parceljs](https://parceljs.org/). You can also use [codesandbox.io](https://codesandbox.io/) to play around with Overmind directly in the browser.
 
+```marksy
+h(TypescriptNotice, null, "Overmind requires Typescript version **3.2** or above")
+```
+
 When you have your project up and running install the Overmind dependency by using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/en/):
 
 ```marksy
@@ -65,6 +69,18 @@ At this stage, the benefits of writing an application code this way might not be
 ```marksy
 h(Example, { name: "guide/getstarted/devtools" })
 ```
+
+You can also explicitly install the devtools with
+
+`npm install overmind-devtools`
+
+and rather:
+
+```marksy
+h(Example, { name: "guide/getstarted/devtools_explicit" })
+```
+
+This allows you to control the version you want to use.
 
 The Overmind devtools provides us with a pretty amazing experience. We get insights into all the state, changes to that state, actions run, which side effects are run and general stats. This visual overview becomes more and more valuable as complexity increases. 
 

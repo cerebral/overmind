@@ -8,9 +8,9 @@ export default (ts, view) =>
           code: `
 import { Action } from 'overmind'
 
-export const loadPosts: Action = async ({ state, jsonPlaceholder }) => {
+export const getPosts: Action = async ({ state, effects }) => {
   state.isLoadingPosts = true
-  state.posts = await jsonPlaceholder.getPosts()
+  state.posts = await effects.jsonPlaceholder.getPosts()
   state.isLoadingPosts = false
 }
     `,
@@ -46,15 +46,17 @@ export const overmind = new Overmind({
     posts: []
   },
   effects: {
-    getPosts() {
-      return fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
+    jsonPlaceholder: {
+      getPosts() {
+        return fetch('https://jsonplaceholder.typicode.com/posts')
+          .then(response => response.json())
+      }
     }
   },
   actions: {
-    loadPosts: async ({ state, jsonPlaceholder }) => {
+    getPosts: async ({ state, effects }) => {
       state.isLoadingPosts = true
-      state.posts = await jsonPlaceholder.getPosts()
+      state.posts = await effects.jsonPlaceholder.getPosts()
       state.isLoadingPosts = false
     }
   }

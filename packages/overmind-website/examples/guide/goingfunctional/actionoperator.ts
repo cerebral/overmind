@@ -4,13 +4,13 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Operator, Action, action } from 'overmind'
+import { Action, Operator, action } from 'overmind'
 
-export const normalAction: Action = ({ value, state }) => {
+export const plainAction: Action = ({ value, state }) => {
 
 }
 
-export const functionalAction: Operator = action(({ value, state }) => {
+export const functionlAction: Operator = action(({ value, state }) => {
 
 })
   `,
@@ -22,13 +22,13 @@ export const functionalAction: Operator = action(({ value, state }) => {
           code: `
 import { action } from 'overmind'
 
-export const normalAction = ({ value, state }) => {
+export const plainAction = ({ value, state }) => {
 
 }
 
-export const functionalAction = action(({ value, state }) => {
+export const functionlAction = action(({ value, state }) => {
 
 })
-  `,
+`,
         },
       ]

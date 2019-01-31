@@ -8,7 +8,7 @@ import * as React from 'react'
 import { useOvermind } from '../overmind'
 import Todo from './Todo'
 
-const Todos: React.SFC = () => {
+const Todos: React.FunctionComponent = () => {
   const { state } = useOvermind()
 
   return (
@@ -31,7 +31,7 @@ type Props = {
   todo: Todo
 }
 
-const Todo: React.SFC<Props> = ({ todo }) => {
+const Todo: React.FunctionComponent<Props> = ({ todo }) => {
   useOvermind()
 
   return <li>{todo.title}</li>

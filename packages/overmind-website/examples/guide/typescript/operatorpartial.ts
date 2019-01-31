@@ -4,7 +4,7 @@ export default () => [
     code: `
 import { Operator, filter } from 'overmind'
 
-export const filterAwesomeUser: Operator<{ isAwesome: boolean }> =
+export const filterAwesome: Operator<{ isAwesome: boolean }> =
   filter(({ value: somethingAwesome }) => somethingAwesome.isAwesome)
     `,
   },
@@ -12,11 +12,13 @@ export const filterAwesomeUser: Operator<{ isAwesome: boolean }> =
     fileName: 'overmind/actions.ts',
     code: `
 import { Operator, pipe, action } from 'overmind'
-import { filterAwesomeUser } from './operators'
+import { filterAwesome } from './operators'
 import { User } from './state'
 
 export const clickedUser: Operator<User> = pipe(
-  filterAwesomeUser,
+  // We get an error here, because this operator explicitly
+  // outputs the type { isAwesome: boolean }
+  filterAwesome,
   action(({ value: user, state }) => {
     state.awesomeUsersClickedCount++
   })

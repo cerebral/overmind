@@ -90,7 +90,7 @@ type Props = {
   post: TPost
 } & Connect
 
-const Post: React.SFC<Props> = ({ post }) => (
+const Post: React.FunctionComponent<Props> = ({ post }) => (
   <li>{post.title}</li>
 )
 
@@ -104,7 +104,7 @@ import * as React from 'react'
 import { connect, Connect } from '../overmind'
 import Post from './Post'
 
-const Posts: React.SFC<Connect> = ({ overmind }) => (
+const Posts: React.FunctionComponent<Connect> = ({ overmind }) => (
   <ul>
     {overmind.state.postsList.map(post => 
       <Post key={post.id} post={post} />

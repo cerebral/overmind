@@ -42,7 +42,7 @@ const typescript = {
 import * as React from 'react'
 import { connect, Connect } from '../overmind'
 
-const List: React.SFC<Connect> = ({ overmind }) => (
+const List: React.FunctionComponent<Connect> = ({ overmind }) => (
   <h1>{overmind.state.items}</h1>
 )
 

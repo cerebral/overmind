@@ -65,7 +65,7 @@ All the actions defined in the Overmind application is available to connected co
 h(Example, { name: "guide/connectingcomponents/actions" })
 ```
 
-## Effects
+## Reactions
 
 Sometimes you want to make something happen inside a component related to a state change. This is typically doing some manual work on the DOM. When you connect a component to overmind it also gets access to **addMutationListener**. This function allows you to subscribe to changes in state, mutations as we call them. Each mutation holds information about what kind of mutation it was, at what path it happened and even any arguments used in the mutation. You can use all this information to create an effect.
 
@@ -74,3 +74,7 @@ This example shows how you can scroll to the top of the page every time you chan
 ```marksy
 h(Example, { name: "guide/connectingcomponents/effects" })
 ```
+
+## Effects
+
+Any effects you define in your Overmind application is also exposed to the components. They can be found on the property **effects**. It is encouraged that you keep your logic inside actions, but you might be in a situation where you want some other relationship between components and Overmind. A shared effect is the way to go.
