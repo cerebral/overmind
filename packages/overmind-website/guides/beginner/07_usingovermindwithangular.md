@@ -6,6 +6,13 @@ Using Overmind with Angular is straight forward. You create a **connect** decora
 h(Example, { name: "guide/usingovermindwithangular/connect" })
 ```
 
+You can also expose parts of the configuration on custom properties of the component:
+
+```marksy
+h(Example, { name: "guide/usingovermindwithangular/connect_custom" })
+```
+
+You can now access the **admin** state and actions directly with **state** and **actions**.
 
 ## Rendering
 
@@ -27,7 +34,7 @@ If you pass a state object or array as a property to a child component you will 
 h(Example, { name: "guide/usingovermindwithangular/passprop" })
 ```
 
-## OvermindProvider
+## State effects
 
 To run effects in components based on changes to state you use the **addMutationListener** function in the lifecycle hooks of Angular.
 

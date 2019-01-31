@@ -6,6 +6,15 @@ You can connect any Vue component to your Overmind instance.
 h(Example, { name: "guide/usingovermindwithvue/connect" })
 ```
 
+You can also expose parts of the configuration on custom properties of the component:
+
+```marksy
+h(Example, { name: "guide/usingovermindwithvue/connect_custom" })
+```
+
+You can now access the **admin** state and actions directly with **state** and **actions**.
+
+
 ## Rendering
 Any state accessed in the component will cause the component to render when a mutation occurs on that state. Overmind actually uses the same approach to change detection as Vue itself.
 
