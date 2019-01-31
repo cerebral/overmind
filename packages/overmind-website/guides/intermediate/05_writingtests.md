@@ -4,7 +4,7 @@ Testing is a broad subject and everybody has an opinion on it. We can only show 
 
 ## Testing actions
 
-When testing an action you want to verify that changes to state are performed as expected. To give you the best possible testing experience Overmind has mocking tool called **createMock**. It takes your application configuration and allows you to run actions as if they were run from components.
+When testing an action you want to verify that changes to state are performed as expected. To give you the best possible testing experience Overmind has mocking tool called **createOvermindMock**. It takes your application configuration and allows you to run actions as if they were run from components.
 
 ```marksy
 h(Example, { name: "guide/writingtests/action.ts" })

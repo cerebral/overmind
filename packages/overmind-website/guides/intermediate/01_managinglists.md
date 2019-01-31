@@ -1,6 +1,10 @@
 # Managing lists
 
-Why do we even have a guide to manage lists? Well, lists is a type of state that differs from other state. Both from the perspective of the state itself, but also transforming that state into UI. 
+Why do we even have a guide to manage lists? Well, lists is a type of state that differs from other state. Both from the perspective of the state itself, but also transforming that state into UI.
+
+```marksy
+h(Notice, null, "The discussion of lists is not specific to Overmind and there are no limitations on how you want to approach this. This guide is rather to help you think about how you structure entities (data with an id) to optimally access and render them.")
+```
 
 ## Defining the state
 When we want to render a list of something we want an **array**. This is the data structure we instinctively go to as it basically is a list. But arrays are rarely the way you want to store the actual data of the list. 

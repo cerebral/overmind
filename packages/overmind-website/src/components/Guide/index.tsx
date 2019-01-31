@@ -15,13 +15,16 @@ const Guide: SFC = () => {
   const { state } = useOvermind()
   const [content, setContent] = useState(null)
 
-  useEffect(() => {
-    import('../../../guides/' +
-      state.currentGuide.type +
-      '/' +
-      state.currentGuide.title +
-      '.md').then((module) => setContent(module))
-  }, [])
+  useEffect(
+    () => {
+      import('../../../guides/' +
+        state.currentGuide.type +
+        '/' +
+        state.currentGuide.title +
+        '.md').then((module) => setContent(module))
+    },
+    [state.currentGuide.type, state.currentGuide.title]
+  )
 
   if (!content) {
     return null

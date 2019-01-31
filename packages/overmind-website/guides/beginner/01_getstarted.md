@@ -82,9 +82,17 @@ h(Example, { name: "guide/getstarted/devtools_explicit" })
 
 This allows you to control the version you want to use.
 
+You can even:
+
+```marksy
+h(Example, { name: "guide/getstarted/devtools_concurrent" })
+```
+
+By installing the [concurrently](https://www.npmjs.com/package/concurrently) package you can start your development process and the devtools at the same time.
+
 The Overmind devtools provides us with a pretty amazing experience. We get insights into all the state, changes to that state, actions run, which side effects are run and general stats. This visual overview becomes more and more valuable as complexity increases. 
 
-To connect to the devtools simply start the devtools application and refresh your app.
+To connect to the devtools simply start the devtools application and refresh your app. If you need to configure where it connects, please look at the [API section](/api/overmind).
 
 ## Summary
 

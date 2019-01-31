@@ -24,7 +24,7 @@ h(Example, { name: "guide/definingstate/objects" })
 
 ### Arrays
 
-Arrays are in a way similar to objects in the sense that they hold other values, but instead of keys pointing to values you have indexes. That means it is ideal for iteration. But more often than not objects are actually better at managing lists of values. We can actually do fine without arrays in our state. It is when we produce the actual user interface that we usually want arrays. You can learn more about this in the [managing lists]() guide.
+Arrays are in a way similar to objects in the sense that they hold other values, but instead of keys pointing to values you have indexes. That means it is ideal for iteration. But more often than not objects are actually better at managing lists of values. We can actually do fine without arrays in our state. It is when we produce the actual user interface that we usually want arrays. You can learn more about this in the [managing lists](/guides/intermediate/01_managinglists) guide.
 
 ### Strings
 
