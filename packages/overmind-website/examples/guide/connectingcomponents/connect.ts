@@ -24,19 +24,11 @@ export default connect(App)
       fileName: 'components/App.vue (template)',
       target: 'markup',
       code: `
-<div v-if="overmind.state.isLoading">
+<div v-if="state.isLoading">
   Loading app...
 </div>
 <h1 v-else>My awesome app</h1>
     `,
-    },
-    {
-      fileName: 'components/App.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
     },
   ],
 }

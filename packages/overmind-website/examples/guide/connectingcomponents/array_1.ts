@@ -20,16 +20,8 @@ export default connect(List)
       fileName: 'components/List.vue (template)',
       target: 'markup',
       code: `
-<h1>{{overmind.state.items}}</h1>
+<h1>{{ state.items }}</h1>
     `,
-    },
-    {
-      fileName: 'components/List.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
     },
   ],
 }

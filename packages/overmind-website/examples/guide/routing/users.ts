@@ -93,81 +93,63 @@ export default connect(UserModal)
   ],
   vue: [
     {
-      fileName: 'components/app-component.vue',
+      fileName: 'components/app-component.vue (template)',
+      target: 'markup',
       code: `
-<template>
-  <div class="container">
-    <nav>
-      <a href="/">Home</a>
-      <a href="/users">Users</a>
-    </nav>
-    <h1 v-if="overmind.state.currentPage === 'home'">Hello world!</h1>
-    <users-list v-if="overmind.state.currentPage === 'users'"></users-list>
-  </div>
-</template>
-<script>
-import { connect } from '../overmind'
-
-export default connect({})
-</script>
+<div class="container">
+  <nav>
+    <a href="/">Home</a>
+    <a href="/users">Users</a>
+  </nav>
+  <h1 v-if="state.currentPage === 'home'">Hello world!</h1>
+  <users-list v-if="state.currentPage === 'users'"></users-list>
+</div>
     `,
     },
     {
-      fileName: 'components/users-list.vue',
+      fileName: 'components/users-list.vue (template)',
+      target: 'markup',
       code: `
-<template>
-  <div class="content">
-    <h4 v-if="overmind.state.isLoadingUsers">Loading users...</h4>
-    <ul v-else>
-      <li v-for="user in overmind.state.users" :key="user.id">
-        <a href={"/users/" + user.id}>{{user.name}}</a>
-      </li>
-    </ul>
-    <user-modal v-if="overmind.state.isLoadingUserDetails || overmind.state.userModal"></user-modal>
-  </div>
-</template>
-<script>
-import { connect } from '../overmind'
-
-export default connect({})
-</script>
+<div class="content">
+  <h4 v-if="state.isLoadingUsers">Loading users...</h4>
+  <ul v-else>
+    <li v-for="user in state.users" :key="user.id">
+      <a :href="'/users/' + user.id">{{ user.name }}</a>
+    </li>
+  </ul>
+  <user-modal v-if="state.isLoadingUserDetails || state.userModal"></user-modal>
+</div>
     `,
     },
     {
-      fileName: 'components/user-modal.vue',
+      fileName: 'components/user-modal.vue (template)',
+      target: 'markup',
       code: `
-<template>
-  <a href="/users" class="backdrop">
-    <div class="modal">
-      <h4 v-if="overmind.state.isLoadingUserDetails">Loading user details...</h4>
-      <div v-else>
-        <h4>{{overmind.state.modalUser.name}}</h4>
-        <h6>{{overmind.state.modalUser.details.email}}</h6>
-        <nav>
-          <a v-bind:href="'/users/' + overmind.state.modalUser.id + '?tab=0'">bio</a>
-          <a v-bind:href="'/users/' + overmind.state.modalUser.id + '?tab=1'">address</a>
-        </nav>
-        <div
-          v-if="overmind.state.currentUserModalTabIndex === 0"
-          class="tab-content"
-        >
-          {{modalUser.details.bio}}
-        </div>
-        <div
-          v-if="overmind.state.currentUserModalTabIndex === 1"
-          class="tab-content"
-        >
-          {{modalUser.details.address}}
-        </div>
+<a href="/users" class="backdrop">
+  <div class="modal">
+    <h4 v-if="state.isLoadingUserDetails">Loading user details...</h4>
+    <div v-else>
+      <h4>{{ state.modalUser.name }}</h4>
+      <h6>{{ state.modalUser.details.email }}</h6>
+      <nav>
+        <a :href="'/users/' + state.modalUser.id + '?tab=0'">bio</a>
+        <a :href="'/users/' + state.modalUser.id + '?tab=1'">address</a>
+      </nav>
+      <div
+        v-if="state.currentUserModalTabIndex === 0"
+        class="tab-content"
+      >
+        {{ state.modalUser.details.bio }}
+      </div>
+      <div
+        v-if="state.currentUserModalTabIndex === 1"
+        class="tab-content"
+      >
+        {{ modalUser.details.address }}
       </div>
     </div>
-  </a>
-</template>
-<script>
-import { connect } from '../overmind'
-
-export default connect({})
-</script>
+  </div>
+</a>
     `,
     },
   ],

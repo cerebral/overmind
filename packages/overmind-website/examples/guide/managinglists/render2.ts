@@ -45,11 +45,9 @@ export default connect(Posts)
     {
       fileName: 'components/Post.vue (script)',
       code: `
-import { connect } from '../overmind'
-
-export default connect({
+export {
   props: ['post']
-})
+}
   `,
     },
     {
@@ -57,21 +55,20 @@ export default connect({
       target: 'markup',
       code: `
 <ul>
-  <post-component v-for="post in overmind.state.postsList" v-bind:post="post" :key="post.id" />
+  <post-component v-for="post in state.postsList" :post="post" :key="post.id" />
 </ul>
     `,
     },
     {
       fileName: 'components/Posts.vue (script)',
       code: `
-import { connect } from '../overmind'
 import PostComponent from './Post'
 
-export default connect({
+export default {
   components: {
     PostComponent,
   },
-})
+}
   `,
     },
   ],

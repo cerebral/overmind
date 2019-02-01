@@ -1,9 +1,10 @@
 export default () => [
   {
     fileName: 'components/SomeComponent.vue (template)',
+    target: 'markup',
     code: `
-<div v-on:click="actions.someAdminAction">
-  {{state.someAdminState}}
+<div @click="actions.someAdminAction">
+  {{ state.someAdminState }}
 </div>
 `,
   },

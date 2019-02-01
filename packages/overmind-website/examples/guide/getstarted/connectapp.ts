@@ -28,19 +28,11 @@ export default connect(Posts)
       fileName: 'Posts.vue (template)',
       target: 'markup',
       code: `
-<h4 v-if="overmind.state.isLoadingPosts">
+<h4 v-if="state.isLoadingPosts">
   Loading posts...
 </h4>
 <div v-else></div>
     `,
-    },
-    {
-      fileName: 'Posts.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
     },
   ],
 }

@@ -22,18 +22,10 @@ export default connect(MyComponent)
       fileName: 'components/MyComponent.vue (template)',
       target: 'markup',
       code: `
-<button on:click="overmind.actions.functionalAction()">
+<button @click="actions.functionalAction()">
   Test
 </button>
     `,
-    },
-    {
-      fileName: 'components/MyComponent.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
     },
   ],
 }

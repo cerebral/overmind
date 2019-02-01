@@ -39,17 +39,15 @@ export default connect(App)
       fileName: 'components/Item.vue (template)',
       target: 'markup',
       code: `
-<li>{{ item.title }}</li>
+{{ item.title }}
     `,
     },
     {
       fileName: 'components/Item.vue (script)',
       code: `
-import { connect } from '../overmind'
-
-export default connect({
+export default {
   props: ['item']
-})
+}
   `,
     },
     {
@@ -57,21 +55,20 @@ export default connect({
       target: 'markup',
       code: `
 <ul>
-  <li is="Item" v-for="item in overmind.state.items" v-bind:item="item" :key="item.id" />
+  <li is="Item" v-for="item in state.items" :item="item" :key="item.id" />
 </ul>
     `,
     },
     {
       fileName: 'components/List.vue (script)',
       code: `
-import { connect } from '../overmind'
 import Item from './Item'
 
-export default connect({
+export default {
   components: {
     Item,
   },
-})
+}
   `,
     },
   ],

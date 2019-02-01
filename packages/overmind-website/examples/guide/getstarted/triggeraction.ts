@@ -35,12 +35,12 @@ export default connect(Posts)
       fileName: 'Posts.vue (template)',
       target: 'markup',
       code: `
-<h4 v-if="overmind.state.isLoadingPosts">
+<h4 v-if="state.isLoadingPosts">
   Loading posts...
 </h4>
 <ul v-else>
-  <li v-for="post in overmind.state.posts">
-    {{post.title}}
+  <li v-for="post in state.posts">
+    {{ post.title }}
   </li>
 </ul>
     `,
@@ -48,13 +48,11 @@ export default connect(Posts)
     {
       fileName: 'Posts.vue (script)',
       code: `
-import { connect } from '../overmind'
-
-export default connect({
+export default {
   mounted() {
-    this.overmind.actions.getPosts()
+    this.actions.getPosts()
   }
-})
+}
   `,
     },
   ],

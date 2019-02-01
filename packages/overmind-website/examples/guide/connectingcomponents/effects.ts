@@ -40,9 +40,7 @@ export default connect(Article)
     {
       fileName: 'components/Article.vue (script)',
       code: `
-import { connect } from '../overmind'
-
-export default connect({
+export default {
   mounted() {
     this.disposeEffect = this.overmind.addMutationListener(() => {
       if (mutation.path === 'currentArticle') {
@@ -53,7 +51,7 @@ export default connect({
   destroyed() {
     this.disposeEffect()
   }
-})
+}
   `,
     },
   ],

@@ -15,9 +15,10 @@ export const connect = createConnect(overmind)
   },
   {
     fileName: 'components/SomeComponent.vue (template)',
+    target: 'markup',
     code: `
-<div v-on:click="overmind.actions.onClick">
-  {{overmind.state.foo}}
+<div @click="overmind.actions.onClick">
+  {{ overmind.state.foo }}
 </div>
 `,
   },

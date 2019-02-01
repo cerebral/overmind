@@ -1,19 +1,5 @@
 export default () => [
   {
-    fileName: 'overmind/index.jsx',
-    code: `
-import { Overmind } from 'overmind'
-import { createConnect } from 'overmind-vue'
-
-const overmind = new Overmind({
-  state: {},
-  actions: {}
-})
-
-export const connect = createConnect(overmind)
-`,
-  },
-  {
     fileName: 'components/Todo.vue (template)',
     target: 'markup',
     code: `
@@ -23,11 +9,9 @@ export const connect = createConnect(overmind)
   {
     fileName: 'components/Todo.vue (script)',
     code: `
-import { connect } from '../overmind'
-
-export default connect({
+export default {
   props: ["todo"]
-})
+}
 `,
   },
   {
@@ -36,24 +20,23 @@ export default connect({
     code: `
 <ul>
   <todo-component
-    v-for="post in overmind.state.postsList"
+    v-for="post in state.postsList"
     :todo="todo"
     :key="todo.id"
-  />
+  ></todo-component>
 </ul>
 `,
   },
   {
     fileName: 'components/Todos.vue (script)',
     code: `
-import { connect } from '../overmind'
 import TodoComponent from './Todo'
 
-export default connect({
+export default {
   components: {
     TodoComponent
   }
-})
+}
 `,
   },
 ]

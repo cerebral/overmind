@@ -25,19 +25,11 @@ export default connect(List)
       target: 'markup',
       code: `
 <ul>
-  <li v-for="item in overmind.state.items" :key="item.id>
-  {{ item.title }}
+  <li v-for="item in state.items" :key="item.id>
+    {{ item.title }}
   </li>
 </ul>
     `,
-    },
-    {
-      fileName: 'components/List.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
     },
   ],
 }

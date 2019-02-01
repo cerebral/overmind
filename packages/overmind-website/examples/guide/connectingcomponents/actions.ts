@@ -36,18 +36,10 @@ export const toggleAwesomeApp = ({ state }) =>
       fileName: 'components/App.vue (template)',
       target: 'markup',
       code: `
-<button v-on:click="overmind.actions.toggleAwesomeApp()">
+<button @click="actions.toggleAwesomeApp()">
   Toggle awesome
 </button>
     `,
-    },
-    {
-      fileName: 'components/App.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
     },
   ],
 }
