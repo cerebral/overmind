@@ -21,7 +21,7 @@ export const jsonPlaceholder = {
           code: tsAppIndex(
             view,
             `
-import state from './state'
+import { state } from './state'
 import * as effects from './effects'
 
 const config = {
