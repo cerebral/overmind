@@ -7,6 +7,7 @@ export default (ts, view) =>
           fileName: 'overmind/state.ts',
           code: `
 export type Post = {
+  id: number
   title: string
   body: string
 }
