@@ -15,7 +15,7 @@ If your list consists of posts, these posts are most likely entities from the se
 h(Example, { name: "guide/managinglists/object" })
 ```
 
-Another benefit from using an object is that you have a direct reference to the entity by using its id. No need to iterate an array to find what you are looking for. So this is a good rule of thumb. If the state you are defining has unique identifiers they should most likely be stored as en object, not an array.
+Another benefit from using an object is that you have a direct reference to the entity by using its id. No need to iterate an array to find what you are looking for. So this is a good rule of thumb. If the state you are defining has unique identifiers they should most likely be stored as an object, not an array.
 
 But we still want to use an array when we transform the state into a UI. Let us see what we can do about that.
 
