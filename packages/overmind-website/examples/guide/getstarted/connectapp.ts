@@ -25,14 +25,20 @@ export default connect(Posts)
   ],
   vue: [
     {
-      fileName: 'Posts.vue (template)',
-      target: 'markup',
+      fileName: 'index.js',
       code: `
-<h4 v-if="state.isLoadingPosts">
-  Loading posts...
-</h4>
-<div v-else></div>
-    `,
+import Vue from 'vue'
+import { OvermindPlugin } from './overmind'
+import Posts from './components/Posts'
+
+Vue.use(OvermindPlugin)
+
+new Vue({
+  el: '#app',
+  render: (h) => h(App),
+})
+
+`,
     },
   ],
 }
