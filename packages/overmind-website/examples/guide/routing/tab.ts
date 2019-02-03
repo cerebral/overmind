@@ -61,8 +61,7 @@ export const showUsersPage = async ({ value: params, state, effects }) => {
   state.isLoadingUsers = false
 }
 
-export const showUserModal = pipe(
-  parallel(
+export const showUserModal = parallel(
     showUsersPage,
     action(async ({ value: params, state, effects }) => {
       state.currentUserModalTabIndex = Number(params.tab)
@@ -74,7 +73,6 @@ export const showUserModal = pipe(
       state.isLoadingUserDetails = false
     })
   )
-)
     `,
         },
       ]
