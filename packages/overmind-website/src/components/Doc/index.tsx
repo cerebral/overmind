@@ -1,13 +1,13 @@
 import { createElement, SFC } from 'react'
 import * as styles from './styles'
-import { useScrollToTop } from '../../utils'
+import { useScrollToPosition } from '../../utils'
 
 type Props = {
   url: string
 }
 
 const Doc: SFC<Props> = ({ url, children }) => {
-  useScrollToTop(url)
+  useScrollToPosition(url)
 
   return (
     <div className={styles.content}>

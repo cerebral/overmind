@@ -9,7 +9,7 @@ import Guide from '../Guide'
 import Videos from '../Videos'
 import Api from '../Api'
 import MobileTopBar from '../MobileTopBar'
-import { useIsMobile, useScrollToTop } from '../../utils'
+import { useIsMobile, useScrollToPosition } from '../../utils'
 import Footer from '../Footer'
 
 const pages = {
@@ -35,7 +35,7 @@ const App: SFC = () => {
   const { state } = useOvermind()
   const mainRef = useRef(null)
   const isMobile = useIsMobile()
-  useScrollToTop(state.page)
+  useScrollToPosition(state.page)
   useEffect(() => {
     fadeInPage()
     mainRef.current.style.opacity = '1'

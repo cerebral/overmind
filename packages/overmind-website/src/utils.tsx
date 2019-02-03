@@ -209,10 +209,15 @@ export const useIsMobile = () => {
   return isMobile
 }
 
-export const useScrollToTop = (value) => {
+export const useScrollToPosition = (value) => {
   useEffect(
     () => {
       document.querySelector('#overmind-app').scrollTop = 0
+
+      if (location.hash) {
+        const hashElement = document.querySelector(location.hash)
+        hashElement && hashElement.scrollIntoView()
+      }
     },
     [value]
   )
