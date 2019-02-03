@@ -8,6 +8,11 @@ To get started with Overmind you have to set up a project. You can do this with 
 h(TypescriptNotice, null, "Overmind requires Typescript version **3.2** or above")
 ```
 
+```marksy
+h(Notice, null, "Due to using the Proxy feature of JavaScript, Overmind does not support **Internet Explorer 11**.")
+```
+
+
 When you have your project up and running install the Overmind dependency by using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/en/):
 
 ```marksy
