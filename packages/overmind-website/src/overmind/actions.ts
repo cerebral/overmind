@@ -1,24 +1,32 @@
 import { Action, pipe, action, filter, debounce, Operator } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
+import { ensureViewAndTypescript } from './operators'
 
-export const openHome: Action<RouteContext> = async ({ state, effects }) => {
-  state.page = Page.HOME
-  if (!state.demos.length) {
-    state.demos = await effects.request('/backend/demos')
-  }
-}
+export const openHome: Operator<RouteContext> = pipe(
+  ensureViewAndTypescript(),
+  action(async ({ state, effects }) => {
+    state.page = Page.HOME
+    if (!state.demos.length) {
+      state.demos = await effects.request('/backend/demos')
+    }
+  })
+)
 
-export const openGuides: Action<RouteContext> = async ({ state, effects }) => {
-  state.page = Page.GUIDES
-  if (!state.guides.length) {
-    state.isLoadingGuides = true
-    state.guides = await effects.request('/backend/guides')
-    state.isLoadingGuides = false
-  }
-}
+export const openGuides: Operator<RouteContext> = pipe(
+  ensureViewAndTypescript(),
+  action(async ({ state, effects }) => {
+    state.page = Page.GUIDES
+    if (!state.guides.length) {
+      state.isLoadingGuides = true
+      state.guides = await effects.request('/backend/guides')
+      state.isLoadingGuides = false
+    }
+  })
+)
 
-export const openVideos: Operator<RouteContext<VideoParams>> = action(
-  async ({ state, effects }) => {
+export const openVideos: Operator<RouteContext<VideoParams>> = pipe(
+  ensureViewAndTypescript(),
+  action(async ({ state, effects }) => {
     state.page = Page.VIDEOS
     state.currentVideo = null
     if (!state.videos.length) {
@@ -26,58 +34,47 @@ export const openVideos: Operator<RouteContext<VideoParams>> = action(
       state.videos = await effects.request('/backend/videos')
       state.isLoadingVideos = false
     }
-  }
+  })
 )
 
 export const openVideo: Operator<RouteContext<VideoParams>> = pipe(
+  ensureViewAndTypescript(),
   openVideos,
   action(({ value: routeContext, state }) => {
     state.currentVideo = routeContext.params.title
   })
 )
 
-export const openGuide: Action<RouteContext<GuideParams>> = async ({
-  value: routeContext,
-  state,
-}) => {
-  state.page = Page.GUIDE
-  state.currentGuide = routeContext.params
-}
+export const openGuide: Operator<RouteContext<GuideParams>> = pipe(
+  ensureViewAndTypescript(),
+  action(async ({ value: routeContext, state }) => {
+    state.page = Page.GUIDE
+    state.currentGuide = routeContext.params
+  })
+)
 
-export const openApi: Action<RouteContext<VideoParams>> = async ({
-  value: routeContext,
-  state,
-  effects,
-}) => {
-  state.page = Page.API
-  state.currentApi = routeContext.params.title
-  if (!state.apis.length) {
-    state.isLoadingApis = true
-    state.apis = await effects.request('/backend/apis')
-    state.isLoadingApis = false
-  }
-}
+export const openApi: Operator<RouteContext<VideoParams>> = pipe(
+  ensureViewAndTypescript(),
+  action(async ({ value: routeContext, state, effects }) => {
+    state.page = Page.API
+    state.currentApi = routeContext.params.title
+    if (!state.apis.length) {
+      state.isLoadingApis = true
+      state.apis = await effects.request('/backend/apis')
+      state.isLoadingApis = false
+    }
+  })
+)
 
-export const selectTheme: Action<string> = ({
-  value: selection,
-  state,
-  effects,
-}) => {
+export const selectTheme: Action<string> = ({ value: selection, effects }) => {
   const selectionArray = selection.split('_')
-  const theme = selectionArray[0]
-  const typescript = Boolean(selectionArray[1])
+  const view = selectionArray[0]
+  const typescript = String(Boolean(selectionArray[1]))
 
-  state.theme = theme
-  state.typescript = typescript
-
-  effects.css.changePrimary(theme)
-  effects.storage.set('theme', theme)
-  effects.storage.set('typescript', typescript)
-}
-
-export const toggleTypescript: Action = ({ state, effects }) => {
-  state.typescript = !state.typescript
-  effects.storage.set('typescript', state.typescript)
+  effects.router.redirectWithQuery(effects.router.getPath(), {
+    view,
+    typescript,
+  })
 }
 
 export const closeSearch: Action = ({ state }) => {
@@ -105,6 +102,4 @@ export const changeQuery: Operator<React.ChangeEvent<HTMLInputElement>> = pipe(
 
 export const viewHelpGotIt: Action = ({ state, effects }) => {
   state.showViewHelp = false
-  effects.storage.set('typescript', false)
-  effects.storage.set('theme', 'react')
 }

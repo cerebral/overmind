@@ -90,9 +90,9 @@ You might create an operator that does not care about its input. For example:
 h(Example, { name: "guide/typescript/operatorinfer" })
 ```
 
-Composing **doSomeStateChange** into the **pipe** gives an error, cause this operator expects a **void** type. There is no other way to make this work than inlining the **doSomeStateChange** operator into the pipe in question, which infers the correct input.
+Composing **doSomeStateChange** into the **pipe** gives an error, cause this operator expects a **void** type. 
 
-You could use the same trick here though:
+To fix this you can do the same trick as above, though you do not need to pass in the type, it will be inferred:
 
 ```marksy
 h(Example, { name: "guide/typescript/operatorinfer_solution" })

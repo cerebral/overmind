@@ -1,5 +1,11 @@
+export type Query = {
+  view: string
+  typescript: string
+}
+
 export type RouteContext<T = object> = {
   params: T
+  query: Query
   path: string
 }
 

@@ -1,10 +1,7 @@
 import { OnInitialize } from 'overmind'
 
 const onInitialize: OnInitialize = ({ value: app, effects, state }) => {
-  state.typescript = effects.storage.get('typescript') || false
-  state.theme = effects.storage.get('theme') || 'react'
   state.showViewHelp = !effects.storage.get('theme')
-  effects.css.changePrimary(state.theme)
 
   effects.router.route('/', app.actions.openHome)
   effects.router.route('/guides', app.actions.openGuides)

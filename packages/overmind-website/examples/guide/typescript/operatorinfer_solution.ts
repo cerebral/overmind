@@ -17,7 +17,7 @@ import { Operator, pipe, action } from 'overmind'
 import { doSomeStateChange } from './operators'
 
 export const setInput: Operator<string> = pipe(
-  doSomeStateChange<string>(),
+  doSomeStateChange(),
   action(({ value: input, state }) => {
     state.input = input
   })

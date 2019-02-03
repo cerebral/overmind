@@ -1,16 +1,6 @@
 import * as page from 'page'
-import { RouteContext } from './types'
-
-export const router = {
-  route(url: string, action: (payload: RouteContext) => void) {
-    page(url, ({ params, path }) => action({ params, path }))
-  },
-  redirect: page.redirect,
-  start: () => page.start({}),
-}
-
-export const request = (url: string) =>
-  fetch(url).then((response) => response.json())
+import { RouteContext, Query } from './types'
+import * as queryString from 'query-string'
 
 export const storage = {
   get(key: string) {
@@ -26,6 +16,62 @@ export const storage = {
     localStorage.setItem(key, JSON.stringify(value))
   },
 }
+
+export const router = (() => {
+  let currentPath
+  let currentQuery: Query = {
+    view: storage.get('theme'),
+    typescript: storage.get('typescript'),
+  }
+
+  return {
+    getPath() {
+      return currentPath
+    },
+    route(url: string, action: (payload: RouteContext) => void) {
+      page(url, ({ params, pathname, querystring }) => {
+        // We want to preserve the query
+        if (!querystring) {
+          page.redirect(
+            `${pathname}?view=${currentQuery.view}&typescript=${
+              currentQuery.typescript
+            }${location.hash}`
+          )
+          return
+        }
+
+        const query = queryString.parse(querystring)
+
+        currentPath = pathname.split('?')[0]
+        currentQuery = {
+          view: query.view,
+          typescript: query.typescript,
+        }
+
+        action({
+          params,
+          path: pathname,
+          query,
+        })
+      })
+    },
+    redirect: page.redirect,
+    redirectWithQuery: (path: string, query: Query) => {
+      currentPath = path
+      currentQuery = query
+
+      page.redirect(
+        `${path}?view=${query.view}&typescript=${query.typescript}${
+          location.hash
+        }`
+      )
+    },
+    start: () => page.start({}),
+  }
+})()
+
+export const request = (url: string) =>
+  fetch(url).then((response) => response.json())
 
 export const css = {
   changePrimary(theme: string) {

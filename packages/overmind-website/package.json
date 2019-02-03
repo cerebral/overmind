@@ -42,6 +42,7 @@
 		"npm": "^6.3.0",
 		"overmind-react": "next",
 		"page": "^1.8.6",
-		"prismjs": "^1.15.0"
+    "prismjs": "^1.15.0",
+    "query-string": "^6.2.0"
 	}
 }
