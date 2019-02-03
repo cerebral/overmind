@@ -8,11 +8,15 @@ import axios from 'axios'
 import { User, Item } from './state'
 
 export const api = {
-  getUser(): Promise<User> {
-    return fetch('/user').then(response => response.json())
+  async getUser(): Promise<User> {
+    const response = await fetch('/user')
+
+    return response.json()
   },
-  getItem(id: number): Promise<Item> {
-    return fetch(\`/items/\${id}\`).then(response => response.json())
+  async getItem(id: number): Promise<Item> {
+    const response = await fetch(\`/items/\${id}\`)
+
+    return response.json()
   }
 }
   `,
@@ -25,11 +29,15 @@ export const api = {
 import axios from 'axios'
 
 export const api = {
-  getUser() {
-    return fetch('/user').then(response => response.json())
+  async getUser() {
+    const response = await fetch('/user')
+
+    return response.json()
   },
-  getItem(id) {
-    return fetch(\`/items/\${id}\`).then(response => response.json())
+  async getItem(id) {
+    const response = fetch(\`/items/\${id}\`)
+
+    return response.json()
   }
 }
   `,

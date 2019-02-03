@@ -2,7 +2,7 @@ export default () => [
   {
     code: `
 export const api = {
-  fetchItems: async () => {
+  async fetchItems() => {
     const response = await fetch('/api/items')
 
     return response.json()

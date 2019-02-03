@@ -47,14 +47,15 @@ export const overmind = new Overmind({
   },
   effects: {
     jsonPlaceholder: {
-      getPosts() {
-        return fetch('https://jsonplaceholder.typicode.com/posts')
-          .then(response => response.json())
+      async getPosts() {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+        
+        return response.json()
       }
     }
   },
   actions: {
-    getPosts: async ({ state, effects }) => {
+    async getPosts({ state, effects }) => {
       state.isLoadingPosts = true
       state.posts = await effects.jsonPlaceholder.getPosts()
       state.isLoadingPosts = false

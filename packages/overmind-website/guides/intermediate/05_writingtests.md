@@ -28,7 +28,11 @@ In this scenario we would also ensure that the **isLoadingPost** state indeed fl
 
 ## Testing effects
 
-Where you want to put in your effort is with the effects. This is where you have your chance to build a domain specific API for your actual application logic. The bridge between some generic tool and what your application actually wants to use it for. A simple example of this is doing requests. Maybe you want to use axios to reach your API, but you do not really care about testing that library. What you want to test is that it is used correctly when you use your application specific API. Lets look at an example:
+Where you want to put in your effort is with the effects. This is where you have your chance to build a domain specific API for your actual application logic. The bridge between some generic tool and what your application actually wants to use it for.
+
+A simple example of this is doing requests. Maybe you want to use axios to reach your API, but you do not really care about testing that library. What you want to test is that it is used correctly when you use your application specific API.
+
+This is just an example showing you how you can structure your code for optimal testability. You might prefer a different approach or maybe rely on integration tests for this. No worries, you do what makes most sense for your application:
 
 ```marksy
 h(Example, { name: "guide/writingtests/effect.ts" })

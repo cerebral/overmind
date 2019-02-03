@@ -10,8 +10,9 @@ import { Post } from './state'
     
 export const jsonPlaceholder = {
   async getPosts(): Promise<Post[]> {
-    return fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+    
+    return response.json()
   }
 }
       `,
@@ -45,9 +46,10 @@ export const overmind = new Overmind({
     posts: []
   },
   effects: {
-    getPosts() {
-      return fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
+    async getPosts() {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+      
+      return response.json()
     }
   }
 })
