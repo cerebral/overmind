@@ -51,7 +51,7 @@ To compose the different operators together you typically use **pipe**. You can 
 h(Example, { name: "guide/goingfunctional/pipe" })
 ```
 
-There are several operators available and you can quite easily create new operators from scratch. They er built with the [op-op spec](https://github.com/christianalfoni/op-op-spec). A specification designed specifically to move state management solutions into a functional world.
+There are several operators available and you can quite easily create new operators from scratch. They are built with the [op-op spec](https://github.com/christianalfoni/op-op-spec). A specification designed specifically to move state management solutions into a functional world.
 
 ## Factories
 
