@@ -2,7 +2,7 @@ import { createElement, SFC, useState, useEffect } from 'react'
 import { useOvermind } from '../../overmind'
 import Doc from '../Doc'
 import * as styles from './styles'
-import { compile, getGithubBaseUrl } from '../../utils'
+import { compile, getGithubBaseUrl, useScrollToPosition } from '../../utils'
 import { css } from 'emotion'
 
 function getGithubUrl(name) {
@@ -13,11 +13,13 @@ const Api: SFC = () => {
   const { state } = useOvermind()
   const [content, setContent] = useState(null)
 
+  useScrollToPosition(content)
+
   useEffect(
     () => {
-      import('../../../api/' + state.currentApi + '.md').then((module) =>
+      import('../../../api/' + state.currentApi + '.md').then((module) => {
         setContent(module)
-      )
+      })
     },
     [state.currentApi]
   )

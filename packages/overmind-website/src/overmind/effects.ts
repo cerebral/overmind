@@ -23,19 +23,26 @@ export const router = (() => {
     view: storage.get('theme'),
     typescript: storage.get('typescript'),
   }
+  let currentHash = location.hash
 
   return {
     getPath() {
       return currentPath
     },
     route(url: string, action: (payload: RouteContext) => void) {
-      page(url, ({ params, pathname, querystring }) => {
+      page(url, ({ params, pathname, path, querystring }) => {
         // We want to preserve the query
         if (!querystring) {
+          if (location.hash === currentHash) {
+            currentHash = ''
+          } else {
+            currentHash = location.hash
+          }
+
           page.redirect(
             `${pathname}?view=${currentQuery.view}&typescript=${
               currentQuery.typescript
-            }${location.hash}`
+            }${currentHash}`
           )
           return
         }
