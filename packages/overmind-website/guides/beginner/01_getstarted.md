@@ -5,10 +5,6 @@ If you are moving from an existing state management solution, please read the re
 To get started with Overmind you have to set up a project. You can do this with whatever tool your framework of choice provides or you can use [webpack](https://webpack.js.org/) or [parceljs](https://parceljs.org/). You can also use [codesandbox.io](https://codesandbox.io/) to play around with Overmind directly in the browser.
 
 ```marksy
-h(TypescriptNotice, null, "Overmind requires Typescript version **3.2** or above")
-```
-
-```marksy
 h(Notice, null, "Due to using the Proxy feature of JavaScript, Overmind does not support **Internet Explorer 11**.")
 ```
 
@@ -18,6 +14,12 @@ When you have your project up and running install the Overmind dependency by usi
 ```marksy
 h(Example, { name: "guide/getstarted/install" })
 ```
+
+```marksy
+h(TypescriptNotice, null, "Overmind requires Typescript version **3.2** or above")
+```
+
+
 
 Great, we are good to go!
 
@@ -31,7 +33,7 @@ Let us imagine we get what we need from Overmind in a component:
 h(Example, { name: "guide/getstarted/loadingposts" })
 ```
 
-This will of course not work. To make this work we have to create an Overmind application instance.
+This will of course not work. To make this work we have to create an Overmind application instance and expose it to our component.
 
 ```marksy
 h(Example, { name: "guide/getstarted/createapp" })
@@ -43,7 +45,7 @@ Now that we have our application, let us expose it to our component.
 h(Example, { name: "guide/getstarted/connectapp" })
 ```
 
-That is it, your component will now render whenever the state accessed changes. 
+That is it, your component will now render whenever the state accessed changes. Please read more about connecting state to components in the [guides section](/guides).
 
 ## Effects
 
