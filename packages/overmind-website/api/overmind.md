@@ -1,12 +1,12 @@
 # Overmind
 
-The **Overmind** class is used to create the application instance. To connect your application to components your create a connect function using the related view package. 
+The **Overmind** class is used to create the application instance. You need to create and export a mechanism to connect your instance to the components. Please look at the guides for each view layer for more information.
 
 ```marksy
 h(Example, { name: "api/app_initialize" })
 ```
 
-You can pass a second argument to the **App** constructor. This is an options object with the following properties:
+You can pass a second argument to the **Overmind** constructor. This is an options object with the following properties:
 
 ## addMutationListener
 
