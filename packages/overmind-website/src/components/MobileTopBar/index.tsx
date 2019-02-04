@@ -120,18 +120,7 @@ const MobileTopBar: SFC = () => {
             Api - Effects
           </a>
           <a
-            href="/api/log"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'log' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Log
-          </a>
-          <a
-            href="/api/oninitialize"
+            href="/api/onInitialize"
             className={css(
               styles.link,
               state.page === Page.API &&
