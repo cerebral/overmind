@@ -18,6 +18,8 @@ export const storage = {
 }
 
 export const router = (() => {
+  const validViewQuery = ['react', 'vue', 'angular']
+  const validTypescriptQuery = ['true', 'false']
   let currentPath
   let currentQuery: Query = {
     view: storage.get('theme'),
@@ -25,14 +27,27 @@ export const router = (() => {
   }
   let currentHash = location.hash
 
+  function isValidQuery(query: Query) {
+    return (
+      validViewQuery.includes(query.view) &&
+      validTypescriptQuery.includes(query.typescript)
+    )
+  }
+  if (!isValidQuery(currentQuery)) {
+    currentQuery.view = 'react'
+    currentQuery.typescript = 'false'
+  }
+
   return {
     getPath() {
       return currentPath
     },
     route(url: string, action: (payload: RouteContext) => void) {
-      page(url, ({ params, pathname, path, querystring }) => {
+      page(url, ({ params, pathname, querystring }) => {
         // We want to preserve the query
-        if (!querystring) {
+        const query = queryString.parse(querystring)
+
+        if (!querystring || !isValidQuery(query)) {
           if (location.hash === currentHash) {
             currentHash = ''
           } else {
@@ -46,8 +61,6 @@ export const router = (() => {
           )
           return
         }
-
-        const query = queryString.parse(querystring)
 
         currentPath = pathname.split('?')[0]
         currentQuery = {

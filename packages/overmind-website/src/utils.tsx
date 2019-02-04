@@ -98,7 +98,12 @@ const Example: React.SFC<{ name: string }> = ({ name }) => {
 
   useEffect(
     () => {
+      let isUmountedOrChanged = false
       import('../examples/' + name).then((module) => {
+        if (isUmountedOrChanged) {
+          return
+        }
+
         const content = module.default(state.typescript, state.theme)
         if (!content) {
           return console.warn('Missing content for ' + getKey())
@@ -109,6 +114,10 @@ const Example: React.SFC<{ name: string }> = ({ name }) => {
           isLoading: false,
         })
       })
+
+      return () => {
+        isUmountedOrChanged = true
+      }
     },
     [name, state.theme, state.typescript]
   )
