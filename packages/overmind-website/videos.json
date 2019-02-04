@@ -4,5 +4,17 @@
     "url": "https://www.youtube.com/watch?v=82Aq_ujnBQw",
     "shortName": "overmind-introduction",
     "type": "beginner"
+  },
+  {
+    "title": "Devtools introduction",
+    "url": "https://www.youtube.com/watch?v=ysqEHORTiyw",
+    "shortName": "devtools-introduction",
+    "type": "beginner"
+  },
+  {
+    "title": "Replacing VueX with Overmind",
+    "url": "https://www.youtube.com/watch?v=O5FMIXwYLAA",
+    "shortName": "replacing-vuex-with-overmind",
+    "type": "beginner"
   }
 ]
