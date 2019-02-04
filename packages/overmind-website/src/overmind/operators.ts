@@ -6,7 +6,7 @@ export const ensureViewAndTypescript: <T extends object>() => Operator<
 > = () =>
   action(({ value: routeContext, state, effects }) => {
     if (
-      state.typescript !== Boolean(routeContext.query.typescript) ||
+      state.typescript !== JSON.parse(routeContext.query.typescript) ||
       state.theme !== routeContext.query.view
     ) {
       state.typescript = routeContext.query.typescript === 'true'
