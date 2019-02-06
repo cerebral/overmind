@@ -41,8 +41,6 @@
     "preact-compat": "3.18.4",
     "prismjs": "1.15.0",
     "query-string": "6.2.0",
-    "react": "16.8.1",
-    "react-dom": "16.8.1",
     "react-hot-loader": "^4.3.4",
     "styled-components": "3.3.3",
     "tslib": "1.9.3",
@@ -53,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
+    "@babel/plugin-transform-react-jsx": "7.1.6",
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.1.0",
     "@types/jest": "23.1.4",
@@ -84,10 +83,13 @@
     "parcel-bundler": "1.11.0",
     "prettier": "1.15.2",
     "raw-loader": "0.5.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-test-renderer": "16.4.1",
     "repo-cooker": "^6.3.0",
     "rimraf": "2.6.2",
     "source-map-loader": "0.2.4",
+    "terser-webpack-plugin": "1.2.1",
     "ts-jest": "23.10.4",
     "ts-loader": "4.4.2",
     "tslib": "1.9.3",
@@ -98,11 +100,7 @@
     "vue-template-compiler": "2.5.16",
     "webpack": "4.28.4",
     "webpack-cli": "3.1.2",
-    "webpack-dev-server": "3.1.11",
-    "react": "16.7.0-alpha.2",
-    "react-dom": "16.7.0-alpha.2",
-    "@babel/plugin-transform-react-jsx": "7.1.6",
-    "terser-webpack-plugin": "1.2.1"
+    "webpack-dev-server": "3.1.11"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
