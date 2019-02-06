@@ -5,17 +5,21 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const Posts = ({ overmind }) => (
-  <ul>
-    {overmind.state.postsList.map(post => 
-      <li key={post.id}>{post.title}</li>
-    )}
-  </ul>
-)
+const Posts = () => {
+  const { state } = useOvermind()
 
-export default connect(Posts)
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <li key={post.id}>{post.title}</li>
+      )}
+    </ul>
+  )
+}
+
+export default Posts
     `,
     },
   ],
@@ -40,17 +44,21 @@ const typescript = {
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const Posts: React.FunctionComponent<Connect> = ({ overmind }) => (
-  <ul>
-    {overmind.state.postsList.map(post => 
-      <li key={post.id}>{post.title}</li>
-    )}
-  </ul>
-)
+const Posts: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
-export default connect(App)
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <li key={post.id}>{post.title}</li>
+      )}
+    </ul>
+  )
+}
+
+export default App
     `,
     },
   ],

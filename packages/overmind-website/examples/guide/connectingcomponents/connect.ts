@@ -5,9 +5,11 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const App = ({ overmind }) => {
+const App = () => {
+  const { state } = useOvermind()
+
   if (overmind.state.isLoading) {
     return <div>Loading app...</div>
   }
@@ -15,7 +17,7 @@ const App = ({ overmind }) => {
   return <h1>My awesome app</h1>
 }
 
-export default connect(App)
+export default App
     `,
     },
   ],
@@ -39,17 +41,19 @@ const typescript = {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../../overmind'
+import { useOvermind } from '../../overmind'
 
-const App: React.FunctionComponent<Connect> = ({ overmind }) => {
-  if (overmind.state.isLoading) {
+const App: React.FunctionComponent = () => {
+  const { state } = useOvermind()
+
+  if (state.isLoading) {
     return <div>Loading app...</div>
   }
 
   return <h1>My awesome app</h1>
 }
 
-export default connect(App)
+export default App
     `,
     },
   ],

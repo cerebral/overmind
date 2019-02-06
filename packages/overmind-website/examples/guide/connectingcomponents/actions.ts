@@ -12,15 +12,19 @@ export const toggleAwesomeApp = ({ state }) =>
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const App = ({ overmind }) => (
-  <button onClick={overmind.actions.toggleAwesomeApp}>
-    Toggle awesome
-  </button>
-)
+const App = () => {
+  const { actions } = useOvermind()
 
-export default connect(App)
+  return (
+    <button onClick={actions.toggleAwesomeApp}>
+      Toggle awesome
+    </button>
+  )
+}
+
+export default App
     `,
     },
   ],
@@ -59,15 +63,19 @@ export const toggleAwesomeApp: Action = ({ state }) =>
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { Connect, connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const App: React.FunctionComponent<Connect> = ({ overmind }) => (
-  <button onClick={overmind.actions.toggleAwesomeApp}>
-    Toggle awesome
-  </button>
-)
+const App: React.FunctionComponent = () => {
+  const { actions } = useOvermind()
 
-export default connect(App)
+  return (
+    <button onClick={actions.toggleAwesomeApp}>
+      Toggle awesome
+    </button>
+  )
+}
+
+export default App
     `,
     },
   ],

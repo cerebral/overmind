@@ -6,7 +6,7 @@ const javascript = {
       fileName: 'overmind/index.js',
       code: `
 import { Overmind } from 'overmind'
-import { createConnect } from 'overmind-react'
+import { createHook } from 'overmind-react'
 
 export const overmind = new Overmind({
   state: {
@@ -14,7 +14,7 @@ export const overmind = new Overmind({
   }
 })
 
-export const connect = createConnect(overmind)
+export const useOvermind = createHook(overmind)
 `,
     },
   ],

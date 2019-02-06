@@ -6,16 +6,12 @@ const javascript = {
       code: `
 import React from 'react'
 
-class Posts extends React.Component {
-  render() {
-    const { overmind } = this.props
-
-    if (overmind.state.isLoadingPosts) {
-      return <h4>Loading posts...</h4>
-    }
-  
-    return <div />
+const Posts = () => {
+  if (state.isLoadingPosts) {
+    return <h4>Loading posts...</h4>
   }
+
+  return <div />
 }
 
 export default Posts
@@ -43,16 +39,12 @@ const typescript = {
       code: `
 import * as React from 'react'
 
-class Posts extends React.Component {
-  render() {
-    const { overmind } = this.props
-
-    if (overmind.state.isLoadingPosts) {
-      return <h4>Loading posts...</h4>
-    }
-  
-    return <div />
+const Posts: React.FunctionComponent = () => {
+  if (state.isLoadingPosts) {
+    return <h4>Loading posts...</h4>
   }
+
+  return <div />
 }
 
 export default Posts

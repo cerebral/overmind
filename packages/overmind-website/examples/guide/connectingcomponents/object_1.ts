@@ -5,13 +5,17 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const List = ({ overmind }) => (
-  <h1>{overmind.state.items}</h1>
-)
+const List = () => {
+  const { state } = useOvermind()
 
-export default connect(List)
+  return (
+    <h1>{state.items}</h1>
+  )
+}
+
+export default List
     `,
     },
   ],
@@ -32,13 +36,17 @@ const typescript = {
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const List: React.FunctionComponent<Connect> = ({ overmind }) => (
-  <h1>{overmind.state.items}</h1>
-)
+const List: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
-export default connect(List)
+  return (
+    <h1>{state.items}</h1>
+  )
+}
+
+export default List
     `,
     },
   ],

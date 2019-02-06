@@ -5,21 +5,19 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-class Posts extends React.Component {
-  render() {
-    const { overmind } = this.props
+const Posts = () => {
+  const { state } = useOvermind()
 
-    if (overmind.state.isLoadingPosts) {
-      return <h4>Loading posts...</h4>
-    }
-  
-    return <div />
+  if (state.isLoadingPosts) {
+    return <h4>Loading posts...</h4>
   }
+
+  return <div />
 }
 
-export default connect(Posts)
+export default Posts
     `,
     },
   ],
@@ -49,21 +47,20 @@ const typescript = {
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import { Connect, connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-class Posts extends React.Component<Connect> {
-  render() {
-    const { overmind } = this.props
+const Posts: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
-    if (overmind.state.isLoadingPosts) {
-      return <h4>Loading posts...</h4>
-    }
-  
-    return <div />
+  if (state.isLoadingPosts) {
+    return <h4>Loading posts...</h4>
   }
+
+  return <div />
 }
 
-export default connect(Posts)
+
+export default Posts
     `,
     },
   ],

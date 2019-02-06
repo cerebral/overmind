@@ -5,21 +5,25 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import Users from './Users'
 
-const App = ({ overmind }) => (
-  <div className="container">
-    <nav>
-      <a href="/">Home</a>
-      <a href="/users">Users</a>
-    </nav>
-    {overmind.state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
-    {overmind.state.currentPage === 'users' ? <Users /> : null}
-  </div>
-)
+const App = () => {
+  const { state } = useOvermind()
 
-export default connect(App)
+  return (
+    <div className="container">
+      <nav>
+        <a href="/">Home</a>
+        <a href="/users">Users</a>
+      </nav>
+      {state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
+      {state.currentPage === 'users' ? <Users /> : null}
+    </div>
+  )
+}
+
+export default App
     `,
     },
     {
@@ -27,27 +31,31 @@ export default connect(App)
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import UserModal from './UserModal'
 
-const Users = ({ overmind }) => (
-  <div className="content">
-    {overmind.state.isLoadingUsers ? (
-      <h4>Loading users...</h4>
-    ) : (
-      <ul>
-        {overmind.state.users.map(user => (
-          <li key={user.id}>
-            <a href={"/users/" + user.id}>{user.name}</a>
-          </li>
-        ))}
-      </ul>
-    )}
-    {overmind.state.isLoadingUserDetails || overmind.state.modalUser ? <UserModal /> : null}
-  </div>
-)
+const Users = () => {
+  const { state } = useOvermind()
 
-export default connect(Users)
+  return (
+    <div className="content">
+      {state.isLoadingUsers ? (
+        <h4>Loading users...</h4>
+      ) : (
+        <ul>
+          {state.users.map(user => (
+            <li key={user.id}>
+              <a href={"/users/" + user.id}>{user.name}</a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {state.isLoadingUserDetails || state.modalUser ? <UserModal /> : null}
+    </div>
+  )
+}
+
+export default Users
     `,
     },
     {
@@ -55,30 +63,29 @@ export default connect(Users)
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const UserModal = ({ overmind }) => {
-  const modalUser = overmind.state.modalUser
-  const currentUserModalTabIndex = overmind.state.currentUserModalTabIndex
+const UserModal = () => {
+  const { state } = useOvermind()
 
   return (
     <a href="/users" className="backdrop">
       <div className="modal">
-        {overmind.state.isLoadingUserDetails ? (
+        {state.isLoadingUserDetails ? (
           <h4>Loading user details...</h4>
         ) : (
           <>
-            <h4>{modalUser.name}</h4>
-            <h6>{modalUser.details.email}</h6>
+            <h4>{state.modalUser.name}</h4>
+            <h6>{state.modalUser.details.email}</h6>
             <nav>
-              <a href={"/users/" + modalUser.id + "?tab=0"}>bio</a>
-              <a href={"/users/" + modalUser.id + "?tab=1"}>address</a>
+              <a href={"/users/" + state.modalUser.id + "?tab=0"}>bio</a>
+              <a href={"/users/" + state.modalUser.id + "?tab=1"}>address</a>
             </nav>
-            {currentUserModalTabIndex === 0 ? (
-              <div className="tab-content">{modalUser.details.bio}</div>
+            {state.currentUserModalTabIndex === 0 ? (
+              <div className="tab-content">{state.modalUser.details.bio}</div>
             ) : null}
-            {currentUserModalTabIndex === 1 ? (
-              <div className="tab-content">{modalUser.details.address}</div>
+            {state.currentUserModalTabIndex === 1 ? (
+              <div className="tab-content">{state.modalUser.details.address}</div>
             ) : null}
           </>
         )}
@@ -87,7 +94,7 @@ const UserModal = ({ overmind }) => {
   )
 }
 
-export default connect(UserModal)
+export default UserModal
     `,
     },
   ],
@@ -161,78 +168,85 @@ const typescript = {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import Users from './Users'
 
-const App: React.FunctionComponent<Connect> = ({ overmind }) => (
-  <div className="container">
-    <nav>
-      <a href="/">Home</a>
-      <a href="/users">Users</a>
-    </nav>
-    {overmind.state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
-    {overmind.state.currentPage === 'users' ? <Users /> : null}
-  </div>
-)
+const App: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
-export default connect(App)
+  return (
+    <div className="container">
+      <nav>
+        <a href="/">Home</a>
+        <a href="/users">Users</a>
+      </nav>
+      {state.currentPage === 'home' ? <h1>Hello world!</h1> : null}
+      {state.currentPage === 'users' ? <Users /> : null}
+    </div>
+  )
+}
+
+export default App
     `,
     },
     {
       fileName: 'components/Users.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import UserModal from './UserModal'
 
-const Users: React.FunctionComponent<Connect> = ({ overmind }) => (
-  <div className="content">
-    {overmind.state.isLoadingUsers ? (
-      <h4>Loading users...</h4>
-    ) : (
-      <ul>
-        {overmind.state.users.map(user => (
-          <li key={user.id}>
-            <a href={"/users/" + user.id}>{user.name}</a>
-          </li>
-        ))}
-      </ul>
-    )}
-    {overmind.state.isLoadingUserDetails || overmind.state.modalUser ? <UserModal /> : null}
-  </div>
-)
+const Users: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
-export default connect(Users)
+  return (
+    <div className="content">
+      {state.isLoadingUsers ? (
+        <h4>Loading users...</h4>
+      ) : (
+        <ul>
+          {state.users.map(user => (
+            <li key={user.id}>
+              <a href={"/users/" + user.id}>{user.name}</a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {state.isLoadingUserDetails || state.modalUser ? <UserModal /> : null}
+    </div>
+  )
+}
+
+export default Users
     `,
     },
     {
       fileName: 'components/UserModal.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const UserModal: React.FunctionComponent<Connect> = ({ overmind }) => {
-  const modalUser = overmind.state.modalUser
-  const currentUserModalTabIndex = overmind.state.currentUserModalTabIndex
+const UserModal: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
   return (
     <a href="/users" className="backdrop">
       <div className="modal">
-        {overmind.state.isLoadingUserDetails ? (
+        {state.isLoadingUserDetails ? (
           <h4>Loading user details...</h4>
         ) : (
           <>
-            <h4>{modalUser.name}</h4>
-            <h6>{modalUser.details.email}</h6>
+            <h4>{state.modalUser.name}</h4>
+            <h6>{state.modalUser.details.email}</h6>
             <nav>
-              <a href={"/users/" + modalUser.id + "?tab=0"}>bio</a>
-              <a href={"/users/" + modalUser.id + "?tab=1"}>address</a>
+              <a href={"/users/" + state.modalUser.id + "?tab=0"}>bio</a>
+              <a href={"/users/" + state.modalUser.id + "?tab=1"}>address</a>
             </nav>
-            {currentUserModalTabIndex === 0 ? (
-              <div className="tab-content">{modalUser.details.bio}</div>
+            {state.currentUserModalTabIndex === 0 ? (
+              <div className="tab-content">{state.modalUser.details.bio}</div>
             ) : null}
-            {currentUserModalTabIndex === 1 ? (
-              <div className="tab-content">{modalUser.details.address}</div>
+            {state.currentUserModalTabIndex === 1 ? (
+              <div className="tab-content">{state.modalUser.details.address}</div>
             ) : null}
           </>
         )}
@@ -241,7 +255,7 @@ const UserModal: React.FunctionComponent<Connect> = ({ overmind }) => {
   )
 }
 
-export default connect(UserModal)
+export default UserModal
     `,
     },
   ],

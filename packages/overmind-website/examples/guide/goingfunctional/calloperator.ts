@@ -5,15 +5,19 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const MyComponent = ({ overmind }) => (
-  <button onClick={overmind.actions.functionalAction}>
-    Test
-  </button>
-)
+const MyComponent = () => {
+  const { actions } = useOvermind()
 
-export default connect(MyComponent)
+  return (
+    <button onClick={actions.functionalAction}>
+      Test
+    </button>
+  )
+}
+
+export default MyComponent
     `,
     },
   ],
@@ -36,17 +40,19 @@ const typescript = {
       fileName: 'components/MyComponent.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-type Props = Connect
+const MyComponent: React.FunctionComponent = () => {
+  const { actions } = useOvermind()
 
-const MyComponent: React.FunctionComponent<Props> = ({ overmind }) => (
-  <button onClick={overmind.actions.functionalAction}>
-    Test
-  </button>
-)
+  return (
+    <button onClick={actions.functionalAction}>
+      Test
+    </button>
+  )
+}
 
-export default connect(MyComponent)
+export default MyComponent
     `,
     },
   ],

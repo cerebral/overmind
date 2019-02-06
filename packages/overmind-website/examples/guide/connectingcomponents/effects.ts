@@ -4,28 +4,24 @@ const javascript = {
       fileName: 'Article.js',
       target: 'jsx',
       code: `
-import React from 'react'
-import { connect } from '../overmind'
+import React, { useEffect } from 'react'
+import { useOvermind } from '../overmind'
 
-class Article extends React.Component {
-  componentDidMount() {
-    const overmind = this.props.overmind
+const Article = () => {
+  const { addMutationListener } = useOvermind()
 
-    this.disposeEffect = overmind.addMutationListener((mutation) => {
-      if (mutation.path === 'currentArticle') {
-        document.querySelector('#app').scrollTop = 0
-      }
-    })
-  }
-  componentWillUnmount() {
-    this.disposeEffect()
-  }
+  useEffect(() => addMutationListener((mutation) => {
+    if (mutation.path === 'currentArticle') {
+      document.querySelector('#app').scrollTop = 0
+    }
+  }), [])
+
   render() {
     return <article />
   }
 }
 
-export default connect(Article)
+export default Article
     `,
     },
   ],
@@ -63,27 +59,21 @@ const typescript = {
       fileName: 'components/Article.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../../overmind'
+import { useOvermind } from '../../overmind'
 
-class Article extends React.Component<Connect> {
-  componentDidMount() {
-    const overmind = this.props.overmind
+const Article: React.FunctionComponent = () => {
+  const { addMutationListener } = useOvermind()
 
-    this.disposeEffect = overmind.addMutationListener((mutation) => {
-      if (mutation.path === 'currentArticle') {
-        document.querySelector('#app').scrollTop = 0
-      }
-    })
-  }
-  componentWillUnmount() {
-    this.disposeEffect()
-  }
-  render() {
-    return <article />
-  }
+  React.useEffect(() => addMutationListener((mutation) => {
+    if (mutation.path === 'currentArticle') {
+      document.querySelector('#app').scrollTop = 0
+    }
+  }), [])
+
+  return <article />
 }
 
-export default connect(Article)
+export default Article
     `,
     },
   ],

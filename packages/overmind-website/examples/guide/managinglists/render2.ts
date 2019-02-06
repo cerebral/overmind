@@ -5,13 +5,17 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const Post = ({ post }) => (
-  <li>{post.title}</li>
-)
+const Post = ({ post }) => {
+  useOvermind()
 
-export default connect(Post)
+  return (
+    <li>{post.title}</li>
+  )
+}
+
+export default Post
     `,
     },
     {
@@ -80,18 +84,22 @@ const typescript = {
       fileName: 'components/Post.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import { Post as TPost } from '../overmind/state'
 
 type Props = {
   post: TPost
-} & Connect
+}
 
-const Post: React.FunctionComponent<Props> = ({ post }) => (
-  <li>{post.title}</li>
-)
+const Post: React.FunctionComponent<Props> = ({ post }) => {
+  useOvermind()
+  
+  return (
+    <li>{post.title}</li>
+  )
+}
 
-export default connect(Post)
+export default Post
     `,
     },
     {

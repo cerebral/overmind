@@ -4,29 +4,26 @@ const javascript = {
       fileName: 'Posts.js',
       target: 'jsx',
       code: `
-import React from 'react'
-import { connect } from '../overmind'
+import React, { useEffect } from 'react'
+import { useOvermind } from '../overmind'
 
-class Posts extends React.Component {
-  componentDidMount() {
-    this.props.overmind.actions.getPosts()
-  }
-  render() {
-    const { overmind } = this.props
+const Posts = () => {
+  const { state, actions } = useOvermind()
 
-    if (overmind.state.isLoadingPosts) {
-      return <h4>Loading posts...</h4>
-    }
-  
-    return (
-      <ul>
-        {overmind.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
-      </ul>
-    )
+  useEffect(() => actions.getPosts(), [])
+
+  if (state.isLoadingPosts) {
+    return <h4>Loading posts...</h4>
   }
+
+  return (
+    <ul>
+      {state.posts.map(post => <li key={post.id}>{post.title}</li>)}
+    </ul>
+  )
 }
 
-export default connect(Posts)
+export default Posts
     `,
     },
   ],
@@ -64,28 +61,25 @@ const typescript = {
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import { Connect, connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-class Posts extends React.Component<Connect> {
-  componentDidMount() {
-    this.props.overmind.actions.getPosts()
-  }
-  render() {
-    const { overmind } = this.props
+const Posts: React.FunctionComponent = () => {
+  const { state, actions } = useOvermind()
 
-    if (overmind.state.isLoadingPosts) {
-      return <h4>Loading posts...</h4>
-    }
-  
-    return (
-      <ul>
-        {overmind.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
-      </ul>
-    )
+  React.useEffect(() => actions.getPosts(), [])
+
+  if (state.isLoadingPosts) {
+    return <h4>Loading posts...</h4>
   }
+
+  return (
+    <ul>
+      {state.posts.map(post => <li key={post.id}>{post.title}</li>)}
+    </ul>
+  )
 }
 
-export default connect(Posts)
+export default Posts
     `,
     },
   ],

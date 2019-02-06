@@ -5,13 +5,17 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
-const Item = ({ item }) => (
-  <li>{item.title}</li>
-)
+const Item = ({ item }) => {
+  useOvermind()
 
-export default connect(Item)
+  return (
+    <li>{item.title}</li>
+  )
+}
+
+export default Item
     `,
     },
     {
@@ -19,18 +23,22 @@ export default connect(Item)
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import Item from './Item'
 
-const App = ({ overmind }) => (
-  <ul>
-    {Object.keys(overmind.state.items).map(key => 
-      <Item key={key} item={overmind.state.items[key]} />
-    )}
-  </ul>
-)
+const App = () => {
+  const { state } = useOvermind()
 
-export default connect(App)
+  return (
+    <ul>
+      {Object.keys(state.items).map(key => 
+        <Item key={key} item={state.items[key]} />
+      )}
+    </ul>
+  )
+}
+
+export default App
     `,
     },
   ],
@@ -80,35 +88,43 @@ const typescript = {
       fileName: 'components/Item.jsx',
       code: `
 import React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 
 type Props = {
   item: { title: string }
-} & Connect
+}
 
-const Item: React.FunctionComponent<Props> = ({ item }) => (
-  <li>{item.title}</li>
-)
+const Item: React.FunctionComponent<Props> = ({ item }) => {
+  useOvermind()
 
-export default connect(Item)
+  return (
+    <li>{item.title}</li>
+  )
+}
+
+export default Item
     `,
     },
     {
       fileName: 'components/List.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import Item from './Item'
 
-const List: React.FunctionComponent<Connect> = ({ overmind }) => (
-  <ul>
-    {Object.keys(overmind.state.items).map(key => 
-      <Item key={key} item={overmind.state.items[key]} />
-    )}
-  </ul>
-)
+const List: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
-export default connect(List)
+  return (
+    <ul>
+      {Object.keys(state.items).map(key => 
+        <Item key={key} item={state.items[key]} />
+      )}
+    </ul>
+  )
+}
+
+export default List
     `,
     },
   ],
