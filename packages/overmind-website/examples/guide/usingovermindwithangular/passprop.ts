@@ -2,41 +2,46 @@ export default () => [
   {
     fileName: 'components/todo.component.ts',
     code: `
-import { Component, Input } from '@angular/core'
-import { connect } from '../overmind'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
+import { OvermindService } from '../overmind'
 import { Todo } from '../overmind/state'
 
 @Component({
   selector: 'todos-todo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-  <li>{{todo.title}}</li>
+<li ngIf="todo$ | async as todo">{{ todo.title }}</li>
   \`
 })
 @connect()
 export class TodoComponent {
-  @Input() todo: Todo
+  @Input() index: number
+  todo$ = this.overmind.select(state => state.todos[this.index])
+  constructor(private overmind: OvermindService) {}
 }    
     `,
   },
   {
     fileName: 'components/todos.component.ts',
     code: `
-import { Component } from '@angular/core'
-import { connect } from '../overmind'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
+import { OvermindService } from '../overmind'
 
 @Component({
   selector: 'todos-list',
   template: \`
-  <ul>
-    <todos-todo
-      *ngFor="let todo of overmind.state.todos"
-      [todo]="todo"
-    ></todos-todo>
-  </ul>
+<ul *ngIf="state$ | async as state">
+  <todos-todo
+    *ngFor="let todo of state.todos; index as i;"
+    [index]="i"
+  ></todos-todo>
+</ul>
   \`
 })
-@connect()
-export class ListComponent {}
+export class ListComponent {
+  state$ = this.overmind.select()
+  constructor(private overmind: OvermindService)
+}
 `,
   },
 ]
