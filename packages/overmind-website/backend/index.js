@@ -104,11 +104,11 @@ const apis = getApis()
 const searchData = getSearchData()
 
 const googleCrawlMiddleware = async function ssr(req, res, next) {
+  const userAgent = req.get('User-Agent')
+
   if (
-    req
-      .get('User-Agent')
-      .toLowerCase()
-      .indexOf('googlebot') >= 0 &&
+    userAgent &&
+    userAgent.toLowerCase().indexOf('googlebot') >= 0 &&
     !path.extname(req.path)
   ) {
     res.send(
