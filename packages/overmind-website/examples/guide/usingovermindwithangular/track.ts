@@ -7,17 +7,14 @@ import { OvermindService } from '../overmind'
 
 @Component({
   selector: 'app-root',
-  template: \`
-<div *ngIf="state$ | async as state">
-  <h1 (click)="actions.changeAdmin()">{{ state.adminTitle }}</h1>
-</div>
-  \`,
+  template: \`\`,
   providers: [OvermindService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+@OvermindService.Track
 export class AppComponent {
-  state$ = this.overmind.select(state => state.admin)
-  actions: this.overmind.actions.admin
+  state$ = this.overmind.select()
+  actions: this.overmind.actions
   constructor(private overmind: OvermindService) {}
 },
 `,

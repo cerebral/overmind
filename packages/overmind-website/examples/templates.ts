@@ -17,7 +17,8 @@ export const useOvermind = createHook(overmind)
 `,
   angular: (config) => `
 import { Overmind, IConfig } from 'overmind'
-import { createConnect, IConnect } from 'overmind-angular'
+import { createService } from 'overmind-angular'
+import { Injectable } from '@angular/core'
 ${config.trim()}
 
 // For explicit typing check the Typescript guide
@@ -29,7 +30,8 @@ export interface Connect extends IConnect<typeof config> {}
 
 export const overmind = new Overmind(config)
 
-export const connect = createConnect(overmind) 
+@Injectable()
+export class OvermindService extends createService(overmind) {}
 `,
   vue: (config) => ``,
 }

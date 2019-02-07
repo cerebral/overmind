@@ -3,7 +3,8 @@ export default () => [
     fileName: 'overmind/index.ts',
     code: `
 import { Overmind, IConfig } from 'overmind'
-import { createConnect, IConnect } from 'overmind-angular'
+import { createService } from 'overmind-angular'
+import { Injectable } from '@angular/core'
 import { state } from './state'
 import * as actions from './actions'
 
@@ -16,29 +17,33 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-export interface Connect extends IConnect<typeof config> {}
-
 const overmind = new Overmind(config)
 
-export const connect = createConnect(overmind)
+@Injectable()
+export class OvermindService extends createService(overmind) {}
 `,
   },
   {
     fileName: 'components/app.component.ts',
     code: `
-import { Component } from '@angular/core'
-import { connect, Connect } from '../overmind'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
+import { OvermindService } from '../overmind'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: \`
+<div *ngIf="state$ | async as state">
+  <h1 (click)="actions.changeTitle()">{{ state.title }}</h1>
+</div>
+  \`,
+  providers: [OvermindService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-@connect()
 export class AppComponent {
-  overmind: Connect
-  title = 'My First Angular App with Overmind!'
-}
+  state$ = this.overmind.select()
+  actions: this.overmind.actions
+  constructor(private overmind: OvermindService) {}
+},
 `,
   },
 ]

@@ -1,12 +1,18 @@
 # Using Overmind with Angular
 
-Using Overmind with Angular is straight forward. You create a **connect** decorator and use it with whatever component. An **overmind** property is added to the component and there you can access state, actions and listen to mutations to do effects.
+Using Overmind with Angular is straight forward. You create a **service** and use it with whatever component. By using the **select** API you create observable state.
+
+```marksy
+h(Notice, null, "Make sure that your transpile target is configured to **ES2015** or later. This allows you to extend the service correctly")
+```
+
+Let us have a look at how you create the service an expose it to components:
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithangular/connect" })
 ```
 
-You can also expose parts of the configuration on custom properties of the component:
+You can also expose parts of the configuration:
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithangular/connect_custom" })
@@ -14,25 +20,28 @@ h(Example, { name: "guide/usingovermindwithangular/connect_custom" })
 
 You can now access the **admin** state and actions directly with **state** and **actions**.
 
+## Track components
+
+Optionally you can also track the component itself. The **service** exposes a decorator called **Track**. This will allow you to follow what components are looking at state, what exact state they are looking at and when they update, using the devtools.
+
+```marksy
+h(Example, { name: "guide/usingovermindwithangular/track" })
+```
+
 ## Rendering
 
-When you connect Overmind to a component it will use its lifecycle hooks to manage updates. By default you really do not have to think about this as it relies on Angulars default change detection strategy.You can change this behaviour though. By adding the **onPush** strategy and injecting the **ChangeDetectorRef**, the component will only update when it receives input from its parents or Overmind tells it to update due to tracked state has changed.
+When you connect Overmind to your component and expose state you do not have to think about how much state you expose. The exact state that is being accessed in the template is the state that will be tracked. That means you can expose all the state of the application to all your components without worrying about performance. 
 
-```marksy
-h(Example, { name: "guide/usingovermindwithangular/onpush" })
-```
-
-```marksy
-h(Notice, null, "The class property has to be named **cdr**. Overmind gives an error if you use onPush strategy without injecting ChangeDetectorRef correctly.")
-```
 
 ## Passing state as input
 
-If you pass a state object or array as a property to a child component you will also in the child component need to **connect**. This ensures that the property you passed is tracked within that component, even though you do not access any state or actions from Overmind. The devtools will help you identify where any components are left "unconnected".
+When you pass state objects or arrays as input to a child component that state will by default be tracked on the component passing it a long, which you can also see in the devtools. If you want to effectively pass state as input you should rather pass a reference so that the child component can connect to it. 
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithangular/passprop" })
 ```
+
+What is important to understand here is that Overmind is **not** immutable. That means if you would change any property on any todo, only the component actually looking at the todo will render. The list is untouched. 
 
 ## State effects
 

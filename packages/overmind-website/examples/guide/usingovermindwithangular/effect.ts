@@ -3,16 +3,15 @@ export default () => [
     fileName: 'components/app.component.ts',
     code: `
 import { Component } from '@angular/core'
-import { connect, Connect } from '../overmind'
+import { OvermindService } from '../overmind'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-@connect()
 export class AppComponent {
-  overmind: Connect
   disposeMutationListener: () => void
+  constructor (private overmind: OvermindService) {}
   ngOnInit() {
     this.disposeMutationListener = this.overmind.addMutationListener((mutation) => {
       if (mutation.path === 'currentPage') {
