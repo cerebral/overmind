@@ -39,6 +39,7 @@ import { OvermindService } from '../overmind'
   providers: [OvermindService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+@OvermindService.Track
 export class AppComponent {
   state$ = this.overmind.select()
   actions: this.overmind.actions
