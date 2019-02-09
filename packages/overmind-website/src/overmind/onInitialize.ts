@@ -1,6 +1,6 @@
 import { OnInitialize } from 'overmind'
 
-const onInitialize: OnInitialize = ({ value: app, effects, state }) => {
+const onInitialize: OnInitialize = ({ effects, state }, app) => {
   state.showViewHelp = !effects.storage.get('theme')
 
   effects.router.route('/', app.actions.openHome)
