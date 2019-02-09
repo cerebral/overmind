@@ -52,14 +52,14 @@ export const showHomePage = ({ state }) => {
   state.currentPage = 'home'
 }
 
-export const showUsersPage = async ({ value: params, state, effects }) => {
+export const showUsersPage = action( async ({ value: params, state, effects }) => {
   if (!params.id) state.modalUser = null
 
   state.currentPage = 'users'
   state.isLoadingUsers = true
   state.users = await effects.api.getUsers()
   state.isLoadingUsers = false
-}
+})
 
 export const showUserModal = parallel(
     showUsersPage,
