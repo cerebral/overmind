@@ -40,14 +40,14 @@ export const openVideos: Operator<RouteContext<VideoParams>> = pipe(
 export const openVideo: Operator<RouteContext<VideoParams>> = pipe(
   ensureViewAndTypescript(),
   openVideos,
-  action(({ value: routeContext, state }) => {
+  action(({ state }, routeContext) => {
     state.currentVideo = routeContext.params.title
   })
 )
 
 export const openGuide: Operator<RouteContext<GuideParams>> = pipe(
   ensureViewAndTypescript(),
-  action(async ({ value: routeContext, state }) => {
+  action(async ({ state }, routeContext) => {
     state.page = Page.GUIDE
     state.currentGuide = routeContext.params
   })
@@ -55,7 +55,7 @@ export const openGuide: Operator<RouteContext<GuideParams>> = pipe(
 
 export const openApi: Operator<RouteContext<VideoParams>> = pipe(
   ensureViewAndTypescript(),
-  action(async ({ value: routeContext, state, effects }) => {
+  action(async ({ state, effects }, routeContext) => {
     state.page = Page.API
     state.currentApi = routeContext.params.title
     if (!state.apis.length) {
@@ -66,7 +66,7 @@ export const openApi: Operator<RouteContext<VideoParams>> = pipe(
   })
 )
 
-export const selectTheme: Action<string> = ({ value: selection, effects }) => {
+export const selectTheme: Action<string> = ({ effects }, selection) => {
   const selectionArray = selection.split('_')
   const view = selectionArray[0]
   const typescript = String(Boolean(selectionArray[1]))
@@ -83,7 +83,7 @@ export const closeSearch: Action = ({ state }) => {
 }
 
 export const changeQuery: Operator<React.ChangeEvent<HTMLInputElement>> = pipe(
-  action(({ value: event, state }) => {
+  action(({ state }, event) => {
     const query = event.currentTarget.value
 
     state.query = query
@@ -100,6 +100,6 @@ export const changeQuery: Operator<React.ChangeEvent<HTMLInputElement>> = pipe(
   })
 )
 
-export const viewHelpGotIt: Action = ({ state, effects }) => {
+export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
