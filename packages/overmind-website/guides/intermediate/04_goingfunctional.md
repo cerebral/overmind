@@ -44,7 +44,6 @@ Here we see the **parallel** operator being used as a callable action to run two
 
 ## Piping
 
-
 To compose the different operators together you typically use **pipe**. You can also compose pipes into pipes, it is just an operator like the rest.
 
 ```marksy
@@ -52,6 +51,18 @@ h(Example, { name: "guide/goingfunctional/pipe" })
 ```
 
 There are several operators available and you can quite easily create new operators from scratch. They are built with the [op-op spec](https://github.com/christianalfoni/op-op-spec). A specification designed specifically to move state management solutions into a functional world.
+
+## Inputs and Outputs
+
+To produce new values throughout your pipe you can use the **map** operator. It will put whatever value you return from it on the pipe for the next operator to consume.
+
+```marksy
+h(Example, { name: "guide/goingfunctional/map" })
+```
+
+```marksy
+h(TypescriptNotice, null, "Notice here that we are typing both the input and the output. Both for the **map** operator and the **pipe** operator. This is important to manage the composition of operators. Typically operators pass on the same value they receive, meaning that you do not need the second typing parameter for the **Operator** type.")
+```
 
 ## Factories
 

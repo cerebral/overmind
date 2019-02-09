@@ -67,6 +67,22 @@ That means the function only runs when accessed and the depending state has chan
 h(Notice, null, "Even though derived state is defined as functions you consume them as plain values. You do not have to call the derived function to get the value")
 ```
 
+You might intuitively want to pass in an argument to this derived function, but that is actually a very problematic concept that can be solved more elegantly. An example of this would be that you open a page showing the current user and with the **id** of that user you want find the related posts. So you might want to:
+
+
+```marksy
+h(Example, { name: "guide/definingstate/derived_passvalue" })
+```
+
+But this is actually a really bad idea and there are a couple of reasons for that:
+
+1. We need a mechanism to use the argument passed in as a caching key. With an **id** that is not so difficult, but what if you passed in an object with some options? Or maybe you use the same object multiple times, but the values on the object changed? Should we stringify the object? What about multiple arguments? As you can understand it becomes quite complex
+2. When should we remove a cached value? We have no idea when you have stopped using the derived value, so we do not know when to remove it. We could have created a limited cache, though how big should it be? 10 entries? What if you have a list of 100 users? Should it be configurable?
+
+So to solve this specific scenario you would rather create a new state called **currentUserId** and use that state to derive the posts. So whenever you have an itch to pass in a value to a derived, try imagine it from the perspective of only using state instead. This also improves the debugging experience.
+
+Also remember that **derived** is a concept for computation heavy derived state, you most commonly want to use a **getter**.
+
 ## Getter
 
 A concept in Javascript called a [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) allows you to intercept accessing a property in an object. This is similar to deriving state, though they are dynamic. That means derived state can only be defined once and needs to stay in the state tree. A getter is just like a plain value, it can be added an removed at any point. Getters does **not** cache the result for that very reason, but whatever state they access is tracked.
@@ -82,6 +98,10 @@ We define the state of the application in **state** files. For example, the top 
 
 ```marksy
 h(Example, { name: "guide/definingstate/define" })
+```
+
+```marksy
+h(TypescriptNotice, null, "Is is important that you define your state with a **type**, do **NOT** use an **interface**")
 ```
 
 As your application grows you will most likely move parts of the state to their own namespaces. An example of that could be:
