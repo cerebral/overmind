@@ -9,20 +9,20 @@ Overmind is written in Typescript and it is written with a focus on your keeping
 The most straight forward way to type your application is to use the **declare module** approach. This will work for most applications, but might make you feel uncomfortable as a harcore Typescripter. The reason is that we are overriding an internal type, meaning that you can only have one instance of Overmind running inside your application.
 
 ```marksy
-h(Example, { name: "guide/typescript/declare.ts" })
+h(Example, { name: "guide/typescript/declare" })
 ```
 
 Now you can import any type directly from Overmind and it will understand the configuration of your application. Even the operators are typed.
 
 ```marksy
-h(Example, { name: "guide/typescript/declare_imports.ts" })
+h(Example, { name: "guide/typescript/declare_imports" })
 ```
 
 ### 2. Explicit typing
 You can also explicitly type your application. This gives more flexibility.
 
 ```marksy
-h(Example, { name: "guide/typescript/explicit.ts" })
+h(Example, { name: "guide/typescript/explicit" })
 ```
 
 You only have to set up these types once, where you instantiate Overmind. That means if you use multiple namespaced configuration you still only create one set of types, as shown above.
@@ -30,7 +30,7 @@ You only have to set up these types once, where you instantiate Overmind. That m
 Now you only have to make sure that you import your types from this file, instead of directly from the Overmind package.
 
 ```marksy
-h(Example, { name: "guide/typescript/explicit_import.ts" })
+h(Example, { name: "guide/typescript/explicit_import" })
 ```
 
 ```marksy
@@ -46,7 +46,7 @@ When you are using TSLint it is important that you use the official [Microsoft E
 The action type takes either no arguments or a single argument. If you give no arguments to the action it will be typed as not expecting an argument at all. When you do type with an argument that is the type of the **value** on the context. This value is populated when you call the action on the Overmind instance.
 
 ```marksy
-h(Example, { name: "guide/typescript/action.ts" })
+h(Example, { name: "guide/typescript/action" })
 ```
 
 
