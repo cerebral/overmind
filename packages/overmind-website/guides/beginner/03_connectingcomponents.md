@@ -65,6 +65,10 @@ All the actions defined in the Overmind application is available to connected co
 h(Example, { name: "guide/connectingcomponents/actions" })
 ```
 
+```marksy
+h(Notice, null, "If you need to pass multiple values to an action, you rather use an **object** instead")
+```
+
 ## Reactions
 
 Sometimes you want to make something happen inside a component related to a state change. This is typically doing some manual work on the DOM. When you connect a component to overmind it also gets access to **addMutationListener**. This function allows you to subscribe to changes in state, mutations as we call them. Each mutation holds information about what kind of mutation it was, at what path it happened and even any arguments used in the mutation. You can use all this information to create an effect.
