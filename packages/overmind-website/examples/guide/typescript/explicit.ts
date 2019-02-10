@@ -7,7 +7,7 @@ import {
   IAction,
   IOperator,
   IDerive,
-  TStateObject
+  IState
 } from 'overmind'
 
 const config = {}
@@ -20,7 +20,7 @@ export interface Action<Input = void> extends IAction<Config, Input> {}
 
 export interface Operator<Input = void, Output = Input> extends IOperator<Config, Input, Output> {}
 
-export interface Derive<Parent extends TStateObject, Output> extends IDerive<Config, Parent, Output> {}
+export interface Derive<Parent extends IState, Output> extends IDerive<Config, Parent, Output> {}
         `,
   },
 ]
