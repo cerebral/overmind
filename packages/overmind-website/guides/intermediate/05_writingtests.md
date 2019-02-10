@@ -2,6 +2,16 @@
 
 Testing is a broad subject and everybody has an opinion on it. We can only show you how we think about testing in general and how to effectively write those tests for your Overmind app. It is encouraged to think **unit testing** of actions and effects. This will cover expected changes in state and that your side effects behaves in a predictable manner. If you want to test how your application works when it is all put together we recommend doing integration tests as close to the user experience as possible. Testing solutions like [Cypress.io](https://www.cypress.io/) is a great way to do exactly that.
 
+## Structuring the app
+
+When you write tests you will create many instances of a mocked version of Overmind with the configuration you have created. To ensure that this configuration can be used many times we have to separate our configuration from the instantiation of the actual app.
+
+```marksy
+h(Example, { name: "guide/writingtests/structuringtheapp.ts" })
+```
+
+Now we are free to import our configuration without touching the application instance. Lets go!
+
 ## Testing actions
 
 When testing an action you want to verify that changes to state are performed as expected. To give you the best possible testing experience Overmind has mocking tool called **createOvermindMock**. It takes your application configuration and allows you to run actions as if they were run from components.
