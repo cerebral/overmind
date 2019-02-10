@@ -36,6 +36,15 @@ h(Example, { name: "guide/writingtests/actionsnapshot.ts" })
 
 In this scenario we would also ensure that the **isLoadingPost** state indeed flipped to *true* before moving to *false* at the end.
 
+## Testing onInitialize
+
+The **onInitialize** hook will not trigger during testing. To test this action you have to trigger it yourself.
+
+```marksy
+h(Example, { name: "guide/writingtests/oninitializetest.ts" })
+```
+
+
 ## Testing effects
 
 Where you want to put in your effort is with the effects. This is where you have your chance to build a domain specific API for your actual application logic. The bridge between some generic tool and what your application actually wants to use it for.

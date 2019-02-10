@@ -7,7 +7,7 @@ export default (ts) =>
 import { Operator, filter } from 'overmind'
 
 const lengthGreaterThan: (length: number) => Operator<string> =
-  (length) => filter(({ value }) => value.length > length)
+  (length) => filter((_, value) => value.length > length)
     
         `,
         },
@@ -18,7 +18,7 @@ const lengthGreaterThan: (length: number) => Operator<string> =
           code: `
 import { map, filter } from 'overmind'
 
-export const lengthGreaterThan = (length) => filter(({ value }) => value.length > length)
+export const lengthGreaterThan = (length) => filter((_, value) => value.length > length)
         `,
         },
       ]

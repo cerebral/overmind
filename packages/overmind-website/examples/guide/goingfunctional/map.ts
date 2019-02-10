@@ -6,7 +6,7 @@ export default (ts) =>
           code: `
 import { Operator, map } from 'overmind'
 
-export const getTargetValue: Operator<Event, string> = map(({ value : event }) => 
+export const getTargetValue: Operator<Event, string> = map((_, event) => 
   event.currentTarget.value
 )
   `,
@@ -19,7 +19,7 @@ import { getTargetValue } from './operators'
 
 export const setValue: Operator<Event, string> = pipe(
   getTargetValue,
-  action(({ state, value }) => {
+  action(({ state}, value) => {
     state.value = value
   })
 )
@@ -32,7 +32,7 @@ export const setValue: Operator<Event, string> = pipe(
           code: `
 import { map } from 'overmind'
 
-export const getTargetValue = map(({ value : event }) => 
+export const getTargetValue = map((_, event) => 
   event.currentTarget.value
 )
 `,
@@ -45,7 +45,7 @@ import { getTargetValue } from './operators'
 
 export const setValue = pipe(
   getTargetValue,
-  action(({ state, value }) => {
+  action(({ state }, value) => {
     state.value = value
   })
 )

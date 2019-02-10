@@ -4,7 +4,7 @@ There are two different ways to connect Overmind to React. You can either use a 
 
 When you connect Overmind to a component you ensure that whenever any tracked state changes only components interested in that state will rerender and they will rerender "at their point in the component tree". That means we remove a lot of unnecessary work from React. There is no reason for the whole React component tree to rerender when only one component is interested in a change.
 
-## With hook (From version 16.8.0)
+## With hook
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hook" })
 ```

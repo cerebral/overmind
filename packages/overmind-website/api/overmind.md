@@ -16,6 +16,14 @@ It is possible to listen to all mutations performed in Overmind. This allows you
 h(Example, { name: "api/app_addMutationListener" })
 ```
 
+## addFlushListener
+
+The **addMutationListener** triggers whenever there is a mutation. The **addFLushListener** triggers whenever Overmind tells components to render again. It can have multiple mutations related to it.
+
+```marksy
+h(Example, { name: "api/app_addFlushListener" })
+```
+
 
 ## options.devtools
 If you develop your app on localhost the application connects to the devtools on **localhost:3031**. You can change this in case you need to use an IP address, the devtools is configured with a different port or you want to connect to localhost (with default port) even though the app is not on localhost.

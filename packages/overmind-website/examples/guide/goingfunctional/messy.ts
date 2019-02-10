@@ -7,7 +7,7 @@ export default (ts) =>
 import { Action } from 'overmind'
 
 let debounce
-export const search: Action<Event> = ({ value: event, state, effects }) => {
+export const search: Action<Event> = ({ state, effects }, event) => {
   state.query = event.currentTarget.value
 
   if (query.length < 3) return
@@ -30,7 +30,7 @@ export const search: Action<Event> = ({ value: event, state, effects }) => {
           fileName: 'overmind/state.js',
           code: `
 let debounce
-export const search = ({ value: event, state, effects }) => {
+export const search = ({ state, effects }, event) => {
   state.query = event.currentTarget.value
 
   if (query.length < 3) return

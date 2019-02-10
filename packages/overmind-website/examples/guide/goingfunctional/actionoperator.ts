@@ -6,11 +6,11 @@ export default (ts) =>
           code: `
 import { Action, Operator, action } from 'overmind'
 
-export const plainAction: Action = ({ value, state }) => {
+export const plainAction: Action = ({ state }, value) => {
 
 }
 
-export const functionlAction: Operator = action(({ value, state }) => {
+export const functionlAction: Operator = action(({ state }, value) => {
 
 })
   `,
@@ -22,11 +22,11 @@ export const functionlAction: Operator = action(({ value, state }) => {
           code: `
 import { action } from 'overmind'
 
-export const plainAction = ({ value, state }) => {
+export const plainAction = ({ state }, value) => {
 
 }
 
-export const functionlAction = action(({ value, state }) => {
+export const functionlAction = action(({ state }, value) => {
 
 })
 `,

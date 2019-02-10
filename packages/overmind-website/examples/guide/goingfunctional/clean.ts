@@ -11,7 +11,7 @@ export const search: Operator<Event> = pipe(
   getEventTargetValue,
   lengthGreaterThan(2),
   debounce(200),
-  action(async ({ value: query, state, effects }) => {
+  action(async ({ state, effects }, query) => {
     state.isSearching = true
     state.searchResult = await effects.api.search(query)
     state.isSearching = false
@@ -25,10 +25,10 @@ export const search: Operator<Event> = pipe(
 import { Operator, map, filter } from 'overmind'
 
 const getEventTargetValue: Operator<Event, string> =
-  map(({ value }) => value.currentTarget.value)
+  map((_, value) => value.currentTarget.value)
 
 const lengthGreaterThan: (length: number) => Operator<string> =
-  (length) => filter(({ value }) => value.length > length)
+  (length) => filter((_, value) => value.length > length)
     
         `,
         },
@@ -44,7 +44,7 @@ export const search = pipe(
   getEventTargetValue,
   lengthGreaterThan(2),
   debounce(200),
-  action(async ({ value: query, state, effects }) => {
+  action(async ({ state, effects }, query) => {
     state.isSearching = true
     state.searchResult = await effects.api.search(query)
     state.isSearching = false
@@ -57,9 +57,9 @@ export const search = pipe(
           code: `
 import { map, filter } from 'overmind'
 
-export const getEventTargetValue = map(({ value }) => value.currentTarget.value)
+export const getEventTargetValue = map((_, value) => value.currentTarget.value)
 
-export const lengthGreaterThan = (length) => filter(({ value }) => value.length > length)
+export const lengthGreaterThan = (length) => filter((_, value) => value.length > length)
         `,
         },
       ]
