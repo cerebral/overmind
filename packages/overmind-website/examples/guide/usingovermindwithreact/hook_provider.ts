@@ -67,7 +67,7 @@ const overmind = new Overmind({
   actions: {}
 })
 
-export const useOvermind = createHook(overmind)
+export const useOvermind = createHook()
 `,
         },
         {
