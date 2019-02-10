@@ -15,6 +15,10 @@ const ViewSelector: SFC = () => {
   const selectorRef = useRef(null)
 
   function onSelectorClick() {
+    if (isOpen) {
+      return setOpen(false)
+    }
+
     setOpen(true)
 
     const onDocumentClick = function() {
