@@ -43,7 +43,7 @@ When you are using TSLint it is important that you use the official [Microsoft E
 
 ## Actions
 
-The action type takes either no arguments or a single argument. If you give no arguments to the action it will be typed as not expecting an argument at all. When you do type with an argument that is the type of the **value** on the context. This value is populated when you call the action on the Overmind instance.
+The action type takes either no arguments or a single argument. If you give no arguments to the action it will be typed as not expecting an argument at all. When you do type with an argument that is the type of the **value** passed as the second argument to the function .
 
 ```marksy
 h(Example, { name: "guide/typescript/action" })

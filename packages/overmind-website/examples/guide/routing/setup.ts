@@ -18,11 +18,7 @@ export const routeUsersPage: Action = async ({ state, effects }) => {
   state.isLoadingUsers = false
 }
 
-export const routeUser: Action<{ id: string }> = async ({
-  value: params,
-  state,
-  effects
-}) => {
+export const routeUser: Action<{ id: string }> = async ({ state, effects }, params) => {
   state.isLoadingUserDetails = true
   state.modalUser = await effects.api.getUserWithDetails(params.id)
   state.isLoadingUserDetails = false
@@ -46,11 +42,7 @@ export const routeUsersPage = async ({ state, api }) => {
   state.isLoadingUsers = false
 }
 
-export const routeUser = async ({
-  value: params,
-  state,
-  api
-}) => {
+export const routeUser = async ({ state, api }, params) => {
   state.isLoadingUserDetails = true
   state.modalUser = await api.getUserWithDetails(params.id)
   state.isLoadingUserDetails = false

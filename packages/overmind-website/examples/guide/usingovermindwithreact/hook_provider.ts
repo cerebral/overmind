@@ -4,12 +4,12 @@ export default (ts) =>
         {
           fileName: 'overmind/index.ts',
           code: `
-import { Overmind, IConfig } from 'overmind'
+import { IConfig } from 'overmind'
 import { createHook } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
 
-const config = {
+export const config = {
   state,
   actions
 }
@@ -18,7 +18,6 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-export const overmind = new Overmind(config)
 
 export const useOvermind = createHook<typeof config>()
   `,
@@ -28,9 +27,12 @@ export const useOvermind = createHook<typeof config>()
           code: `
 import * as React from 'react'
 import { render } from 'react-dom'
+import { Overmind } from 'overmind'
 import { Provider } from 'overmind-react'
-import { overmind } from './overmind'
+import { config } from './overmind'
 import App from './components/App'
+
+const overmind = new Overmind(config)
 
 render((
   <Provider value={overmind}>
@@ -62,12 +64,31 @@ export default App
 import { Overmind } from 'overmind'
 import { createHook } from 'overmind-react'
 
-const overmind = new Overmind({
+export const config = {
   state: {},
   actions: {}
-})
+}
 
 export const useOvermind = createHook()
+`,
+        },
+        {
+          fileName: 'components/index.tsx',
+          code: `
+import React from 'react'
+import { render } from 'react-dom'
+import { Overmind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import App from './components/App'
+
+const overmind = new Overmind(config)
+
+render((
+  <Provider value={overmind}>
+    <App />
+  </Provider>
+), document.querySelector('#app'))
 `,
         },
         {

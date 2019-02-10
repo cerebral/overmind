@@ -6,7 +6,7 @@ export default (ts) =>
           code: `
 import { Action } from 'overmind'
 
-export const getPost: Action<string> = async ({ value: id, state, api }) {
+export const getPost: Action<string> = async ({ state, api }, id) {
   state.isLoadingPost = true
   try {
     state.currentPost = await api.getPost(id)
@@ -22,7 +22,7 @@ export const getPost: Action<string> = async ({ value: id, state, api }) {
         {
           fileName: 'overmind/actions.js',
           code: `
-export const getPost = async ({ value: id, state, api }) {
+export const getPost = async ({ state, api }, id) {
   state.isLoadingPost = true
   try {
     state.currentPost = await api.getPost(id)

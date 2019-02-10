@@ -10,26 +10,23 @@ export const showHomePage: Action = ({ state }) => {
   state.currentPage = 'home'
 }
 
-export const showUsersPage: Operator<{ id?: string, tab?: string }> = action(async ({
-  value: params,
-  state,
-  effects
-}) => {
-  if (!params.id) state.modalUser = null
+export const showUsersPage: Operator<{ id?: string, tab?: string }> = action(
+  async ({ state, effects }, params) => {
+    if (!params.id) state.modalUser = null
 
-  state.currentPage = 'users'
-  state.isLoadingUsers = true
-  state.users = await effects.api.getUsers()
-  state.isLoadingUsers = false
-})
+    state.currentPage = 'users'
+
+    if (state.users.length) return
+
+    state.isLoadingUsers = true
+    state.users = await effects.api.getUsers()
+    state.isLoadingUsers = false
+  }
+)
 
 export const showUserModal: Operator<{ id: string, tab: string }> = parallel(
   showUsersPage,
-  action(async ({
-    value: params,
-    state,
-    effects
-  }) => {
+  action(async ({ state, effects }, params) => {
     state.currentUserModalTabIndex = Number(params.tab)
     
     if (state.modalUser && state.modalUser.id === params.id) return
@@ -52,18 +49,23 @@ export const showHomePage = ({ state }) => {
   state.currentPage = 'home'
 }
 
-export const showUsersPage = action( async ({ value: params, state, effects }) => {
-  if (!params.id) state.modalUser = null
+export const showUsersPage = action(
+  async ({ state, effects }, params) => {
+    if (!params.id) state.modalUser = null
 
-  state.currentPage = 'users'
-  state.isLoadingUsers = true
-  state.users = await effects.api.getUsers()
-  state.isLoadingUsers = false
-})
+    state.currentPage = 'users'
+
+    if (state.users.length) return
+
+    state.isLoadingUsers = true
+    state.users = await effects.api.getUsers()
+    state.isLoadingUsers = false
+  }
+)
 
 export const showUserModal = parallel(
     showUsersPage,
-    action(async ({ value: params, state, effects }) => {
+    action(async ({ state, effects }, params) => {
       state.currentUserModalTabIndex = Number(params.tab)
       
       if (state.modalUser && state.modalUser.id === params.id) return
