@@ -3,7 +3,7 @@ export default () => [
     fileName: 'components/app.component.ts',
     code: `
 import { Component } from '@angular/core'
-import { OvermindService } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,9 @@ import { OvermindService } from '../overmind'
 })
 export class AppComponent {
   disposeMutationListener: () => void
-  constructor (private overmind: OvermindService) {}
+  constructor (private store: Store) {}
   ngOnInit() {
-    this.disposeMutationListener = this.overmind.addMutationListener((mutation) => {
+    this.disposeMutationListener = this.store.addMutationListener((mutation) => {
       if (mutation.path === 'currentPage') {
         document.querySelector('#app').scrollTop = 0
       }

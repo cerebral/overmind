@@ -2,48 +2,60 @@ export default () => [
   {
     fileName: 'overmind/index.ts',
     code: `
-import { Overmind, IConfig } from 'overmind'
-import { createService } from 'overmind-angular'
 import { Injectable } from '@angular/core'
+import { OvermindService } from 'overmind-angular'
 import { state } from './state'
 import * as actions from './actions'
 
-const config = {
-  state,
-  actions
-}
-
-declare module 'overmind' {
-  interface Config extends IConfig<typeof config> {}
-}
-
-const overmind = new Overmind(config)
+export const config = { state, actions }
 
 @Injectable()
-export class OvermindService extends createService(overmind) {}
+export class Store extends OvermindService<typeof config> {}
+`,
+  },
+  {
+    fileName: 'app.module.ts',
+    code: `
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { Overmind } from 'overmind';
+import { OvermindModule, OvermindService, OVERMIND_INSTANCE } from 'overmind-angular'
+
+import { config, Store } from './overmind'
+import { AppComponent } from './app.component';
+
+@NgModule({
+  imports: [ BrowserModule, FormsModule, OvermindModule ],
+  declarations: [ AppComponent ],
+  bootstrap: [ AppComponent ],
+  providers: [
+    { provide: OVERMIND_INSTANCE, useValue: new Overmind(config) },
+    { provide: Store, useExisting: OvermindService }
+]
+})
+export class AppModule { }   
 `,
   },
   {
     fileName: 'components/app.component.ts',
     code: `
 import { Component, ChangeDetectionStrategy } from '@angular/core'
-import { OvermindService } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
   selector: 'app-root',
   template: \`
-<div *ngIf="state$ | async as state">
+<div *track>
   <h1 (click)="actions.changeTitle()">{{ state.title }}</h1>
 </div>
   \`,
-  providers: [OvermindService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@OvermindService.Track
 export class AppComponent {
-  state$ = this.overmind.select()
-  actions: this.overmind.actions
-  constructor(private overmind: OvermindService) {}
+  state = this.store.select()
+  actions: this.store.actions
+  constructor(private store: Store) {}
 },
 `,
   },
