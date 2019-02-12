@@ -10,9 +10,9 @@ import {
   IState
 } from 'overmind'
 
-const config = {}
+export const config = {}
 
-type Config = IConfig<typeof config>
+export interface Config extends IConfig<typeof config> {}
 
 export interface OnInitialize extends IOnInitialize<Config> {}
 
