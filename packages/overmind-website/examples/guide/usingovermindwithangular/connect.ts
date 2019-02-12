@@ -18,7 +18,6 @@ export class Store extends OvermindService<typeof config> {}
     code: `
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { Overmind } from 'overmind';
 import { OvermindModule, OvermindService, OVERMIND_INSTANCE } from 'overmind-angular'
 
@@ -26,7 +25,7 @@ import { config, Store } from './overmind'
 import { AppComponent } from './app.component';
 
 @NgModule({
-  imports: [ BrowserModule, FormsModule, OvermindModule ],
+  imports: [ BrowserModule, OvermindModule ],
   declarations: [ AppComponent ],
   bootstrap: [ AppComponent ],
   providers: [
@@ -54,7 +53,7 @@ import { Store } from '../overmind'
 })
 export class AppComponent {
   state = this.store.select()
-  actions: this.store.actions
+  actions = this.store.actions
   constructor(private store: Store) {}
 },
 `,

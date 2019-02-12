@@ -16,7 +16,7 @@ import { Store } from '../overmind'
 })
 export class AppComponent {
   state = this.store.select(state => state.admin)
-  actions: this.store.actions.admin
+  actions = this.store.actions.admin
   constructor(private store: Store) {}
 },
 `,
