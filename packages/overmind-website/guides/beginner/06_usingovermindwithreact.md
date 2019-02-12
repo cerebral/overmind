@@ -37,7 +37,7 @@ h(Example, { name: "guide/usingovermindwithreact/hook_effect_subscription" })
 
 ### Provider
 
-With the hooks API you can also expose the Overmind instance with a Provider. This detaches the overmind instance from the actual **useOvermind** hook. It is rather consumed from the React context. This makes it easier to test components and you can use component libraries which is built for Overmind.
+You can also expose the Overmind instance with a Provider. This detaches the overmind instance from the actual **useOvermind** hook. It is rather consumed from the React context. This makes it easier to test components and do server side rendering.
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hook_provider" })
@@ -74,4 +74,12 @@ To run effects in components based on changes to state you use the **addMutation
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hoc_effect" })
+```
+
+### Provider
+
+You can also expose the Overmind instance with a Provider. This detaches the overmind instance from the actual **connect** hook. It is rather consumed from the React context. This makes it easier to test components and do server side rendering.
+
+```marksy
+h(Example, { name: "guide/usingovermindwithreact/hoc_provider" })
 ```
