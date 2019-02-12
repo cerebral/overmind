@@ -1,18 +1,14 @@
 # Using Overmind with Angular
 
-Using Overmind with Angular is straight forward. You create a **service** and use it with whatever component. By using the **select** API you create observable state.
+To use Overmind with Angular you just have to expose the **OvermindModule** and the instance of Overmind.
 
-```marksy
-h(Notice, null, "Make sure that your transpile target is configured to **ES2015** or later. This allows you to extend the service correctly")
-```
-
-Let us have a look at how you create the service an expose it to components:
+Let us have a look at how you configure your app:
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithangular/connect" })
 ```
 
-The **service** is responsible for exposing the configuration of your application and manage notifying the component when tracked state changes. The **Track** decorator primarily helps you with debugging, but also manages transferring tracking between components when it is passed as input. If you forget to any of these parts Overmind will yell at you.
+The **service** is responsible for exposing the configuration of your application. The **\*track** directive is what does the actual tracking. Just put it at the top of your template and whatever state you access will be optimally tracked. You can also select a namespace from your state to expose to the component:
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithangular/connect_custom" })
@@ -20,14 +16,18 @@ h(Example, { name: "guide/usingovermindwithangular/connect_custom" })
 
 You can now access the **admin** state and actions directly with **state** and **actions**.
 
+## NgZone
+
+Since Overmind knows when your components should update you can safely turn **ngZone** to `"noop"`. Note that other 3rd party libraries may not support this.
+
+
 ## Rendering
 
 When you connect Overmind to your component and expose state you do not have to think about how much state you expose. The exact state that is being accessed in the template is the state that will be tracked. That means you can expose all the state of the application to all your components without worrying about performance.
 
-
 ## Passing state as input
 
-When you pass state objects or arrays as input to a child component that state will by default be tracked on the component passing it a long, which you can also see in the devtools. By just adding the **service** to the child components as well this tracking is transferred to the child component.
+When you pass state objects or arrays as input to a child component that state will by default be tracked on the component passing it a long, which you can also see in the devtools. By just adding the **\*tracker** directive to the child template and the tracking will be handed over:
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithangular/passprop" })
