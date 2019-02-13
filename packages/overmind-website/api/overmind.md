@@ -32,7 +32,7 @@ h(Example, { name: "api/app_options_logproxies" })
 ```
 
 ## options.name
-If you have multiple instances of Overmind on the same page you can name your app to differentiate it in the devtools.
+If you have multiple instances of Overmind on the same page you can name your app to differentiate them.
 
 ```marksy
 h(Example, { name: "api/app_options_name" })
