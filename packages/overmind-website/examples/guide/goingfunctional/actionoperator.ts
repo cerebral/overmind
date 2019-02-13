@@ -10,7 +10,7 @@ export const plainAction: Action = ({ state }, value) => {
 
 }
 
-export const functionlAction: Operator = action(({ state }, value) => {
+export const functionalAction: Operator = action(({ state }, value) => {
 
 })
   `,
@@ -26,7 +26,7 @@ export const plainAction = ({ state }, value) => {
 
 }
 
-export const functionlAction = action(({ state }, value) => {
+export const functionalAction = action(({ state }, value) => {
 
 })
 `,
