@@ -3,6 +3,7 @@ import { useOvermind } from '../../overmind'
 import * as styles from './styles'
 import { Page } from '../../overmind/types'
 import ViewSelector from '../ViewSelector'
+import PreReleaseNotice from '../PreReleaseNotice'
 import { css } from 'emotion'
 import Search from '../Search'
 
@@ -16,6 +17,7 @@ const TopBar: SFC = () => {
 
   return (
     <div ref={mainRef} className={styles.wrapper}>
+      {state.isPreRelease && <PreReleaseNotice />}
       <a
         href="/"
         className={css(

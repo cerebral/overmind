@@ -2,6 +2,7 @@ import { OnInitialize } from 'overmind'
 
 const onInitialize: OnInitialize = ({ effects, state }, app) => {
   state.showViewHelp = !effects.storage.get('theme')
+  state.isPreRelease = effects.isPreRelease()
 
   effects.router.route('/', app.actions.openHome)
   effects.router.route('/guides', app.actions.openGuides)

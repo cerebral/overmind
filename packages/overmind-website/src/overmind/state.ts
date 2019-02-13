@@ -27,6 +27,7 @@ type State = {
   isLoadingGuides: boolean
   isLoadingApis: boolean
   isLoadingVideos: boolean
+  isPreRelease: boolean
   showViewHelp: boolean
 }
 
@@ -49,6 +50,7 @@ const state: State = {
   isLoadingGuides: false,
   isLoadingApis: false,
   isLoadingVideos: false,
+  isPreRelease: false,
   showViewHelp: false,
 }
 

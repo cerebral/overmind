@@ -2,6 +2,7 @@ import { createElement, SFC, useRef, useEffect } from 'react'
 import { useOvermind } from '../../overmind'
 import * as styles from './styles'
 import ViewSelector from '../ViewSelector'
+import PreReleaseNotice from '../PreReleaseNotice'
 import Icon from '../Icon'
 import { Page } from '../../overmind/types'
 import { css } from 'emotion'
@@ -34,6 +35,9 @@ const MobileTopBar: SFC = () => {
       <div onClick={openMenu}>
         <Icon>bars</Icon>
       </div>
+      {state.isPreRelease && (
+        <PreReleaseNotice className={css(styles.preReleaseNoticeAlignment)} />
+      )}
       <ViewSelector />
       <div className={styles.menuWrapper} onClick={closeMenu} ref={menu}>
         <div className={styles.menu}>

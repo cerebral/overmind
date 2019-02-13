@@ -53,3 +53,8 @@ export const link = css`
 export const linkSelected = css`
   color: var(--color-primary);
 `
+
+export const preReleaseNoticeAlignment = css`
+  margin-left: var(--padding-3);
+  margin-right: auto;
+`

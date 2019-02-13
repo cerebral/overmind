@@ -103,3 +103,5 @@ export const css = {
     document.documentElement.style.setProperty('--color-primary', colors[theme])
   },
 }
+
+export const isPreRelease = () => location.hostname.startsWith('next.')
