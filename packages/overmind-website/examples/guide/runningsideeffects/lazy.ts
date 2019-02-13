@@ -29,9 +29,6 @@ export const api = (() => {
         {
           fileName: 'overmind/effects.js',
           code: `
-import * as firebase from 'firebase'
-
-
 export const api = (() => {
   let app
 

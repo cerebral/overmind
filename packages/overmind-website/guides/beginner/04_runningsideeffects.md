@@ -34,8 +34,6 @@ Now you can see how clean your application logic becomes:
 h(Example, { name: "guide/runningsideeffects/changestate" })
 ```
 
-We could also make this effect configurable by defining it as a class instead. 
-
 ## Initializing effects
 
 It can be a good idea to not allow your side effects to initialize when they are defined. This makes sure that they do not leak into tests or server side rendering. For example if you want to use Firebase. Instead of initializing the Firebase application immediately we rather do it behind an **initialize** method:
