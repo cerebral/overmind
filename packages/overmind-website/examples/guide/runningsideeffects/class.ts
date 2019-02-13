@@ -44,7 +44,7 @@ export class Api {
   }
 }
 
-export const http =
+export const api =
   new Api(IS_PRODUCTION ? '/api/v1' : 'http://localhost:4321', axios)
   `,
         },

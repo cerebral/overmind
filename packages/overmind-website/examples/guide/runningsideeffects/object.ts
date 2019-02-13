@@ -8,8 +8,10 @@ import * as axios from 'axios'
 import { User } from './state'
 
 export const api = {
-  getCurrentUser() {
-    return axios.get<User>('/user')
+  async getCurrentUser() {
+    const response = await axios.get<User>('/user')
+
+    return response.data
   }
 }
   `,
@@ -22,8 +24,10 @@ export const api = {
 import axios from 'axios'
 
 export const http = {
-  getCurrentUser() {
-    return axios.get('/user')
+  async getCurrentUser() {
+    const response = await axios.get('/user')
+
+    return response.data
   }
 }
   `,
