@@ -6,7 +6,7 @@ export default (ts) =>
           code: `
 import { Action } from 'overmind'
 
-export const getCurrentUser: Action = async ({ effects, state }) => {
+export const loadApp: Action = async ({ effects, state }) => {
   state.currentUser = await effects.api.getCurrentUser()
 }
   `,
@@ -16,7 +16,7 @@ export const getCurrentUser: Action = async ({ effects, state }) => {
         {
           fileName: 'overmind/actions.js',
           code: `
-export const getCurrentUser = async ({ effects, state }) => {
+export const loadApp = async ({ effects, state }) => {
   state.currentUser = await effects.api.getCurrentUser()
 }
   `,
