@@ -20,15 +20,18 @@ const pages = {
   [Page.VIDEOS]: Videos,
 }
 
-const fadeInPage = () => {
-  const el = document.querySelector('#overmind-app') as HTMLElement
-  const logo = document.querySelector('#overmind-loader') as HTMLElement
-  el.style.backgroundColor = 'rgb(250,250,250)'
-  el.style.opacity = '1'
-  logo.addEventListener('transitionend', () => {
-    logo.style.display = 'none'
+const fadeInPage = (cb: () => void) => {
+  requestAnimationFrame(() => {
+    const el = document.querySelector('#overmind-app') as HTMLElement
+    const logo = document.querySelector('#overmind-loader') as HTMLElement
+    el.style.backgroundColor = 'rgb(250,250,250)'
+    el.style.opacity = '1'
+    logo.addEventListener('transitionend', () => {
+      logo.style.display = 'none'
+    })
+    logo.style.opacity = '0'
+    cb()
   })
-  logo.style.opacity = '0'
 }
 
 const App: SFC = () => {
@@ -37,8 +40,9 @@ const App: SFC = () => {
   const isMobile = useIsMobile()
   useScrollToPosition(state.page)
   useEffect(() => {
-    fadeInPage()
-    mainRef.current.style.opacity = '1'
+    fadeInPage(() => {
+      mainRef.current.style.opacity = '1'
+    })
   }, [])
 
   if (!state.page) {
