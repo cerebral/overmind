@@ -20,9 +20,9 @@ declare module 'overmind' {
 
 export interface Connect extends IConnect<typeof config> {}
 
-const overmind = new Overmind(config)
-
 export const connect = createConnect(overmind)
+
+const overmind = new Overmind(config)
   `,
         },
         {
