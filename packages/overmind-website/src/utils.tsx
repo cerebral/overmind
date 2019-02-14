@@ -12,13 +12,8 @@ export const viewport = {
   },
 }
 
-export const getBranch = () =>
-  location.host.split('.')[0] === 'next' || location.hostname === 'localhost'
-    ? 'next'
-    : 'master'
-
 export const getGithubBaseUrl = () =>
-  `https://github.com/cerebral/overmind/edit/${getBranch()}/packages/overmind-website/`
+  `https://github.com/cerebral/overmind/edit/next/packages/overmind-website/`
 
 export const getTheme = () => localStorage.getItem('theme') || 'react'
 
