@@ -3,6 +3,12 @@ import { render } from 'react-dom'
 import { injectGlobal } from 'emotion'
 import * as iconFont from './icomoon.woff2'
 import App from './components/App'
+import { setConfig } from 'react-hot-loader'
+
+setConfig({
+  ignoreSFC: true, // RHL will be __completely__ disabled for SFC
+  pureRender: true, // RHL will not change render method
+})
 
 injectGlobal`
   @font-face {

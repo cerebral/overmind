@@ -38,6 +38,7 @@ module.exports = (env, args) => {
         '/backend': 'http://localhost:5000',
       },
       historyApiFallback: true,
+      hot: true,
     },
     module: {
       rules: [
@@ -55,11 +56,41 @@ module.exports = (env, args) => {
         },
         {
           test: /\.tsx?$/,
-          loader: 'ts-loader',
+          loader: 'babel-loader',
           include: path.join(__dirname, 'src'),
           options: {
-            allowTsInNodeModules: true,
+            presets: [
+              [
+                '@babel/preset-typescript',
+                {
+                  isTSX: true,
+                  jsxPragma: 'createElement',
+                  allExtensions: true,
+                },
+              ],
+              [
+                '@babel/preset-react',
+                {
+                  pragma: 'createElement',
+                },
+              ],
+              '@babel/preset-env',
+            ],
+            plugins: [
+              '@babel/plugin-syntax-dynamic-import',
+              [
+                '@babel/plugin-transform-runtime',
+                {
+                  regenerator: true,
+                },
+              ],
+            ],
           },
+        },
+        {
+          test: /\.tsx/,
+          include: /node_modules/,
+          loader: 'react-hot-loader/webpack',
         },
       ],
     },

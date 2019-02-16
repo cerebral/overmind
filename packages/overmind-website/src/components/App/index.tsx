@@ -11,6 +11,7 @@ import Api from '../Api'
 import MobileTopBar from '../MobileTopBar'
 import { useIsMobile, useScrollToPosition } from '../../utils'
 import Footer from '../Footer'
+import { hot } from 'react-hot-loader/root'
 
 const pages = {
   [Page.HOME]: FrontPage,
@@ -62,4 +63,4 @@ const App: SFC = () => {
   )
 }
 
-export default App
+export default hot(App)
