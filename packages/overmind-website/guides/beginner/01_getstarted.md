@@ -101,6 +101,10 @@ The Overmind devtools provides us with a pretty amazing experience. We get insig
 
 To connect to the devtools simply start the devtools application and refresh your app. If you need to configure where it connects, please look at the [API section](/api/overmind).
 
+## Hot Module Replacement
+
+A popular concept introduced by Webpack is [HMR](https://webpack.js.org/concepts/hot-module-replacement/). It allows you to make changes to your code without having to refresh. Overmind automatically supports HMR. That means when **HMR** is activated Overmind will make sure it updates and manages its state, actions and effects. Even the devtools will be updated as you make changes.
+
 ## Summary
 
 You have now stepped your toes into Overmind. Please continue this example to actually display the posts fetched. In the devtools you will see how the component will become quite bloated with dependencies to state, which is actually a general problem with lists and components. You can read more about how to manage lists in a later guide, but we wanted to point out that the devtools can already helps us identify possible issues with the application.
