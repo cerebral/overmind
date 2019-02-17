@@ -21,7 +21,7 @@ const Guide: SFC = () => {
         state.currentGuide.type +
         '/' +
         state.currentGuide.title +
-        '.md').then((module) => setContent(module))
+        '.md').then((module) => setContent(module.default))
     },
     [state.currentGuide.type, state.currentGuide.title]
   )

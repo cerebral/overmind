@@ -18,7 +18,7 @@ const Api: SFC = () => {
   useEffect(
     () => {
       import('../../../api/' + state.currentApi + '.md').then((module) => {
-        setContent(module)
+        setContent(module.default)
       })
     },
     [state.currentApi]
