@@ -12,7 +12,7 @@ import { config } from '../client/overmind'
 import App from '../client/components/App'
 import db from './db'
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   const overmind = createOvermindSSR(overmind)
 
   overmind.currentPage = 'posts'
@@ -43,47 +43,17 @@ export default async (req, res) => {
     {
       fileName: 'server/routePosts.js',
       code: `
-import Vue from 'vue'
-import { createRenderer } from 'vue-server-renderer'
-import { createOvermindSSR } from 'overmind'
-import { createPlugin } from 'overmind-vue'
-import { config } from '../client/overmind'
-import App from '../client/components/App'
-import db from './db'
+/*
+  VUE will not be able to support server side rendering until version 3.0
 
-const renderer = createRenderer()
-
-export default async (req, res) => {
-  const overmind = createOvermindSSR(overmind)
-  const OvermindPlugin = createPlugin(overmind)
-  const app = new Vue({
-    render(h) {
-      return h(App)
-    }
-  })
-
-  Vue.use(OvermindPlugin)
-
-  const app = 
-  overmind.currentPage = 'posts'
-  overmind.posts = await db.getPosts()
-
-  OvermindPlugin.set(overmind)
-
-  const html = await renderer.renderToString(app)
-
-  res.send(\`
-  <html>
-    <body>
-      <div id="app">\${html}</div>
-      <script>
-        window.__OVERMIND_MUTATIONS = \${JSON.stringify(overmind.hydrate())}
-      </script>
-      <script src="/scripts/app.js"></script>
-    </body>
-  </html>
-  \`)
-}
+  "
+    Top level APIs will likely receive an overhaul to avoid globally mutating the
+    Vue runtime when installing plugins. Instead, plugins will be applied and scoped
+    to a component tree. This will make it easier to test components that rely on
+    specific plugins, and also make it possible to mount multiple Vue applications
+    on the same page with different plugins, but using the same Vue runtime
+  "
+*/
 `,
     },
   ],
@@ -132,16 +102,117 @@ export default async (req, res) => {
   angular: [
     {
       fileName: 'overmind/index.ts',
-      code: tsAppIndex(
-        'angular',
-        `
+      code: `
+import { IConfig } from 'overmind'
+import { OvermindService } from 'overmind-angular'
+import { Injectable } from '@angular/core'
 import { state } from './state'
 
-const config = {
-  state,
+export const config = {
+  state
 }
-`
-      ),
+
+declare module 'overmind' {
+  interface Config extends IConfig<typeof config> {}
+}
+
+@Injectable()
+export class Store extends OvermindService<typeof config> {}
+`,
+    },
+    {
+      fileName: 'common.module.ts',
+      code: `
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { OvermindService, OvermindModule } from 'overmind-angular'
+import { AppComponent } from './components/app.component.ts'
+import { Store } from './overmind'
+
+// We create a shared module between the client and the server
+@NgModule({
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'my-app'}),
+    OvermindModule
+  ],
+  providers: [{ provide: Store, useExisting: OvermindService }]
+})
+export class CommonModule {}
+`,
+    },
+    {
+      fileName: 'app.module.ts',
+      code: `
+import { Overmind } from 'overmind'
+import { OVERMIND_INSTANCE } from 'overmind-angular'
+import { CommonModule } from './common.module.ts'
+import { config } from './overmind'
+
+// The client specific module provides the Overmind instance
+@NgModule({
+  imports: [CommonModule],
+  providers: [{
+    provide: OVERMIND_INSTANCE,
+    useValue: new Overmind(config)
+  }]
+})
+export class AppModule {}
+`,
+    },
+    {
+      fileName: 'app.server.module.ts',
+      code: `
+import { ServerModule } from '@angular/platform-server';
+import { CommonModule } from './common.module.ts'
+import { config } from './overmind'
+
+// The server module does not provide an instance, it is
+// provider per request to the server
+@NgModule({
+  imports: [CommonModule, ServerModule],
+})
+export class AppServerModule {}
+`,
+    },
+    {
+      fileName: 'server/routePosts.js',
+      code: `
+import { renderModuleFactory } from '@angular/platform-server'
+import { createOvermindSSR } from 'overmind'
+import { config } from '../overmind'
+import db from './db'
+
+const { AppServerModuleNgFactory } = require('./server/main')
+
+export default async (req, res) => {
+  const overmind = createOvermindSSR(config)
+  
+  overmind.currentPage = 'posts'
+  overmind.posts = await db.getPosts()
+
+  const html = await renderModuleFactory(AppServerModuleNgFactory, {
+    extraProviders: [{
+      provide: OVERMIND_INSTANCE,
+      useValue: overmind
+    }]
+  })
+
+  res.send(\`
+  <!DOCTYPE html>
+  <html>
+    <head></head>
+    <body>
+      \${html}
+      <script>
+        window.__OVERMIND_MUTATIONS = \${JSON.stringify(overmind.hydrate())}
+      </script>
+      <script src="/scripts/app.js"></script>
+    </body>
+  </html>
+\`)
+});
+`,
     },
   ],
 }

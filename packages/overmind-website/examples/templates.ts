@@ -16,8 +16,8 @@ export const overmind = new Overmind(config)
 export const useOvermind = createHook(overmind)
 `,
   angular: (config) => `
-import { Overmind, IConfig } from 'overmind'
-import { createService } from 'overmind-angular'
+import { IConfig } from 'overmind'
+import { OvermindService } from 'overmind-angular'
 import { Injectable } from '@angular/core'
 ${config.trim()}
 
@@ -26,12 +26,8 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-export interface Connect extends IConnect<typeof config> {}
-
-export const overmind = new Overmind(config)
-
 @Injectable()
-export class OvermindService extends createService(overmind) {}
+export class Store extends OvermindService<typeof config> {}
 `,
   vue: (config) => ``,
 }
