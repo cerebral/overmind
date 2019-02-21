@@ -1,4 +1,12 @@
-import { Action, pipe, action, filter, debounce, Operator } from 'overmind'
+import {
+  Action,
+  pipe,
+  action,
+  filter,
+  debounce,
+  Operator,
+  tryCatch,
+} from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
 import { ensureViewAndTypescript } from './operators'
 

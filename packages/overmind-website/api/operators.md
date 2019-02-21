@@ -24,6 +24,13 @@ This operator takes a normal action and converts it to an operator so that it ca
 h(Example, { name: "api/operators_operator_action" })
 ```
 
+## catchError
+This operator runs if any of the previous operators throws an error. It allows you to manage that error by changing your state, run effects or even return a new value to the next operators. 
+
+```marksy
+h(Example, { name: "api/operators_operator_catcherror" })
+```
+
 ## debounce
 When action is called multiple times within the set time limit, only the last action will move beyond the point of the debounce.
 
@@ -71,6 +78,13 @@ The pipe is an operator in itself. Use it to compose other operators and pipes.
 
 ```marksy
 h(Example, { name: "api/operators_operator_pipe" })
+```
+
+## tryCatch
+This operator allows you to scope execution and manage errors. This operator does not return a new value to the execution.
+
+```marksy
+h(Example, { name: "api/operators_operator_trycatch" })
 ```
 
 ## wait
