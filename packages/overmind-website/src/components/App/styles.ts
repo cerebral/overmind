@@ -1,5 +1,23 @@
 import { css } from 'emotion'
 
+export const preview = css`
+  position: fixed;
+  top: 50px;
+  margin: 0 auto;
+  display: flex;
+  left: calc(100vw / 2 - 200px);
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  width: 400px;
+  z-index: 1;
+  font-weight: bold;
+  color: var(--color-black-1);
+`
+
 export const pageWrapper = css`
   min-height: calc(100vh);
 `

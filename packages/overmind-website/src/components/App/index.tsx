@@ -59,6 +59,12 @@ const App: SFC = () => {
         <Page />
       </div>
       <Footer />
+      {location.hostname === 'localhost' ||
+      location.hostname.includes('next') ? (
+        <div className={styles.preview}>
+          This is the PREVIEW site of Overmind
+        </div>
+      ) : null}
     </div>
   )
 }
