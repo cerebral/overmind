@@ -69,6 +69,7 @@ export {
 import PostComponent from './Post'
 
 export default {
+  name: 'Posts',
   components: {
     PostComponent,
   },

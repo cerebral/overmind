@@ -46,6 +46,7 @@ export default Posts
       fileName: 'Posts.vue (script)',
       code: `
 export default {
+  name: 'Posts',
   mounted() {
     this.actions.getPosts()
   }

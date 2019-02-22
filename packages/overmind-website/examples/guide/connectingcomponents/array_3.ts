@@ -54,6 +54,7 @@ export default App
       fileName: 'components/Item.vue (script)',
       code: `
 export default {
+  name: 'Item',
   props: ['item']
 }
   `,
@@ -73,6 +74,7 @@ export default {
 import Item from './Item'
 
 export default {
+  name: 'List',
   components: {
     Item,
   },

@@ -37,6 +37,7 @@ export default Article
       fileName: 'components/Article.vue (script)',
       code: `
 export default {
+  name: 'Article',
   mounted() {
     this.disposeEffect = this.overmind.addMutationListener(() => {
       if (mutation.path === 'currentArticle') {

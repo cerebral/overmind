@@ -12,6 +12,7 @@ export default () => [
     fileName: 'components/SomeComponent.vue (script)',
     code: `
 export default {
+  name: 'SomeComponent',
   props: ["id"],
   data: (self) => ({
     get title() {

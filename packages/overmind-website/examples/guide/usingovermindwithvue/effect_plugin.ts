@@ -12,6 +12,7 @@ export default () => [
     fileName: 'components/SomeComponent.vue (script)',
     code: `
 export default {
+  name: 'SomeComponent',
   mounted() {
     this.disposeMutationListener = this.overmind.addMutationListener((mutation) => {
       if (mutation.path === 'currentPage') {

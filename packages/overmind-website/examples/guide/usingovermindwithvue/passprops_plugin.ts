@@ -10,6 +10,7 @@ export default () => [
     fileName: 'components/Todo.vue (script)',
     code: `
 export default {
+  name: 'Todo',
   props: ["todo"]
 }
 `,
@@ -33,6 +34,7 @@ export default {
 import TodoComponent from './Todo'
 
 export default {
+  name: 'Todo',
   components: {
     TodoComponent
   }
