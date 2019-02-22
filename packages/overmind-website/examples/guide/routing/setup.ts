@@ -6,11 +6,11 @@ export default (ts) =>
           code: `
 import { Action } from 'overmind'
 
-export const routeHomePage: Action = ({ state }) => {
+export const showHomePage: Action = ({ state }) => {
   state.currentPage = 'home'
 }
 
-export const routeUsersPage: Action = async ({ state, effects }) => {
+export const showUsersPage: Action = async ({ state, effects }) => {
   state.user = null
   state.currentPage = 'users'
   state.isLoadingUsers = true
@@ -18,7 +18,7 @@ export const routeUsersPage: Action = async ({ state, effects }) => {
   state.isLoadingUsers = false
 }
 
-export const routeUser: Action<{ id: string }> = async ({ state, effects }, params) => {
+export const showUserModal: Action<{ id: string }> = async ({ state, effects }, params) => {
   state.isLoadingUserDetails = true
   state.modalUser = await effects.api.getUserWithDetails(params.id)
   state.isLoadingUserDetails = false
@@ -30,11 +30,11 @@ export const routeUser: Action<{ id: string }> = async ({ state, effects }, para
         {
           fileName: 'overmind/actions.js',
           code: `
-export const routeHomePage = ({ state }) => {
+export const showHomePage = ({ state }) => {
   state.currentPage = 'home'
 }
 
-export const routeUsersPage = async ({ state, api }) => {
+export const showUsersPage = async ({ state, api }) => {
   state.user = null
   state.currentPage = 'users'
   state.isLoadingUsers = true
@@ -42,7 +42,7 @@ export const routeUsersPage = async ({ state, api }) => {
   state.isLoadingUsers = false
 }
 
-export const routeUser = async ({ state, api }, params) => {
+export const showUserModal = async ({ state, api }, params) => {
   state.isLoadingUserDetails = true
   state.modalUser = await api.getUserWithDetails(params.id)
   state.isLoadingUserDetails = false
