@@ -1,6 +1,6 @@
 # Server Side Rendering
 
-Some projects requires you to render your application on the server. There are different reason to do this, like search engine optimizations, general optimizations and even browser support. What this means for state management is that you want to expose a version of your state on the server and render the components with that state. But that is not all, you also want to **hydrate** the changed stat and pass it to the client with the HTML so that it can **rehydrate** and make sure that when the client renders initially, it renders the same UI.
+Some projects requires you to render your application on the server. There are different reason to do this, like search engine optimizations, general optimizations and even browser support. What this means for state management is that you want to expose a version of your state on the server and render the components with that state. But that is not all, you also want to **hydrate** the changed state and pass it to the client with the HTML so that it can **rehydrate** and make sure that when the client renders initially, it renders the same UI.
 
 ## Preparing the project
 
