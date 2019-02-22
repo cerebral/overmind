@@ -6,7 +6,7 @@ export default (ts) =>
           code: `
 ...
 
-export const overmind = new Overmind(config, {
+export const overmind = createOvermind(config, {
   logProxies: false
 })
         `,
@@ -18,7 +18,7 @@ export const overmind = new Overmind(config, {
           code: `
 ...
 
-export const overmind = new Overmind(config, {
+export const overmind = createOvermind(config, {
   logProxies: false
 })
 `,

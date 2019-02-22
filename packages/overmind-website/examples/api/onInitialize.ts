@@ -59,12 +59,12 @@ export default onInitialize
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import onInitialize from './onInitialize'
 import { state } from './state'
 import * as actions from './actions'
 
-const overmind = new Overmind({
+const overmind = createOvermind({
   onInitialize,
   state,
   actions

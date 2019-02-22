@@ -2,10 +2,10 @@ export default () => [
   {
     fileName: 'overmind/index.js',
     code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createPlugin } from 'overmind-vue'
 
-const overmind = new Overmind({
+const overmind = createOvermind({
   state: {
     foo: 'bar'
   },

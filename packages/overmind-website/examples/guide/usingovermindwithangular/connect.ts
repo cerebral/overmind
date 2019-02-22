@@ -18,7 +18,7 @@ export class Store extends OvermindService<typeof config> {}
     code: `
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Overmind } from 'overmind';
+import { createOvermind } from 'overmind';
 import { OvermindModule, OvermindService, OVERMIND_INSTANCE } from 'overmind-angular'
 
 import { config, Store } from './overmind'
@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
   declarations: [ AppComponent ],
   bootstrap: [ AppComponent ],
   providers: [
-    { provide: OVERMIND_INSTANCE, useValue: new Overmind(config) },
+    { provide: OVERMIND_INSTANCE, useValue: createOvermind(config) },
     { provide: Store, useExisting: OvermindService }
 ]
 })

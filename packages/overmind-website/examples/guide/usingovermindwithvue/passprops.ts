@@ -2,10 +2,10 @@ export default () => [
   {
     fileName: 'overmind/index.jsx',
     code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createConnect } from 'overmind-vue'
 
-const overmind = new Overmind({
+const overmind = createOvermind({
   state: {},
   actions: {}
 })

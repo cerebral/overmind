@@ -28,12 +28,12 @@ export const connect = createConnect<typeof config>()
           code: `
 import * as React from 'react'
 import { render } from 'react-dom'
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { Provider } from 'overmind-react'
 import { config } from './overmind'
 import App from './components/App'
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 render((
   <Provider value={overmind}>
@@ -60,7 +60,6 @@ export default connect(App)
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
 import { createConnect } from 'overmind-react'
 
 export const config = {
@@ -76,12 +75,12 @@ export const connect = createConnect()
           code: `
 import React from 'react'
 import { render } from 'react-dom'
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { Provider } from 'overmind-react'
 import { config } from './overmind'
 import App from './components/App'
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 render((
   <Provider value={overmind}>

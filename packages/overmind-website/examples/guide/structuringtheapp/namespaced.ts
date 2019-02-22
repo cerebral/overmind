@@ -32,7 +32,7 @@ export {
         {
           fileName: 'overmind/index.ts',
           code: `
-import { Overmind, TConfig } from 'overmind'
+import { createOvermind, TConfig } from 'overmind'
 import { namespaced } from 'overmind/config'
 import * as posts from './posts'
 import * as admin from './admin'
@@ -46,7 +46,7 @@ declare module 'overmind' {
   interface IConfig extends TConfig<typeof config> {}
 }
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 `,
         },
       ]
@@ -82,7 +82,7 @@ export {
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { namespaced } from 'overmind/config'
 import * as posts from './posts'
 import * as admin from './admin'
@@ -92,7 +92,7 @@ const config = namespaced({
   admin
 })
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 `,
         },
       ]

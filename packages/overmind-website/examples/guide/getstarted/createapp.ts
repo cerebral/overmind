@@ -5,10 +5,10 @@ const javascript = {
     {
       fileName: 'overmind/index.js',
       code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createHook } from 'overmind-react'
 
-export const overmind = new Overmind({
+export const overmind = createOvermind({
   state: {
     isLoadingPosts: false
   }
@@ -22,10 +22,10 @@ export const useOvermind = createHook(overmind)
     {
       fileName: 'overmind/index.js',
       code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createPlugin } from 'overmind-vue'
 
-export const overmind = new Overmind({
+export const overmind = createOvermind({
   state: {
     isLoadingPosts: false
   }

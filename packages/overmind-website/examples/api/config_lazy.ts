@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind.ts',
           code: `
-import { Overmind, IConfig } from 'overmind'
+import { createOvermind, IConfig } from 'overmind'
 import { lazy } from 'overmind/config'
 import { Config as ModuleAConfig } from './moduleA'
 import { Config as ModuleBConfig } from './moduleB'
@@ -18,7 +18,7 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 overmind.actions.lazy.loadConfig('moduleA')
 
@@ -30,7 +30,7 @@ export default overmind
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { lazy } from 'overmind/config'
 
 const config = lazy({
@@ -38,7 +38,7 @@ const config = lazy({
   moduleB: () => import('./moduleB')
 })
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 overmind.actions.lazy.loadConfig('moduleA')
 

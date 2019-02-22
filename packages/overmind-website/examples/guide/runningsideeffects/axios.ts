@@ -37,13 +37,13 @@ export { default as http } from 'axios'
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
 import state from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 
-export const overmind = new Overmind({
+export const overmind = createOvermind({
   state,
   actions,
   effects

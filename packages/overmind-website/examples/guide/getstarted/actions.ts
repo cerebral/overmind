@@ -37,10 +37,10 @@ const config = {
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
 
-export const overmind = new Overmind({
+export const overmind = createOvermind({
   state: {
     isLoadingPosts: false,
     posts: []

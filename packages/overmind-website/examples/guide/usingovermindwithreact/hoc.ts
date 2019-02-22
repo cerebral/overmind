@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind/index.ts',
           code: `
-import { Overmind, IConfig } from 'overmind'
+import { createOvermind, IConfig } from 'overmind'
 import { createConnect, IConnect } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
@@ -22,7 +22,7 @@ export interface Connect extends IConnect<typeof config> {}
 
 export const connect = createConnect(overmind)
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
   `,
         },
         {
@@ -47,10 +47,10 @@ export default connect(App)
         {
           fileName: 'overmind/index.jsx',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createConnect } from 'overmind-react'
 
-const overmind = new Overmind({
+const overmind = createOvermind({
   state: {},
   actions: {}
 })

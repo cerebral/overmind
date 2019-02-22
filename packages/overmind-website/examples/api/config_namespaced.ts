@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind.ts',
           code: `
-import { Overmind, IConfig } from 'overmind'
+import { createOvermind, IConfig } from 'overmind'
 import { namespaced } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
@@ -18,7 +18,7 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 export default overmind
 `,
@@ -28,7 +28,7 @@ export default overmind
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind} from 'overmind'
+import { createOvermind } from 'overmind'
 import { namespaced } from 'overmind/config'
 import * as moduleA from './moduleA'
 import * as moduleB from './moduleB'
@@ -38,7 +38,7 @@ const config = namespaced({
   moduleB
 })
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 export default overmind
 `,

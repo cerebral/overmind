@@ -25,13 +25,13 @@ const config = {
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createConnect } from 'overmind-${view}'
 import state from './state'
 import * as effects from './effects'
 import * as actions from './actions'
 
-export const overmind = new Overmind({
+export const overmind = createOvermind({
   state,
   effects,
   actions

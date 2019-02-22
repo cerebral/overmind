@@ -144,7 +144,7 @@ export class CommonModule {}
     {
       fileName: 'app.module.ts',
       code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { OVERMIND_INSTANCE } from 'overmind-angular'
 import { CommonModule } from './common.module.ts'
 import { config } from './overmind'
@@ -154,7 +154,7 @@ import { config } from './overmind'
   imports: [CommonModule],
   providers: [{
     provide: OVERMIND_INSTANCE,
-    useValue: new Overmind(config)
+    useValue: createOvermind(config)
   }]
 })
 export class AppModule {}

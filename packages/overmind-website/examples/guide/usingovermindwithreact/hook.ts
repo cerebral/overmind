@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind/index.ts',
           code: `
-import { Overmind, IConfig } from 'overmind'
+import { createOvermind, IConfig } from 'overmind'
 import { createHook } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
@@ -18,7 +18,7 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 export const useOvermind = createHook(overmind)
   `,
@@ -43,10 +43,10 @@ export default App
         {
           fileName: 'overmind/index.js',
           code: `
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createHook } from 'overmind-react'
 
-const overmind = new Overmind({
+const overmind = createOvermind({
   state: {},
   actions: {}
 })

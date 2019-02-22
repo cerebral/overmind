@@ -6,11 +6,11 @@ export default (ts) =>
           code: `
 ...
 
-export const overmindA = new Overmind(configA, {
+export const overmindA = createOvermind(configA, {
   name: 'appA'
 })
 
-export const overmindB = new Overmind(configB, {
+export const overmindB = createOvermind(configB, {
   name: 'appB'
 })
         `,
@@ -22,11 +22,11 @@ export const overmindB = new Overmind(configB, {
           code: `
 ...
 
-export const overmindA = new Overmind(configA, {
+export const overmindA = createOvermind(configA, {
   name: 'appA'
 })
 
-export const overmindB = new Overmind(configB, {
+export const overmindB = createOvermind(configB, {
   name: 'appB'
 })
 `,

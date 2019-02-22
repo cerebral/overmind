@@ -21,12 +21,12 @@ export const useOvermind = createHook()
       code: `
 import React from 'react'
 import { render } from 'react-dom'
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { Provider } from 'overmind-react'
 import { config } from './overmind'
 import App from './components/App'
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 render(
   <Provider value={overmind}>
@@ -52,12 +52,12 @@ export const config = {
       fileName: 'overmind/index.js',
       code: `
 import Vue from 'vue'
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { createPlugin } from 'overmind-vue'
 import { config } from './overmind'
 import App from './components/App'
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 Vue.use(createPlugin(overmind))
 
@@ -95,12 +95,12 @@ export const useOvermind = createHook<typeof config>()
       code: `
 import * as React from 'react'
 import { render } from 'react-dom'
-import { Overmind } from 'overmind'
+import { createOvermind } from 'overmind'
 import { Provider } from 'overmind-react'
 import { config } from './overmind'
 import { App } from './components/App'
 
-const overmind = new Overmind(config)
+const overmind = createOvermind(config)
 
 render(
   <Provider value={overmind}>
