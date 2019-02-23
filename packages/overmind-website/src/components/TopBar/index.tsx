@@ -16,6 +16,12 @@ const TopBar: SFC = () => {
 
   return (
     <div ref={mainRef} className={styles.wrapper}>
+      <div className={styles.version}>
+        v{state.versions['overmind']}{' '}
+        <a href="https://github.com/cerebral/overmind/releases" target="_new">
+          release notes
+        </a>
+      </div>
       <a
         href="/"
         className={css(

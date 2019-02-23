@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const https = require('https')
+const axios = require('axios')
 const app = express()
 const fs = require('fs')
 const api = require('./api')
@@ -96,10 +97,27 @@ function getSearchData() {
     )
 }
 
+function getVersion(name) {
+  return axios.get('http://registry.npmjs.org/' + name).then((response) => ({
+    name,
+    version: response.data['dist-tags'].latest,
+  }))
+}
+
+function getVersions() {
+  return Promise.all([
+    getVersion('overmind'),
+    getVersion('overmind-angular'),
+    getVersion('overmind-vue'),
+    getVersion('overmind-react'),
+  ])
+}
+
 const guides = getGuides()
 const videos = getVideos()
 const demos = getDemos()
 const apis = getApis()
+const versions = getVersions()
 
 const searchData = getSearchData()
 
@@ -143,6 +161,17 @@ app.use(googleCrawlMiddleware)
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use('/images', express.static(path.join(__dirname, '..', 'images')))
 app.get('/workshop/posts', api.posts)
+app.get('/backend/versions', (_, res) => {
+  versions.then((fetchedVersions) => {
+    res.send(
+      fetchedVersions.reduce(
+        (aggr, version) =>
+          Object.assign(aggr, { [version.name]: version.version }),
+        {}
+      )
+    )
+  })
+})
 app.get('/backend/guides', (_, res) =>
   res.send(IS_PRODUCTION ? guides : getGuides())
 )

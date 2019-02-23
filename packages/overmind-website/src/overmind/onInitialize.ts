@@ -1,6 +1,6 @@
 import { OnInitialize } from 'overmind'
 
-const onInitialize: OnInitialize = ({ effects, state }, app) => {
+const onInitialize: OnInitialize = async ({ effects, state }, app) => {
   state.showViewHelp = !effects.storage.get('theme')
 
   effects.router.route('/', app.actions.openHome)
@@ -12,6 +12,8 @@ const onInitialize: OnInitialize = ({ effects, state }, app) => {
   effects.router.redirect('/api', '/api/action')
 
   effects.router.start()
+
+  state.versions = await effects.request('/backend/versions')
 }
 
 export default onInitialize

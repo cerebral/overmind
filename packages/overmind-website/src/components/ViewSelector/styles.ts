@@ -11,8 +11,10 @@ export const viewOption = css`
   display: flex;
   align-items: center;
   width: 100%;
-  img:last-child {
+  small {
     margin-left: auto;
+    margin-right: 0.5rem;
+    color: #cacaca;
   }
 `
 

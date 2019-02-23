@@ -1,5 +1,16 @@
 import { css } from 'emotion'
 
+export const version = css`
+  width: 150px;
+  color: var(--color-black-1);
+  a {
+    text-decoration: none;
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 12px;
+  }
+`
+
 export const wrapper = css`
   position: fixed;
   z-index: 2;

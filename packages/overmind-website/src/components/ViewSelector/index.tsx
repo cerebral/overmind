@@ -33,6 +33,7 @@ const ViewSelector: SFC = () => {
       <div className={styles.viewOption}>
         <img src={VueImage} width={25} />
         Vue
+        <small>{state.versions['overmind-vue']}</small>
         <img className={styles.image} src={JsImage} width="20" height="20" />
       </div>
     ),
@@ -40,6 +41,7 @@ const ViewSelector: SFC = () => {
       <div className={styles.viewOption}>
         <img src={ReactImage} width={25} />
         React
+        <small>{state.versions['overmind-react']}</small>
         <img className={styles.image} src={JsImage} width="20" height="20" />
       </div>
     ),
@@ -47,6 +49,7 @@ const ViewSelector: SFC = () => {
       <div className={styles.viewOption}>
         <img src={ReactImage} width={25} />
         React
+        <small>{state.versions['overmind-react']}</small>
         <img className={styles.image} src={TsImage} width="20" height="20" />
       </div>
     ),
@@ -54,6 +57,7 @@ const ViewSelector: SFC = () => {
       <div className={styles.viewOption}>
         <img src={AngularImage} width={25} />
         Angular
+        <small>{state.versions['overmind-angular']}</small>
         <img className={styles.image} src={TsImage} width="20" height="20" />
       </div>
     ),

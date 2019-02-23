@@ -28,6 +28,9 @@ type State = {
   isLoadingApis: boolean
   isLoadingVideos: boolean
   showViewHelp: boolean
+  versions: {
+    [name: string]: string
+  }
 }
 
 const state: State = {
@@ -50,6 +53,7 @@ const state: State = {
   isLoadingApis: false,
   isLoadingVideos: false,
   showViewHelp: false,
+  versions: {},
 }
 
 export default state
