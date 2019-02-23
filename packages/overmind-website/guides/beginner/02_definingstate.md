@@ -56,6 +56,10 @@ Not all state should be explicitly defined. Some state are values based off of o
 h(Example, { name: "guide/definingstate/derived" })
 ```
 
+```marksy
+h(TypescriptNotice, null, "Is is important that you define your state with a **type**, do **NOT** use an **interface**")
+```
+
 The first argument of the function is the state the derived function is attached to. A second argument is also passed and that is the root state of the application, allowing you to access whatever you would need. Two important traits of the derived function is:
 
 1. The state accessed is tracked

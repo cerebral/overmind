@@ -22,8 +22,8 @@ export const router = (() => {
   const validTypescriptQuery = ['true', 'false']
   let currentPath
   let currentQuery: Query = {
-    view: storage.get('theme'),
-    typescript: storage.get('typescript'),
+    view: String(storage.get('theme')),
+    typescript: String(storage.get('typescript')),
   }
   let currentHash = location.hash
 
