@@ -1,57 +1,39 @@
 const javascript = {
   react: [
     {
-      fileName: 'Posts.js',
+      fileName: 'Count.js',
       target: 'jsx',
       code: `
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useOvermind } from '../overmind'
 
-const Posts = () => {
+const Count = () => {
   const { state, actions } = useOvermind()
 
-  useEffect(() => actions.getPosts(), [])
-
-  if (state.isLoadingPosts) {
-    return <h4>Loading posts...</h4>
-  }
-
   return (
-    <ul>
-      {state.posts.map(post => <li key={post.id}>{post.title}</li>)}
-    </ul>
+    <div>
+      <button onClick={() => actions.changeCount(-1)}>-1</button>
+      {state.count}
+      <button onClick={() => actions.changeCount(1)}>+1</button>
+    </div>
   )
 }
 
-export default Posts
+export default Count
     `,
     },
   ],
   vue: [
     {
-      fileName: 'Posts.vue (template)',
+      fileName: 'Count.vue (template)',
       target: 'markup',
       code: `
-<h4 v-if="state.isLoadingPosts">
-  Loading posts...
-</h4>
-<ul v-else>
-  <li v-for="post in state.posts">
-    {{ post.title }}
-  </li>
-</ul>
+<div>
+  <button @click="actions.changeCount(-1)">-1</button>
+  {{ state.count }}
+  <button @click="actions.changeCount(1)">+1</button>
+</div>
     `,
-    },
-    {
-      fileName: 'Posts.vue (script)',
-      code: `
-export default {
-  name: 'Posts',
-  mounted() {
-    this.actions.getPosts()
-  }
-}
-  `,
     },
   ],
 }
@@ -59,24 +41,20 @@ export default {
 const typescript = {
   react: [
     {
-      fileName: 'components/Posts.tsx',
+      fileName: 'components/Count.tsx',
       code: `
 import * as React from 'react'
 import { useOvermind } from '../overmind'
 
-const Posts: React.FunctionComponent = () => {
+const Count: React.FunctionComponent = () => {
   const { state, actions } = useOvermind()
 
-  React.useEffect(() => actions.getPosts(), [])
-
-  if (state.isLoadingPosts) {
-    return <h4>Loading posts...</h4>
-  }
-
   return (
-    <ul>
-      {state.posts.map(post => <li key={post.id}>{post.title}</li>)}
-    </ul>
+    <div>
+      <button onClick={() => actions.changeCount(-1)}>-1</button>
+      {state.count}
+      <button onClick={() => actions.changeCount(1)}>+1</button>
+    </div>
   )
 }
 
@@ -87,29 +65,25 @@ export default Posts
   vue: javascript.vue,
   angular: [
     {
-      fileName: 'posts.component.ts',
+      fileName: 'count.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
-  selector: 'posts-list',
+  selector: 'count-component',
   template: \`
-  <h4 *ngIf="overmind.state.isLoadingPosts">
-    Loading posts...
-  </h4>
-  <ul *ngIf="!overmind.state.isLoadingPosts">
-    <li *ngFor="let post of overmind.state.posts">
-      {{post.title}}
-    </li>
-  </ul>
+<div *track>
+  <button (click)="actions.changeCount(-1)">-1</button>
+  {{ state.count }}
+  <button (click)="actions.changeCount(1)">+1</button>
+</div>
   \`
 })
-@connect()
-export class PostsList {
-  ngOnInit() {
-    this.overmind.actions.getPosts()
-  }
+export class CountComponent {
+  state = this.store.select()
+  actions = this.store.actions
+  constructor (private store: Store) {}
 }
     `,
     },

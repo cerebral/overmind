@@ -11,6 +11,11 @@ import { createHook } from 'overmind-react'
 export const overmind = createOvermind({
   state: {
     count: 0
+  },
+  actions: {
+    changeCount({ state }, countChange) {
+      state.count += countChange
+    }
   }
 })
 
@@ -28,6 +33,11 @@ import { createPlugin } from 'overmind-vue'
 export const overmind = createOvermind({
   state: {
     count: 0
+  },
+  actions: {
+    changeCount({ state }, countChange) {
+      state.count += countChange
+    }
   }
 })
 
@@ -40,14 +50,12 @@ export const OvermindPlugin = createPlugin(overmind)
 const typescript = {
   react: [
     {
-      fileName: 'overmind/state.ts',
+      fileName: 'overmind/actions.ts',
       code: `
-export type State = {
-  count: number
-}
+import { Action } from 'overmind'
 
-export const state: State = {
-  count: 0
+export const changeCount: Action<number> = ({ state }, countChange) {
+  state.count += countChange
 }
 `,
     },
@@ -57,9 +65,11 @@ export const state: State = {
         'react',
         `
 import { state } from './state'
+import * as actions from './actions'
 
 const config = {
   state,
+  actions
 }
 `
       ),
@@ -68,14 +78,12 @@ const config = {
   vue: javascript.vue,
   angular: [
     {
-      fileName: 'overmind/state.ts',
+      fileName: 'overmind/actions.ts',
       code: `
-export type State = {
-  count: number
-}
+import { Action } from 'overmind'
 
-export const state: State = {
-  count: 0
+export const changeCount: Action<number> = ({ state }, countChange) {
+  state.count += countChange
 }
 `,
     },
@@ -85,9 +93,11 @@ export const state: State = {
         'angular',
         `
 import { state } from './state'
+import * as actions from './actions'
 
 const config = {
   state,
+  actions
 }
 `
       ),

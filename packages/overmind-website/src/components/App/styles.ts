@@ -6,7 +6,7 @@ export const preview = css`
   margin: 0 auto;
   display: flex;
   left: calc(100vw / 2 - 200px);
-  padding: 1rem;
+  padding: 0.5rem;
   align-items: center;
   justify-content: center;
   background-color: var(--color-primary);
