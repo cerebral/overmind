@@ -18,6 +18,9 @@ Any of these operators can be used with other operators. You can even insert a p
 
 
 ## action
+
+**async**
+
 This operator takes a normal action and converts it to an operator so that it can be combined with other operators. You use this operator whenever you want to change the state of the app, but you can run effects as well. Just like a normal action.
 
 ```marksy
@@ -25,6 +28,9 @@ h(Example, { name: "api/operators_operator_action" })
 ```
 
 ## catchError
+
+**async**
+
 This operator runs if any of the previous operators throws an error. It allows you to manage that error by changing your state, run effects or even return a new value to the next operators. 
 
 ```marksy
