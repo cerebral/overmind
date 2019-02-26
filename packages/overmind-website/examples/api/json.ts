@@ -5,16 +5,14 @@ const javascript = {
       target: 'jsx',
       code: `
 import React from 'react'
+import { json } from 'overmind'
+import { LibraryComponent } from 'library'
 import { useOvermind } from '../overmind'
 
 const App = () => {
   const { state } = useOvermind()
 
-  if (overmind.state.isLoading) {
-    return <div>Loading app...</div>
-  }
-
-  return <h1>My awesome app</h1>
+  return <LibraryComponent config={json(state.config)} />
 }
 
 export default App
@@ -26,10 +24,24 @@ export default App
       fileName: 'components/App.vue (template)',
       target: 'markup',
       code: `
-<div v-if="state.isLoading">
-  Loading app...
-</div>
-<h1 v-else>My awesome app</h1>
+<library-component :config="config"></library-component>
+    `,
+    },
+    {
+      fileName: 'components/App.vue (script)',
+      code: `
+import { json } from 'overmind'
+import { LibraryComponent } from 'library'
+
+export default {
+  name: 'App',
+  data: (vue) => ({
+    items: json(vue.state.config)
+  }),
+  components: {
+    LibraryComponent
+  }
+}
     `,
     },
   ],
@@ -41,16 +53,14 @@ const typescript = {
       fileName: 'components/App.tsx',
       code: `
 import * as React from 'react'
+import { json } from 'overmind'
+import { LibraryComponent } from 'library'
 import { useOvermind } from '../../overmind'
 
 const App: React.FunctionComponent = () => {
   const { state } = useOvermind()
 
-  if (state.isLoading) {
-    return <div>Loading app...</div>
-  }
-
-  return <h1>My awesome app</h1>
+  return <LibraryComponent config={json(state.config)} />
 }
 
 export default App
@@ -63,23 +73,17 @@ export default App
       fileName: 'app.component.ts',
       code: `
 import { Component } from '@angular/core';
+import { json } from 'overmind'
 import { Store } from '../overmind'
 
 @Component({
   selector: 'app-root',
   template: \`
-<div *track>
-  <div *ngIf="state.isLoading">
-    Loading app...
-  </div>
-  <h1 *ngIf="!state.isLoading">
-    My awesome app
-  </h1>
-</div>
+  <library-component [config]="config">
   \`
 })
 export class App {
-  state = this.store.select()
+  config = json(this.store.select(state => state.config))
   constructor(private store: Store) {}
 }
     `,

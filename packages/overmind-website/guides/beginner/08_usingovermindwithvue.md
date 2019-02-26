@@ -2,6 +2,10 @@
 
 There are two approaches to connecting Overmind to Vue.
 
+```marksy
+h(Notice, null, "Please use Vue version **2.6** or later")
+```
+
 ## Plugin
 
 Vue has a plugin system that allows us to expose Overmind to all components. This allows minimum configuration and you just use state etc. from any component.
