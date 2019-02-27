@@ -4,12 +4,12 @@ export default (ts) =>
         {
           fileName: 'overmind/onInitialize.ts',
           code: `
-import { OnInitialize } from 'overmind'
+import { OnInitialize, rehydrate } from 'overmind'
 
-export const onInitialize: OnInitialize = ({ state }, overmind) => {
+export const onInitialize: OnInitialize = ({ state }) => {
   const mutations = window.__OVERMIND_MUTATIONS
 
-  overmind.rehydrate(state, mutations)
+  rehydrate(state, mutations)
 }
 `,
         },
@@ -18,10 +18,12 @@ export const onInitialize: OnInitialize = ({ state }, overmind) => {
         {
           fileName: 'overmind/onInitialize.js',
           code: `
-export const onInitialize = ({ state }, overmind) => {
+import { rehydrate } from 'overmind'
+
+export const onInitialize = ({ state }) => {
   const mutations = window.__OVERMIND_MUTATIONS
 
-  overmind.rehydrate(state, mutations)
+  rehydrate(state, mutations)
 }
 `,
         },
