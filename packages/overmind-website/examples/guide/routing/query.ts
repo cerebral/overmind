@@ -7,7 +7,7 @@ export default (ts) =>
 import page from 'page'
 import queryString from 'query-string'
 
-interface IParams = {
+interface IParams {
   [param: string]: string
 }
 
