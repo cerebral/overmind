@@ -48,9 +48,17 @@ Are things loading or not, is the user logged in or not ? These are typical usag
 
 All values, with the exception of booleans, can also be **null**. Non existing. You can have a non existing object, array, string or number. That means if we have not selected a tab both the string version and number version would have the value **null**.
 
+## Getter
+
+A concept in Javascript called a [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) allows you to intercept accessing a property in an object. A getter is just like a plain value, it can be added an removed at any point. Getters does **not** cache the result for that very reason, but whatever state they access is tracked.
+
+```marksy
+h(Example, { name: "guide/definingstate/getter" })
+```
+
 ## Deriving state
 
-Not all state should be explicitly defined. Some state are values based off of other state. This is what we call **derived state**. A simple example of this would be:
+When you need to do more heavy calculation or combine state from different parts ot the tree you can use **derived state**. A simple example of this would be:
 
 ```marksy
 h(Example, { name: "guide/definingstate/derived" })
@@ -87,14 +95,25 @@ So to solve this specific scenario you would rather create a new state called **
 
 Also remember that **derived** is a concept for computation heavy derived state, you most commonly want to use a **getter**.
 
-## Getter
-
-A concept in Javascript called a [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) allows you to intercept accessing a property in an object. This is similar to deriving state, though they are dynamic. That means derived state can only be defined once and needs to stay in the state tree. A getter is just like a plain value, it can be added an removed at any point. Getters does **not** cache the result for that very reason, but whatever state they access is tracked.
-
 ```marksy
-h(Example, { name: "guide/definingstate/getter" })
+h(Notice, null, "Derived state can not be dynamically added. They have to be defined and live in the tree from start to end of your application lifecycle.")
 ```
 
+## References
+
+When you add objects and arrays to your state tree, they are labeled with an "address" in the tree. That means if you try to add the same object or array in multiple spots in the tree you will get an error, as they can not have multiple addresses. Typically this indicates that you rather want to create a references to an existing object or array.
+
+So this is an example of how you would **not** want to do it:
+
+```marksy
+h(Example, { name: "guide/definingstate/reference" })
+```
+
+You rather change a reference to the user and for example use a **getter** to grab the actual user:
+
+```marksy
+h(Example, { name: "guide/definingstate/reference_correct" })
+```
 
 ## Exposing the state
 

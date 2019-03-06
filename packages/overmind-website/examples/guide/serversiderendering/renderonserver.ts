@@ -1,5 +1,3 @@
-import { tsAppIndex } from '../../templates'
-
 const javascript = {
   react: [
     {
@@ -13,10 +11,10 @@ import App from '../client/components/App'
 import db from './db'
 
 module.exports = async (req, res) => {
-  const overmind = createOvermindSSR(overmind)
+  const overmind = createOvermindSSR(config)
 
-  overmind.currentPage = 'posts'
-  overmind.posts = await db.getPosts()
+  overmind.state.currentPage = 'posts'
+  overmind.state.posts = await db.getPosts()
 
   const html = renderToString(
     <Provider value={overmind}>
@@ -72,10 +70,10 @@ import App from '../client/components/App'
 import db from './db'
 
 export default async (req, res) => {
-  const overmind = createOvermindSSR(overmind)
+  const overmind = createOvermindSSR(config)
 
-  overmind.currentPage = 'posts'
-  overmind.posts = await db.getPosts()
+  overmind.state.currentPage = 'posts'
+  overmind.state.posts = await db.getPosts()
 
   const html = renderToString(
     <Provider value={overmind}>
@@ -188,8 +186,8 @@ const { AppServerModuleNgFactory } = require('./server/main')
 export default async (req, res) => {
   const overmind = createOvermindSSR(config)
   
-  overmind.currentPage = 'posts'
-  overmind.posts = await db.getPosts()
+  overmind.state.currentPage = 'posts'
+  overmind.state.posts = await db.getPosts()
 
   const html = await renderModuleFactory(AppServerModuleNgFactory, {
     extraProviders: [{

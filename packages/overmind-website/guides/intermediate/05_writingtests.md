@@ -1,6 +1,6 @@
 # Writing tests
 
-Testing is a broad subject and everybody has an opinion on it. We can only show you how we think about testing in general and how to effectively write those tests for your Overmind app. It is encouraged to think **unit testing** of actions and effects. This will cover expected changes in state and that your side effects behaves in a predictable manner. If you want to test how your application works when it is all put together we recommend doing integration tests as close to the user experience as possible. Testing solutions like [Cypress.io](https://www.cypress.io/) is a great way to do exactly that.
+Testing is a broad subject and everybody has an opinion on it. We can only show you how we think about testing in general and how to effectively write those tests for your Overmind app. It is encouraged to think **unit testing** of actions and effects. This will cover expected changes in state and that your side effects behaves in a predictable manner. If you want to test how your application works when it is all put together we recommend doing integration tests as close to the user experience as possible. Testing solutions like [Cypress.io](https://www.cypress.io/) is a great way to do exactly that. You can read more about Cypress and integration testing with Overmind in [this article](https://www.cypress.io/blog/2019/02/28/shrink-the-untestable-code-with-app-actions-and-effects/#).
 
 ## Structuring the app
 

@@ -1,12 +1,12 @@
 # Overmind
 
-The **Overmind** class is used to create the application instance. You need to create and export a mechanism to connect your instance to the components. Please look at the guides for each view layer for more information.
+The **createOvermind** factory is used to create the application instance. You need to create and export a mechanism to connect your instance to the components. Please look at the guides for each view layer for more information.
 
 ```marksy
 h(Example, { name: "api/app_initialize" })
 ```
 
-You can pass a second argument to the **Overmind** constructor. This is an options object with the following properties:
+You can pass a second argument to the **createOvermind** factory. This is an options object with the following properties:
 
 ## addMutationListener
 
@@ -23,7 +23,6 @@ The **addMutationListener** triggers whenever there is a mutation. The **addFlus
 ```marksy
 h(Example, { name: "api/app_addFlushListener" })
 ```
-
 
 ## options.devtools
 If you develop your app on localhost the application connects to the devtools on **localhost:3031**. You can change this in case you need to use an IP address, the devtools is configured with a different port or you want to connect to localhost (with default port) even though the app is not on localhost.
