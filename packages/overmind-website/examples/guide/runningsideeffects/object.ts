@@ -23,7 +23,7 @@ export const api = {
           code: `
 import axios from 'axios'
 
-export const http = {
+export const api = {
   async getCurrentUser() {
     const response = await axios.get('/user')
 
