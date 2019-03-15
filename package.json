@@ -17,6 +17,7 @@
     "release": "repo-cooker --release",
     "test": "repo-cooker test --no-parallel"
   },
+  "heroku-run-build-script": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cerebral/overmind.git"
