@@ -50,7 +50,7 @@ const FrontPage: SFC = () => {
             <strong>Note!</strong> Overmind is currently in release candidate
             and is being evaluated for production. Please join us and battle
             test. We are committed to nail any last bugs and optimizations
-            required
+            required.
           </div>
         </div>
         <div
@@ -64,7 +64,7 @@ const FrontPage: SFC = () => {
             <p>
               Building your application as a single state tree is the most
               straight forward mental model. You get a complete overview, but
-              can still organize the state by namespacing it into domains
+              can still organize the state by namespacing it into domains.
             </p>
           </div>
           <div>
@@ -99,7 +99,7 @@ h(Example, { name: "frontpage/effects" })
                 Separate 3rd party APIs and logic not specific to your
                 application by using <strong>effects</strong>. This will keep
                 your application logic pure and without low level APIs
-                cluttering your code
+                cluttering your code.
               </p>
             </div>,
           ][viewport.isMobile ? 'reverse' : 'slice']()}
@@ -113,10 +113,10 @@ h(Example, { name: "frontpage/effects" })
           <div>
             <h2>SAFE AND PREDICTABLE CHANGES</h2>
             <p>
-              When you build applications that performs many state changes
+              When you build applications that perform many state changes
               things can get out of hand. In Overmind you can only perform state
               changes from <strong>actions</strong> and all changes are tracked
-              by the development tool
+              by the development tool.
             </p>
           </div>
           <div>
@@ -148,10 +148,10 @@ h(Example, { name: "frontpage/operators" })
             <div key="1">
               <h2>FUNCTIONAL ACTIONS</h2>
               <p>
-                When pieces of logic becomes complex it is beneficial to write
+                When pieces of logic become complex it is beneficial to write
                 functional code. Overmind provides an API named{' '}
                 <strong>operators</strong> which gives you functional power as
-                simple actions
+                simple actions.
               </p>
             </div>,
           ][viewport.isMobile ? 'reverse' : 'slice']()}
@@ -168,7 +168,7 @@ h(Example, { name: "frontpage/operators" })
               Bring in your application configuration of state, effects and
               actions. Create mocks for any effects. Take a snapshot of
               mutations performed in an action to ensure all intermediate states
-              are met
+              are met.
             </p>
           </div>
           <div>
