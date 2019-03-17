@@ -4,7 +4,7 @@ import { RouteContext } from './types'
 export const ensureViewAndTypescript: <T extends object>() => Operator<
   RouteContext<T>
 > = () =>
-  action(({ state, effects }, routeContext) => {
+  action(function ensureViewAndTypescript({ state, effects }, routeContext) {
     if (
       state.typescript !== JSON.parse(routeContext.query.typescript) ||
       state.theme !== routeContext.query.view

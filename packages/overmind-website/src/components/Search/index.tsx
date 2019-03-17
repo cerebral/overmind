@@ -43,7 +43,7 @@ const Search: SFC = () => {
         className={styles.inputElement}
         onClick={onClick}
         placeholder="Search..."
-        onChange={actions.changeQuery}
+        onChange={(event) => actions.changeQuery(event.currentTarget.value)}
         value={state.query}
       />
       {state.showSearchResult ? (

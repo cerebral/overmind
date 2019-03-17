@@ -12,7 +12,7 @@ import { ensureViewAndTypescript } from './operators'
 
 export const openHome: Operator<RouteContext> = pipe(
   ensureViewAndTypescript(),
-  action(async ({ state, effects }) => {
+  action(async function loadHome({ state, effects }) {
     state.page = Page.HOME
     if (!state.demos.length) {
       state.demos = await effects.request('/backend/demos')
@@ -22,7 +22,7 @@ export const openHome: Operator<RouteContext> = pipe(
 
 export const openGuides: Operator<RouteContext> = pipe(
   ensureViewAndTypescript(),
-  action(async ({ state, effects }) => {
+  action(async function loadGuides({ state, effects }) {
     state.page = Page.GUIDES
     if (!state.guides.length) {
       state.isLoadingGuides = true
@@ -34,7 +34,7 @@ export const openGuides: Operator<RouteContext> = pipe(
 
 export const openVideos: Operator<RouteContext<VideoParams>> = pipe(
   ensureViewAndTypescript(),
-  action(async ({ state, effects }) => {
+  action(async function loadVideos({ state, effects }) {
     state.page = Page.VIDEOS
     state.currentVideo = null
     if (!state.videos.length) {
@@ -48,14 +48,14 @@ export const openVideos: Operator<RouteContext<VideoParams>> = pipe(
 export const openVideo: Operator<RouteContext<VideoParams>> = pipe(
   ensureViewAndTypescript(),
   openVideos,
-  action(({ state }, routeContext) => {
+  action(function setVideo({ state }, routeContext) {
     state.currentVideo = routeContext.params.title
   })
 )
 
 export const openGuide: Operator<RouteContext<GuideParams>> = pipe(
   ensureViewAndTypescript(),
-  action(async ({ state }, routeContext) => {
+  action(async function setGuide({ state }, routeContext) {
     state.page = Page.GUIDE
     state.currentGuide = routeContext.params
   })
@@ -63,7 +63,7 @@ export const openGuide: Operator<RouteContext<GuideParams>> = pipe(
 
 export const openApi: Operator<RouteContext<VideoParams>> = pipe(
   ensureViewAndTypescript(),
-  action(async ({ state, effects }, routeContext) => {
+  action(async function loadApi({ state, effects }, routeContext) {
     state.page = Page.API
     state.currentApi = routeContext.params.title
     if (!state.apis.length) {
@@ -90,10 +90,8 @@ export const closeSearch: Action = ({ state }) => {
   state.query = ''
 }
 
-export const changeQuery: Operator<React.ChangeEvent<HTMLInputElement>> = pipe(
-  action(({ state }, event) => {
-    const query = event.currentTarget.value
-
+export const changeQuery: Operator<string> = pipe(
+  action(({ state }, query) => {
     state.query = query
     state.showSearchResult = query.length > 2
     state.isLoadingSearchResult = query.length > 2
