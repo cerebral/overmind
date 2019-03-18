@@ -7,6 +7,7 @@ import {
   Demo,
   SearchResult,
 } from './types'
+import { Derive } from 'overmind'
 
 type State = {
   page: Page
@@ -31,6 +32,8 @@ type State = {
   versions: {
     [name: string]: string
   }
+  test: Derive<State, string>
+  foo: string
 }
 
 const state: State = {
@@ -54,6 +57,12 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
+  test: (state) => {
+    return state.query + '!!!'
+  },
+  get foo() {
+    return this.query + 'hihihi'
+  },
 }
 
 export default state
