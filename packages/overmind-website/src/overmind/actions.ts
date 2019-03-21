@@ -6,6 +6,9 @@ import {
   debounce,
   Operator,
   tryCatch,
+  when,
+  fork,
+  parallel,
 } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
 import { ensureViewAndTypescript } from './operators'
@@ -109,3 +112,61 @@ export const changeQuery: Operator<string> = pipe(
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
+
+export const test: Operator = pipe(
+  when(
+    function isTrue() {
+      return true
+    },
+    {
+      true: pipe(
+        action(function truePath({ state }) {
+          state.test = 'truePath'
+        }),
+        action(function truePath2({ state }) {
+          state.test = 'truePath2'
+        }),
+        fork(() => 'foo', {
+          foo: action(function fooPath({ state }) {
+            state.test = 'fooPath'
+          }),
+        })
+      ),
+      false: action(function falsePath() {}),
+    }
+  ),
+  parallel(
+    pipe(
+      action(function pa1({ state }) {
+        state.test = 'endStuff'
+        state.test = 'endStuff'
+        state.test = 'endStuff'
+        state.test = 'endStuff'
+      }),
+      action(function pa2({ state }) {
+        state.test = 'endStuff'
+        state.test = 'endStuff'
+        state.test = 'endStuff'
+        state.test = 'endStuff'
+      })
+    ),
+    action(function endStuff({ state }) {
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+    }),
+    action(function endStuff({ state }) {
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+    }),
+    action(function endStuff({ state }) {
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+      state.test = 'endStuff'
+    })
+  )
+)

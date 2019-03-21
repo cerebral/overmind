@@ -32,8 +32,7 @@ type State = {
   versions: {
     [name: string]: string
   }
-  test: Derive<State, string>
-  foo: string
+  test: string
 }
 
 const state: State = {
@@ -57,12 +56,7 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
-  test: (state) => {
-    return state.query + '!!!'
-  },
-  get foo() {
-    return this.query + 'hihihi'
-  },
+  test: 'foo',
 }
 
 export default state
