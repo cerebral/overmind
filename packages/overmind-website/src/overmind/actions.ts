@@ -9,6 +9,8 @@ import {
   when,
   fork,
   parallel,
+  catchError,
+  map,
 } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
 import { ensureViewAndTypescript } from './operators'
@@ -113,23 +115,28 @@ export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
 
-export const test: Operator = pipe(
+export const test: Operator<string> = pipe(
   when(
     function isTrue() {
       return true
     },
     {
       true: pipe(
-        action(function truePath({ state }) {
-          state.test = 'truePath'
+        map(function truePath({ state }) {
+          return 'truePath'
         }),
-        action(function truePath2({ state }) {
-          state.test = 'truePath2'
+        map(function truePath2({ state }) {
+          return 'truePath2'
         }),
         fork(() => 'foo', {
-          foo: action(function fooPath({ state }) {
-            state.test = 'fooPath'
-          }),
+          foo: pipe(
+            map(function fooPath({ state }) {
+              return 'fooPath'
+            }),
+            map(function fooPath2() {
+              return 'fooPath2'
+            })
+          ),
         })
       ),
       false: action(function falsePath() {}),
@@ -137,36 +144,19 @@ export const test: Operator = pipe(
   ),
   parallel(
     pipe(
-      action(function pa1({ state }) {
-        state.test = 'endStuff'
-        state.test = 'endStuff'
-        state.test = 'endStuff'
-        state.test = 'endStuff'
+      map(function pa1({ state }, val) {
+        console.log('VAL', val)
+        return 'pa1'
       }),
-      action(function pa2({ state }) {
-        state.test = 'endStuff'
-        state.test = 'endStuff'
-        state.test = 'endStuff'
-        state.test = 'endStuff'
+      map(function pa2({ state }) {
+        return 'pa2'
       })
     ),
-    action(function endStuff({ state }) {
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-    }),
-    action(function endStuff({ state }) {
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-    }),
-    action(function endStuff({ state }) {
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-      state.test = 'endStuff'
-      state.test = 'endStuff'
+    map(function endStuff({ state }) {
+      return 'endStuff'
     })
-  )
+  ),
+  action(function catchError() {
+    console.log('NOW I RUN CATCH!')
+  })
 )
