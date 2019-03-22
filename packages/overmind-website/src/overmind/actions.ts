@@ -142,7 +142,7 @@ export const test: Operator<string> = pipe(
       false: mutate(function falsePath() {}),
     }
   ),
-  filter(() => true),
+  filter(() => false),
   parallel(
     pipe(
       map(function pa1({ state }, val) {
