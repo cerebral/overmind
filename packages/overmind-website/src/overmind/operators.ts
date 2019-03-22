@@ -1,10 +1,10 @@
-import { Operator, action } from 'overmind'
+import { Operator, mutate } from 'overmind'
 import { RouteContext } from './types'
 
 export const ensureViewAndTypescript: <T extends object>() => Operator<
   RouteContext<T>
 > = () =>
-  action(function ensureViewAndTypescript({ state, effects }, routeContext) {
+  mutate(function ensureViewAndTypescript({ state, effects }, routeContext) {
     if (
       state.typescript !== JSON.parse(routeContext.query.typescript) ||
       state.theme !== routeContext.query.view
