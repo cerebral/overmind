@@ -8,29 +8,29 @@ import { Operator, mutate, filter } from 'overmind'
 import { Page } from './types'
 
 export const closeUserModal: <T>() => Operator<T> = () =>
-  mutate(({ state }) => {
+  mutate(function closeUserModal({ state }) {
     state.modalUser = null
   })
 
 export const setPage: <T>(page: Page) => Operator<T> = (page) =>
-  mutate(({ state }) => {
+  mutate(function setPage({ state }) {
     state.currentPage = page
   })
 
 export const shouldLoadUsers: <T>() => Operator<T> = () => 
-  filter(({ state }) => {
+  filter(function shouldLoadUsers({ state }) {
     return !Boolean(state.users.length)
   })
 
 export const loadUsers: <T>() => Operator<T> = () => 
-  mutate(async ({ state, effects }) => {
+  mutate(async function loadUsers({ state, effects }) {
     state.isLoadingUsers = true
     state.users = await effects.api.getUsers()
     state.isLoadingUsers = false
   })
 
 export const loadUserWithDetails: () => Operator<{ id: string }> = () => 
-  mutate(async ({ state, effects }, params) => {
+  mutate(async function loadUserWithDetails({ state, effects }, params) {
     state.isLoadingUserDetails = true
     state.modalUser = await effects.api.getUserWithDetails(params.id)
     state.isLoadingUserDetails = false
@@ -69,29 +69,29 @@ export const showUserModal: Operator<{ id: string }> = pipe(
 import { mutate, filter } from 'overmind'
 
 export const closeUserModal = () => 
-  mutate(({ state }) => {
+  mutate(function closeUserModal({ state }) {
     state.modalUser = null
   })
 
 export const setPage = (page) =>
-  mutate(({ state }) => {
+  mutate(function setPage({ state }) {
     state.currentPage = page
   })
 
 export const shouldLoadUsers = () => 
-  filter(({ state }) => {
+  filter(function shouldLoadUsers({ state }) {
     return !Boolean(state.users.length)
   })
 
 export const loadUsers = () =>
-  mutate(async ({ state, effects }) => {
+  mutate(async function loadUsers({ state, effects }) {
     state.isLoadingUsers = true
     state.users = await effects.api.getUsers()
     state.isLoadingUsers = false
   })
 
 export const loadUserWithDetails = () => 
-  mutate(async ({ state, effects }, params) => {
+  mutate(async function loadUserWithDetails({ state, effects }, params) {
     state.isLoadingUserDetails = true
     state.modalUser = await effects.api.getUserWithDetails(params.id)
     state.isLoadingUserDetails = false
