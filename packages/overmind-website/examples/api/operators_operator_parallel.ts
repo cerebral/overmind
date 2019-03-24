@@ -3,19 +3,14 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Operator, pipe, action } from 'overmind'
-import { Item } from './state'
+import { Operator, pipe } from 'overmind'
 
 export const loadSomeData: Operator = pipe(...)
 export const loadSomeMoreData: Operator = pipe(...)
-export const manageAllData = action(...)
 
-export const openItem: Operator = pipe(
-  parallel(
-    loadSomeData,
-    loadSomeMoreData
-  ),
-  manageAllData
+export const loadAllData: Operator = parallel(
+  loadSomeData,
+  loadSomeMoreData
 )
 `,
         },
@@ -23,18 +18,14 @@ export const openItem: Operator = pipe(
     : [
         {
           code: `
-import { pipe, action } from 'overmind'
+import { pipe } from 'overmind'
 
 export const loadSomeData = pipe(...)
 export const loadSomeMoreData = pipe(...)
-export const manageAllData = action(...)
 
-export const openItem = pipe(
-  parallel(
-    loadSomeData,
-    loadSomeMoreData
-  ),
-  manageAllData
+export const loadAllData = parallel(
+  loadSomeData,
+  loadSomeMoreData
 )
 `,
         },

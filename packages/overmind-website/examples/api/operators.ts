@@ -3,9 +3,9 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Operator, action } from 'overmind'
+import { Operator, mutate } from 'overmind'
 
-export const changeFoo: Operator = action(({ state }) => {
+export const changeFoo: Operator = mutate(({ state }) => {
   state.foo = 'bar'
 })
 `,
@@ -14,9 +14,9 @@ export const changeFoo: Operator = action(({ state }) => {
     : [
         {
           code: `
-import { action } from 'overmind'
+import { mutate } from 'overmind'
 
-export const changeFoo = action(({ state }) => {
+export const changeFoo = mutate(({ state }) => {
   state.foo = 'bar'
 })
 `,

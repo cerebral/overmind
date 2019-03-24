@@ -4,24 +4,28 @@ export default (ts) =>
         {
           fileName: 'overmind/operators.ts',
           code: `
-import { Operator, map } from 'overmind'
+import { Operator, map, mutate } from 'overmind'
 
-export const getTargetValue: Operator<Event, string> = map((_, event) => 
-  event.currentTarget.value
-)
+export const toNumber: () => Operator<string, number> = () =>
+  map(function toNumber(_, value) { 
+    return Number(value)
+  })
+
+export const setValue: () => Operator<string> = () =>
+  mutate(function setValue({ state}, value) {
+    state.value = value
+  })
   `,
         },
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Operator, pipe, action } from 'overmind'
-import { getTargetValue } from './operators'
+import { Operator, pipe } from 'overmind'
+import * as o from './operators'
 
-export const setValue: Operator<Event, string> = pipe(
-  getTargetValue,
-  action(({ state}, value) => {
-    state.value = value
-  })
+export const onValueChange: Operator<string, number> = pipe(
+  o.toNumber(),
+  o.setValue()
 )
   `,
         },
@@ -30,24 +34,28 @@ export const setValue: Operator<Event, string> = pipe(
         {
           fileName: 'overmind/operators.js',
           code: `
-import { map } from 'overmind'
+import { map, mutate } from 'overmind'
 
-export const getTargetValue = map((_, event) => 
-  event.currentTarget.value
-)
+export const toNumber = () =>
+  map(function toNumber(_, value) {
+    return Number(value)
+  })
+
+export const setValue = () =>
+  mutate(function setValue({ state }, value) {
+    state.value = value
+  })
 `,
         },
         {
           fileName: 'overmind/actions.js',
           code: `
-import { pipe, action } from 'overmind'
-import { getTargetValue } from './operators'
+import { pipe } from 'overmind'
+import * as o from './operators'
 
 export const setValue = pipe(
-  getTargetValue,
-  action(({ state }, value) => {
-    state.value = value
-  })
+  o.toNumber(),
+  o.setValue()
 )
 `,
         },

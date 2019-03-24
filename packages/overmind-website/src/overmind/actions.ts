@@ -5,7 +5,6 @@ import {
   filter,
   debounce,
   Operator,
-  tryCatch,
   when,
   fork,
   parallel,
@@ -13,70 +12,37 @@ import {
   map,
 } from 'overmind'
 import { Page, RouteContext, GuideParams, VideoParams } from './types'
-import { ensureViewAndTypescript } from './operators'
+import * as o from './operators'
 
 export const openHome: Operator<RouteContext> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadHome({ state, effects }) {
-    state.page = Page.HOME
-    if (!state.demos.length) {
-      state.demos = await effects.request('/backend/demos')
-    }
-  })
+  o.ensureViewAndTypescript(),
+  o.loadHome()
 )
 
 export const openGuides: Operator<RouteContext> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadGuides({ state, effects }) {
-    state.page = Page.GUIDES
-    if (!state.guides.length) {
-      state.isLoadingGuides = true
-      state.guides = await effects.request('/backend/guides')
-      state.isLoadingGuides = false
-    }
-  })
+  o.ensureViewAndTypescript(),
+  o.loadGuides()
 )
 
 export const openVideos: Operator<RouteContext<VideoParams>> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadVideos({ state, effects }) {
-    state.page = Page.VIDEOS
-    state.currentVideo = null
-    if (!state.videos.length) {
-      state.isLoadingVideos = true
-      state.videos = await effects.request('/backend/videos')
-      state.isLoadingVideos = false
-    }
-  })
+  o.ensureViewAndTypescript(),
+  o.loadVideos()
 )
 
 export const openVideo: Operator<RouteContext<VideoParams>> = pipe(
-  ensureViewAndTypescript(),
-  openVideos,
-  mutate(function setVideo({ state }, routeContext) {
-    state.currentVideo = routeContext.params.title
-  })
+  o.ensureViewAndTypescript(),
+  o.loadVideos(),
+  o.setVideo()
 )
 
 export const openGuide: Operator<RouteContext<GuideParams>> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function setGuide({ state }, routeContext) {
-    state.page = Page.GUIDE
-    state.currentGuide = routeContext.params
-  })
+  o.ensureViewAndTypescript(),
+  o.setGuide()
 )
 
 export const openApi: Operator<RouteContext<VideoParams>> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadApi({ state, effects }, routeContext) {
-    state.page = Page.API
-    state.currentApi = routeContext.params.title
-    if (!state.apis.length) {
-      state.isLoadingApis = true
-      state.apis = await effects.request('/backend/apis')
-      state.isLoadingApis = false
-    }
-  })
+  o.ensureViewAndTypescript(),
+  o.loadApi()
 )
 
 export const selectTheme: Action<string> = ({ effects }, selection) => {
@@ -96,19 +62,10 @@ export const closeSearch: Action = ({ state }) => {
 }
 
 export const changeQuery: Operator<string> = pipe(
-  mutate(({ state }, query) => {
-    state.query = query
-    state.showSearchResult = query.length > 2
-    state.isLoadingSearchResult = query.length > 2
-  }),
-  filter(({ state }) => state.query.length >= 3),
+  o.setQuery(),
+  o.isValidQuery(),
   debounce(200),
-  mutate(async ({ state, effects }) => {
-    state.searchResult = await effects.request(
-      '/backend/search?query=' + state.query
-    )
-    state.isLoadingSearchResult = false
-  })
+  o.getSearchResult()
 )
 
 export const viewHelpGotIt: Action = ({ state }) => {

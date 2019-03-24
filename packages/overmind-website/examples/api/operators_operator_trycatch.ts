@@ -3,7 +3,7 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Operator, pipe, action, tryCatch } from 'overmind'
+import { Operator, pipe, tryCatch } from 'overmind'
 
 export const doSomething: Operator<string> = tryCatch({
   try: pipe(
@@ -19,7 +19,7 @@ export const doSomething: Operator<string> = tryCatch({
     : [
         {
           code: `
-import { pipe, action, tryCatch } from 'overmind'
+import { pipe, tryCatch } from 'overmind'
 
 export const doSomething = tryCatch({
   try: pipe(

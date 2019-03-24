@@ -4,24 +4,22 @@ export default () => [
     code: `
 import { Operator, filter } from 'overmind'
 
-export const filterAwesome: Operator<{ isAwesome: boolean }> =
-  filter(({ value: somethingAwesome }) => somethingAwesome.isAwesome)
+export const filterAwesome: () => Operator<{ isAwesome: boolean }> = () =>
+  filter(function filterAwesome(_, somethingAwesome) {
+    return somethingAwesome.isAwesome
+  })
     `,
   },
   {
     fileName: 'overmind/actions.ts',
     code: `
 import { Operator, pipe, action } from 'overmind'
-import { filterAwesome } from './operators'
+import * as o from './operators'
 import { User } from './state'
 
 export const clickedUser: Operator<User> = pipe(
-  // We get an error here, because this operator explicitly
-  // outputs the type { isAwesome: boolean }
-  filterAwesome,
-  action(({ value: user, state }) => {
-    state.awesomeUsersClickedCount++
-  })
+  o.filterAwesome(),
+  o.handleAwesomeUser()
 )
     `,
   },

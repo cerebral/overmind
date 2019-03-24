@@ -3,7 +3,7 @@ export type Query = {
   typescript: string
 }
 
-export type RouteContext<T = object> = {
+export type RouteContext<T = void> = {
   params: T
   query: Query
   path: string

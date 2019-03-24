@@ -3,13 +3,13 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Operator, pipe, action, catchError } from 'overmind'
+import { Operator, pipe, mutate, catchError } from 'overmind'
 
 export const doSomething: Operator<string> = pipe(
-  action(() => {
+  mutate(() => {
     throw new Error('foo')
   }),
-  action(() => {
+  mutate(() => {
     // This one is skipped
   })
   catchError(({ state }, error) => {
@@ -17,7 +17,7 @@ export const doSomething: Operator<string> = pipe(
 
     return 'value_to_be_passed_on'
   }),
-  action(() => {
+  mutate(() => {
     // This one continues executing with replaced value
   })
 )
@@ -27,13 +27,13 @@ export const doSomething: Operator<string> = pipe(
     : [
         {
           code: `
-import { pipe, action, catchError } from 'overmind'
+import { pipe, mutate, catchError } from 'overmind'
 
 export const doSomething = pipe(
-  action(() => {
+  mutate(() => {
     throw new Error('foo')
   }),
-  action(() => {
+  mutate(() => {
     // This one is skipped
   })
   catchError(({ state }, error) => {
@@ -41,7 +41,7 @@ export const doSomething = pipe(
 
     return 'value_to_be_passed_on'
   }),
-  action(() => {
+  mutate(() => {
     // This one continues executing with replaced value
   })
 )

@@ -6,6 +6,8 @@ We are going to use [page js](https://www.npmjs.com/package/page) as the router 
 
 We will start with a simple naive approach and then we are going to tweak our approach a little bit for the optimal solution.
 
+And yeah... we are going fully functional on this one!
+
 ## Set up the app
 
 Before we go into the router we want to set up the application. We have some state helping us express the UI explained above. In addition we have three actions.
@@ -27,7 +29,7 @@ h(Example, { name: "guide/routing/setup" })
 h(Example, { name: "guide/routing/effect" })
 ```
 
-Now we can now use Overminds **onInitialize** to configure the router. onInitialize is an action that receives the application actions:
+Now we can use Overminds **onInitialize** to configure the router. That way the initial url triggers before the UI renders and we get to set our initial state.
 
 ```marksy
 h(Example, { name: "guide/routing/pagejs" })
@@ -49,15 +51,15 @@ But what if we try to refresh now... we get an error. The router tries to run ou
 
 ## Composing actions
 
-A straight forward way to solve this is to simply also change the page in in the **showUserModal** action, though we would like the list of users to load in the background as well. The logic of **showUsers** might also be a lot more complex and we do not want to duplicate our code. When these scenarios occur, where you want to start calling actions from actions, it indicates you have reached a level of complexity where a functional approach might be better. We will explore that now. 
+A straight forward way to solve this is to simply also change the page in the **showUserModal** action, though we would like the list of users to load in the background as well. The logic of **showUsers** might also be a lot more complex and we do not want to duplicate our code. When these scenarios occur, where you want to start calling actions from actions, it indicates you have reached a level of complexity where a functional approach might be better. We will explore that now. 
 
 ```marksy
 h(Example, { name: "guide/routing/compose" })
 ```
 
-By using the **action** operator from Overmind we made the **showUsers** action a composable piece of logic. Then we used the **pipe** operator to compose the two actions together. One running to completion before the next one runs.
+By splitting up all our logic into operators we were able to make our actions completely declarative and at the same time reuse logic across them. Very often applications share some, but not all logic. The *operators* file gives use maintaineable code and the *actions* file gives us readable code.
 
-We could actually make this better though. There is no reason to wait for the list of users to load before we load the specific user for the modal. We can do that in **parallel**. Let us change out the logic a little bit so that we run both actions. Now the list of users and the single user loads at the same time. That makes sense as loading a single user is probably faster than loading the whole list.
+We could actually make this better though. There is no reason to wait for the user of the modal to load before we load the users list in the background. We can fix this with the **parallel** operator. Now the list of users and the single user loads at the same time. That makes sense as loading a single user is probably faster than loading the whole list.
 
 ```marksy
 h(Example, { name: "guide/routing/parallel" })
@@ -74,7 +76,7 @@ Now you are starting to see how the operators can be quite useful to compose flo
 h(Example, { name: "guide/routing/query" })
 ```
 
-Now we can simply update our actions to also manage this **tab** query.
+Now we can simply add an operator which uses this **tab** query to set the current tab and then compose it into the action.
 
 ```marksy
 h(Example, { name: "guide/routing/tab" })

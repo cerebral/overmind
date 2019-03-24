@@ -7,28 +7,27 @@ const javascript = {
 import React from 'react'
 import { useOvermind } from '../overmind'
 
-const MyComponent = () => {
-  const { actions } = useOvermind()
+const SearchComponent = () => {
+  const { state, actions } = useOvermind()
 
   return (
-    <button onClick={actions.functionalAction}>
-      Test
-    </button>
+    <input
+      value={state.query}
+      onChange={(event) => actions.search(event.currentTarget.value)}
+    />
   )
 }
 
-export default MyComponent
+export default SearchComponent
     `,
     },
   ],
   vue: [
     {
-      fileName: 'components/MyComponent.vue (template)',
+      fileName: 'components/SearchComponent.vue (template)',
       target: 'markup',
       code: `
-<button @click="actions.functionalAction()">
-  Test
-</button>
+<input :value="state.query" @change="actions.search($event.currentTarget.value)" />
     `,
     },
   ],
@@ -37,61 +36,47 @@ export default MyComponent
 const typescript = {
   react: [
     {
-      fileName: 'components/MyComponent.tsx',
+      fileName: 'components/SearchComponent.tsx',
       code: `
 import * as React from 'react'
 import { useOvermind } from '../overmind'
 
-const MyComponent: React.FunctionComponent = () => {
-  const { actions } = useOvermind()
+const SearchComponent: React.FunctionComponent = () => {
+  const { state, actions } = useOvermind()
 
   return (
-    <button onClick={actions.functionalAction}>
-      Test
-    </button>
+    <input
+      value={state.query}
+      onChange={(event) => actions.search(event.currentTarget.value)}
+    />
   )
 }
 
-export default MyComponent
+export default SearchComponent
     `,
     },
   ],
-  vue: [
-    {
-      fileName: 'components/MyComponent.vue (template)',
-      target: 'markup',
-      code: `
-<button on:click="overmind.actions.functionalAction()">
-  Test
-</button>
-    `,
-    },
-    {
-      fileName: 'components/MyComponent.vue (script)',
-      code: `
-import { connect } from '../overmind'
-
-export default connect({})
-  `,
-    },
-  ],
+  vue: javascript.vue,
   angular: [
     {
-      fileName: 'components/grabdata.component.ts',
+      fileName: 'components/search.component.ts',
       code: `
 import { Component,Input } from '@angular/core';
-import { connect } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
-  selector: 'grab-data',
+  selector: 'search-component',
   template: \`
-  <button (click)="overmind.actions.functionalAction()">
-    Test
-  </button>
+<div *track>
+  <input [value]="state.query" (change)="actions.search($event.currentTarget.value)" />
+</div>
   \`
 })
-@connect()
-export class GrabData {}
+export class SearchComponent {
+  state = this.store.select()
+  actions = this.store.action
+  constructor(private store: Store) {}
+}
     `,
     },
   ],

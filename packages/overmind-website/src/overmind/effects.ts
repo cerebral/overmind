@@ -42,7 +42,7 @@ export const router = (() => {
     getPath() {
       return currentPath
     },
-    route(url: string, action: (payload: RouteContext) => void) {
+    route(url: string, action: (payload: RouteContext<any>) => void) {
       page(url, ({ params, pathname, querystring }) => {
         // We want to preserve the query
         const query = queryString.parse(querystring)

@@ -52,13 +52,13 @@ h(Example, { name: "guide/typescript/action" })
 
 ## Operators
 
-Operators is like the **Action** type, it can take an optional input, but it can also have an output. By default the output of an operator is the same as the input. Most operators has its output the same as the input, meaning the incoming values just passes through.
+Operators is like the **Action** type, it can take an optional input, but it can also have an output. By default the output of an operator is the same as the input.
 
 ```marksy
 h(Example, { name: "guide/typescript/operatorinputsandoutputs" })
 ```
 
-Now what is important to understand is that the **Operator** type is used with all operators in Overmind, cause all of them is about "passing a value to the next operator". The type arguments you give to **Operator** has to match the specific operator you use though. So for example if you type an **action** operator with a different output than the input:
+The **Operator** type is used to type all operators. The type arguments you give to **Operator** has to match the specific operator you use though. So for example if you type a **mutate** operator with a different output than the input:
 
 ```marksy
 h(Example, { name: "guide/typescript/wrongoperator" })
@@ -68,26 +68,7 @@ Typescript yells at you, because this operator just passes the value straight th
 
 Typically you do not think about this and Typescript rather yells at you when the value you are passing through your operators is not matching up.
 
-### Caveats
-There are two **limitations** to the operators type system which we are still trying to figure out:
-
-#### 1. Partial input type
-
-For example:
-
-```marksy
-h(Example, { name: "guide/typescript/operatorpartial" })
-```
-
-There is no way to express in Typescript that you should uphold this partial typing of **filterAwesomeUser** and still pass the inferred input, **User**, as the output. This will give a typing error.
-
-This can be handled by making the operator a factory instead:
-
-```marksy
-h(Example, { name: "guide/typescript/operatorpartial_solution" })
-```
-
-#### 2. Infer input
+### Generic input
 
 You might create an operator that does not care about its input. For example:
 
@@ -95,14 +76,30 @@ You might create an operator that does not care about its input. For example:
 h(Example, { name: "guide/typescript/operatorinfer" })
 ```
 
-Composing **doSomeStateChange** into the **pipe** gives an error, cause this operator expects a **void** type. 
+Composing **doSomething** into the **pipe** gives an error, cause the action is typed with a **string** input, but the **doSomething** operator is typed with **void**.
 
-To fix this you can do the same trick as above, though you do not need to pass in the type, it will be inferred:
+To fix this we just add a generic type to the definition of our operator:
 
 ```marksy
 h(Example, { name: "guide/typescript/operatorinfer_solution" })
 ```
 
+Now Typescript infers the input type of the operator and passes it a long.
 
-#### Summary
-Typescript is not functional, it is object oriented and it is very difficult to make it work with this kind of APIs. We have high hopes though cause Typescript is evolving rapidly and Microsoft is dedicated to make this an awesome type system for JavaScript. If you got mad Typescript skills, please contact us to iterate on the type system and make this stuff work :-)
+### Partial input
+
+For example:
+
+```marksy
+h(Example, { name: "guide/typescript/operatorpartial" })
+```
+
+Now the *input* is actually okay, because `{ isAwesome: boolean }` matches the **User** type, but we are also now saying that the type of *output* will be `{ isAwesome: boolean }`, which does not match the **User** type required by **handleAwesomeUser**.
+
+To fix this we again infer the type, but using **extends** to indicate that we do have a requirement to the type it should pass through:
+
+```marksy
+h(Example, { name: "guide/typescript/operatorpartial_solution" })
+```
+
+That means this operator can handle any type that matches an **isAwesome** property, though will pass the original type through.
