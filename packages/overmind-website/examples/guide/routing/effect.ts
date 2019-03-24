@@ -6,9 +6,10 @@ export default (ts) =>
           code: `
 import page from 'page'
 
-interface IParams {
+// We allow void type which is used to define "no params"
+type IParams = {
   [param: string]: string  
-}
+} | void
 
 export const router = {
   initialize(routes: { [url: string]: (params: IParams) => void }) {

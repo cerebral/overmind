@@ -8,9 +8,9 @@ import { Operator, pipe, parallel } from 'overmind'
 import { Page } from './types'
 import * as o from './operators'
 
-export const showHomePage: Operator<{}> = o.setPage(Page.HOME)
+export const showHomePage: Operator<void> = o.setPage(Page.HOME)
 
-export const showUsersPage: Operator<{}> = pipe(
+export const showUsersPage: Operator<void> = pipe(
   o.setPage(Page.USERS),
   o.closeUserModal(),
   o.shouldLoadUsers(),

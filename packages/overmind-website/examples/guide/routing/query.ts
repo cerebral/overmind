@@ -7,9 +7,9 @@ export default (ts) =>
 import page from 'page'
 import queryString from 'query-string'
 
-interface IParams {
-  [param: string]: string
-}
+type IParams = {
+  [param: string]: string  
+} | void
 
 export const router = {
   initialize(routes: { [url: string]: (IParams) => void }) {

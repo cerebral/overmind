@@ -7,41 +7,16 @@ export default (ts) =>
 import { Operator, mutate, filter } from 'overmind'
 import { Page } from './types'
 
-export const closeUserModal: <T>() => Operator<T> = () =>
-  mutate(function closeUserModal({ state }) {
-    state.modalUser = null
-  })
+...
 
-export const setPage: <T>(page: Page) => Operator<T> = () =>
-  mutate(function setPage({ state }) {
-    state.currentPage = page
-  })
-
-export const shouldLoadUsers: <T>() => Operator<T> = () => 
-  filter(function shouldLoadUsers({ state }) {
-    return !Boolean(state.users.length)
-  })
-
-export const loadUsers: <T>() => Operator<T> = () => 
-  mutate(async function loadUsers({ state, effects }) {
-    state.isLoadingUsers = true
-    state.users = await effects.api.getUsers()
-    state.isLoadingUsers = false
-  })
-
-export const loadUserWithDetails: () => Operator<{ id: string }> = () => 
+export const loadUserWithDetails: <T extends { id: string }>() => Operator<T> = () => 
   mutate(async function loadUserWithDetails({ state, effects }, params) {
     state.isLoadingUserDetails = true
     state.modalUser = await effects.api.getUserWithDetails(params.id)
     state.isLoadingUserDetails = false
   })
 
-export const shouldLoadUserWithDetails: <T>() => Operator<{ id: string }, T> = () => 
-  filter(function shouldLoadUserWithDetails({ state }, params) {
-    return !state.modalUser || state.modalUser.id !== params.id
-  })
-
-export const setCurrentUserModalTabIndex: <T>() => Operator<{ tab: string }, T> = () =>
+export const setCurrentUserModalTabIndex: <T extends { tab: string }>() => Operator<T> = () =>
   mutate(function setCurrentUserModalTabIndex({ state }, params) {
     state.currentUserModalTabIndex = Number(params.tab)
   })
@@ -54,9 +29,9 @@ import { Operator, pipe, parallel } from 'overmind'
 import { Page } from './types'
 import * as o from './operators'
 
-export const showHomePage: Operator<{}> = o.setPage(Page.HOME)
+export const showHomePage: Operator<void> = o.setPage(Page.HOME)
 
-export const showUsersPage: Operator<{}> = pipe(
+export const showUsersPage: Operator<void> = pipe(
   o.setPage(Page.USERS),
   o.closeUserModal(),
   o.shouldLoadUsers(),

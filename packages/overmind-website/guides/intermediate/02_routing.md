@@ -57,9 +57,9 @@ A straight forward way to solve this is to simply also change the page in the **
 h(Example, { name: "guide/routing/compose" })
 ```
 
-By splitting up all our logic into operators we were able to make our actions completely declarative and at the same time reuse logic across them. Very often applications share some, but not all logic. The *operators* file gives use maintaineable code and the *actions* file gives us readable code.
+By splitting up all our logic into operators we were able to make our actions completely declarative and at the same time reuse logic across them. The *operators* file gives use maintaineable code and the *actions* file gives us readable code.
 
-We could actually make this better though. There is no reason to wait for the user of the modal to load before we load the users list in the background. We can fix this with the **parallel** operator. Now the list of users and the single user loads at the same time. That makes sense as loading a single user is probably faster than loading the whole list.
+We could actually make this better though. There is no reason to wait for the user of the modal to load before we load the users list in the background. We can fix this with the **parallel** operator. Now the list of users and the single user loads at the same time.
 
 ```marksy
 h(Example, { name: "guide/routing/parallel" })
