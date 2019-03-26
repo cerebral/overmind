@@ -1,17 +1,5 @@
-import {
-  Action,
-  pipe,
-  mutate,
-  filter,
-  debounce,
-  Operator,
-  when,
-  fork,
-  parallel,
-  catchError,
-  map,
-} from 'overmind'
-import { Page, RouteContext, GuideParams, VideoParams } from './types'
+import { Action, pipe, debounce, Operator } from 'overmind'
+import { RouteContext, GuideParams, VideoParams } from './types'
 import * as o from './operators'
 
 export const openHome: Operator<RouteContext> = pipe(
@@ -71,55 +59,3 @@ export const changeQuery: Operator<string> = pipe(
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
-
-export const test: Operator<string> = pipe(
-  mutate(function setArray({ state }) {
-    state.test = []
-    state.test.push('foo')
-  }),
-  when(
-    function isTrue() {
-      return true
-    },
-    {
-      true: pipe(
-        map(function truePath({ state }) {
-          return 'truePath'
-        }),
-        map(function truePath2({ state }) {
-          return 'truePath2'
-        }),
-        fork(() => 'foo', {
-          foo: pipe(
-            map(function fooPath({ state }) {
-              return 'fooPath'
-            }),
-            map(function fooPath2() {
-              return 'fooPath2'
-            })
-          ),
-        })
-      ),
-      false: mutate(function falsePath() {}),
-    }
-  ),
-  filter(() => false),
-  parallel(
-    pipe(
-      map(function pa1({ state }, val) {
-        console.log('VAL', val)
-        return 'pa1'
-      }),
-      map(function pa2({ state }) {
-        return 'pa2'
-      })
-    ),
-    map(function endStuff({ state }) {
-      return 'endStuff'
-    })
-  ),
-  catchError(function catchError() {
-    console.log('NOW I RUN CATCH!')
-    return 'hihi'
-  })
-)
