@@ -73,6 +73,10 @@ export const viewHelpGotIt: Action = ({ state }) => {
 }
 
 export const test: Operator<string> = pipe(
+  mutate(function setArray({ state }) {
+    state.test = []
+    state.test.push('foo')
+  }),
   when(
     function isTrue() {
       return true
