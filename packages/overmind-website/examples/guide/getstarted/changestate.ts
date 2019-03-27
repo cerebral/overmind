@@ -54,7 +54,7 @@ const typescript = {
       code: `
 import { Action } from 'overmind'
 
-export const changeCount: Action<number> = ({ state }, countChange) {
+export const changeCount: Action<number> = ({ state }, countChange) => {
   state.count += countChange
 }
 `,
@@ -82,7 +82,7 @@ const config = {
       code: `
 import { Action } from 'overmind'
 
-export const changeCount: Action<number> = ({ state }, countChange) {
+export const changeCount: Action<number> = ({ state }, countChange) => {
   state.count += countChange
 }
 `,
