@@ -9,11 +9,10 @@ export default (ts, view) =>
 import { OnInitialize } from 'overmind'
 
 const onInitialize: OnInitialize = async ({
-  value: overmind,
   state,
   actions,
   effects
-}) => {
+}, overmind) => {
   const initialData = await effects.api.getInitialData()
   state.initialData = initialData
 }
@@ -44,11 +43,10 @@ const config = {
           fileName: 'overmind/onInitialize.js',
           code: `
 const onInitialize = async ({
-  value: overmind,
   state,
   actions,
   effects
-}) => {
+}, overmind) => {
   const initialData = await effects.api.getInitialData()
   state.initialData = initialData
 }

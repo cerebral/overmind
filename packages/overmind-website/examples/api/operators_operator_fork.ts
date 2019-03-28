@@ -2,26 +2,28 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'overmind/operators.ts',
+          fileName: 'operators.ts',
           code: `
 import { fork, Operator } from 'overmind'
 import { User } from './state'
 
-export const forkUserType: (paths: { [key: string]: Operator<User> }) => Operator<User> =
-  (paths) => fork(({ value: user }) => user.type, paths)
+export const forkUserType: (paths: { [key: string]: Operator<User> }) => Operator<User> = (paths) =>
+  fork(function forkUserType(_, user) {
+    return user.type
+  }, paths)
 `,
         },
         {
-          fileName: 'overmind/actions.ts',
+          fileName: 'actions.ts',
           code: `
 import { Operator, pipe } from 'overmind'
-import { forkUserType, doThis, doThat } from './operators'
+import * as o from './operators'
 
 export const getUser: Operator<string, User> = pipe(
-  getUser,
-  forkUserType({
-    admin: doThis,
-    superuser: doThat
+  o.getUser(),
+  o.forkUserType({
+    admin: o.doThis(),
+    superuser: o.doThat()
   })
 )
           `,
@@ -29,24 +31,27 @@ export const getUser: Operator<string, User> = pipe(
       ]
     : [
         {
-          fileName: 'overmind/operators.ts',
+          fileName: 'operators.js',
           code: `
 import { fork } from 'overmind'
 
-export const forkUserType = (paths) => fork(({ value: user }) => user.type, paths)
+export const forkUserType = (paths) =>
+  fork(function forkUserType(_, user) {
+    return user.type
+  }, paths)
 `,
         },
         {
-          fileName: 'overmind/actions.ts',
+          fileName: 'actions.js',
           code: `
 import { pipe } from 'overmind'
-import { forkUserType, doThis, doThat } from './operators'
+import * as o from './operators'
 
 export const getUser = pipe(
-  getUser,
-  forkUserType({
-    admin: doThis,
-    superuser: doThat
+  o.getUser(),
+  o.forkUserType({
+    admin: o.doThis(),
+    superuser: o.doThat()
   })
 )
         `,

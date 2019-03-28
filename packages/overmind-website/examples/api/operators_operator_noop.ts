@@ -4,13 +4,14 @@ export default (ts) =>
         {
           fileName: 'actions.ts',
           code: `
-import { Operator, pipe, debounce } from 'overmind'
+import { Operator } from 'overmind'
 import * as o from './operators'
 
-export const search: Operator<string> = pipe(
-  debounce(200),
-  o.performSearch()
-)
+export const doSomething: Operator = o.forkUserType({
+  superuser: o.doThis(),
+  admin: o.doThat(),
+  other: o.noop()
+})
 `,
         },
       ]
@@ -18,13 +19,13 @@ export const search: Operator<string> = pipe(
         {
           fileName: 'actions.js',
           code: `
-import { pipe, debounce } from 'overmind'
 import * as o from './operators'
 
-export const search = pipe(
-  debounce(200),
-  o.performSearch()
-)
+export const doSomething = o.forkUserType({
+  superuser: o.doThis(),
+  admin: o.doThat(),
+  other: o.noop()
+})
 `,
         },
       ]

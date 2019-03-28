@@ -3,19 +3,15 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Action, Operator, pipe, debounce } from 'overmind'
+import { Operator, pipe, debounce } from 'overmind'
 import { QueryResult } from './state'
-import {
-  setQuery,
-  filterValidQuery,
-  queryResult
-} from './operators'
+import * as o from './operators'
 
-export const search: Action<string> = pipe(
-  setQuery,
-  filterValidQuery,
+export const search: Operator<string> = pipe(
+  o.setQuery(),
+  o.filterValidQuery(),
   debounce(200),
-  queryResult
+  o.queryResult()
 )
 `,
         },
@@ -24,17 +20,13 @@ export const search: Action<string> = pipe(
         {
           code: `
 import { pipe, debounce } from 'overmind'
-import {
-  setQuery,
-  filterValidQuery,
-  queryResult
-} from './operators'
+import * as o from './operators'
 
 export const search = pipe(
-  setQuery,
-  filterValidQuery,
+  o.setQuery(),
+  o.filterValidQuery(),
   debounce(200),
-  queryResult
+  o.queryResult()
 )
 `,
         },

@@ -7,14 +7,14 @@ export const wrapper = css`
 
 export const listWrapper = css`
   position: fixed;
-  top: 35px;
+  top: 50px;
+  height: calc(100% - 50px);
+  overflow-y: scroll;
   z-index: 1;
   box-sizing: border-box;
   width: 150px;
-
-  padding-top: 50px;
+  padding: 35px 0;
   right: calc(50% + 350px);
-  overflow: hidden;
 `
 
 export const list = css`

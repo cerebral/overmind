@@ -2,6 +2,7 @@ export default (ts) =>
   ts
     ? [
         {
+          fileName: 'actions.ts',
           code: `
 import { Operator, pipe, mutate, catchError } from 'overmind'
 
@@ -26,6 +27,7 @@ export const doSomething: Operator<string> = pipe(
       ]
     : [
         {
+          fileName: 'actions.js',
           code: `
 import { pipe, mutate, catchError } from 'overmind'
 

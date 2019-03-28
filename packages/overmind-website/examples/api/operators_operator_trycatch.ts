@@ -2,32 +2,28 @@ export default (ts) =>
   ts
     ? [
         {
+          fileName: 'operators.ts',
           code: `
 import { Operator, pipe, tryCatch } from 'overmind'
+import * as o from './operators'
 
 export const doSomething: Operator<string> = tryCatch({
-  try: pipe(
-    // Whatever throws an error here will trigger the "catch"
-  ),
-  catch: pipe(
-    // Receives the Error as value
-  )
+  try: o.somethingThatMightError(),
+  catch: o.somethingToHandleTheError()
 })
 `,
         },
       ]
     : [
         {
+          fileName: 'operators.js',
           code: `
 import { pipe, tryCatch } from 'overmind'
+import * as o from './operators'
 
 export const doSomething = tryCatch({
-  try: pipe(
-    // Whatever throws an error here will trigger the "catch"
-  ),
-  catch: pipe(
-    // Receives the Error as value
-  )
+  try: o.somethingThatMightError(),
+  catch: o.somethingToHandleTheError()
 })
 `,
         },

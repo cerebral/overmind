@@ -5,9 +5,10 @@ export default (ts) =>
           code: `
 import { Operator, mutate } from 'overmind'
 
-export const changeFoo: Operator = mutate(({ state }) => {
-  state.foo = 'bar'
-})
+export const changeFoo: <T>() => Operator<T> = () =>
+  mutate(({ state }) => {
+    state.foo = 'bar'
+  })
 `,
         },
       ]
@@ -16,9 +17,10 @@ export const changeFoo: Operator = mutate(({ state }) => {
           code: `
 import { mutate } from 'overmind'
 
-export const changeFoo = mutate(({ state }) => {
-  state.foo = 'bar'
-})
+export const changeFoo = () => 
+  mutate(({ state }) => {
+    state.foo = 'bar'
+  })
 `,
         },
       ]

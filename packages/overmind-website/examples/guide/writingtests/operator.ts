@@ -8,7 +8,7 @@ import { Operator, filter } from 'overmind'
 import { User } from '../overmind/state'
 
 export const filterAwesomeUser: Operator<User> =
-  filter(({ value: user }) => user.isAwesome)
+  filter((_, user) => user.isAwesome)
 `,
         },
       ]
@@ -19,7 +19,7 @@ export const filterAwesomeUser: Operator<User> =
 import { filter } from 'overmind'
 
 export const filterAwesomeUser =
-  filter(({ value: user }) => user.isAwesome)
+  filter((_, user) => user.isAwesome)
             `,
         },
       ]

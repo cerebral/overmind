@@ -69,6 +69,15 @@ You use this operator whenever you want to change the state of the app, but you 
 h(Example, { name: "api/operators_operator_action" })
 ```
 
+## noop
+
+This operator does absolutely nothing. Is useful when paths of execution is not supposed to do anything.
+
+```marksy
+h(Example, { name: "api/operators_operator_noop" })
+```
+
+
 ## parallel
 Will run every operator and wait for all of them to finish before moving on. Works like *Promise.all*.
 
@@ -81,6 +90,14 @@ The pipe is an operator in itself. Use it to compose other operators and pipes.
 
 ```marksy
 h(Example, { name: "api/operators_operator_pipe" })
+```
+
+## run
+
+This operator allows you to run side effects. You can not change state and you can not return a value.
+
+```marksy
+h(Example, { name: "api/operators_operator_run" })
 ```
 
 ## tryCatch

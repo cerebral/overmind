@@ -2,30 +2,28 @@ export default (ts) =>
   ts
     ? [
         {
+          fileName: 'actions.ts',
           code: `
 import { Operator, pipe } from 'overmind'
-
-export const loadSomeData: Operator = pipe(...)
-export const loadSomeMoreData: Operator = pipe(...)
+import * as o from './operators'
 
 export const loadAllData: Operator = parallel(
-  loadSomeData,
-  loadSomeMoreData
+  o.loadSomeData(),
+  o.loadSomeMoreData()
 )
 `,
         },
       ]
     : [
         {
+          fileName: 'actions.js',
           code: `
 import { pipe } from 'overmind'
-
-export const loadSomeData = pipe(...)
-export const loadSomeMoreData = pipe(...)
+import * as o from './operators'
 
 export const loadAllData = parallel(
-  loadSomeData,
-  loadSomeMoreData
+  o.loadSomeData(),
+  o.loadSomeMoreData()
 )
 `,
         },
