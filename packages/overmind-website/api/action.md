@@ -4,7 +4,7 @@
 h(Example, { name: "api/action"})
 ```
 
-An action is where you write the logic of the application. Every action receives at least on argument and that is the **context**. This is the signature of the context:
+An action is where you write the logic of the application. Every action receives at least one argument and that is the **context**. This is the signature of the context:
 
 `{ state, actions, effects }`
 
