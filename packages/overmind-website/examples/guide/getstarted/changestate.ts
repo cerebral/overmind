@@ -13,7 +13,7 @@ export const overmind = createOvermind({
     count: 0
   },
   actions: {
-    changeCount({ state }, countChange) {
+    changeCount({ state }, countChange) => {
       state.count += countChange
     }
   }
