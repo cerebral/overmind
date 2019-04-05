@@ -28,9 +28,9 @@ export const video = css`
   height: 125px;
   border-bottom: 2px solid var(--color-primary);
   transition: box-shadow 0.1s ease-out;
-  box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   :hover {
-    box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.5);
   }
   span {
     position: absolute;
