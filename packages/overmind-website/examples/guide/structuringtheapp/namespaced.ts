@@ -43,7 +43,7 @@ const config = namespaced({
 })
 
 declare module 'overmind' {
-  interface IConfig extends TConfig<typeof config> {}
+  interface Config extends IConfig<typeof config> {}
 }
 
 const overmind = createOvermind(config)
