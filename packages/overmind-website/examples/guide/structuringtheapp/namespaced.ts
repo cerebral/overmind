@@ -32,7 +32,7 @@ export {
         {
           fileName: 'overmind/index.ts',
           code: `
-import { createOvermind, TConfig } from 'overmind'
+import { createOvermind, IConfig } from 'overmind'
 import { namespaced } from 'overmind/config'
 import * as posts from './posts'
 import * as admin from './admin'
