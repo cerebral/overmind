@@ -59,3 +59,19 @@ export const changeQuery: Operator<string> = pipe(
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
+
+export const test: Action = async ({ state, actions }) => {
+  state.query = 'hey'
+  await actions.test2()
+  state.query = 'bah'
+  await actions.test2()
+}
+
+export const test2: Action = async ({ state, actions }) => {
+  state.query = 'hopp'
+  actions.test3()
+}
+
+export const test3: Action = ({ state }) => {
+  state.query = 'hmhiehoejh'
+}
