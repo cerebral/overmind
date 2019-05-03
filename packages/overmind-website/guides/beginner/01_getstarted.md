@@ -19,13 +19,11 @@ h(Example, { name: "guide/getstarted/install" })
 h(TypescriptNotice, null, "Overmind requires Typescript version **3.2** or above")
 ```
 
-
-
 Great, we are good to go!
 
 ## Our first state
 
-Applications are about state and we are going to introduce our first state, **count**. Typically you would be tempted to isolate this state in your component, but this is exactly what Overmind discourages. In Overmind you primarily define the state of your application outside of your view layer. This gives you several benefits which will become clear as we move on.
+Applications are about state and we are going to introduce our first state, **count**. But we are not going to introduce this state through a component. We are going to take on the perspective of [UI as an implementation detail](). That means 
 
 Let us imagine we get what we need from Overmind in a component:
 
