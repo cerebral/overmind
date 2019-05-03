@@ -18,9 +18,9 @@ describe('Actions', () => {
         }
       })
 
-      const mutations = await overmind.actions.getPost('1')
+      await overmind.actions.getPost('1')
 
-      expect(mutations).toMatchSnapshot()
+      expect(overmind.mutations).toMatchSnapshot()
     })
     test('should handle errors', async () => {
       const overmind = createOvermindMock(config, {
@@ -31,9 +31,9 @@ describe('Actions', () => {
         }
       })
 
-      const mutations = await overmind.actions.getPost('1')
+      await overmind.actions.getPost('1')
 
-      expect(mutations).toMatchSnapshot()
+      expect(overmind.mutations).toMatchSnapshot()
     })
   })
 })

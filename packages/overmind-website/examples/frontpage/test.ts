@@ -11,9 +11,9 @@ test('should get items', async () => {
     }
   })
 
-  const mutations = await overmind.actions.getItems()
+  await overmind.actions.getItems()
   
-  expect(mutations).toMatchSnapshot()
+  expect(overmind.mutations).toMatchSnapshot()
 })
 `,
   },
