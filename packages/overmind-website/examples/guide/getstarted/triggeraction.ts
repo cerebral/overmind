@@ -58,7 +58,7 @@ const Count: React.FunctionComponent = () => {
   )
 }
 
-export default Posts
+export default Count
     `,
     },
   ],
