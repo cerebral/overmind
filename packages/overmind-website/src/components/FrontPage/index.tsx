@@ -60,6 +60,30 @@ const FrontPage: SFC = () => {
           )}
         >
           <div>
+            {
+              compile(`
+![devtool](/images/front_devtool.png)
+              `).tree
+            }
+          </div>
+          <div>
+            <h2>AMAZING DEVELOPER EXPERIENCE</h2>
+            <p>
+              Develop your app without the browser. Just connect directly to
+              your app to focus on state, effects and actions development. Run
+              your actions and verify that state changes and effects are run
+              correctly. Or open up your app and debug state, effects and
+              actions with your running application.
+            </p>
+          </div>
+        </div>
+        <div
+          className={css(
+            styles.valueProposition,
+            viewport.isMobile && styles.valuePropositionMobile
+          )}
+        >
+          <div>
             <h2>A SINGLE STATE TREE</h2>
             <p>
               Building your application as a single state tree is the most
@@ -113,8 +137,8 @@ h(Example, { name: "frontpage/effects" })
           <div>
             <h2>SAFE AND PREDICTABLE CHANGES</h2>
             <p>
-              When you build applications that perform many state changes
-              things can get out of hand. In Overmind you can only perform state
+              When you build applications that perform many state changes things
+              can get out of hand. In Overmind you can only perform state
               changes from <strong>actions</strong> and all changes are tracked
               by the development tool.
             </p>

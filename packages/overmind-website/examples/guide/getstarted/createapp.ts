@@ -1,48 +1,12 @@
 import { tsAppIndex } from '../../templates'
 
-const javascript = {
-  react: [
-    {
-      fileName: 'overmind/index.js',
-      code: `
-import { createOvermind } from 'overmind'
-import { createHook } from 'overmind-react'
-
-export const overmind = createOvermind({
-  state: {
-    count: 0
-  }
-})
-
-export const useOvermind = createHook(overmind)
-`,
-    },
-  ],
-  vue: [
-    {
-      fileName: 'overmind/index.js',
-      code: `
-import { createOvermind } from 'overmind'
-import { createPlugin } from 'overmind-vue'
-
-export const overmind = createOvermind({
-  state: {
-    count: 0
-  }
-})
-
-export const OvermindPlugin = createPlugin(overmind)
-`,
-    },
-  ],
-}
-
-const typescript = {
-  react: [
-    {
-      fileName: 'overmind/state.ts',
-      code: `
-export type State = {
+export default (ts) =>
+  ts
+    ? [
+        {
+          fileName: 'overmind/state.ts',
+          code: `
+type State = {
   count: number
 }
 
@@ -50,49 +14,48 @@ export const state: State = {
   count: 0
 }
 `,
-    },
-    {
-      fileName: 'overmind/index.ts',
-      code: tsAppIndex(
-        'react',
-        `
+        },
+        {
+          fileName: 'overmind/index.ts',
+          code: tsAppIndex(
+            'react',
+            `
 import { state } from './state'
 
 const config = {
   state,
 }
 `
-      ),
-    },
-  ],
-  vue: javascript.vue,
-  angular: [
-    {
-      fileName: 'overmind/state.ts',
-      code: `
-export type State = {
-  count: number
-}
+          ),
+        },
+        {
+          fileName: 'index.ts',
+          code: `
+import { createOvermind } from 'overmind'
+import { config } from './overmind'
 
-export const state: State = {
-  count: 0
-}
+const overmind = createOvermind(config)
 `,
-    },
-    {
-      fileName: 'overmind/index.ts',
-      code: tsAppIndex(
-        'angular',
-        `
-import { state } from './state'
+        },
+      ]
+    : [
+        {
+          fileName: 'overmind/index.js',
+          code: `
+export const config = {
+  state: {
+    count: 0
+  }
+})
+`,
+        },
+        {
+          fileName: 'index.js',
+          code: `
+import { createOvermind } from 'overmind'
+import { config } from './overmind'
 
-const config = {
-  state,
-}
-`
-      ),
-    },
-  ],
-}
-
-export default (ts, view) => (ts ? typescript[view] : javascript[view])
+const overmind = createOvermind(config)
+`,
+        },
+      ]

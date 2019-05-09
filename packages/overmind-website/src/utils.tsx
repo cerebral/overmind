@@ -192,6 +192,9 @@ export const compile = marksy({
         </a>
       )
     },
+    img(props) {
+      return <img {...props} className={css({ width: '100%' })} />
+    },
   },
 })
 

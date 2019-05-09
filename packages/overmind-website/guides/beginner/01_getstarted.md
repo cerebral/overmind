@@ -23,47 +23,42 @@ Great, we are good to go!
 
 ## Our first state
 
-Applications are about state and we are going to introduce our first state, **count**. But we are not going to introduce this state through a component. We are going to take on the perspective of [UI as an implementation detail](). That means 
+Applications are about state and we are going to introduce our first state, **count**. But we are not going to introduce this state through a component. We are going to take on the perspective of [UI as an implementation detail](). That means we will run the Overmind development tool and connect to our application from that. There is no need to open up the browser.
 
-Let us imagine we get what we need from Overmind in a component:
-
-```marksy
-h(Example, { name: "guide/getstarted/count" })
-```
-
-This will of course not work. To make this work we have to create an Overmind application instance and expose it to our component.
+But first we have to create an instance of Overmind in our code. We define our application configuration in an **overmind** folder and instantiate Overmind in our main **entry** file:
 
 ```marksy
 h(Example, { name: "guide/getstarted/createapp" })
 ```
 
-Now that we have our application, let us expose it to our component.
+Now that we have our instance make sure the application is running and open up the Overmind devtool by:
 
 ```marksy
-h(Example, { name: "guide/getstarted/connectapp" })
+h(Example, { name: "guide/getstarted/run_devtool" })
 ```
 
-That is it, your component will now render whenever the state accessed changes. Please read more about connecting state to components in the [guides section](/guides).
+This will install and open up the development tool. You should see something like this when you connect to your application:
+
+![open_devtool](/images/devtool_count.png)
+
+Now that we have our state in place, lets change it.
 
 ## Changing state
 
-We want to change our count. To do this we need to create an action. This action will receive a number that we use to change the current count state.
+In Overmind you define your logic as **actions**. The action we are going to create should receive a number that we use to change the current count state.
 
 ```marksy
 h(Example, { name: "guide/getstarted/changestate" })
 ```
 
-This action can now be called from out component to change the count.
+To trigger this action, go to the **actions** tab in the development tool and run it by passing a number. As we can see, the count state changed as expected.
 
-```marksy
-h(Example, { name: "guide/getstarted/triggeraction" })
-```
+![open_devtool](/images/devtool_change.png)
 
-By just using the **count** state in the component it will understand that it needs to update when the count changes.
 
 ## Creating effects
 
- State management tools has a tendency to end their introduction here, but Overmind helps you manage one more important ingredient, **effects**. An effect, or side effect, is everything from doing http requests to storing data in local storage. What Overmind helps you with is separating the generic low level APIs of using these effects from your actual application logic inside actions. Let us look at an example. We are going to add a sound when we click the buttons:
+ State management tools has a tendency to end their introduction here, but Overmind helps you manage one more important ingredient, **effects**. An effect, or side effect, is everything from doing http requests to storing data in local storage. What Overmind helps you with is separating the generic low level APIs of using effects from your actual application logic inside actions. Let us look at an example. We are going to add a sound when we change the count:
 
 ```marksy
 h(Example, { name: "guide/getstarted/effect" })
@@ -71,13 +66,28 @@ h(Example, { name: "guide/getstarted/effect" })
 
 As you can see we separated the low level generic code of creating a sound from our actual application logic in the action. Think of effects as the API you custom tailor to your application. This improves the readability of your application logic inside actions, you can easily test effects and they can also be mocked out in tests.
 
-## Devtools
+With our effect in place, let us run the action again:
 
-At this stage, the benefits of writing application code this way might not be obvious. It is usually when we start to deal with more complexity that the benefits become more obvious. But even with a simple app, there is one big benefit that comes right out of the box. In our **package.json** file, we add the following and the run the script.
+![open_devtool](/images/devtool_effect.png)
+
+You most likely heard a "bip" and we can also see that the effect was called as expected. Great! Click several times and you should hear the bip changing.
+
+## Implementing UI
+
+Now that we know our application works as expected we can actually produce the UI for it, though maybe this application does not have a UI? Maybe it is just an app running on some embedded device that creates an increasingly annoying sound when you hit a button? Nevertheless, let us see how you would consume the state and actions of this application in your UI framework of choice.
+
+First let us disconnect the devtools from our application so that when we fire up the browser we rather debug that runtime:
+
+![open_devtool](/images/devtool_disconnect.png)
+
+Now open your browser and implement a UI something like this:
 
 ```marksy
-h(Example, { name: "guide/getstarted/devtools" })
+h(Example, { name: "guide/getstarted/connectapp" })
 ```
+
+
+## Devtools
 
 You can also explicitly install the devtools with
 
@@ -101,7 +111,7 @@ By installing the [concurrently](https://www.npmjs.com/package/concurrently) pac
 
 The Overmind devtools provides us with a pretty amazing experience. We get insights into all the state, changes to that state, actions run, which side effects are run and general stats. This visual overview becomes more and more valuable as complexity increases. 
 
-To connect to the devtools simply start the devtools application and refresh your app. If you need to configure where it connects, please look at the [API section](/api/overmind).
+To connect to the devtools simply start the devtools application and connect directly to your app, or open the app in a browser. If you need to configure where it connects, please look at the [API section](/api/overmind).
 
 ## Hot Module Replacement
 
@@ -109,4 +119,4 @@ A popular concept introduced by Webpack is [HMR](https://webpack.js.org/concepts
 
 ## Summary
 
-You have now stepped your toes into Overmind. Please continue this example to actually display the posts fetched. In the devtools you will see how the component will become quite bloated with dependencies to state, which is actually a general problem with lists and components. You can read more about how to manage lists in a later guide, but we wanted to point out that the devtools can already helps us identify possible issues with the application.
+You have now stepped your toes into Overmind. We introduced Overmind with the concept of thinking the UI as an implementation detail. If this does not rock your boat you can of course develop your application as normal with the browser, but now you know that it can be separated. Please continue reading guides to learn more about how Overmind scales.

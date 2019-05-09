@@ -1,9 +1,9 @@
 import { Action, pipe, debounce, Operator, mutate, filter } from 'overmind'
 import { RouteContext, GuideParams, VideoParams, Page } from './types'
 
-const route: <T>(action: Action<RouteContext<T>>) => Action<RouteContext<T>> = (
-  action
-) => (context, routeContext) => {
+const withRoute: <T>(
+  action: Action<RouteContext<T>>
+) => Action<RouteContext<T>> = (action) => (context, routeContext) => {
   const { state, effects } = context
 
   if (
@@ -18,10 +18,10 @@ const route: <T>(action: Action<RouteContext<T>>) => Action<RouteContext<T>> = (
     effects.css.changePrimary(state.theme)
   }
 
-  action(context, routeContext)
+  return action(context, routeContext)
 }
 
-export const openHome: Action<RouteContext> = route(
+export const openHome: Action<RouteContext> = withRoute(
   async ({ state, effects }) => {
     state.page = Page.HOME
     if (!state.demos.length) {
@@ -30,7 +30,7 @@ export const openHome: Action<RouteContext> = route(
   }
 )
 
-export const openGuides: Action<RouteContext> = route(
+export const openGuides: Action<RouteContext> = withRoute(
   async ({ state, effects }) => {
     state.page = Page.GUIDES
     if (!state.guides.length) {
@@ -41,7 +41,7 @@ export const openGuides: Action<RouteContext> = route(
   }
 )
 
-export const openVideos: Action<RouteContext> = route(
+export const openVideos: Action<RouteContext> = withRoute(
   async ({ state, effects }) => {
     state.page = Page.VIDEOS
     state.currentVideo = null
@@ -61,14 +61,14 @@ export const openVideo: Action<RouteContext<VideoParams>> = (
   state.currentVideo = routeContext.params.title
 }
 
-export const openGuide: Action<RouteContext<GuideParams>> = route(
+export const openGuide: Action<RouteContext<GuideParams>> = withRoute(
   ({ state }, routeContext) => {
     state.page = Page.GUIDE
     state.currentGuide = routeContext.params
   }
 )
 
-export const openApi: Action<RouteContext<VideoParams>> = route(
+export const openApi: Action<RouteContext<VideoParams>> = withRoute(
   async ({ state, effects }, routeContext) => {
     state.page = Page.API
     state.currentApi = routeContext.params.title
