@@ -12,7 +12,7 @@ import { state } from './state'
 import * as effects from './effects'
 import * as actions from './actions'
 
-const config = {
+export const config = {
   state,
   effects,
   actions
@@ -25,19 +25,15 @@ const config = {
         {
           fileName: 'overmind/index.js',
           code: `
-import { createOvermind } from 'overmind'
-import { createConnect } from 'overmind-${view}'
-import state from './state'
+import { state } from './state'
 import * as effects from './effects'
 import * as actions from './actions'
 
-export const overmind = createOvermind({
+export const config = {
   state,
   effects,
   actions
-})
-
-export const connect = createConnect(overmind)
+}
 `,
         },
       ]

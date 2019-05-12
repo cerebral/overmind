@@ -94,18 +94,20 @@ export const toggleAwesomeApp: Action = ({ state }) =>
       fileName: 'components/app.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
   selector: 'app-root',
   template: \`
-  <button (click)="overmind.actions.toggleAwesomeApp()">
+  <button (click)="actions.toggleAwesomeApp()">
     Toggle awesome
   </button>
   \`
 })
-@connect()
-export class App {}
+export class App {
+  actions = this.store.actions
+  constructor(private store: Store) {}
+}
     `,
     },
   ],

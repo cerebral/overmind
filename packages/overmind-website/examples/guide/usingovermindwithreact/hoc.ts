@@ -4,12 +4,12 @@ export default (ts) =>
         {
           fileName: 'overmind/index.ts',
           code: `
-import { createOvermind, IConfig } from 'overmind'
+import { IConfig } from 'overmind'
 import { createConnect, IConnect } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
 
-const config = {
+export const config = {
   state,
   actions
 }
@@ -20,10 +20,27 @@ declare module 'overmind' {
 
 export interface Connect extends IConnect<typeof config> {}
 
-export const connect = createConnect(overmind)
+export const connect = createConnect<typeof config>()
+  `,
+        },
+        {
+          fileName: 'index.tsx',
+          code: `
+import * as React from 'react'
+import { render } from 'react-dom'
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import App from './components/App'
 
 const overmind = createOvermind(config)
-  `,
+
+render((
+  <Provider value={overmind}>
+    <App />
+  </Provider>
+), document.querySelector('#app'))
+`,
         },
         {
           fileName: 'components/App.tsx',
@@ -45,17 +62,35 @@ export default connect(App)
       ]
     : [
         {
-          fileName: 'overmind/index.jsx',
+          fileName: 'overmind/index.js',
           code: `
-import { createOvermind } from 'overmind'
 import { createConnect } from 'overmind-react'
 
-const overmind = createOvermind({
+export const config = {
   state: {},
   actions: {}
-})
+}
 
-export const connect = createConnect(overmind)
+export const connect = createConnect()
+`,
+        },
+        {
+          fileName: 'index.tsx',
+          code: `
+import React from 'react'
+import { render } from 'react-dom'
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import App from './components/App'
+
+const overmind = createOvermind(config)
+
+render((
+  <Provider value={overmind}>
+    <App />
+  </Provider>
+), document.querySelector('#app'))
 `,
         },
         {

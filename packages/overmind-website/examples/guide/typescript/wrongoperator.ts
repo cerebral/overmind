@@ -1,9 +1,12 @@
 export default () => [
   {
     code: `
-import { Operator, action } from 'overmind'
+import { Operator, mutate } from 'overmind'
 
-export const doThis: Operator<string, number> = action(() => {})
+export const doThis: () => Operator<string, number> = () => 
+  mutate(function doThis() {
+    
+  })
     `,
   },
 ]

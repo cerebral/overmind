@@ -11,7 +11,7 @@ export const showHomePage: Action = ({ state }) => {
 }
 
 export const showUsersPage: Action = async ({ state, effects }) => {
-  state.user = null
+  state.modalUser = null
   state.currentPage = 'users'
   state.isLoadingUsers = true
   state.users = await effects.api.getUsers()
@@ -35,7 +35,7 @@ export const showHomePage = ({ state }) => {
 }
 
 export const showUsersPage = async ({ state, api }) => {
-  state.user = null
+  state.modalUser = null
   state.currentPage = 'users'
   state.isLoadingUsers = true
   state.users = await api.getUsers()

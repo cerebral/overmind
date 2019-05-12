@@ -17,18 +17,6 @@ export const wrapper = css`
   }
 `
 
-export const evaluated = css`
-  background-color: var(--color-white-2);
-  color: var(--color-dark-1);
-  padding: var(--padding-4);
-  border-radius: 3px;
-  margin-top: 50px;
-  max-width: 700px;
-  > strong {
-    color: red;
-  }
-`
-
 export const summary = css`
   margin-top: 50px;
   max-width: 700px;

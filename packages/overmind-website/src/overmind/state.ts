@@ -32,7 +32,6 @@ type State = {
   versions: {
     [name: string]: string
   }
-  test: string
 }
 
 const state: State = {
@@ -56,7 +55,6 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
-  test: 'foo',
 }
 
 export default state

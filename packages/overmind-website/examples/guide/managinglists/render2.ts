@@ -8,6 +8,8 @@ import React from 'react'
 import { useOvermind } from '../overmind'
 
 const Post = ({ post }) => {
+  // We still need to use the hook so that the component tracks
+  // changes to the post
   useOvermind()
 
   return (
@@ -23,18 +25,22 @@ export default Post
       target: 'jsx',
       code: `
 import React from 'react'
-import { connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import Post from './Post'
 
-const Posts = ({ overmind }) => (
-  <ul>
-    {overmind.state.postsList.map(post => 
-      <Post key={post.id} post={post} />
-    )}
-  </ul>
-)
+const Posts = () => {
+  const { state } = useOvermind()
 
-export default connect(Posts)
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <Post key={post.id} post={post} />
+      )}
+    </ul>
+  )
+}
+
+export default Posts
     `,
     },
   ],
@@ -93,6 +99,8 @@ type Props = {
 }
 
 const Post: React.FunctionComponent<Props> = ({ post }) => {
+  // We still need to use the hook so that the component tracks
+  // changes to the post
   useOvermind()
   
   return (
@@ -107,18 +115,22 @@ export default Post
       fileName: 'components/Posts.tsx',
       code: `
 import * as React from 'react'
-import { connect, Connect } from '../overmind'
+import { useOvermind } from '../overmind'
 import Post from './Post'
 
-const Posts: React.FunctionComponent<Connect> = ({ overmind }) => (
-  <ul>
-    {overmind.state.postsList.map(post => 
-      <Post key={post.id} post={post} />
-    )}
-  </ul>
-)
+const Posts: React.FunctionComponent = () => {
+  const { state } = useOvermind()
 
-export default connect(Posts)
+  return (
+    <ul>
+      {state.postsList.map(post => 
+        <Post key={post.id} post={post} />
+      )}
+    </ul>
+  )
+}
+
+export default Posts
     `,
     },
   ],

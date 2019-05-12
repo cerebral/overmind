@@ -1,5 +1,6 @@
 export default () => [
   {
+    fileName: 'overmind/index.ts',
     code: `
 import { IConfig } from 'overmind'
 

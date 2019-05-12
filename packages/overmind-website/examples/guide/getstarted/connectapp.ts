@@ -1,6 +1,42 @@
 const javascript = {
   react: [
     {
+      fileName: 'overmind/index.ts',
+      code: `
+import { createHook } from 'overmind-react'
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
+const config = {
+  state,
+  actions,
+  effects
+}
+
+export const useOvermind = createHook()
+`,
+    },
+    {
+      fileName: 'index.js',
+      code: `
+import React from 'react'
+import { render } from 'react-dom'
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import Count from './Count'
+
+const overmind = createOvermind(config)
+
+render((
+  <Provider value={overmind}>
+    <Count />
+  </Provider>
+), document.querySelector('#app'))
+`,
+    },
+    {
       fileName: 'Count.js',
       target: 'jsx',
       code: `
@@ -8,11 +44,13 @@ import React from 'react'
 import { useOvermind } from '../overmind'
 
 const Count = () => {
-  const { state } = useOvermind()
+  const { state, actions } = useOvermind()
 
   return (
     <div>
+      <button onClick={() => actions.changeCount(-1)}>-1</button>
       {state.count}
+      <button onClick={() => actions.changeCount(1)}>+1</button>
     </div>
   )
 }
@@ -26,8 +64,13 @@ export default Count
       fileName: 'index.js',
       code: `
 import Vue from 'vue'
-import { OvermindPlugin } from './overmind'
+import { createOvermind } from 'overmind'
+import { createPlugin } from 'overmind-vue'
+import { config } from './overmind'
 import Count from './components/Count'
+
+const overmind = createOvermind(config)
+const OvermindPlugin = createPlugin(overmind)
 
 Vue.use(OvermindPlugin)
 
@@ -38,11 +81,63 @@ new Vue({
 
 `,
     },
+    {
+      fileName: 'components/Count.vue (template)',
+      target: 'markup',
+      code: `
+<div>
+  <button @click="actions.changeCount(-1)">-1</button>
+  {{ state.count }}
+  <button @click="actions.changeCount(1)">+1</button>
+</div>
+    `,
+    },
   ],
 }
 
 const typescript = {
   react: [
+    {
+      fileName: 'overmind/index.ts',
+      code: `
+import { IConfig } from 'overmind'
+import { createHook } from 'overmind-react'
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
+const config = {
+  state,
+  actions,
+  effects
+}
+
+declare module 'overmind' {
+  interface Config extends IConfig<typeof config> {}
+}
+
+export const useOvermind = createHook()
+`,
+    },
+    {
+      fileName: 'index.tsx',
+      code: `
+import React from 'react'
+import { render } from 'react-dom'
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import Count from './Count'
+
+const overmind = createOvermind(config)
+
+render((
+  <Provider value={overmind}>
+    <Count />
+  </Provider>
+), document.querySelector('#app'))
+`,
+    },
     {
       fileName: 'components/Count.tsx',
       code: `
@@ -50,15 +145,16 @@ import * as React from 'react'
 import { useOvermind } from '../overmind'
 
 const Count: React.FunctionComponent = () => {
-  const { state } = useOvermind()
+  const { state, actions } = useOvermind()
 
   return (
     <div>
+      <button onClick={() => actions.changeCount(-1)}>-1</button>
       {state.count}
+      <button onClick={() => actions.changeCount(1)}>+1</button>
     </div>
   )
 }
-
 
 export default Count
     `,
@@ -66,6 +162,49 @@ export default Count
   ],
   vue: javascript.vue,
   angular: [
+    {
+      fileName: 'overmind/index.ts',
+      code: `
+import { IConfig } from 'overmind'
+import { Injectable } from '@angular/core'
+import { OvermindService } from 'overmind-angular'
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
+export const config = { state, actions, effects }
+
+declare module 'overmind' {
+  interface Config extends IConfig<typeof config> {}
+}
+
+@Injectable()
+export class Store extends OvermindService<typeof config> {}
+`,
+    },
+    {
+      fileName: 'app.module.ts',
+      code: `
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { createOvermind } from 'overmind';
+import { OvermindModule, OvermindService, OVERMIND_INSTANCE } from 'overmind-angular'
+
+import { config, Store } from './overmind'
+import { CountComponent } from './count.component';
+
+@NgModule({
+  imports: [ BrowserModule, OvermindModule ],
+  declarations: [ CountComponent ],
+  bootstrap: [ CountComponent ],
+  providers: [
+    { provide: OVERMIND_INSTANCE, useValue: createOvermind(config) },
+    { provide: Store, useExisting: OvermindService }
+  ]
+})
+export class AppModule { }
+`,
+    },
     {
       fileName: 'count.component.ts',
       code: `
@@ -76,12 +215,15 @@ import { Store } from '../overmind'
   selector: 'count-component',
   template: \`
 <div *track>
+  <button (click)="actions.changeCount(-1)">-1</button>
   {{ state.count }}
+  <button (click)="actions.changeCount(1)">+1</button>
 </div>
   \`
 })
 export class CountComponent {
   state = this.store.select()
+  actions = this.store.actions
   constructor (private store: Store) {}
 }
     `,

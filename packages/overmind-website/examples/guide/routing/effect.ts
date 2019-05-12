@@ -6,15 +6,18 @@ export default (ts) =>
           code: `
 import page from 'page'
 
-interface IParams {
+// We allow void type which is used to define "no params"
+type IParams = {
   [param: string]: string  
-}
+} | void
 
 export const router = {
-  route<T extends IParams>(route: string, action: (params: T) => void) {
-    page(route, ({ params }) => action(params))
+  initialize(routes: { [url: string]: (params: IParams) => void }) {
+    Object.keys(routes).forEach(url => {
+      page(url, ({ params }) => routes[url](params))
+    })
+    page.start()
   },
-  start: () => page.start(),
   open: (url: string) => page.show(url)
 }
   `,
@@ -27,10 +30,12 @@ export const router = {
 import page from 'page'
 
 export const router = {
-  route(route, action) {
-    page(route, ({ params }) => action(params))
+  initialize(routes) {
+    Object.keys(routes).forEach(url => {
+      page(url, ({ params }) => routes[url](params))
+    })
+    page.start()
   },
-  start: () => page.start(),
   open: (url) => page.show(url)
 }
   `,

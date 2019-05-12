@@ -5,11 +5,11 @@ export default (ts) =>
           code: `
 import { Operator, Context, Config, createMutationOperator } from 'overmind'
 
-export function action<Input>(
+export function mutate<Input>(
   operation: (context: Context, value: Input) => void
 ): Operator<Input> {
   return createMutationOperator<Config>(
-    'action',
+    'mutate',
     operation.name,
     (err, context, value, next) => {
       if (err) next(err, value)
@@ -28,9 +28,9 @@ export function action<Input>(
           code: `
 import { createMutationOperator } from 'overmind'
 
-export function action(operation) {
+export function mutate(operation) {
   return createMutationOperator(
-    'action',
+    'mutate',
     operation.name,
     (err, context, value, next) => {
       if (err) next(err, value)

@@ -1,45 +1,48 @@
-import {
-  Action,
-  pipe,
-  mutate,
-  filter,
-  debounce,
-  Operator,
-  tryCatch,
-  when,
-  fork,
-  parallel,
-  catchError,
-  map,
-} from 'overmind'
-import { Page, RouteContext, GuideParams, VideoParams } from './types'
-import { ensureViewAndTypescript } from './operators'
+import { Action, pipe, debounce, Operator, mutate, filter } from 'overmind'
+import { RouteContext, GuideParams, VideoParams, Page } from './types'
 
-export const openHome: Operator<RouteContext> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadHome({ state, effects }) {
+const withRoute: <T>(
+  action: Action<RouteContext<T>>
+) => Action<RouteContext<T>> = (action) => (context, routeContext) => {
+  const { state, effects } = context
+
+  if (
+    state.typescript !== JSON.parse(routeContext.query.typescript) ||
+    state.theme !== routeContext.query.view
+  ) {
+    state.typescript = routeContext.query.typescript === 'true'
+    state.theme = routeContext.query.view
+
+    effects.storage.set('theme', state.theme)
+    effects.storage.set('typescript', state.typescript)
+    effects.css.changePrimary(state.theme)
+  }
+
+  return action(context, routeContext)
+}
+
+export const openHome: Action<RouteContext> = withRoute(
+  async ({ state, effects }) => {
     state.page = Page.HOME
     if (!state.demos.length) {
       state.demos = await effects.request('/backend/demos')
     }
-  })
+  }
 )
 
-export const openGuides: Operator<RouteContext> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadGuides({ state, effects }) {
+export const openGuides: Action<RouteContext> = withRoute(
+  async ({ state, effects }) => {
     state.page = Page.GUIDES
     if (!state.guides.length) {
       state.isLoadingGuides = true
       state.guides = await effects.request('/backend/guides')
       state.isLoadingGuides = false
     }
-  })
+  }
 )
 
-export const openVideos: Operator<RouteContext<VideoParams>> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadVideos({ state, effects }) {
+export const openVideos: Action<RouteContext> = withRoute(
+  async ({ state, effects }) => {
     state.page = Page.VIDEOS
     state.currentVideo = null
     if (!state.videos.length) {
@@ -47,28 +50,26 @@ export const openVideos: Operator<RouteContext<VideoParams>> = pipe(
       state.videos = await effects.request('/backend/videos')
       state.isLoadingVideos = false
     }
-  })
+  }
 )
 
-export const openVideo: Operator<RouteContext<VideoParams>> = pipe(
-  ensureViewAndTypescript(),
-  openVideos,
-  mutate(function setVideo({ state }, routeContext) {
-    state.currentVideo = routeContext.params.title
-  })
-)
+export const openVideo: Action<RouteContext<VideoParams>> = (
+  { state, actions },
+  routeContext
+) => {
+  actions.openVideos(routeContext)
+  state.currentVideo = routeContext.params.title
+}
 
-export const openGuide: Operator<RouteContext<GuideParams>> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function setGuide({ state }, routeContext) {
+export const openGuide: Action<RouteContext<GuideParams>> = withRoute(
+  ({ state }, routeContext) => {
     state.page = Page.GUIDE
     state.currentGuide = routeContext.params
-  })
+  }
 )
 
-export const openApi: Operator<RouteContext<VideoParams>> = pipe(
-  ensureViewAndTypescript(),
-  mutate(async function loadApi({ state, effects }, routeContext) {
+export const openApi: Action<RouteContext<VideoParams>> = withRoute(
+  async ({ state, effects }, routeContext) => {
     state.page = Page.API
     state.currentApi = routeContext.params.title
     if (!state.apis.length) {
@@ -76,7 +77,7 @@ export const openApi: Operator<RouteContext<VideoParams>> = pipe(
       state.apis = await effects.request('/backend/apis')
       state.isLoadingApis = false
     }
-  })
+  }
 )
 
 export const selectTheme: Action<string> = ({ effects }, selection) => {
@@ -101,12 +102,10 @@ export const changeQuery: Operator<string> = pipe(
     state.showSearchResult = query.length > 2
     state.isLoadingSearchResult = query.length > 2
   }),
-  filter(({ state }) => state.query.length >= 3),
+  filter((_, query) => query.length >= 3),
   debounce(200),
-  mutate(async ({ state, effects }) => {
-    state.searchResult = await effects.request(
-      '/backend/search?query=' + state.query
-    )
+  mutate(async ({ state, effects }, query) => {
+    state.searchResult = await effects.request('/backend/search?query=' + query)
     state.isLoadingSearchResult = false
   })
 )
@@ -114,51 +113,3 @@ export const changeQuery: Operator<string> = pipe(
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
-
-export const test: Operator<string> = pipe(
-  when(
-    function isTrue() {
-      return true
-    },
-    {
-      true: pipe(
-        map(function truePath({ state }) {
-          return 'truePath'
-        }),
-        map(function truePath2({ state }) {
-          return 'truePath2'
-        }),
-        fork(() => 'foo', {
-          foo: pipe(
-            map(function fooPath({ state }) {
-              return 'fooPath'
-            }),
-            map(function fooPath2() {
-              return 'fooPath2'
-            })
-          ),
-        })
-      ),
-      false: mutate(function falsePath() {}),
-    }
-  ),
-  filter(() => false),
-  parallel(
-    pipe(
-      map(function pa1({ state }, val) {
-        console.log('VAL', val)
-        return 'pa1'
-      }),
-      map(function pa2({ state }) {
-        return 'pa2'
-      })
-    ),
-    map(function endStuff({ state }) {
-      return 'endStuff'
-    })
-  ),
-  catchError(function catchError() {
-    console.log('NOW I RUN CATCH!')
-    return 'hihi'
-  })
-)

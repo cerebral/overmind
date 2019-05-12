@@ -7,10 +7,11 @@ export default (ts) =>
 import { OnInitialize } from 'overmind'
 
 const onInitialize: OnInitialize = ({ actions, effects }) => {
-  effects.router.route('/', actions.showHomePage)
-  effects.router.route('/users', actions.showUsersPage)
-  effects.router.route<{ id: string }>('/users/:id', actions.showUserModal)
-  effects.router.start()
+  effects.router.initialize({
+    '/': actions.showHomePage,
+    '/users': actions.showUsersPage,
+    '/users/:id', actions.showUserModal
+  })
 }
 
 export default onInitialize
@@ -19,13 +20,14 @@ export default onInitialize
       ]
     : [
         {
-          fileName: 'overmind/onInitialize.ts',
+          fileName: 'overmind/onInitialize.js',
           code: `
 const onInitialize = ({ actions, effects }) => {
-  effects.router.route('/', actions.showHomePage)
-  effects.router.route('/users', actions.showUsersPage)
-  effects.router.route<{ id: string }>('/users/:id', actions.showUserModal)
-  effects.router.start()
+  effects.router.initialize({
+    '/': actions.showHomePage,
+    '/users': actions.showUsersPage,
+    '/users/:id', actions.showUserModal
+  })
 }
 
 export default onInitialize

@@ -68,20 +68,21 @@ export default App
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
   selector: 'app-list',
   template: \`
   <ul>
-    <li *ngFor="let item of overmind.state.items;trackby: trackById">
+    <li *ngFor="let item of state.items;trackby: trackById">
       {{item.title}}
     </li>
   </ul>
   \`
 })
-@connect()
 export class List {
+  state = this.store.select()
+  constructor(private store: Store) {}
   trackById(index, item) {
     return item.id
   }

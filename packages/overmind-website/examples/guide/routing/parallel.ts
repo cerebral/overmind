@@ -4,32 +4,28 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Action, Operator, action, parallel } from 'overmind'
+import { Operator, pipe, parallel } from 'overmind'
+import { Page } from './types'
+import * as o from './operators'
 
-export const showHomePage: Action = ({ state }) => {
-  state.currentPage = 'home'
-}
+export const showHomePage: Operator<void> = o.setPage(Page.HOME)
 
-export const showUsersPage: Operator<{ id?: string }> = action(
-  async ({ state, effects }, params) => {
-  if (!params.id) state.modalUser = null
+export const showUsersPage: Operator<void> = pipe(
+  o.setPage(Page.USERS),
+  o.closeUserModal(),
+  o.shouldLoadUsers(),
+  o.loadUsers()
+)
 
-  state.currentPage = 'users'
-
-  if (state.users.length) return
-
-  state.isLoadingUsers = true
-  state.users = await effects.api.getUsers()
-  state.isLoadingUsers = false
-})
-
-export const showUserModal: Operator<{ id: string }> = parallel(
-  showUsersPage,
-  action(async ({ state, effects }, params) => {
-    state.isLoadingUserDetails = true
-    state.modalUser = await effects.api.getUserWithDetails(params.id)
-    state.isLoadingUserDetails = false
-  })
+export const showUserModal: Operator<{ id: string }> = pipe(
+  o.setPage(Page.USERS),
+  parallel(
+    o.loadUserWithDetails(),
+    pipe(
+      o.shouldLoadUsers(),
+      o.loadUsers()
+    ),
+  )
 )
     `,
         },
@@ -38,33 +34,28 @@ export const showUserModal: Operator<{ id: string }> = parallel(
         {
           fileName: 'overmind/actions.js',
           code: `
-import { parallel, action } from 'overmind'
+import { pipe, parallel } from 'overmind'
+import * as o from './operators'
 
-export const showHomePage = ({ state }) => {
-  state.currentPage = 'home'
-}
+export const showHomePage = o.setPage('home')
 
-export const showUsersPage = action(
-  async ({ state, effects }, params) => {
-  if (!params.id) state.modalUser = null
-
-  state.currentPage = 'users'
-
-  if (state.users.length) return
-
-  state.isLoadingUsers = true
-  state.users = await effects.api.getUsers()
-  state.isLoadingUsers = false
-})
-
-export const showUserModal = parallel(
-  showUsersPage,
-  action(async ({ state, effects }, params) => {
-    state.isLoadingUserDetails = true
-    state.modalUser = await effects.api.getUserWithDetails(params.id)
-    state.isLoadingUserDetails = false
-  })
+export const showUsersPage = pipe(
+  o.setPage('users'),
+  o.closeUserModal(),
+  o.shouldLoadUsers(),
+  o.loadUsers()
 )
-    `,
+
+export const showUserModal = pipe(
+  o.setPage('users'),
+  parallel(
+    o.loadUserWithDetails(),
+    pipe(
+      o.shouldLoadUsers(),
+      o.loadUsers()
+    )
+  )
+)
+  `,
         },
       ]

@@ -4,12 +4,12 @@ export default (ts) =>
         {
           fileName: 'overmind/index.ts',
           code: `
-import { createOvermind, IConfig } from 'overmind'
+import { IConfig } from 'overmind'
 import { createHook } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
 
-const config = {
+export const config = {
   state,
   actions
 }
@@ -18,10 +18,27 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
+export const useOvermind = createHook<typeof config>()
+  `,
+        },
+        {
+          fileName: 'index.tsx',
+          code: `
+import * as React from 'react'
+import { render } from 'react-dom'
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import App from './components/App'
+
 const overmind = createOvermind(config)
 
-export const useOvermind = createHook(overmind)
-  `,
+render((
+  <Provider value={overmind}>
+    <App />
+  </Provider>
+), document.querySelector('#app'))
+`,
         },
         {
           fileName: 'components/App.tsx',
@@ -43,15 +60,33 @@ export default App
         {
           fileName: 'overmind/index.js',
           code: `
-import { createOvermind } from 'overmind'
-import { createHook } from 'overmind-react'
-
-const overmind = createOvermind({
+import { createHook } from 'overmind-react'          
+          
+export const overmind = createOvermind({
   state: {},
   actions: {}
 })
 
-export const useOvermind = createHook(overmind)
+export const useOvermind = createHook()
+`,
+        },
+        {
+          fileName: 'index.js',
+          code: `
+import React from 'react'
+import { render } from 'react-dom'
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import App from './components/App'
+
+const overmind = createOvermind(config)
+
+render((
+  <Provider value={overmind}>
+    <App />
+  </Provider>
+), document.querySelector('#app'))
 `,
         },
         {

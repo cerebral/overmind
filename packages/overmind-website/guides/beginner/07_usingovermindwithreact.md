@@ -13,6 +13,7 @@ h(Example, { name: "guide/usingovermindwithreact/hook" })
 
 When you use the Overmind hook it will ensure that the component will render when any tracked state changes. It will not do anything related to the props passed to the component. That means whenever the parent renders, this component renders as well. You will need to wrap your component with [**React.memo**](https://reactjs.org/docs/react-api.html#reactmemo) to optimize rendering caused by a parent.
 
+
 ### Passing state as props
 
 If you pass a state object or array as a property to a child component you will also in the child component need to use the **useOvermind** hook to ensure that it is tracked within that component, even though you do not access any state or actions. The devtools will help you identify where any components are left "unconnected".
@@ -33,14 +34,6 @@ You can also here use the traditional approach adding a subscription to any upda
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hook_effect_subscription" })
-```
-
-### Provider
-
-You can also expose the Overmind instance with a Provider. This detaches the overmind instance from the actual **useOvermind** hook. It is rather consumed from the React context. This makes it easier to test components and do server side rendering.
-
-```marksy
-h(Example, { name: "guide/usingovermindwithreact/hook_provider" })
 ```
 
 ## With HOC
@@ -74,12 +67,4 @@ To run effects in components based on changes to state you use the **addMutation
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hoc_effect" })
-```
-
-### Provider
-
-You can also expose the Overmind instance with a Provider. This detaches the overmind instance from the actual **connect** hook. It is rather consumed from the React context. This makes it easier to test components and do server side rendering.
-
-```marksy
-h(Example, { name: "guide/usingovermindwithreact/hoc_provider" })
 ```

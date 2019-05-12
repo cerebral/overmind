@@ -2,27 +2,29 @@ export default (ts) =>
   ts
     ? [
         {
+          fileName: 'actions.ts',
           code: `
 import { Operator, pipe, forEach } from 'overmind'
 import { Post } from './state'
-import { getPosts, getAuthor } from './operators'
+import * as o from './operators'
 
 export const openPosts: Operator<string, Post[]> = pipe(
-  getPosts,
-  forEach(getAuthor)
+  o.getPosts(),
+  forEach(o.getAuthor())
 )
 `,
         },
       ]
     : [
         {
+          fileName: 'actions.js',
           code: `
 import { pipe, forEach } from 'overmind'
-import { getPosts, getAuthor } from './operators'
+import * as o from './operators'
 
 export const openPosts = pipe(
-  getPosts,
-  forEach(getAuthor)
+  o.getPosts(),
+  forEach(o.getAuthor())
 )
 `,
         },

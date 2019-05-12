@@ -2,26 +2,12 @@ export default () => [
   {
     fileName: 'overmind/operators.ts',
     code: `
-import { Operator, action } from 'overmind'
+import { Operator, mutate } from 'overmind'
 
-export const doSomeStateChange: <T>() => Operator<T> =
-  () => action(({ state }) => {
+export const doSomething: <T>() => Operator<T> = () =>
+  mutate(function doSomething({ state }) {
     state.foo = 'bar'
   })
-    `,
-  },
-  {
-    fileName: 'overmind/actions.ts',
-    code: `
-import { Operator, pipe, action } from 'overmind'
-import { doSomeStateChange } from './operators'
-
-export const setInput: Operator<string> = pipe(
-  doSomeStateChange(),
-  action(({ value: input, state }) => {
-    state.input = input
-  })
-)
     `,
   },
 ]

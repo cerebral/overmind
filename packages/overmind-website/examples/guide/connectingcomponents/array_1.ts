@@ -56,16 +56,18 @@ export default List
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
   selector: 'app-list',
   template: \`
-  <h1>{{overmind.state.items}}</h1>
+  <h1 *track>{{state.items}}</h1>
   \`
 })
-@connect()
-export class List {}
+export class List {
+  state = this.store.select()
+  constructor(private store: Store) {}
+}
     `,
     },
   ],

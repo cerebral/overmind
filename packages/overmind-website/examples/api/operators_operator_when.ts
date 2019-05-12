@@ -2,36 +2,28 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'overmind/actions.ts',
+          fileName: 'operators.ts',
           code: `
-import { Operator, pipe, when } from 'overmind'
+import { Operator, when } from 'overmind'
 import { User } from './state'
-import { doThis, doThat } from './operators'
 
-export const getUser: Operator<string, User> = pipe(
-  getUser,
-  when(({ value: user }) => user.isAwesome, {
-    true: doThis,
-    false: doThat
-  })
-)
+export const whenUserIsAwesome: (paths: { true: Operator<User>, false: Operator<User> }) => Operator<User> = (paths) => 
+  when(function whenUserIsAwesome(_, user) {
+    return user.isAwesome
+  }, paths)
           `,
         },
       ]
     : [
         {
-          fileName: 'overmind/actions.ts',
+          fileName: 'operators.js',
           code: `
-import { when, pipe } from 'overmind'
-import { doThis, doThat } from './operators'
+import { when } from 'overmind'
 
-export const getUser = pipe(
-  getUser,
-  when(({ value: user }) => user.isAwesome, {
-    true: doThis,
-    false: doThat
-  })
-)
+export const whenUserIsAwesome = (paths) => 
+  when(function whenUserIsAwesome(_, user) {
+    return user.isAwesome
+  }, paths)
         `,
         },
       ]

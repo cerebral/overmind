@@ -7,19 +7,21 @@ export default (ts) =>
 import page from 'page'
 import queryString from 'query-string'
 
-interface IParams {
-  [param: string]: string
-}
+type IParams = {
+  [param: string]: string  
+} | void
 
 export const router = {
-  route<T extends IParams>(route: string, action: (params: T) => void) {
-    page(route, ({ params, querystring }) => {
-      const payload = Object.assign({}, params, queryString.parse(querystring))
+  initialize(routes: { [url: string]: (IParams) => void }) {
+    Object.keys(routes).forEach(url => {
+      page(url, ({ params, querystring }) => {
+        const payload = Object.assign({}, params, queryString.parse(querystring))
 
-      action(payload)
+        routes[url](payload)
+      })
     })
+    page.start()
   },
-  start: () => page.start(),
   open: (url: string) => page.show(url)
 }
   `,
@@ -33,14 +35,16 @@ import page from 'page'
 import queryString from 'query-string'
 
 export const router = {
-  route(route, action) {
-    page(route, ({ params, querystring }) => {
-      const payload = Object.assign({}, params, queryString.parse(querystring))
+  initialize(routes) {
+    Object.keys(routes).forEach(url => {
+      page(url, ({ params, querystring }) => {
+        const payload = Object.assign({}, params, queryString.parse(querystring))
 
-      action(payload)
+        routes[url](payload)
+      })
     })
+    page.start()
   },
-  start: () => page.start(),
   open: (url) => page.show(url)
 }
   `,

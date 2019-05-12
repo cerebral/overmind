@@ -87,9 +87,9 @@ export default {
 const typescript = {
   react: [
     {
-      fileName: 'components/Item.jsx',
+      fileName: 'components/Item.tsx',
       code: `
-import React from 'react'
+import * as React from 'react'
 import { useOvermind } from '../overmind'
 
 type Props = {
@@ -136,18 +136,16 @@ export default List
       fileName: 'components/item.component.ts',
       code: `
 import { Component Input } from '@angular/core';
-import { connect } from '../overmind'
 import { Item } from '../overmind/state'
 
 @Component({
   selector: 'app-list-item',
   template: \`
-  <li>
+  <li *track>
     {{item.title}}
   </li>
   \`
 })
-@connect()
 export class List {
   @Input() item: Item;
 }
@@ -157,22 +155,23 @@ export class List {
       fileName: 'components/list.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
   selector: 'app-list',
   template: \`
-  <ul>
+  <ul *track>
     <app-list-item
-      *ngFor="let id of keys(overmind.state.items);trackby: trackById"
-      [item]="overmind.state.items[id]"
+      *ngFor="let id of keys(state.items);trackby: trackById"
+      [item]="state.items[id]"
     ></app-list-item>
   </ul>
   \`
 })
-@connect()
 export class List {
+  state = this.store.select()
   keys =  Object.keys
+  constructor(private store: Store) {}
   trackById(index, id) {
     return id
   }

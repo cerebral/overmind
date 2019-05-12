@@ -84,7 +84,7 @@ export default Article
       fileName: 'app.component.ts',
       code: `
 import { Component } from '@angular/core';
-import { connect, Connect } from '../overmind'
+import { Store } from '../overmind'
 
 @Component({
   selector: 'app-root',
@@ -92,12 +92,11 @@ import { connect, Connect } from '../overmind'
   <article></article>
   \`
 })
-@connect()
 export class App {
-  overmind: Connect
   disposeEffect: () => void
+  constructor(private store: Store) {}
   ngOnInit() {
-    this.disposeEffect = this.overmind.addMutationListener(() => {
+    this.disposeEffect = this.store.addMutationListener(() => {
       if (mutation.path === 'currentArticle') {
         document.querySelector('#app').scrollTop = 0
       } 
