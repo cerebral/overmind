@@ -44,3 +44,10 @@ If you have multiple instances of Overmind on the same page you can name your ap
 ```marksy
 h(Example, { name: "api/app_options_name" })
 ```
+
+## options.hotReloading
+By default Overmind will do the necessary hot reloading mechanism to keep your state, actions and effects updated. You might not want to use this feature or Overmind does not correctly detect that hot reloading should be turned off. You can turn it off with an option.
+
+```marksy
+h(Example, { name: "api/app_options_hotreloading" })
+```

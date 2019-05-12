@@ -2,15 +2,12 @@ export default (ts) =>
   ts
     ? [
         {
-          fileName: 'overmind/index.ts',
           code: `
-...
-
-export const overmindA = createOvermind(configA, {
+const overmindA = createOvermind(configA, {
   name: 'appA'
 })
 
-export const overmindB = createOvermind(configB, {
+const overmindB = createOvermind(configB, {
   name: 'appB'
 })
         `,
@@ -18,15 +15,12 @@ export const overmindB = createOvermind(configB, {
       ]
     : [
         {
-          fileName: 'overmind/index.js',
           code: `
-...
-
-export const overmindA = createOvermind(configA, {
+const overmindA = createOvermind(configA, {
   name: 'appA'
 })
 
-export const overmindB = createOvermind(configB, {
+const overmindB = createOvermind(configB, {
   name: 'appB'
 })
 `,
