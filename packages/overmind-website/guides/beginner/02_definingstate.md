@@ -1,12 +1,10 @@
 # Defining state
 
-Even though we think of the user interface as the application, it is not. The user interface is just an interface for users to interact with the actual application. So what is the actual application? The actual application is a data structure with values. This data structure with values is the **state** of the application.
+Even though we think of the user interface as the application, it is not. The user interface is just an interface for users to interact with the actual application. So what is the actual application? The actual application is a data structure with values. This data structure with values is the **state** of the application. You might split this up into different components, different store classes or a single state tree. No matter, this is what you need to consume to produce a UI.
 
-On one end we listen to interactions from the user to change this data structure. On the other end we transform this data structure into a user interface. This is what we mean when we say that "the state drives the user interface".
+The way thea pplication operatores is that we listen to interactions from the user to change this data structure on one end. On the other end we transform this data structure into a user interface. This is what we mean when we say that "the state drives the user interface".
 
-```marksy
-<Image src="state-ui.png" })
-```
+![state-ui](/images/state-ui.png)
 
 ## The values
 

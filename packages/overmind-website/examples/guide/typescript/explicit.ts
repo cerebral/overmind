@@ -1,5 +1,6 @@
 export default () => [
   {
+    fileName: 'overmind/index.ts',
     code: `
 import {
   IConfig,
@@ -16,7 +17,7 @@ export interface Config extends IConfig<typeof config> {}
 
 export interface OnInitialize extends IOnInitialize<Config> {}
 
-export interface Action<Input = void> extends IAction<Config, Input> {}
+export interface Action<Input = void, Output = void | Promise<void>> extends IAction<Config, Input> {}
 
 export interface Operator<Input = void, Output = Input> extends IOperator<Config, Input, Output> {}
 

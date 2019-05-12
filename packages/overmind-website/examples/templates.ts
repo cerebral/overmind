@@ -2,7 +2,7 @@ const getVersion = () => (location.host.split('.')[0] === 'next' ? '@next' : '')
 
 const views = {
   react: (config) => `
-import { createOvermind, IConfig } from 'overmind'
+import { IConfig } from 'overmind'
 import { createHook } from 'overmind-react'
 ${config.trim()}
 
@@ -11,9 +11,7 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-export const overmind = createOvermind(config)
-
-export const useOvermind = createHook(overmind)
+export const useOvermind = createHook<typeof config>()
 `,
   angular: (config) => `
 import { IConfig } from 'overmind'

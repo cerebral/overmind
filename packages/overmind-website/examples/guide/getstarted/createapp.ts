@@ -22,7 +22,7 @@ export const state: State = {
             `
 import { state } from './state'
 
-const config = {
+export const config = {
   state,
 }
 `

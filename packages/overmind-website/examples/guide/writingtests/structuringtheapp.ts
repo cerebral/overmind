@@ -120,7 +120,7 @@ render(
         `
 import { state } from './state'
 
-const config = {
+export const config = {
   state,
 }
 `

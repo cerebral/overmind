@@ -9,6 +9,12 @@ import { Action } from 'overmind'
 export const getPosts: Action = () => {}
 
 export const addNewPost: Action = () => {}
+
+export const internal: {
+  handleError: Action<Error>
+} = {
+  handleError: () => {}
+}
 `,
         },
         {
@@ -19,6 +25,12 @@ import { Action } from 'overmind'
 export const getUsers: Action = () => {}
 
 export const changeUserAccess: Action = () => {}
+
+export const internal: {
+  handleError: Action<Error>
+} = {
+  handleError: () => {}
+}
 `,
         },
       ]
@@ -29,6 +41,10 @@ export const changeUserAccess: Action = () => {}
 export const getPosts = () => {}
 
 export const addNewPost = () => {}
+
+export const internal = {
+  handleError: () => {}
+}
 `,
         },
         {
@@ -37,6 +53,10 @@ export const addNewPost = () => {}
 export const getUsers = () => {}
 
 export const changeUserAccess = () => {}
+
+export const internal = {
+  handleError: () => {}
+}
 `,
         },
       ]

@@ -25,7 +25,7 @@ You can also explicitly type your application. This gives more flexibility.
 h(Example, { name: "guide/typescript/explicit" })
 ```
 
-You only have to set up these types once, where you instantiate Overmind. That means if you use multiple namespaced configuration you still only create one set of types, as shown above.
+You only have to set up these types once, where you bring your configuration together. That means if you use multiple namespaced configuration you still only create one set of types, as shown above.
 
 Now you only have to make sure that you import your types from this file, instead of directly from the Overmind package.
 
@@ -43,7 +43,7 @@ When you are using TSLint it is important that you use the official [Microsoft E
 
 ## Actions
 
-The action type takes either no arguments or a single argument. If you give no arguments to the action it will be typed as not expecting an argument at all. When you do type with an argument that is the type of the **value** passed as the second argument to the function .
+The action type takes either an input type, an output type or both.
 
 ```marksy
 h(Example, { name: "guide/typescript/action" })
@@ -52,7 +52,7 @@ h(Example, { name: "guide/typescript/action" })
 
 ## Operators
 
-Operators is like the **Action** type, it can take an optional input, but it can also have an output. By default the output of an operator is the same as the input.
+Operators is like the **Action** type, it can take an optional input, but it always produces an output. By default the output of an operator is the same as the input.
 
 ```marksy
 h(Example, { name: "guide/typescript/operatorinputsandoutputs" })

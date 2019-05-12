@@ -76,7 +76,7 @@ You most likely heard a "bip" and we can also see that the effect was called as 
 
 Now that we know our application works as expected we can actually produce the UI for it, though maybe this application does not have a UI? Maybe it is just an app running on some embedded device that creates an increasingly annoying sound when you hit a button? Nevertheless, let us see how you would consume the state and actions of this application in your UI framework of choice.
 
-First let us disconnect the devtools from our application so that when we fire up the browser we rather debug that runtime:
+First let us disconnect the devtools from our application so that when we fire up the browser we rather debug from the browser runtime:
 
 ![open_devtool](/images/devtool_disconnect.png)
 
@@ -85,6 +85,8 @@ Now open your browser and implement a UI something like this:
 ```marksy
 h(Example, { name: "guide/getstarted/connectapp" })
 ```
+
+When you now opened the application in the browser it automatically connected to the devtools and the debugging experience continues.
 
 
 ## Devtools

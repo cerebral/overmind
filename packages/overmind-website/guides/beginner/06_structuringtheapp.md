@@ -16,7 +16,7 @@ As your application grows you start to separate it into different domains. A dom
 h(Example, { name: "guide/structuringtheapp/files" })
 ```
 
-In this structure we are splitting up the differet components of the base structure. This is a good first step. The **index** file acts as the file that brings the state, actions and effects together. In this example the file would also be responsible for instantiating Overmind itself.
+In this structure we are splitting up the differet components of the base structure. This is a good first step. The **index** file acts as the file that brings the state, actions and effects together.
 
 But if we want to split up into actual domains it would look more like this:
 

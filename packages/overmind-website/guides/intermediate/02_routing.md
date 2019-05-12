@@ -6,8 +6,6 @@ We are going to use [page js](https://www.npmjs.com/package/page) as the router 
 
 We will start with a simple naive approach and then we are going to tweak our approach a little bit for the optimal solution.
 
-And yeah... we are going fully functional on this one!
-
 ## Set up the app
 
 Before we go into the router we want to set up the application. We have some state helping us express the UI explained above. In addition we have three actions.
@@ -51,13 +49,23 @@ But what if we try to refresh now... we get an error. The router tries to run ou
 
 ## Composing actions
 
-A straight forward way to solve this is to simply also change the page in the **showUserModal** action, though we would like the list of users to load in the background as well. The logic of **showUsers** might also be a lot more complex and we do not want to duplicate our code. When these scenarios occur, where you want to start calling actions from actions, it indicates you have reached a level of complexity where a functional approach might be better. We will explore that now. 
+A straight forward way to solve this is to simply also change the page in the **showUserModal** action, though we would like the list of users to load in the background as well. The logic of **showUsers** might also be a lot more complex and we do not want to duplicate our code. When these scenarios occur, where you want to start calling actions from actions, it indicates you have reached a level of complexity where a functional approach might be better. Let us look at how you would implement this both using a functional approach and a plain imperative one.
 
+### Imperative approach
+```marksy
+h(Example, { name: "guide/routing/compose_imperative" })
+```
+
+Going functional depends on complexity and even though the complexity has indeed increased, we can safely manage it using plain imperative code. Whenever we open a user modal we can simply just call the action that takes care of bringing us to the users page as well.
+
+When running actions from within other actions like this it will be reflected in the devtool.
+
+### Functional approach
 ```marksy
 h(Example, { name: "guide/routing/compose" })
 ```
 
-By splitting up all our logic into operators we were able to make our actions completely declarative and at the same time reuse logic across them. The *operators* file gives use maintaineable code and the *actions* file gives us readable code.
+By splitting up all our logic into operators we were able to make our actions completely declarative and at the same time reuse logic across them. The *operators* file gives us maintaineable code and the *actions* file gives us readable code.
 
 We could actually make this better though. There is no reason to wait for the user of the modal to load before we load the users list in the background. We can fix this with the **parallel** operator. Now the list of users and the single user loads at the same time.
 
@@ -76,13 +84,22 @@ Now you are starting to see how the operators can be quite useful to compose flo
 h(Example, { name: "guide/routing/query" })
 ```
 
-Now we can simply add an operator which uses this **tab** query to set the current tab and then compose it into the action.
+### Imperative approach
+We now also handle the received tab param and make sure that when we change tabs we do not load the user again. We only want to load the user when there is no existing user or if the user has changed.
+
+```marksy
+h(Example, { name: "guide/routing/tab_imperative" })
+```
+
+### Functionl approach
+Now we can add an operator which uses this **tab** query to set the current tab and then compose it into the action. We also add an operator to verify if we really should load a new user.
 
 ```marksy
 h(Example, { name: "guide/routing/tab" })
 ```
 
-
 ## Summary
 
 With little effort we were able to build a custom "**application state first**" router for our application. Like many common tools needed in an application, like talking to the server, local storage etc., there are often small differences in the requirements. And even more often you do not need the full implementation of the tool you are using. By using simple tools you can meet the actual requirements of the application more "head on" and this was an example of that.
+
+We also showed off how you can solve this issue with an imperative approach or go functional. In this example functional is probably a bit overkill as there is very little composition required. But if your application needed to use these operators many times in different configurations you would benefit more from it.

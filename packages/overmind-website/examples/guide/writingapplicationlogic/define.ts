@@ -8,21 +8,19 @@ export default (ts) =>
           code: `
 import { Action } from 'overmind'
 
-export const changeCount: Action<number> = ({ state }, countChange) => {
-  state.count += countChange
+export const myAction: Action = (context) => {
+
 }
 `,
         },
         {
           fileName: 'overmind/index.ts',
           code: tsAppIndex(
-            'angular',
+            'react',
             `
-import { state } from './state'
 import * as actions from './actions'
 
 export const config = {
-  state,
   actions
 }
 `
@@ -31,17 +29,20 @@ export const config = {
       ]
     : [
         {
+          fileName: 'overmind/actions.ts',
+          code: `
+export const myAction = (context) => {
+
+}
+`,
+        },
+        {
           fileName: 'overmind/index.js',
           code: `
+import * as actions from './actions'
+
 export const config = {
-  state: {
-    count: 0
-  },
-  actions: {
-    changeCount({ state }, countChange) {
-      state.count += countChange
-    }
-  }
+  actions
 }
 `,
         },

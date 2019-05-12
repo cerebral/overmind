@@ -28,7 +28,7 @@ h(Example, { name: "guide/writingtests/actiontest.ts" })
 
 If your actions can result in multiple scenarios a unit test is beneficial. But you will be surprised how straight forward the logic of your actions will become. Since effects are encouraged to be application specific you will most likely be testing those more than you will test any action.
 
-You do not have to explicitly write the expected state. You can also use for example [jest]() for snapshot testing. The action will return a list of mutations performed and effects run. This is perfect for snapshot testing.
+You do not have to explicitly write the expected state. You can also use for example [jest]() for snapshot testing. The mock instance has a list of mutations performed. This is perfect for snapshot testing.
 
 ```marksy
 h(Example, { name: "guide/writingtests/actionsnapshot.ts" })
