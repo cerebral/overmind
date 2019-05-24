@@ -40,10 +40,14 @@ h(Example, { name: "guide/structuringtheapp/state" })
 
 ## The actions file
 
-The actions are exported individually by giving them a name and a definition.
+The actions are exported individually by giving them a name and a definition. Actions that are considered private are typically put into their own file named **internalActions**.
 
 ```marksy
 h(Example, { name: "guide/structuringtheapp/actions" })
+```
+
+```marksy
+h(TypescriptNotice, null, "Note that there are two action types, **Action** and **AsyncAction**")
 ```
 
 ## The effects file

@@ -17,7 +17,9 @@ export interface Config extends IConfig<typeof config> {}
 
 export interface OnInitialize extends IOnInitialize<Config> {}
 
-export interface Action<Input = void, Output = void | Promise<void>> extends IAction<Config, Input> {}
+export interface Action<Input = void, Output = void> extends IAction<Config, Input, Output> {}
+
+export interface AsyncAction<Input = void, Output = void> extends IAction<Config, Input, Promise<Output>> {}
 
 export interface Operator<Input = void, Output = Input> extends IOperator<Config, Input, Output> {}
 

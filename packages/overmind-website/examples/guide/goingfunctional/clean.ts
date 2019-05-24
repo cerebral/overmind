@@ -4,14 +4,19 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Operator, pipe, debounce } from 'overmind'
-import * as o from './operators'
+import { Operator, pipe, debounce, mutate, filter } from 'overmind'
 
 export const search: Operator<string> = pipe(
-  o.setQuery(),
-  o.lengthGreaterThan(2),
+  mutate(({ state }, value) => {
+    state.query = value
+  }),
+  filter(({ state }) => state.query.length > 2),
   debounce(200),
-  o.getSearchResult()
+  mutate(({ state, effects }) => {
+    state.isSearching = true
+    state.searchResult = await effects.api.search(state.query)
+    state.isSearching = false
+  })
 )
   `,
         },
@@ -20,14 +25,19 @@ export const search: Operator<string> = pipe(
         {
           fileName: 'overmind/actions.js',
           code: `
-import { pipe, debounce } from 'overmind'
-import * as o from './operators'
+import { pipe, debounce, mutate, filter } from 'overmind'
 
 export const search = pipe(
-  o.setQuery(),
-  o.lengthGreaterThan(2),
+  mutate(({ state }, value) => {
+    state.query = value
+  }),
+  filter(({ state }) => state.query.length > 2),
   debounce(200),
-  o.getSearchResult()
+  mutate(({ state, effects }) => {
+    state.isSearching = true
+    state.searchResult = await effects.api.search(state.query)
+    state.isSearching = false
+  })
 )
   `,
         },

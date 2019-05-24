@@ -1,4 +1,4 @@
-import { tsAppIndex } from '../../templates'
+import { tsAppIndex, tsSimpleAppIndex } from '../../templates'
 
 export default (ts) =>
   ts
@@ -17,8 +17,7 @@ export const state: State = {
         },
         {
           fileName: 'overmind/index.ts',
-          code: tsAppIndex(
-            'react',
+          code: tsSimpleAppIndex(
             `
 import { state } from './state'
 

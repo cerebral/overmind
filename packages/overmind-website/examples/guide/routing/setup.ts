@@ -4,13 +4,13 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Action } from 'overmind'
+import { Action, AsyncAction } from 'overmind'
 
 export const showHomePage: Action = ({ state }) => {
   state.currentPage = 'home'
 }
 
-export const showUsersPage: Action = async ({ state, effects }) => {
+export const showUsersPage: AsyncAction = async ({ state, effects }) => {
   state.modalUser = null
   state.currentPage = 'users'
   state.isLoadingUsers = true
@@ -18,7 +18,7 @@ export const showUsersPage: Action = async ({ state, effects }) => {
   state.isLoadingUsers = false
 }
 
-export const showUserModal: Action<{ id: string }> = async ({ state, effects }, params) => {
+export const showUserModal: AsyncAction<{ id: string }> = async ({ state, effects }, params) => {
   state.isLoadingUserDetails = true
   state.modalUser = await effects.api.getUserWithDetails(params.id)
   state.isLoadingUserDetails = false

@@ -4,14 +4,14 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Action } from 'overmind'
+import { Action, AsyncAction } from 'overmind'
 import { Page } from './types'
 
 export const showHomePage: Action = ({ state }) => {
   state.currentPage = Page.HOME
 }
 
-export const showUsersPage: Action = ({ state, effects }) => {
+export const showUsersPage: AsyncAction = async ({ state, effects }) => {
   state.currentPage = Page.USERS
   state.modalUser = null
 
@@ -22,7 +22,7 @@ export const showUsersPage: Action = ({ state, effects }) => {
   }
 }
 
-export const showUserModal: Action<{ id: string, tab: string }> = ({ state, actions }, params) => {
+export const showUserModal: AsyncAction<{ id: string, tab: string }> = async ({ state, actions }, params) => {
   actions.showUsersPage()
   state.currentUserModalTabIndex = Number(params.tab)
   state.isLoadingUserDetails = true

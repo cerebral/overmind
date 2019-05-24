@@ -1,4 +1,4 @@
-import { tsAppIndex } from '../../templates'
+import { tsAppIndex, tsSimpleAppIndex } from '../../templates'
 
 export default (ts) =>
   ts
@@ -15,8 +15,7 @@ export const changeCount: Action<number> = ({ state }, countChange) => {
         },
         {
           fileName: 'overmind/index.ts',
-          code: tsAppIndex(
-            'angular',
+          code: tsSimpleAppIndex(
             `
 import { state } from './state'
 import * as actions from './actions'

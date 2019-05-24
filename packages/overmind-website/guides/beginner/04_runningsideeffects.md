@@ -8,6 +8,7 @@ Developing applications is not only about managing state, but also managing side
 4. You can more easily expand functionality of an effect. For example you want to introduce caching or a base url to an http effect
 5. The devtool tracks its execution
 6. If you write Overmind tests you can easily mock them
+7. You can lazy load the effect, reducing the initial payload of the app
 
 ## Exposing an existing tool
 
@@ -86,6 +87,8 @@ In our initialize we would just have to wait for the initialize to finish before
 h(Example, { name: "guide/runningsideeffects/oninitialize_lazy" })
 ```
 
+We could have been even bolder here making our effect download its dependency related to using any of its methods. Imagine for example the **firebase** library downloading when you run a **login** method on the effect.
+
 ## Configurable effect
 
 By defining a class we can improve testability, allow using environment variables and even change out the actual implementation.
@@ -98,4 +101,4 @@ h(Example, { name: "guide/runningsideeffects/class" })
 We export an instance of our **Api** to the application. This allows us to also create instances in isolation for testing purposes, making sure our Api class works as we expect.
 
 ## Summary
-Adding side effects is easy, but it is worth taking notice that you also get a chance to map an existing tool to something more domain specific. As we did here converting the general **get** method to a **getCurrentUser** method. If you think about it from an application standpoint it is kinda weird that it makes arbitrary requests to a string url. It is better to create an abstraction around it to keep things more maintainable and predictable.
+Importing side effects directly into your code should be considered bad practice. If you think about it from an application standpoint it is kinda weird that it runs http verb methods with a string url. It is better to create an abstraction around it to make your code more consistent with the domain, and by doing so also improve maintainability.

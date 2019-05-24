@@ -49,6 +49,12 @@ The action type takes either an input type, an output type or both.
 h(Example, { name: "guide/typescript/action" })
 ```
 
+You also have **async** version of this type. You use this when you want to define an **async** function, which implicitly returns a promise, or a function that explicitly returns a promise.
+
+```marksy
+h(Example, { name: "guide/typescript/async_action" })
+```
+
 
 ## Operators
 

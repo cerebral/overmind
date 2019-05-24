@@ -1,6 +1,6 @@
 # Going functional
 
-You get very far building your application with straight forward imperative actions. This is typically how we learn programming and is arguably close to how we think about the world. But this approach lacks a good structured way to compose smaller pieces together. Reusing existing logic in multiple contexts. As the complexity of your application increases you will find benefits doing some of your logic, or maybe all your logic, in a functional style.
+You get very far building your application with straight forward imperative actions. This is typically how we learn programming and is arguably close to how we think about the world. But this approach can cause you to overload your actions with imperative code, making them more difficult to read and especially reuse pieces of logic. As the complexity of your application increases you will find benefits doing some of your logic, or maybe all your logic, in a functional style.
 
 Let us look at a concrete example of how messy an imperative approach would be compared to a functional approach.
 
@@ -15,7 +15,7 @@ If we were to do this in a functional style it would look more like this:
 ```marksy
 h(Example, { name: "guide/goingfunctional/clean" })
 ```
-As you can see our action is described declaratively, only referencing the required pieces of logic. All these operators can be reused in other action compositions, where **lengthGreaterThan** is the most generic and likely to be reused. It is highly recommended that you describe your actions declaratively in the *actions* file and point to pieces of logic defined in the *operators* file.
+As you can see our action is described more declaratively. We could have moved each individual piece of logic, each operator, into a different file. All these operators could now be reused in other action compositions.
 
 ## Structuring operators
 
@@ -25,7 +25,7 @@ You will typically rely on an **operators** file where all your composable piece
 2. The action composed of operators is defined with the other actions
 3. The action composed of operators is declarative (no inline operators with logic)
 
-Let us look at how the operators in the search example was implemented:
+Let us look at how the operators in the search example could have been implemented:
 
 ```marksy
 h(Example, { name: "guide/goingfunctional/callactionoperator" })
@@ -49,7 +49,7 @@ Now, you might feel that we are just adding complexity here. An additional file 
 
 ## Calling operators
 
-You typically compose the different operators together with **pipe** and **parallel** in the *actions*, but any operator can actually be exposed as an action. With the search example:
+You typically compose the different operators together with **pipe** and **parallel** in the *actions* file, but any operator can actually be exposed as an action. With the search example:
 
 ```marksy
 h(Example, { name: "guide/goingfunctional/clean" })

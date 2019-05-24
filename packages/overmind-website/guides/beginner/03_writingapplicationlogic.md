@@ -38,7 +38,7 @@ h(Example, { name: "guide/writingapplicationlogic/call" })
 
 ## Organizing actions
 
-Some of your actions will be called from the outside, publically, maybe from a component. Other actions are only used internall, either being passed to an effect or just holding some piece of logic you want to reuse. The convention to separate these two actions is to use a namespace of **internal**.
+Some of your actions will be called from the outside, publically, maybe from a component. Other actions are only used internally, either being passed to an effect or just holding some piece of logic you want to reuse. The convention to separate these two actions is to use a namespace of **internal**.
 
 ```marksy
 h(Example, { name: "guide/writingapplicationlogic/organizing" })
