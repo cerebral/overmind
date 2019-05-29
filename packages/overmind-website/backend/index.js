@@ -232,3 +232,9 @@ if (IS_PRODUCTION) {
 app.get('/*', (_, res) => res.send(indexHtml))
 
 app.listen(process.env.PORT || 5000, () => console.log('Server started!'))
+
+process.on('uncaughtException', (err) => {
+  console.log('WEIRD ERROR', err.message)
+  console.log(err.stack)
+  process.exit(1)
+})
