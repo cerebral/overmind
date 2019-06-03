@@ -14,21 +14,10 @@
 		"typecheck": "tsc --noEmit",
 		"prepare": "npm run build",
 		"posttest": "npm run typecheck"
-	},
-	"now": {
-		"files": [
-			"api",
-			"backend",
-			"examples",
-			"guides",
-			"src",
-			"package.json",
-			"tsconfig.json",
-			"videos.json",
-			"demos.json",
-			"webpack.config.js"
-		]
-	},
+  },
+  "engines": {
+    "node": "10.15.1"
+  },
 	"keywords": [
 		"overmind",
 		"demo"
