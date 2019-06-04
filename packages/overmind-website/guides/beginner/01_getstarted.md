@@ -23,7 +23,7 @@ Great, we are good to go!
 
 ## Our first state
 
-Applications are about state and we are going to introduce our first state, **count**. But we are not going to introduce this state through a component. We are going to take on the perspective of [UI as an implementation detail](). That means we will run the Overmind development tool and connect to our application from that. There is no need to open up the browser.
+Applications are about state and we are going to introduce our first state, **count**. But we are not going to introduce this state through a component. We are going to take on the perspective of [UI as an implementation detail](https://medium.com/@christianalfoni/ui-as-an-implementation-detail-7fb9f952fb43). That means we will run the Overmind development tool and connect to our application from that. There is no need to open up the browser.
 
 But first we have to create an instance of Overmind in our code. We define our application configuration in an **overmind** folder and instantiate Overmind in our main **entry** file:
 
