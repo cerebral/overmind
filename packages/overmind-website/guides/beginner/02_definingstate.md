@@ -125,10 +125,10 @@ h(Example, { name: "guide/definingstate/define" })
 h(TypescriptNotice, null, "Is is important that you define your state with a **type**, do **NOT** use an **interface**")
 ```
 
-As your application grows you will most likely move parts of the state to their own namespaces. An example of that could be:
+To expose the state on the instance you can follow this recommended pattern:
 
 ```marksy
-h(Example, { name: "guide/definingstate/namespaces" })
+h(Example, { name: "guide/definingstate/bringtogether" })
 ```
 
 ## Summary

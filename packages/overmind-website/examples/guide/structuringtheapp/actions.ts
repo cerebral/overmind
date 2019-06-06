@@ -6,7 +6,11 @@ export default (ts, view) =>
           code: `
 import { Action } from 'overmind'
 
-export const handleError: Action = () => {}
+export const handleError: Action = ({ state }) => {
+  // All actions can access all state
+  state.posts
+  state.admin
+}
 `,
         },
         {
@@ -37,7 +41,11 @@ export const changeUserAccess: AsyncAction = async () => {}
         {
           fileName: 'overmind/posts/internalActions.js',
           code: `
-export const handleError = () => {}
+export const handleError = ({ state }) => {
+  // All actions can access all state
+  state.posts
+  state.admin
+}
 `,
         },
         {
