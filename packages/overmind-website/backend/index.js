@@ -1,6 +1,6 @@
 const path = require('path')
 const express = require('express')
-const https = require('https')
+// const https = require('https')
 const axios = require('axios')
 const app = express()
 const fs = require('fs')
@@ -121,6 +121,7 @@ const versions = getVersions()
 
 const searchData = getSearchData()
 
+/*
 const googleCrawlMiddleware = async function ssr(req, res, next) {
   const userAgent = req.get('User-Agent')
 
@@ -147,6 +148,7 @@ const googleCrawlMiddleware = async function ssr(req, res, next) {
     next()
   }
 }
+*/
 
 if (IS_PRODUCTION) {
   app.use((req, res, next) => {
@@ -157,7 +159,7 @@ if (IS_PRODUCTION) {
     }
   })
 }
-app.use(googleCrawlMiddleware)
+// app.use(googleCrawlMiddleware)
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use('/images', express.static(path.join(__dirname, '..', 'images')))
 app.get('/workshop/posts', api.posts)
