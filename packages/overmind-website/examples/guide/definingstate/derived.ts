@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind/state.ts',
           code: `
-import { Derive } from 'overmind'
+import { Derive, State } from 'overmind'
 
 export type State = {
   title: string
