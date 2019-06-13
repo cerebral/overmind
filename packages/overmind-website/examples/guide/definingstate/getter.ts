@@ -8,7 +8,7 @@ export type User = {
   id: number
   firstName: string
   lastName: string
-  fullName: string
+  readonly fullName: string
 }
 
 export type State = {
