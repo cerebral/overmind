@@ -5,6 +5,7 @@ const javascript = {
       code: `
 import { createHook } from 'overmind-react'
 import { state } from './state'
+import { config } from '../index'
 import * as actions from './actions'
 import * as effects from './effects'
 
@@ -14,7 +15,7 @@ const config = {
   effects
 }
 
-export const useOvermind = createHook()
+export const useOvermind = createHook<typeof config>()
 `,
     },
     {
@@ -116,7 +117,7 @@ declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
 }
 
-export const useOvermind = createHook()
+export const useOvermind = createHook<typeof config>()
 `,
     },
     {
