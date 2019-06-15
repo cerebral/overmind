@@ -4,10 +4,10 @@ export default (ts) =>
         {
           fileName: 'overmind/actions.ts',
           code: `
-import { Action } from 'overmind'
+import { AsyncAction } from 'overmind'
 import { User } from './state'
 
-export const getCurrentUser: Action = async ({ effects, state }) => {
+export const getCurrentUser: AsyncAction = async ({ effects, state }) => {
   state.currentUser = await effects.http.get<User>('/user')
 }
   `,

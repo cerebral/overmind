@@ -1,4 +1,4 @@
-import { tsAppIndex } from '../../templates'
+import { tsAppIndex, tsSimpleAppIndex } from '../../templates'
 
 export default (ts) =>
   ts
@@ -9,7 +9,7 @@ export default (ts) =>
 export const bip = (() => {
   const context = new AudioContext()
 
-  return (factor) => {
+  return (factor: number) => {
     const o = context.createOscillator()
     const g = context.createGain()
 
@@ -22,15 +22,13 @@ export const bip = (() => {
     )
 
     o.start(0)
-
   }
 })()
 `,
         },
         {
           fileName: 'overmind/index.ts',
-          code: tsAppIndex(
-            'angular',
+          code: tsSimpleAppIndex(
             `
 import { state } from './state'
 import * as actions from './actions'
@@ -87,7 +85,6 @@ export const config = {
         )
   
         o.start(0)
-  
       }
     })()
   }

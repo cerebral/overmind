@@ -2,37 +2,49 @@ export default (ts) =>
   ts
     ? [
         {
+          fileName: 'overmind/internalActions.ts',
+          code: `
+import { Action, AsyncAction } from 'overmind'
+
+export const internalActionA: Action<string> = ({ state, effects, actions }, value) {}
+
+export const internalActionB: AsyncAction = async ({ state, effects, actions }) {}
+`,
+        },
+        {
           fileName: 'overmind/actions.ts',
           code: `
 import { Action } from 'overmind'
+import * as internalActions from './internalActions'
+
+export const internal = internalActions
 
 export const myAction: Action = ({ state, effects, actions }) => {
-  actions.internal.internalActionA()
-  actions.internal.internalActionB('foo')
-}
-
-export const internal: {
-  internalActionA: Action,
-  internalActionB: Action<string>
-} = {
-  internalActionA: ({ state, effects, actions }) {},
-  internalActionB: ({ state, effects, actions }, value) {},
+  actions.internal.internalActionA('foo')
+  actions.internal.internalActionB()
 }
 `,
         },
       ]
     : [
         {
-          fileName: 'overmind/actions.ts',
+          fileName: 'overmind/internalActions.js',
           code: `
-export const myAction = ({ state, effects, actions }) => {
-  actions.internal.internalActionA()
-  actions.internal.internalActionB('foo')
-}
+export const internalActionA = ({ state, effects, actions }, value) {}
 
-export const internal = {
-  internalActionA: ({ state, effects, actions }) {},
-  internalActionB: ({ state, effects, actions }, value) {},
+export const internalActionB = async ({ state, effects, actions }) {}
+`,
+        },
+        {
+          fileName: 'overmind/actions.js',
+          code: `
+import * as internalActions from './internalActions'
+
+export const internal = internalActions
+
+export const myAction = ({ state, effects, actions }) => {
+  actions.internal.internalActionA('foo')
+  actions.internal.internalActionB()
 }
 `,
         },

@@ -6,10 +6,13 @@ export default (ts) =>
           code: `
 import { OnInitialize } from 'overmind'
 
-export const onInitialize: OnInitialize = async ({ effects, actions }) => {
+export const onInitialize: OnInitialize = async ({ state, effects, actions }) => {
   effects.socket.initialize({
     onMessage: actions.onMessage,
-    onStatusChange: actions.onSocketStatusChange
+    onStatusChange: actions.onSocketStatusChange,
+    getToken() {
+      return state.token
+    }
   })
 }
   `,
@@ -19,10 +22,13 @@ export const onInitialize: OnInitialize = async ({ effects, actions }) => {
         {
           fileName: 'overmind/onInitialize.js',
           code: `
-export const onInitialize = async ({ effects, action }) => {
+export const onInitialize = async ({ state, effects, action }) => {
   effects.socket.initialize({
     onMessage: actions.onMessage,
-    onStatusChange: actions.onSocketStatusChange
+    onStatusChange: actions.onSocketStatusChange,
+    getToken() {
+      return state.token
+    }
   })
 }
   `,

@@ -2,61 +2,70 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'overmind/posts/actions.ts',
+          fileName: 'overmind/posts/internalActions.ts',
           code: `
 import { Action } from 'overmind'
 
-export const getPosts: Action = () => {}
-
-export const addNewPost: Action = () => {}
-
-export const internal: {
-  handleError: Action<Error>
-} = {
-  handleError: () => {}
+export const handleError: Action = ({ state }) => {
+  // All actions can access all state
+  state.posts
+  state.admin
 }
+`,
+        },
+        {
+          fileName: 'overmind/posts/actions.ts',
+          code: `
+import { AsyncAction } from 'overmind'
+import * as internalActions from './internalActions'
+
+export const internal = internalActions
+
+export const getPosts: AsyncAction = async () => {}
+
+export const addNewPost: AsyncAction = async () => {}
 `,
         },
         {
           fileName: 'overmind/admin/actions.ts',
           code: `
-import { Action } from 'overmind'
+import { AsyncAction } from 'overmind'
 
-export const getUsers: Action = () => {}
+export const getUsers: AsyncAction = async () => {}
 
-export const changeUserAccess: Action = () => {}
-
-export const internal: {
-  handleError: Action<Error>
-} = {
-  handleError: () => {}
-}
+export const changeUserAccess: AsyncAction = async () => {}
 `,
         },
       ]
     : [
         {
+          fileName: 'overmind/posts/internalActions.js',
+          code: `
+export const handleError = ({ state }) => {
+  // All actions can access all state
+  state.posts
+  state.admin
+}
+`,
+        },
+        {
           fileName: 'overmind/posts/actions.js',
           code: `
-export const getPosts = () => {}
+import * as internalActions from './internalActions'
 
-export const addNewPost = () => {}
+export const internal = internalActions
 
-export const internal = {
-  handleError: () => {}
-}
+export const getPosts = async () => {}
+
+export const addNewPost = async () => {}
 `,
         },
         {
           fileName: 'overmind/admin/actions.js',
           code: `
-export const getUsers = () => {}
+export const getUsers = async () => {}
 
-export const changeUserAccess = () => {}
-
-export const internal = {
-  handleError: () => {}
-}
+export const changeUserAccess = async () => {}
 `,
         },
       ]

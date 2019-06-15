@@ -1,31 +1,19 @@
-import { tsAppIndex, tsSimpleAppIndex } from '../../templates'
-
 export default (ts) =>
   ts
     ? [
         {
-          fileName: 'overmind/state.ts',
-          code: `
-type State = {
-  count: number
-}
-
-export const state: State = {
-  count: 0
-}
-`,
-        },
-        {
           fileName: 'overmind/index.ts',
-          code: tsSimpleAppIndex(
-            `
+          code: `
 import { state } from './state'
 
 export const config = {
-  state,
+  state
 }
-`
-          ),
+
+declare module 'overmind' {
+  interface Config extends IConfig<typeof config> {}
+}
+  `,
         },
         {
           fileName: 'index.ts',
@@ -34,22 +22,22 @@ import { createOvermind } from 'overmind'
 import { config } from './overmind'
 
 const overmind = createOvermind(config)
-`,
+  `,
         },
       ]
     : [
         {
           fileName: 'overmind/index.js',
           code: `
+import { state } from './state'
+
 export const config = {
-  state: {
-    count: 0
-  }
-})
+  state
+}
 `,
         },
         {
-          fileName: 'index.js',
+          fileName: 'index.ts',
           code: `
 import { createOvermind } from 'overmind'
 import { config } from './overmind'

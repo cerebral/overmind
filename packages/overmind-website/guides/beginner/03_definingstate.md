@@ -2,7 +2,7 @@
 
 Even though we think of the user interface as the application, it is not. The user interface is just an interface for users to interact with the actual application. So what is the actual application? The actual application is a data structure with values. This data structure with values is the **state** of the application. You might split this up into different components, different store classes or a single state tree. No matter, this is what you need to consume to produce a UI.
 
-The way thea pplication operatores is that we listen to interactions from the user to change this data structure on one end. On the other end we transform this data structure into a user interface. This is what we mean when we say that "the state drives the user interface".
+The application operates by listening to interactions from the user to change this data structure. The data structure is passed to some view library which transforms this data structure into a user interface. Whenever the state changes, a new transformation is made. This is what we mean when we say that "the state drives the user interface".
 
 ![state-ui](/images/state-ui.png)
 
@@ -36,7 +36,7 @@ Now we are referencing the current tab with a string. In this scenario you would
 
 ### Numbers
 
-Numbers of course represents things like counts, age, etc. But just like strings, they can also represent a reference to something in a list. Like we saw in our **objects** example, to define what the current tab of our application is, we can use a number. You could say that referencing things by number works very well when the value behind the number does not change. Our tabs will most likely not change that is why an array and referencing the current tab by number is perfectly fine.
+Numbers of course represents things like counts, age, etc. But just like strings, they can also represent a reference to something in a list. Like we saw in our **objects** example, to define what the current tab of our application is, we can use a number. You could say that referencing things by number works very well when the value behind the number does not change. Our tabs will most likely not change and that is why an array and referencing the current tab by number, is perfectly fine.
 
 ### Booleans
 
@@ -125,10 +125,10 @@ h(Example, { name: "guide/definingstate/define" })
 h(TypescriptNotice, null, "Is is important that you define your state with a **type**, do **NOT** use an **interface**")
 ```
 
-As your application grows you will most likely move parts of the state to their own namespaces. An example of that could be:
+To expose the state on the instance you can follow this recommended pattern:
 
 ```marksy
-h(Example, { name: "guide/definingstate/namespaces" })
+h(Example, { name: "guide/definingstate/bringtogether" })
 ```
 
 ## Summary
