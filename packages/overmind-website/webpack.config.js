@@ -34,6 +34,7 @@ module.exports = (env, args) => {
       }
     ),
     devServer: {
+      disableHostCheck: true,
       proxy: {
         '/backend': 'http://localhost:5000',
       },
