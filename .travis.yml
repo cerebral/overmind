@@ -38,6 +38,11 @@ after_success:
       npm install --no-save nodegit@0.20.3
       npm run release -- --no-parallel
     fi
+    if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+      npm install -g vsce
+      cd packages/node_modules/overmind-devtools-vscode
+      vsce publish -p $VSCODE
+    fi
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
