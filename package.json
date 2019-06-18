@@ -23,13 +23,9 @@
     "url": "git+https://github.com/cerebral/overmind.git"
   },
   "dependencies": {
-    "@babel/core": "^7.4.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
-    "@types/node": "10.12.21",
-    "@types/vscode": "^1.35.0",
-    "@types/ws": "6.0.1",
     "axios": "0.18.0",
     "color": "3.0.0",
     "color-hash": "1.0.3",
@@ -61,7 +57,7 @@
     "ws": "7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.2.2",
+    "@babel/core": "7.4.5",
     "@babel/plugin-proposal-class-properties": "7.3.4",
     "@babel/plugin-transform-react-jsx": "7.1.6",
     "@babel/preset-react": "7.0.0",
@@ -115,6 +111,8 @@
     "webpack-dev-server": "3.1.11",
     "@types/node": "10.12.21",
     "tslint": "5.12.1",
+    "@types/vscode": "^1.35.0",
+    "@types/ws": "6.0.1",
     "vscode": "1.1.34"
   },
   "lint-staged": {
