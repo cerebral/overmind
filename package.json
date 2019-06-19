@@ -36,8 +36,6 @@
     "install": "0.12.1",
     "is-plain-obj": "1.1.0",
     "marksy": "6.1.0",
-    "nodegit": "^0.24.3",
-    "npm": "6.3.0",
     "page": "1.8.6",
     "petit-dom": "0.2.2",
     "preact": "8.3.1",
