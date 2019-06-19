@@ -38,6 +38,10 @@ after_success:
       npm install --no-save nodegit@0.20.3
       npm run release -- --no-parallel
     fi
+    if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+      npm install --no-save vsce
+      npm run release:vscode
+    fi
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

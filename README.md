@@ -15,3 +15,5 @@ $ git pull
 ￼$ git merge --ff-only next
 ￼$ git push
 ```
+
+VSCode extension is released via `.travis.yml` due to limitations of the publishing tool that is unable to use root node_modules folder
