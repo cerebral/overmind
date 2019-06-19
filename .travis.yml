@@ -39,9 +39,8 @@ after_success:
       npm run release -- --no-parallel
     fi
     if [[ $TRAVIS_BRANCH == 'master' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-      npm install -g vsce
-      cd packages/node_modules/overmind-devtools-vscode
-      vsce publish -p $VSCODE
+      npm install --no-save vsce
+      npm run release:vscode
     fi
 branches:
   except:
