@@ -15,7 +15,7 @@
     "lint": "eslint \"**/*.js\" \"**/*.ts\"",
     "precommit": "lint-staged",
     "release": "repo-cooker --release",
-    "release:vscode": "cd packages/node_modules/overmind-devtools-vscode && cp -R ../overmind-devtools-client/dist devtoolsDist && vsce publish -p $VSCODE",
+    "release:vscode": "cd packages/node_modules/overmind-devtools-vscode && vsce publish -p $VSCODE",
     "test": "repo-cooker test --no-parallel"
   },
   "heroku-run-build-script": false,

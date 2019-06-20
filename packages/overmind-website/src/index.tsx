@@ -4,7 +4,20 @@ import { injectGlobal } from 'emotion'
 import * as iconFont from './icomoon.woff2'
 import App from './components/App'
 import { setConfig } from 'react-hot-loader'
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
 
+const overmind = createOvermind(
+  config,
+  process.env.NODE_ENV === 'production'
+    ? {
+        devtools: false,
+      }
+    : {
+        devtools: 'localhost:3031',
+      }
+)
 setConfig({
   ignoreSFC: true, // RHL will be __completely__ disabled for SFC
   pureRender: true, // RHL will not change render method
@@ -47,4 +60,9 @@ injectGlobal`
   }
 `
 
-render(<App />, document.querySelector('#overmind-app'))
+render(
+  <Provider value={overmind}>
+    <App />
+  </Provider>,
+  document.querySelector('#overmind-app')
+)
