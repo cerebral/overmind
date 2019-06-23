@@ -1,6 +1,6 @@
 # Typescript
 
-Overmind is written in Typescript and it is written with a focus on your keeping as little time as possible helping Typescript understand what your app is all about. Typescript will spend a lot more time helping you.
+Overmind is written in Typescript and it is written with a focus on your keeping as little time as possible helping Typescript understand what your app is all about. Typescript will spend a lot more time helping you. If you are not a Typescript developer Overmind is a really great project to start learning it as you will get the most out of the little typing you have to do.
 
 ## Two typing approaches
 

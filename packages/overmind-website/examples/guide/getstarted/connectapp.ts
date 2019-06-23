@@ -1,14 +1,14 @@
 const javascript = {
   react: [
     {
-      fileName: 'overmind/index.ts',
+      fileName: 'overmind/index.js',
       code: `
 import { createHook } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 
-const config = {
+export const config = {
   state,
   actions,
   effects
@@ -48,9 +48,9 @@ const Count = () => {
 
   return (
     <div>
-      <button onClick={() => actions.changeCount(-1)}>-1</button>
+      <button onClick={() => actions.decreaseCount()}>-</button>
       {state.count}
-      <button onClick={() => actions.changeCount(1)}>+1</button>
+      <button onClick={() => actions.increaseCount()}>+</button>
     </div>
   )
 }
@@ -86,9 +86,9 @@ new Vue({
       target: 'markup',
       code: `
 <div>
-  <button @click="actions.changeCount(-1)">-1</button>
+  <button @click="actions.decreaseCount()">-</button>
   {{ state.count }}
-  <button @click="actions.changeCount(1)">+1</button>
+  <button @click="actions.increaseCount()">+</button>
 </div>
     `,
     },
@@ -149,9 +149,9 @@ const Count: React.FunctionComponent = () => {
 
   return (
     <div>
-      <button onClick={() => actions.changeCount(-1)}>-1</button>
+      <button onClick={() => actions.decreaseCount()}>-</button>
       {state.count}
-      <button onClick={() => actions.changeCount(1)}>+1</button>
+      <button onClick={() => actions.increaseCount()}>+</button>
     </div>
   )
 }
@@ -215,9 +215,9 @@ import { Store } from '../overmind'
   selector: 'count-component',
   template: \`
 <div *track>
-  <button (click)="actions.changeCount(-1)">-1</button>
+  <button (click)="actions.decreaseCount()">-</button>
   {{ state.count }}
-  <button (click)="actions.changeCount(1)">+1</button>
+  <button (click)="actions.increaseCount()">+</button>
 </div>
   \`
 })

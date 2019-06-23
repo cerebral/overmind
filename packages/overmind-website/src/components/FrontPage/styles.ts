@@ -70,6 +70,13 @@ export const valueProposition = css`
     margin-right: 40px;
   }
   margin-bottom: 100px;
+  p {
+    font-size: 18px;
+  }
+  a {
+    text-decoration: none;
+    color: var(--color-primary);
+  }
 `
 
 export const valuePropositionMobile = css`

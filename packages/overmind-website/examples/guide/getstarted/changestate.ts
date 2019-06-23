@@ -8,8 +8,12 @@ export default (ts) =>
           code: `
 import { Action } from 'overmind'
 
-export const changeCount: Action<number> = ({ state }, countChange) => {
-  state.count += countChange
+export const increaseCount: Action = ({ state }) => {
+  state.count += 1
+}
+
+export const decreaseCount: Action = ({ state }) => {
+  state.count -= 1
 }
 `,
         },
@@ -30,17 +34,26 @@ export const config = {
       ]
     : [
         {
+          fileName: 'overmind/actions.js',
+          code: `
+export const increaseCount = ({ state }) => {
+  state.count += 1
+}
+
+export const decreaseCount = ({ state }) => {
+  state.count -= 1
+}
+`,
+        },
+        {
           fileName: 'overmind/index.js',
           code: `
+import { state } from './state'
+import * as actions from './actions'
+
 export const config = {
-  state: {
-    count: 0
-  },
-  actions: {
-    changeCount({ state }, countChange) {
-      state.count += countChange
-    }
-  }
+  state,
+  actions
 }
 `,
         },

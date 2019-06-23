@@ -56,18 +56,21 @@ const FrontPage: SFC = () => {
           <div>
             {
               compile(`
-![devtool](/images/front_devtool.png)
+![devtool](/images/amazing_devtools.png)
               `).tree
             }
           </div>
           <div>
-            <h2>AMAZING DEVELOPER EXPERIENCE</h2>
+            <h2>APPLICATION INSIGHT</h2>
             <p>
-              Develop your app without the browser. Just connect directly to
-              your app to focus on state, effects and actions development. Run
-              your actions and verify that state changes and effects are run
-              correctly. Or open up your app and debug state, effects and
-              actions with your running application.
+              Develop the application state, effects and actions without leaving{' '}
+              <a href="https://code.visualstudio.com/" target="_blank">
+                VS Code
+              </a>
+              , or use the standalone development tool. Everything that happens
+              in your app is tracked and you can seamlessly code and run logic
+              to verify that everything works as expected without having to
+              implement UI.
             </p>
           </div>
         </div>
@@ -82,7 +85,8 @@ const FrontPage: SFC = () => {
             <p>
               Building your application as a single state tree is the most
               straight forward mental model. You get a complete overview, but
-              can still organize the state by namespacing it into domains.
+              can still organize the state by namespacing it into domains. The
+              devtools allows you to edit and mock out state.
             </p>
           </div>
           <div>
@@ -168,8 +172,9 @@ h(Example, { name: "frontpage/operators" })
               <p>
                 When pieces of logic become complex it is beneficial to write
                 functional code. Overmind provides an API named{' '}
-                <strong>operators</strong> which gives you functional power as
-                simple actions.
+                <strong>operators</strong> which gives you functional power.
+                Ignore it, use it where it makes sense or make your whole
+                codebase functional. It is up to you!
               </p>
             </div>,
           ][viewport.isMobile ? 'reverse' : 'slice']()}

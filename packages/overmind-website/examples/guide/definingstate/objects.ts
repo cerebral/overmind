@@ -2,17 +2,21 @@ export default () => [
   {
     code: `
 {
+  modes: ['issues', 'admin'],
+  currentModeIndex: 0,
   admin: {
-    users: {},
-    isLoadingUsers: false
-  },
-  home: {
-    tabs: ['issues', 'admin'],
-    currentTabIndex: 0
+    currentUserId: null,
+    users: {
+      isLoading: false,
+      data: {},
+      error: null
+    },
   },
   issues: {
     sortBy: 'name',
-    list: []
+    isLoading: false,
+    data: {},
+    error: null
   }
 }
   `,

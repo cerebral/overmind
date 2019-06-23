@@ -6,24 +6,25 @@ export default (ts) =>
         {
           fileName: 'overmind/effects.ts',
           code: `
-export const bip = (() => {
-  const context = new AudioContext()
+export const getRandomNumber = (): Promise<number> => {
+  return Promise.resolve(
+    Math.round(Math.random() * 100)
+  )
+}
+`,
+        },
+        {
+          fileName: 'overmind/actions.ts',
+          code: `
+import { AsyncAction } from 'overmind'
 
-  return (factor: number) => {
-    const o = context.createOscillator()
-    const g = context.createGain()
+export const increaseCount: AsyncAction = async ({ state, effects }) => {
+  state.count += await effects.getRandomNumber()
+}
 
-    o.frequency.value = factor * 100
-    o.connect(g)
-    g.connect(context.destination)
-
-    g.gain.exponentialRampToValueAtTime(
-      0.0001, context.currentTime + 1
-    )
-
-    o.start(0)
-  }
-})()
+export const decreaseCount: AsyncAction = async ({ state, effects }) => {
+  state.count -= await effects.getRandomNumber()
+}
 `,
         },
         {
@@ -42,52 +43,41 @@ export const config = {
 `
           ),
         },
-        {
-          fileName: 'overmind/actions.ts',
-          code: `
-import { Action } from 'overmind'
-
-export const changeCount: Action<number> = ({ state, effects }, countChange) {
-  state.count += countChange
-  effects.bip(state.count)
-}
-`,
-        },
       ]
     : [
         {
+          fileName: 'overmind/effects.js',
+          code: `
+export const getRandomNumber = () => {
+  return Promise.resolve(
+    Math.round(Math.random() * 100)
+  )
+}
+`,
+        },
+        {
+          fileName: 'overmind/actions.js',
+          code: `
+export const increaseCount = async ({ state, effects }) => {
+  state.count += await effects.getRandomNumber()
+}
+
+export const decreaseCount = async ({ state, effects }) => {
+  state.count -= await effects.getRandomNumber()
+}
+`,
+        },
+        {
           fileName: 'overmind/index.js',
           code: `
+import { state } from './state'
+import * as actions from './actions'
+import * as effects from './effects'
+
 export const config = {
-  state: {
-    count: 0
-  },
-  actions: {
-    changeCount({ state, effects }, countChange) {
-      state.count += countChange
-      effects.bip(state.count)
-    }
-  },
-  effects: {
-    bip: (() => {
-      const context = new AudioContext()
-  
-      return (factor) => {
-        const o = context.createOscillator()
-        const g = context.createGain()
-    
-        o.frequency.value = factor * 100
-        o.connect(g)
-        g.connect(context.destination)
-  
-        g.gain.exponentialRampToValueAtTime(
-          0.0001, context.currentTime + 1
-        )
-  
-        o.start(0)
-      }
-    })()
-  }
+  state,
+  actions,
+  effects
 }
 `,
         },

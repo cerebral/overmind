@@ -1,8 +1,8 @@
 # Defining state
 
-Even though we think of the user interface as the application, it is not. The user interface is just an interface for users to interact with the actual application. So what is the actual application? The actual application is a data structure with values. This data structure with values is the **state** of the application. You might split this up into different components, different store classes or a single state tree. No matter, this is what you need to consume to produce a UI.
+Typically we think of the user interface as the application itself. But the user interface is really just there to allow a user to interact with the application. This interface can be anything. A browser window, native, sensors etc. it does not matter what the interface is, the application is still the same. 
 
-The application operates by listening to interactions from the user to change this data structure. The data structure is passed to some view library which transforms this data structure into a user interface. Whenever the state changes, a new transformation is made. This is what we mean when we say that "the state drives the user interface".
+The mechanism of communicating from the application to the user interface is called **state**. A user interface is created by **transforming** the current state. To communicate from the user interface to the application an API is exposed, called **actions** in Overmind. Any interaction can trigger an action which changes the state, causing the application to notify the user interface about any updated state.
 
 ![state-ui](/images/state-ui.png)
 
@@ -12,9 +12,17 @@ In JavaScript we can create all sorts of abstractions to describe values, but in
 
 Let us talk a litte bit about what each value helps us represent in our application.
 
+### Naming
+
+Each value needs to sit behind a name. Naming can be difficult, but we have some help. Even though we eventually do want to consume our application through a user interface we ideally want to avoid naming things specifically related to the environment where we show the user interface. Things like **page**, **tabs**, **modal** etc. is specific to a browser experience, maybe realted to a certain size. We want to avoid those names as they should not dictate what elements are to be used with the state, that is up to the user interface to decide later. So here are some generic terms to use instead:
+
+- page: **mode**
+- tabs: **sections**
+- modal: **editUser.active**
+
 ### Objects
 
-The root value of your state tree is an object, because objects are great for holding other values. An object has keys that points to values. Most of these keys points to values that is used to produce a UI, but these keys can also represent domains of the application. A typical state structure could be:
+The root value of your state tree is an object, because objects are great for holding other values. An object has keys that points to values. Most of these keys points to values that is the actual state of the application, but these keys can also represent domains of the application. A typical state structure could be:
 
 ```marksy
 h(Example, { name: "guide/definingstate/objects" })
@@ -26,17 +34,17 @@ Arrays are in a way similar to objects in the sense that they hold other values,
 
 ### Strings
 
-Strings are of course used to represent text values. Names, descriptions and what not. But strings are also used for ids, types, etc. Strings can be used as values to reference other values. This is an important part in structuring state. For example in our **objects** example above we chose to use an array to represent the tabs, using an index to point to the current tab, but we could also do:
+Strings are of course used to represent text values. Names, descriptions and what not. But strings are also used for ids, types, etc. Strings can be used as values to reference other values. This is an important part in structuring state. For example in our **objects** example above we chose to use an array to represent the modes, using an index to point to the current mode, but we could also do:
 
 ```marksy
 h(Example, { name: "guide/definingstate/strings" })
 ```
 
-Now we are referencing the current tab with a string. In this scenario you would probably stick with the array, but it is important to highlight that objects allows you to reference things by string, while arrays reference by number.
+Now we are referencing the current mode with a string. In this scenario you would probably stick with the array, but it is important to highlight that objects allows you to reference things by string, while arrays reference by number.
 
 ### Numbers
 
-Numbers of course represents things like counts, age, etc. But just like strings, they can also represent a reference to something in a list. Like we saw in our **objects** example, to define what the current tab of our application is, we can use a number. You could say that referencing things by number works very well when the value behind the number does not change. Our tabs will most likely not change and that is why an array and referencing the current tab by number, is perfectly fine.
+Numbers of course represents things like counts, age, etc. But just like strings, they can also represent a reference to something in a list. Like we saw in our **objects** example, to define what the current mode of our application is, we can use a number. You could say that referencing things by number works very well when the value behind the number does not change. Our modes will most likely not change and that is why an array and referencing the current mode by number, is perfectly fine.
 
 ### Booleans
 
@@ -44,9 +52,12 @@ Are things loading or not, is the user logged in or not ? These are typical usag
 
 ### Null
 
-All values, with the exception of booleans, can also be **null**. Non existing. You can have a non existing object, array, string or number. That means if we have not selected a tab both the string version and number version would have the value **null**.
+All values, with the exception of booleans, can also be **null**. Non existing. You can have a non existing object, array, string or number. That means if we have not selected a mode both the string version and number version would have the value **null**.
 
-## Getter
+## Deriving state
+
+
+### Getter
 
 A concept in Javascript called a [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) allows you to intercept accessing a property in an object. A getter is just like a plain value, it can be added an removed at any point. Getters does **not** cache the result for that very reason, but whatever state they access is tracked.
 
@@ -54,9 +65,9 @@ A concept in Javascript called a [getter](https://developer.mozilla.org/en-US/do
 h(Example, { name: "guide/definingstate/getter" })
 ```
 
-## Deriving state
+### Cached gettter
 
-When you need to do more heavy calculation or combine state from different parts ot the tree you can use **derived state**. A simple example of this would be:
+When you need to do more heavy calculation or combine state from different parts ot the tree you can use a plain function instead. Overmind treats these functions like a **getter**, but the returned value is cached and they can also access the root state of the application. A simple example of this would be:
 
 ```marksy
 h(Example, { name: "guide/definingstate/derived" })
@@ -74,27 +85,15 @@ The first argument of the function is the state the derived function is attached
 That means the function only runs when accessed and the depending state has changed since last access.
 
 ```marksy
-h(Notice, null, "Even though derived state is defined as functions you consume them as plain values. You do not have to call the derived function to get the value")
+h(Notice, null, "Even though derived state is defined as functions you consume them as plain values. You do not have to call the derived function to get the value. Derived state can not be dynamically added. They have to be defined and live in the tree from start to end of your application lifecycle")
 ```
 
-You might intuitively want to pass in an argument to this derived function, but that is actually a very problematic concept that can be solved more elegantly. An example of this would be that you open a page showing the current user and with the **id** of that user you want find the related posts. So you might want to:
+### Dynamic getter
 
+Sometimes you want to derive state based on some value coming from the user interface. You can do this by creating a function that returns a function. For example you want to be able to select records in a table and calculate some data based on that:
 
 ```marksy
 h(Example, { name: "guide/definingstate/derived_passvalue" })
-```
-
-But this is actually a really bad idea and there are a couple of reasons for that:
-
-1. We need a mechanism to use the argument passed in as a caching key. With an **id** that is not so difficult, but what if you passed in an object with some options? Or maybe you use the same object multiple times, but the values on the object changed? Should we stringify the object? What about multiple arguments? As you can understand it becomes quite complex
-2. When should we remove a cached value? We have no idea when you have stopped using the derived value, so we do not know when to remove it. We could have created a limited cache, though how big should it be? 10 entries? What if you have a list of 100 users? Should it be configurable?
-
-So to solve this specific scenario you would rather create a new state called **currentUserId** and use that state to derive the posts. So whenever you have an itch to pass in a value to a derived, try imagine it from the perspective of only using state instead. This also improves the debugging experience.
-
-Also remember that **derived** is a concept for computation heavy derived state, you most commonly want to use a **getter**.
-
-```marksy
-h(Notice, null, "Derived state can not be dynamically added. They have to be defined and live in the tree from start to end of your application lifecycle.")
 ```
 
 ## References

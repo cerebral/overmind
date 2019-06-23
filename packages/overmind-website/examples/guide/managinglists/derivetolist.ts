@@ -20,7 +20,7 @@ export type State = {
 
 export const state: State = {
   posts: {}
-  postsList: state => Object.keys(state.posts).map(id => state.posts[id])
+  postsList: state => Object.values(state.posts)
 }
               `,
         },
@@ -31,7 +31,7 @@ export const state: State = {
           code: `
 export default = {
   posts: {}
-  postsList: state => Object.keys(state.posts).map(id => state.posts[id])
+  postsList: state => Object.values(state.posts)
 }
             `,
         },

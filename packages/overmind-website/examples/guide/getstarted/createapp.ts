@@ -39,13 +39,21 @@ const overmind = createOvermind(config)
       ]
     : [
         {
+          fileName: 'overmind/state.js',
+          code: `
+export const state = {
+  count: 0
+}
+`,
+        },
+        {
           fileName: 'overmind/index.js',
           code: `
+import { state } from './state'
+
 export const config = {
-  state: {
-    count: 0
-  }
-})
+  state
+}
 `,
         },
         {
