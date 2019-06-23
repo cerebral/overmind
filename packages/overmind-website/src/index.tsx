@@ -14,7 +14,9 @@ const overmind = createOvermind(
     ? {
         devtools: false,
       }
-    : {}
+    : {
+        devtools: 'localhost:3032',
+      }
 )
 setConfig({
   ignoreSFC: true, // RHL will be __completely__ disabled for SFC
