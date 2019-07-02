@@ -10,8 +10,6 @@ const Guides: SFC = () => {
     return <Loader />
   }
 
-  console.log(state.guides)
-
   return (
     <div className={styles.wrapper}>
       {state.guides.map((guide) => (
