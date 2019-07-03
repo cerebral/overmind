@@ -16,5 +16,11 @@
     "url": "https://www.youtube.com/watch?v=O5FMIXwYLAA",
     "shortName": "replacing-vuex-with-overmind",
     "type": "beginner"
+  },
+  {
+    "title": "VSCode extension",
+    "url": "https://www.youtube.com/watch?v=P4CwiC0f56Y",
+    "shortName": "vscode-extension",
+    "type": "beginner"
   }
 ]
