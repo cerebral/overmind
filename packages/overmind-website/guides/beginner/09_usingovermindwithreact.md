@@ -2,7 +2,7 @@
 
 There are two different ways to connect Overmind to React. You can either use a traditional **Higher Order Component** or you can use the new **hooks** api to expose state and actions.
 
-When you connect Overmind to a component you ensure that whenever any tracked state changes only components interested in that state will rerender and they will rerender "at their point in the component tree". That means we remove a lot of unnecessary work from React. There is no reason for the whole React component tree to rerender when only one component is interested in a change.
+When you connect Overmind to a component you ensure that whenever any tracked state changes, only components interested in that state will re-render, and will do so "at their location in the component tree". That means we remove a lot of unnecessary work from React. There is no reason for the whole React component tree to re-render when only one component is interested in a change.
 
 ## With hook
 ```marksy
@@ -30,7 +30,7 @@ The hook effect of React gives a natural point of running effects related to sta
 h(Example, { name: "guide/usingovermindwithreact/hook_effect" })
 ```
 
-You can also here use the traditional approach adding a subscription to any updates. This also allows for more granular control as you can check the specific mutations made and/or do pattern matching on the paths updated.
+Here you can also use the traditional approach of subscribing to updates. This also allows for more granular control as you can check the specific mutations made and/or do pattern matching on the paths updated.
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hook_effect_subscription" })
