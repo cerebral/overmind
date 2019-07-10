@@ -10,7 +10,7 @@ h(Example, { name: "guide/writingapplicationlogic/define" })
 
 ## Using the context
 
-The context has three parts. **state**, **effects** and **actions**. Typically you destructure the context to access these pieces directly.
+The context has three parts: **state**, **effects** and **actions**. Typically you destructure the context to access these pieces directly:
 
 ```marksy
 h(Example, { name: "guide/writingapplicationlogic/using" })
@@ -19,7 +19,7 @@ h(Example, { name: "guide/writingapplicationlogic/using" })
 When you point to either of these you will always point to the "top of the application. That means if you use namespaces or other nested structures the context is always the root context of the application.
 
 ```marksy
-h(Notice, null, "The reason Overmind only has a root context is because isolated contexts/domains creates more harm than good. Specifically when you develop your applicaiton it is very difficult to know exactly how the domains of your application will look like. What state, actions and effects belongs together. By only having a root context you can always point to any domain from any other domain allowing you to easily manage cross domain logic and not having to refactor every time your domain model breaks.")
+h(Notice, null, "The reason Overmind only has a root context is because having isolated contexts/domains creates more harm than good. Specifically when you develop your application it is very difficult to know exactly how the domains of your application will look like and what state, actions and effects belong together. By only having a root context you can always point to any domain from any other domain allowing you to easily manage cross-domain logic, not having to refactor every time your domain model breaks.")
 ```
 
 ## Passing values
@@ -30,7 +30,7 @@ When you call actions you can pass a single value. This value appears as the sec
 h(Example, { name: "guide/writingapplicationlogic/value" })
 ```
 
-When you call an action from an action you do so using the **actions** passed on the context, as this is the evaluated action that can be called.
+When you call an action from an action you do so by using the **actions** passed on the context, as this is the evaluated action that can be called.
 
 ```marksy
 h(Example, { name: "guide/writingapplicationlogic/call" })
