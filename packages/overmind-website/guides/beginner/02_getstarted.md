@@ -5,11 +5,11 @@ If you are moving from an existing state management solution, please read the re
 To get started with Overmind you have to set up a project. You can do this with whatever tool your framework of choice provides or you can use [webpack](https://webpack.js.org/) or [parceljs](https://parceljs.org/). You can also use [codesandbox.io](https://codesandbox.io/) to play around with Overmind directly in the browser.
 
 ```marksy
-h(Notice, null, "Due to using the Proxy feature of JavaScript, Overmind does not support **Internet Explorer 11**. Though did you know IE 11 mode is coming to [Microsofts next browser](https://www.pcworld.com/article/3393198/microsoft-edge-ie-mode.html)?")
+h(Notice, null, "Due to using the Proxy feature of JavaScript, Overmind does not support **Internet Explorer 11**. Though did you know IE 11 mode is coming to [Microsoft's next browser](https://www.pcworld.com/article/3393198/microsoft-edge-ie-mode.html)?")
 ```
 
 
-When you have your project up and running install the Overmind dependency by using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/en/):
+When you have your project up and running, install the Overmind dependency by using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/en/):
 
 ```marksy
 h(Example, { name: "guide/getstarted/install" })
@@ -41,7 +41,7 @@ The devtools should respond when you open up your application:
 
 ![open_devtool](/images/devtool_state.png)
 
-Now that we have our state in place, lets change it.
+Now that we have our state in place, let's change it.
 
 ## Changing state
 
@@ -58,13 +58,13 @@ To trigger this action, go to the **actions** tab in the development tool and ru
 
 ## Creating effects
 
- State management tools has a tendency to end their introduction here, but Overmind helps you manage one more important ingredient, **effects**. An effect, or side effect, is everything from doing http requests to storing data in local storage. What Overmind helps you with is separating the generic low level APIs of using effects from your actual application logic inside actions. Let us look at an example. We are simply going to grab a random number from "somewhere out there":
+State management tools have a tendency to end their introduction here, but Overmind helps you manage one more important ingredient, **effects**. An effect, or side effect, is everything from doing HTTP requests to storing data in local storage. What Overmind helps you with is separating the generic low level APIs of using effects from your actual application logic inside actions. Let us look at an example. We are simply going to grab a random number from "somewhere out there":
 
 ```marksy
 h(Example, { name: "guide/getstarted/effect" })
 ```
 
-As you can see we separated the low level generic code of creating a random number from our actual application logic in the action. Think of effects as the API you custom tailor to your application. There are several benefits to effects, which you can read about later, but the really important thing is that you separate the tools you are using from your actual application. That means you can at any time replace this custom random number generator with some existing tool or maybe you will grab it from the server? This is also true for everything else. If your application needs posts you will create a **getPosts** effect. It does not matter to the application if this comes from a restful API, graphql or whatever other source. It is an implementation detail.
+As you can see we separated the low level generic code of creating a random number from our actual application logic in the action. Think of effects as the API you custom tailor to your application. There are several benefits to effects, which you can read about later, but the really important thing is that you separate the tools you are using from your actual application. That means you can at any time replace this custom random number generator with some existing tool or maybe you will grab it from the server? This is also true for everything else. If your application needs posts you will create a **getPosts** effect. It does not matter to the application if this comes from a restful API, GraphQL or whatever other source. It is an implementation detail.
 
 With our effect in place, let us run the actions again:
 
@@ -78,7 +78,7 @@ Now that we know our application works as expected we can actually produce the U
 h(Example, { name: "guide/getstarted/connectapp" })
 ```
 
-Now you can run the actions by clicking the buttons in the UI and the devtools continues to track their execution giving you valuable insight into what happens inside your app.
+Now you can run the actions by clicking the buttons in the UI and the devtool continues to track their execution giving you valuable insight into what happens inside your app.
 
 ## Hot Module Replacement
 
@@ -86,4 +86,4 @@ A popular concept introduced by Webpack is [HMR](https://webpack.js.org/concepts
 
 ## Summary
 
-You have now stepped your toes into Overmind. We introduced Overmind with the concept of thinking the UI as an implementation detail, but it is totally up to you have you want to separate the responsibilities of states and logic in your application. Please continue reading guides to learn more about how Overmind scales.
+You have now stepped your toes into Overmind. We introduced Overmind with the concept of thinking of the UI as an implementation detail, but it is totally up to you how you want to separate the responsibilities of states and logic in your application. Please continue reading guides to learn more about how Overmind scales.

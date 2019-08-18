@@ -1,6 +1,6 @@
 # Going functional
 
-You get very far building your application with straight forward imperative actions. This is typically how we learn programming and is arguably close to how we think about the world. But this approach can cause you to overload your actions with imperative code, making them more difficult to read and especially reuse pieces of logic. As the complexity of your application increases you will find benefits doing some of your logic, or maybe all your logic, in a functional style.
+You get very far building your application with straightforward imperative actions. This is typically how we learn programming and is arguably close to how we think about the world. But this approach can cause you to overload your actions with imperative code, making them more difficult to read and especially reuse pieces of logic. As the complexity of your application increases you will find benefits to doing some of your logic, or maybe all your logic, in a functional style.
 
 Let us look at a concrete example of how messy an imperative approach would be compared to a functional approach.
 
@@ -8,7 +8,7 @@ Let us look at a concrete example of how messy an imperative approach would be c
 h(Example, { name: "guide/goingfunctional/messy" })
 ```
 
-What we see here is an action trying to express a search. We only want to search when the length of the query is more than 2 and we only want to trigger the search when the user has not changed the query for 200 milliseconds.
+What we see here is an action trying to express a search. We only want to search when the length of the query is more than 2 characters and we only want to trigger the search when the user has not changed the query for 200 milliseconds.
 
 If we were to do this in a functional style it would look more like this:
 
@@ -37,8 +37,8 @@ h(Notice, null, "Note that we give all the actual operator functions the same na
 
 You might wonder why we define the operators as functions that we call. We do that for the following reasons:
 
-1. It ensures that each composition using the operator has a unique instance of that operator. For most operators this does not matter, but for others like **debounce** it actually matters
-2. Some operators requires options, like the **lengthGreaterThan** operator we created above. Defining all operators as functions just makes things more consistent
+1. It ensures that each composition using the operator has a unique instance of that operator. For most operators this does not matter, but for others like **debounce** it actually matters.
+2. Some operators require options, like the **lengthGreaterThan** operator we created above. Defining all operators as functions just makes things more consistent.
 3. If you were to create an operator that is composed of other operators you can safely do so without thinking about the order of definition in the *operators* file. The reason being that the operator is lazily created
 
 ```marksy
