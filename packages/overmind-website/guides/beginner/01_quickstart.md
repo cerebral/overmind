@@ -14,7 +14,7 @@ Now set up a simple application like this:
 h(Example, { name: "guide/quickstart/simple_app" })
 ```
 
-And fire up your application in the browser or whatever environment your user interface is to be consumed by the users.
+And fire up your application in the browser or whatever environment your user interface is to be consumed in by the users.
 
 
 ## VS Code

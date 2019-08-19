@@ -27,7 +27,7 @@ When you connect Overmind to your component and expose state you do not have to 
 
 ## Passing state as input
 
-When you pass state objects or arrays as input to a child component that state will by default be tracked on the component passing it a long, which you can also see in the devtools. By just adding the **\*tracker** directive to the child template and the tracking will be handed over:
+When you pass state objects or arrays as input to a child component that state will by default be tracked on the component passing it along, which you can also see in the devtools. By just adding the **\*tracker** directive to the child template, the tracking will be handed over:
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithangular/passprop" })

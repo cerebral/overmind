@@ -6,7 +6,7 @@ You will quickly see the need to give more structure to your application. The ba
 
 does not scale very well.
 
-The before mentioned base structure is called **the configuration** of your application and tools are provided to create more complex configurations. But before we look at those tools, lets talk about file structure.
+The abovementioned base structure is called **the configuration** of your application and tools are provided to create more complex configurations. But before we look at those tools, let's talk about file structure.
 
 ## Domains
 
@@ -16,7 +16,7 @@ As your application grows you start to separate it into different domains. A dom
 h(Example, { name: "guide/structuringtheapp/files" })
 ```
 
-In this structure we are splitting up the differet components of the base structure. This is a good first step. The **index** file acts as the file that brings the state, actions and effects together.
+In this structure we are splitting up the different components of the base structure. This is a good first step. The **index** file acts as the file that brings the state, actions and effects together.
 
 But if we want to split up into actual domains it would look more like this:
 
@@ -69,5 +69,5 @@ h(Example, { name: "guide/structuringtheapp/namespaced" })
 We used the **namespaced** function to put the state, actions and effects from each domain behind a key. In this case the key is the same as the name of the domain itself. This is an effective way to split up your app. 
 
 ```marksy
-h(Notice, null, "Even though you split up into different domains each domain has access to the state of the whole application. This is an important feature of Overmind which allows you to scale up and explore the domains of the application without having to worry about isolation")
+h(Notice, null, "Even though you split up into different domains each domain has access to the state of the whole application. This is an important feature of Overmind which allows you to scale up and explore the domains of the application without having to worry about isolation.")
 ```
