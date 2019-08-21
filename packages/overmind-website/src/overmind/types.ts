@@ -30,6 +30,7 @@ export type ApiParams = {
 
 export enum Page {
   HOME = 'HOME',
+  GETSTARTED = 'GETSTARTED',
   GUIDES = 'GUIDES',
   GUIDE = 'GUIDE',
   VIDEOS = 'VIDEOS',

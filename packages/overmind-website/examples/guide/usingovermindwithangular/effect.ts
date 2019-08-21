@@ -10,17 +10,16 @@ import { Store } from '../overmind'
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  disposeMutationListener: () => void
+  disposeReaction: () => void
   constructor (private store: Store) {}
   ngOnInit() {
-    this.disposeMutationListener = this.store.addMutationListener((mutation) => {
-      if (mutation.path === 'currentPage') {
-        document.querySelector('#app').scrollTop = 0
-      }
-    })
+    this.disposeReaction = this.store.reaction(
+      ({ currentPage }) => currentPage,
+      () => document.querySelector('#app').scrollTop = 0
+    )
   }
   ngOnDestroy() {
-    this.disposeMutationListener()
+    this.disposeReaction()
   }
 }
 `,

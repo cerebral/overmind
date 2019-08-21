@@ -14,14 +14,13 @@ export default () => [
 export default {
   name: 'SomeComponent',
   mounted() {
-    this.disposeMutationListener = this.overmind.addMutationListener((mutation) => {
-      if (mutation.path === 'currentPage') {
-        document.querySelector('#app').scrollTop = 0
-      }
-    })
+    this.disposeReaction = this.overmind.reaction(
+      ({ currentPage }) => currentPage,
+      () => document.querySelector('#app').scrollTop = 0
+    )
   },
   destroyed() {
-    this.disposeMutationListener()
+    this.disposeReaction()
   }
 }
 `,

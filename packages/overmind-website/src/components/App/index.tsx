@@ -12,9 +12,11 @@ import MobileTopBar from '../MobileTopBar'
 import { useIsMobile, useScrollToPosition } from '../../utils'
 import Footer from '../Footer'
 import { hot } from 'react-hot-loader/root'
+import GetStarted from '../GetStarted'
 
 const pages = {
   [Page.HOME]: FrontPage,
+  [Page.GETSTARTED]: GetStarted,
   [Page.GUIDES]: Guides,
   [Page.GUIDE]: Guide,
   [Page.API]: Api,

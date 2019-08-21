@@ -63,8 +63,8 @@ export const content = css`
     padding-top: 50px;
   }
   a {
-    color: var(--color-black-2);
-    text-decoration: none;
+    color: var(--color-dark-1);
+
     font-size: 14px;
     text-transform: uppercase;
   }

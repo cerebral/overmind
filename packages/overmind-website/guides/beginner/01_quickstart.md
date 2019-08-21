@@ -29,6 +29,9 @@ Alternatively you can install the standalone application of the devtools. It is 
 h(Example, { name: "guide/quickstart/install_devtools" })
 ```
 
+## Hot Module Replacement
+
+A popular concept introduced by Webpack is [HMR](https://webpack.js.org/concepts/hot-module-replacement/). It allows you to make changes to your code without having to refresh. Overmind automatically supports HMR. That means when **HMR** is activated Overmind will make sure it updates and manages its state, actions and effects. Even the devtools will be updated as you make changes.
 
 ## FAQ
 

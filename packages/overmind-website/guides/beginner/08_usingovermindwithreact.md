@@ -30,7 +30,7 @@ The hook effect of React gives a natural point of running effects related to sta
 h(Example, { name: "guide/usingovermindwithreact/hook_effect" })
 ```
 
-Here you can also use the traditional approach of subscribing to updates. This also allows for more granular control as you can check the specific mutations made and/or do pattern matching on the paths updated.
+Here you can also use the traditional approach of subscribing to updates.
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hook_effect_subscription" })

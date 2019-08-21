@@ -47,6 +47,15 @@ const MobileTopBar: SFC = () => {
             Home
           </a>
           <a
+            href="/getstarted"
+            className={css(
+              styles.link,
+              state.page === Page.GETSTARTED && styles.linkSelected
+            )}
+          >
+            Get started
+          </a>
+          <a
             href="/guides"
             className={css(
               styles.link,

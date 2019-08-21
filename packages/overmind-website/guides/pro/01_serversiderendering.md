@@ -14,7 +14,7 @@ Here we only export the configuration from the main Overmind file. The instantia
 
 ## Preparing effects
 
-The effects will also be shared with the server. Typically this is not an issue, but you should be careful about creating effects that run logic when they are defined. You might also consider lazy-loading effects so that you avoid loading them on the server at all. You can read more about them in the [running side effects guide](/http://localhost:4000/guides/beginner/04_runningsideeffects).
+The effects will also be shared with the server. Typically this is not an issue, but you should be careful about creating effects that run logic when they are defined. You might also consider lazy-loading effects so that you avoid loading them on the server at all. You can read more about them in the [running side effects guide](/http://localhost:4000/guides/beginner/03_runningsideeffects).
 
 ## Rendering on the server
 

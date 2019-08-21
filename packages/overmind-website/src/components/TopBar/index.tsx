@@ -32,6 +32,15 @@ const TopBar: SFC = () => {
         Home
       </a>
       <a
+        href="/getstarted"
+        className={css(
+          styles.link,
+          state.page === Page.GETSTARTED && styles.selected
+        )}
+      >
+        Get Started
+      </a>
+      <a
         href="/guides"
         className={css(
           styles.link,

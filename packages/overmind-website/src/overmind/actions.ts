@@ -38,6 +38,12 @@ export const openHome: AsyncAction<RouteContext> = withRoute(
   }
 )
 
+export const openGetStarted: AsyncAction<RouteContext> = withRoute(
+  async ({ state }) => {
+    state.page = Page.GETSTARTED
+  }
+)
+
 export const openGuides: AsyncAction<RouteContext> = withRoute(
   async ({ state, effects }) => {
     state.page = Page.GUIDES

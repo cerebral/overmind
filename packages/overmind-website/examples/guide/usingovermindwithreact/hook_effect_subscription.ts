@@ -9,16 +9,13 @@ import { useEffect } from 'react'
 import { useOvermind } from '../overmind'
 
 const Todos: React.FunctionComponent = () => {
-  const { state, addMutationListener } = useOvermind()
+  const { reaction } = useOvermind()
 
   useEffect(() => {
-    const dispose = addMutationListener((mutation) => {
-      if (mutation.path === 'currentPage') {
-        document.querySelector('#app').scrollTop = 0
-      }
+    return reaction(
+      ({ currentPage }) => currentPage,
+      () => document.querySelector('#app').scrollTop = 0
     })
-
-    return () => dispose()
   }, [])
 
   return <div />
@@ -36,16 +33,13 @@ import React, { useEffect } from 'react'
 import { useOvermind } from '../overmind'
 
 const App = () => {
-  const { state, addMutationListener } = useOvermind()
+  const { reaction } = useOvermind()
 
   useEffect(() => {
-    const dispose = addMutationListener((mutation) => {
-      if (mutation.path === 'currentPage') {
-        document.querySelector('#app').scrollTop = 0
-      }
+    return reaction(
+      ({ currentPage }) => currentPage,
+      () => document.querySelector('#app').scrollTop = 0
     })
-
-    return () => dispose()
   }, [])
 
   return <div />

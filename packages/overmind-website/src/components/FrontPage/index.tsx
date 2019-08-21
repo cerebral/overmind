@@ -5,27 +5,6 @@ import Logo from '../Logo'
 import * as styles from './styles'
 import { css } from 'emotion'
 
-const Demo: SFC = () => {
-  const { state } = useOvermind()
-
-  if (!state.demos.length) {
-    return null
-  }
-
-  const view =
-    state.theme === 'react' && state.typescript ? 'react_ts' : state.theme
-  const demoUrl = state.demos[0].sandboxes[view]
-
-  return (
-    <iframe
-      className={styles.iframe}
-      key={demoUrl}
-      src={demoUrl}
-      sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
-    />
-  )
-}
-
 const FrontPage: SFC = () => {
   return (
     <div className={styles.wrapper}>
@@ -230,10 +209,6 @@ h(Example, { name: "frontpage/typings" })
               </p>
             </div>,
           ][viewport.isMobile ? 'reverse' : 'slice']()}
-        </div>
-        <h1>EXAMPLE</h1>
-        <div className={styles.iframeWrapper}>
-          <Demo />
         </div>
       </div>
     </div>

@@ -32,6 +32,7 @@ type State = {
   versions: {
     [name: string]: string
   }
+  foo: Derive<State, string>
 }
 
 const state: State = {
@@ -55,6 +56,7 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
+  foo: () => 'bar',
 }
 
 export default state

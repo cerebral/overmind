@@ -163,6 +163,23 @@ export const compile = marksy({
     return Prism.highlight(code, Prism.languages[language], language)
   },
   components: {
+    Sandbox: ({ id, module }) => (
+      <iframe
+        src={`https://codesandbox.io/embed/${id}?fontsize=14&view=editor${
+          module ? '&module=' + encodeURIComponent(module) : ''
+        }`}
+        title={id}
+        allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media"
+        style={{
+          width: '100%',
+          height: '500px',
+          border: 0,
+          borderRadius: '4px',
+          overflow: 'hidden',
+        }}
+        sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+      />
+    ),
     Example: ({ name }) => <Example key={name} name={name} />,
     Image: ({ src }) => (
       <img src={`/images/${src}`} style={{ width: '100%' }} />
