@@ -38,9 +38,9 @@ export const openHome: AsyncAction<RouteContext> = withRoute(
   }
 )
 
-export const openGetStarted: AsyncAction<RouteContext> = withRoute(
+export const openIntroduction: AsyncAction<RouteContext> = withRoute(
   async ({ state }) => {
-    state.page = Page.GETSTARTED
+    state.page = Page.INTRODUCTION
   }
 )
 

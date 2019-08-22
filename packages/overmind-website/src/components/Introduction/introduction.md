@@ -1,6 +1,10 @@
-# Get Started
+# Welcome to Overmind
 
-Welcome to Overmind. In this guide you will get an introduction to Overmind and how you can think about application development. We will be using [React](https://reactjs.org/) to write the UI, but you can use also use Overmind with [Vue](https://vuejs.org/) and [Angular](https://angular.io).
+In this introduction you will get an overview of Overmind and how you can think about application development. We will be using [React](https://reactjs.org/) to write the UI, but you can use also use Overmind with [Vue](https://vuejs.org/) and [Angular](https://angular.io).
+
+```marksy
+h(Notice, null, "If you rather want to go right ahead and set up a local project, please have a look at the [quickstart](/guides/beginner/01_quickstart) guide.")
+```
 
 Before we move on, have a quick look at this sandbox. It is a simple counter application and it gives you some foundation before talking more about Overmind and building applications.
 

@@ -5,12 +5,12 @@ import { compile, getGithubBaseUrl } from '../../utils'
 import Doc from '../Doc'
 import GuideToc from '../GuideToc'
 
-const GetStarted: SFC = () => {
+const Introduction: SFC = () => {
   const { state } = useOvermind()
   const [content, setContent] = useState(null)
 
   useEffect(() => {
-    import('./getstarted.md').then((module) => setContent(module.default))
+    import('./introduction.md').then((module) => setContent(module.default))
   }, [])
 
   if (!content) {
@@ -29,4 +29,4 @@ const GetStarted: SFC = () => {
   )
 }
 
-export default GetStarted
+export default Introduction
