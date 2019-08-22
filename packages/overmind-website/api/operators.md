@@ -100,6 +100,13 @@ This operator allows you to run side effects. You can not change state and you c
 h(Example, { name: "api/operators_operator_run" })
 ```
 
+## throttle
+This operator allows you to ensure that if an action is called, the next action will only continue past this point if a certain duration has passed. Typically used when an action is called many times in a short amount of time.
+
+```marksy
+h(Example, { name: "api/operators_operator_throttle" })
+```
+
 ## tryCatch
 This operator allows you to scope execution and manage errors. This operator does not return a new value to the execution.
 
