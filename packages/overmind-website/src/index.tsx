@@ -15,7 +15,7 @@ const overmind = createOvermind(
         devtools: false,
       }
     : {
-        devtools: 'localhost:3032',
+        devtools: true,
       }
 )
 setConfig({
