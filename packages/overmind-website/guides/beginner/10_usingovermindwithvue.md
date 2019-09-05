@@ -33,7 +33,7 @@ h(Example, { name: "guide/usingovermindwithvue/passprops_plugin" })
 
 ### State effects
 
-To run effects in components based on changes to state you use the **addMutationListener** function in the lifecycle hooks of Vue.
+To run effects in components based on changes to state you use the **reaction** function in the lifecycle hooks of Vue.
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithvue/effect" })
