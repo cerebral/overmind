@@ -19,7 +19,11 @@ const Footer: SFC = () => {
         </a>
         <div> Copyright © 2019 Christian Alfoni</div>
       </div>
-      <a href="https://discord.gg/YKw9Kd" target="_new" className={styles.chat}>
+      <a
+        href="https://discord.gg/sHWcKF6"
+        target="_new"
+        className={styles.chat}
+      >
         <Icon>chat</Icon>
       </a>
     </div>

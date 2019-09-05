@@ -68,6 +68,12 @@ h(Example, { name: "guide/structuringtheapp/namespaced" })
 
 We used the **namespaced** function to put the state, actions and effects from each domain behind a key. In this case the key is the same as the name of the domain itself. This is an effective way to split up your app. 
 
+You can also combine this with the **merge** tool to have a top level domain.
+
+```marksy
+h(Example, { name: "guide/structuringtheapp/merge_namespaced" })
+```
+
 ```marksy
 h(Notice, null, "Even though you split up into different domains each domain has access to the state of the whole application. This is an important feature of Overmind which allows you to scale up and explore the domains of the application without having to worry about isolation.")
 ```

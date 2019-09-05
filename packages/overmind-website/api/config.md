@@ -15,6 +15,10 @@ h(Example, { name: "api/config_merge" })
 
 Note that merge can be useful to combine a root configuration with namespaced configuration.
 
+```marksy
+h(Example, { name: "api/config_merge_namespaced" })
+```
+
 ## namespaced
 Allows you to namespace configurations by a key.
 
