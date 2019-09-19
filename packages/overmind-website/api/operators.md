@@ -121,6 +121,13 @@ Hold execution for set time.
 h(Example, { name: "api/operators_operator_wait" })
 ```
 
+## waitUntil
+Wait until a state condition is true.
+
+```marksy
+h(Example, { name: "api/operators_operator_waituntil" })
+```
+
 ## when
 Go down the true or false path based on the returned value.
 
