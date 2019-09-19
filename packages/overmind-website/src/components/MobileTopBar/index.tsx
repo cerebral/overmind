@@ -53,7 +53,7 @@ const MobileTopBar: SFC = () => {
               state.page === Page.INTRODUCTION && styles.linkSelected
             )}
           >
-            Get started
+            Introduction
           </a>
           <a
             href="/guides"
