@@ -52,6 +52,10 @@ Allows you to execute an operator/pipe based on the matching key.
 h(Example, { name: "api/operators_operator_fork" })
 ```
 
+```marksy
+h(TypescriptNotice, null, "You have to use ENUM for these keys for the typing to work")
+```
+
 ## map
 Returns a new value to the pipe. If the value is a promise it will wait until promise is resolved.
 

@@ -18,12 +18,13 @@ export const forkUserType: (paths: { [key: string]: Operator<User> }) => Operato
           code: `
 import { Operator, pipe } from 'overmind'
 import * as o from './operators'
+import { UserType } from './state'
 
 export const getUser: Operator<string, User> = pipe(
   o.getUser(),
   o.forkUserType({
-    admin: o.doThis(),
-    superuser: o.doThat()
+    [UserType.ADMIN]: o.doThis(),
+    [UserType.SUPERUSER]: o.doThat()
   })
 )
           `,
