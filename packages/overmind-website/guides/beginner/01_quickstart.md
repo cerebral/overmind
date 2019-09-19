@@ -22,6 +22,10 @@ For the best experience you should install the [Overmind Devtools](https://marke
 
 ![vscode](/images/amazing_devtools.png)
 
+```marksy
+h(Notice, null, "If you are using the **Insiders** version of VSCode the extension will not work. It seems to be some extra security setting.")
+```
+
 ## Devtool app
 Alternatively you can install the standalone application of the devtools. It is highly recommended to install the package [concurrently](https://www.npmjs.com/package/concurrently). It allows you to start the devtools as you start your build process:
 
