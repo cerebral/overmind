@@ -33,7 +33,7 @@ h(Example, { name: "guide/usingovermindwithvue/passprops_plugin" })
 
 ### State effects
 
-To run effects in components based on changes to state you use the **addMutationListener** function in the lifecycle hooks of Vue.
+To run effects in components based on changes to state you use the **reaction** function in the lifecycle hooks of Vue.
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithvue/effect" })
@@ -60,7 +60,7 @@ You can now access the **admin** state and actions directly with **state** and *
 
 Vue has its own observable concept that differs from Overmind. That means you can not use Overmind state inside a computed and expect the computed cache to be busted when the Overmind state changes. But computeds are really for caching expensive computation, which you will not do inside a component using Overmind anyways.
 
-What you might want is to introduce some logic, maybe combine som data from props. You can do so using a getter on your **data**.
+What you might want is to introduce some logic, maybe combine some data from props. You can do so using a getter on your **data**.
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithvue/computed" })
