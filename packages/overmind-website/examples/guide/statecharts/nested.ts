@@ -85,13 +85,13 @@ const dashboardChart: Statechart<typeof config, DashboardState> = {
       on: {
         openProject: DashboardState.PROJECTS
       },
-      ...issuesChart
+      chart: issuesChart
     },
     [DashboardState.PROJECTS]: {
       on: {
         openIssues: DashboardState.ISSUES
       },
-      ...projectsChart
+      chart: projectsChart
     }
   }
 }
@@ -168,13 +168,13 @@ const dashboardChart = {
       on: {
         openProject: 'PROJECTS'
       },
-      ...issuesChart
+      chart: issuesChart
     },
     PROJECTS: {
       on: {
         openIssues: 'ISSUES'
       },
-      ...projectsChart
+      chart: projectsChart
     }
   }
 }

@@ -1,4 +1,4 @@
-# Operators
+# operators
 
 Overmind also provides a functional API to help you manage complex logic. This API is inspired by asynchronous flow libraries like RxJS, though it is designed to manage application state and effects. If you want to create and use a traditional action "operator style" you define it like this:
 

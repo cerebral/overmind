@@ -1,6 +1,6 @@
 # Statecharts
 
-Just like [operators](/guides/intermediate/04_goingfunctional) is a declarative abstraction over plain actions, **statecharts** is a declarative abtraction over a whole Overmind configuration. That means you will define your charts by:
+Just like [operators](/guides/intermediate/04_goingfunctional) is a declarative abstraction over plain actions, **statecharts** is a declarative abtraction over an Overmind configuration of **state** and **actions**. That means you will define your charts by:
 
 ```js
 const configWithStatechart = statechart(config, chart)
@@ -11,12 +11,12 @@ There are several benefits to using a statechart:
 1. You will have a declarative description of what actions should be available in certain states of the application
 2. Less bugs because an invalid action will not be executed if called
 3. You will be able to implement and test an interaction flow without building the user interface for it
-4. Your state definition is cleaned up as your **isDoingSomething** types of state is no longer needed
-5. You have a tool to do "top down" design and implementation instead of "bottom up"
+4. Your state definition is cleaned up as your **isLoading** types of state is no longer needed
+5. You have a tool to do "top down" implementation instead of "bottom up"
 
-You can basically think of a statechart as a way of limiting what actions are available to be executed in certain states. This concept is very old and was originally used to design machines where the user was exposed to all points of interaction, all buttons and switches, at any time. Statecharts would help make sure that at certain states certain buttons and switches would not operate.
+You can basically think of a statechart as a way of limiting what actions are available to be executed in certain transition states. This concept is very old and was originally used to design machines where the user was exposed to all points of interaction, all buttons and switches, at any time. Statecharts would help make sure that at certain transition states certain buttons and switches would not operate.
 
-A simple example of this is a Walkman. When the Walkman is in a **playing** state you should not be able to hit the **eject** button. On the web this might seem unnecessary as the points of interaction is dynamic. We simply hide and/or disable points of interaction. But this is the exact problem. It is fragile. It is fragile because the visual design is all you depend on to prevent logic from running when it should not. A statechart is a much more resiliant way to ensure what logic can actually run in any given state.
+A simple example of this is a Walkman. When the Walkman is in a **playing** transition state you should not be able to hit the **eject** button. On the web this might seem unnecessary as points of interaction is dynamic. We simply hide and/or disable buttons. But this is the exact problem. It is fragile. It is fragile because the UI implementation itself is all you depend on to prevent logic from running when it should not. A statechart is a much more resiliant way to ensure what logic can actually run in any given state.
 
 ## Defining a statechart
 
@@ -39,13 +39,13 @@ Since our initial state is **LOGIN**, a call to actions defined in the other tra
 
 ## Conditions
 
-In our chart above we let the user log in even though there is no **username** or **password**. That seems a bit silly. In statecharts you can define conditions. These conditions receives the state of the configuration and returns a boolean.
+In our chart above we let the user log in even though there is no **username** or **password**. That seems a bit silly. In statecharts you can define conditions. These conditions receives the state of the configuration and returns true or false.
 
 ```marksy
 h(Example, { name: "guide/statecharts/condition.ts" })
 ```
 
-Now the **login** action can only be executed, causing a transition to the new transition state if there is a username and password inserted.
+Now the **login** action can only be executed when there is a username and password inserted, causing a transition to the new transition state.
 
 ## State
 Our initial state defined for this configuration is:
@@ -81,6 +81,12 @@ There is also a third derived state called **matches**. This derived state retur
 
 ```marksy
 h(Example, { name: "guide/statecharts/matches.ts" })
+```
+
+If you have a nested statechart you would pass multiple arguments:
+
+```marksy
+h(Example, { name: "guide/statecharts/matches_multiple.ts" })
 ```
 
 ## Actions

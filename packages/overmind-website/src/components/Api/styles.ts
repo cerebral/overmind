@@ -12,9 +12,9 @@ export const listWrapper = css`
   overflow-y: scroll;
   z-index: 1;
   box-sizing: border-box;
-  width: 150px;
+  width: 175px;
   padding: 35px 0;
-  right: calc(50% + 350px);
+  right: calc(50% + 325px);
 `
 
 export const list = css`

@@ -1,4 +1,4 @@
-# Reaction
+# reaction
 
 Sometimes you need to react to changes to state. Typically you want to run some imperative logic related to something in the state changing. 
 
@@ -23,7 +23,7 @@ reaction(
 
 There are two points of setting up reactions in Overmind.
 
-## OnInitialize
+## onInitialize
 
 The onInitialize hook is where you set up reactions that lives throughout your application lifetime. This is typicaly for syncing operations. The reaction function returns a function to dispose it. That means you can give effects the possibility to create and dispose of reactions in any action.
 
@@ -32,7 +32,7 @@ h(Example, { name: "api/reaction_oninitialize" })
 ```
 
 
-## Components
+## components
 
 With components you typically use reactions to manipulate DOM elements or other UI related imperative libraries.
 

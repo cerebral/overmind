@@ -1,4 +1,4 @@
-# Effects
+# effects
 
 ```marksy
 h(Example, { name: "api/effects" })

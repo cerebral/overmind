@@ -50,6 +50,13 @@ export const link = css`
   text-transform: uppercase;
 `
 
+export const apiLink = css`
+  text-decoration: none;
+  color: var(--color-black-1);
+  margin: var(--padding-3);
+  cursor: pointer;
+`
+
 export const linkSelected = css`
   color: var(--color-primary);
 `
