@@ -9,7 +9,7 @@ import { OnInitialize } from 'overmind'
 export const onInitialize: OnInitialize = ({ effects }, instance) => {
   instance.reaction(
     ({ todos }) => todos,
-    ({ todos }) => effects.storage.saveTodos(todo),
+    (todos) => effects.storage.saveTodos(todos),
     {
       nested: true
     }
@@ -25,7 +25,7 @@ export const onInitialize: OnInitialize = ({ effects }, instance) => {
 export const onInitialize = ({ effects }, instance) => {
   instance.reaction(
     ({ todos }) => todos,
-    ({ todos }) => effects.storage.saveTodos(todo),
+    (todos) => effects.storage.saveTodos(todos),
     {
       nested: true
     }
