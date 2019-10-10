@@ -37,6 +37,26 @@ As you can see we have defined what transition states our login flow can be in a
 
 Since our initial state is **LOGIN**, a call to actions defined in the other transition states would simply be ignored.
 
+## Transitions
+
+If you are familiar with the concept of statemachines you might ask the question: *"Where are the transitions?"*. In Overmind we use actions to define transitions instead of having explicit transition types. That means you think about statecharts in Overmind as:
+
+```
+TRANSITION STATE -> ACTION -> NEW TRANSITION STATE
+```
+
+as opposed to:
+
+```
+TRANSITION STATE -> TRANSITION TYPE -> { NEW TRANSITION STATE, ACTION }
+```
+
+This approach has three benefits:
+
+1. It is more explicit in the definition that a transition state configures what actions are available
+2. When typing your application the actions already has a typed input, which would not be possible with a generic **transition** action
+3. It is simpler concept both in code and for your brain
+
 ## Conditions
 
 In our chart above we let the user log in even though there is no **username** or **password**. That seems a bit silly. In statecharts you can define conditions. These conditions receives the state of the configuration and returns true or false.
@@ -110,6 +130,14 @@ h(Example, { name: "guide/statecharts/nested.ts" })
 What to take notice of in this example is that we simply **spread** a chart into an existing transition state, effectively nesting them. The nested charts has access to the same actions and state as the parent chart.
 
 In this example we also took advantage of the **entry** and **exit** hooks of a transition state. These also points to actions. When a transition is made into the transition state the **entry** will run. This behavior is nested. When an exit hook exists and a transition is made away from the transition state it will also run. This behivor is also nested of course.
+
+## Devtools
+
+The Overmind devtools understands statecharts. That means you are able to get an overview of available statecharts and even manipulate them directly in the devtools.
+
+![statecharts](/images/statecharts.png)
+
+You will see what transition states and actions are available, and active, within each of them. You can click any active action to select it and click again to execute, or insert at payload at the top before execution.
 
 ## Summary
 
