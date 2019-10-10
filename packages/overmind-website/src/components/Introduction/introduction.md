@@ -313,7 +313,7 @@ export const overmind = createOvermind(config, {
 Go to your terminal and use the NPM executor to instantly fire up the development tool.
 
 ```
-npx overmind-devtools
+npx overmind-devtools@latest
 ```
 
 Refresh the sandbox preview and you should see the devtools populated with information from the application.

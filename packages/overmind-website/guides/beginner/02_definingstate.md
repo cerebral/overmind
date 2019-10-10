@@ -12,6 +12,39 @@ In JavaScript we can create all sorts of abstractions to describe values, but in
 
 Let us talk a little bit about what each value helps us represent in our application.
 
+### Undefined
+You might wonder why **undefined** is not part of the core value types. Well, there are two reasons:
+
+1. It is not a serializable value. That means if you explicitly set a value to *undefined* it will not show up in the devtools
+2. Undefined values can not be tracked. That means if you were to iterate an object and look at the keys of that object, any undefined
+values will not be tracked. This can cause unexpected behaviour
+
+```marksy
+h(TypescriptNotice, null, `When writing Typescript you should **not** use optional values for your state (**?**), or use **undefined** in a union type. In a serializable state store world **null** is the value indicating *"there is no value"*.
+
+\`\`\`ts
+type State = {
+  // Do not do this
+  foo?: string
+
+  // Do not do this
+  foo: string | undefined
+  
+  // Do this
+  foo: string | null
+  
+  // Or this, if there always will be a value there
+  foo: string
+}
+
+export const state: State = {
+  foo: null
+}
+\`\`\`
+
+`)
+```
+
 ### Naming
 
 Each value needs to sit behind a name. Naming can be difficult, but we have some help. Even though we eventually do want to consume our application through a user interface we ideally want to avoid naming things specifically related to the environment where we show the user interface. Things like **page**, **tabs**, **modal** etc. are specific to a browser experience, maybe related to a certain size. We want to avoid those names as they should not dictate which elements are to be used with the state, that is up to the user interface to decide later. So here are some generic terms to use instead:
