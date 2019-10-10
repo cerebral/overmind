@@ -23,7 +23,7 @@
 		"demo"
 	],
 	"dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
 		"emotion": "^9.2.12",
 		"express": "^4.16.3",
 		"install": "^0.12.1",
