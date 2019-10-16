@@ -13,10 +13,12 @@ export default () => [
     code: `
 import { connect } from '../overmind'
 
+const Component = {}
+
 export default connect(({ state, actions, effects }) => ({
   state: state.admin,
   actions: actions.admin
-}), {})
+}), Component)
 `,
   },
 ]

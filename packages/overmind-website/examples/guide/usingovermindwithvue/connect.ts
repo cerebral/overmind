@@ -27,7 +27,9 @@ export const connect = createConnect(overmind)
     code: `
 import { connect } from '../overmind'
 
-export default connect({})
+const Component = {}
+
+export default connect(Component)
 `,
   },
 ]
