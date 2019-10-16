@@ -4,7 +4,7 @@ export default (ts) =>
         {
           fileName: 'actions.ts',
           code: `
-import { Operator, pipe } from 'overmind'
+import { Operator, parallel } from 'overmind'
 import * as o from './operators'
 
 export const loadAllData: Operator = parallel(
@@ -18,7 +18,7 @@ export const loadAllData: Operator = parallel(
         {
           fileName: 'actions.js',
           code: `
-import { pipe } from 'overmind'
+import { parallel } from 'overmind'
 import * as o from './operators'
 
 export const loadAllData = parallel(

@@ -14,6 +14,10 @@ const onInitialize: OnInitialize = async ({ effects, state, actions }) => {
 
   effects.router.start()
 
+  state.isLoadingApis = true
+  state.apis = await effects.request('/backend/apis')
+  state.isLoadingApis = false
+
   state.versions = await effects.request('/backend/versions')
 }
 

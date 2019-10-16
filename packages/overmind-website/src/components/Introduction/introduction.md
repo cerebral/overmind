@@ -313,7 +313,7 @@ export const overmind = createOvermind(config, {
 Go to your terminal and use the NPM executor to instantly fire up the development tool.
 
 ```
-npx overmind-devtools
+npx overmind-devtools@latest
 ```
 
 Refresh the sandbox preview and you should see the devtools populated with information from the application.
@@ -351,6 +351,12 @@ Now, let us try to add a new todo and see what happens.
 Our todo has been added and we can even see how the derived state was affected by this change. Looking at our actions tab we can see what state changes were performed and by hovering the mouse on the yellow label up right you get information about what components and derived were affected by state changes in this action.
 
 ![TodoMvc State](/images/todomvc_actions2.png)
+
+## Managing complexity
+
+Overmind gives you a basic foundation with its **state**, **actions** and **effects**. As mentioned previously you can split these up into multiple namespaces to organize your code. This manages the complexity of scaling. There is also a complexity of reusability and managing execution over time. The **operators** API allows you to split your logic into many different composable parts. With operators like **debounce**, **waitUntil** etc. you are able to manage execution over time. With the latest addition of **statecharts** you have the possiblity to manage the complexity of state and interaction. What interactions should be allowed in what states.
+
+The great thing about Overmind is that none of these concepts are forced upon you. If you want to build your entire app in the root namespace, only using actions, that is perfectly fine. You want to bring in operators for a single action to manage time complexity, do that. Or do you have a concept where you want to safely control what actions can run in certain states, use a statechart. Overmind just gives you tools, it is up to you to determine if they are needed or not.
 
 ## Moving from here
 

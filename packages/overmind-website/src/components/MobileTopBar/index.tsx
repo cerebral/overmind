@@ -1,10 +1,11 @@
-import { createElement, SFC, useRef, useEffect } from 'react'
-import { useOvermind } from '../../overmind'
-import * as styles from './styles'
-import ViewSelector from '../ViewSelector'
-import Icon from '../Icon'
-import { Page } from '../../overmind/types'
 import { css } from 'emotion'
+import { SFC, createElement, useEffect, useRef } from 'react'
+
+import { useOvermind } from '../../overmind'
+import { Page } from '../../overmind/types'
+import Icon from '../Icon'
+import ViewSelector from '../ViewSelector'
+import * as styles from './styles'
 
 type Props = {
   selectedTheme: string
@@ -73,94 +74,22 @@ const MobileTopBar: SFC = () => {
           >
             Videos
           </a>
-          <a
-            href="/api/action"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'action' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Action
-          </a>
-          <a
-            href="/api/config"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'config' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Config
-          </a>
-          <a
-            href="/api/connect"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'connect' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Connect
-          </a>
-          <a
-            href="/api/derive"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'derive' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Derive
-          </a>
-          <a
-            href="/api/effects"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'effects' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Effects
-          </a>
-          <a
-            href="/api/onInitialize"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'oninitialize' &&
-                styles.linkSelected
-            )}
-          >
-            Api - OnInitialize
-          </a>
-          <a
-            href="/api/operators"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'operators' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Operators
-          </a>
-          <a
-            href="/api/overmind"
-            className={css(
-              styles.link,
-              state.page === Page.API &&
-                state.currentApi === 'overmind' &&
-                styles.linkSelected
-            )}
-          >
-            Api - Overmind
-          </a>
+          <h3>API</h3>
+          {state.apis.map((api) => {
+            return (
+              <a
+                href={'/api/' + api.title}
+                className={css(
+                  styles.apiLink,
+                  state.page === Page.API &&
+                    state.currentApi === api.title &&
+                    styles.linkSelected
+                )}
+              >
+                {api.title}
+              </a>
+            )
+          })}
         </div>
       </div>
     </div>

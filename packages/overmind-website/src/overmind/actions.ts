@@ -1,13 +1,14 @@
 import {
   Action,
-  pipe,
-  debounce,
-  Operator,
-  mutate,
-  filter,
   AsyncAction,
+  Operator,
+  debounce,
+  filter,
+  mutate,
+  pipe,
 } from 'overmind'
-import { RouteContext, GuideParams, VideoParams, Page } from './types'
+
+import { GuideParams, Page, RouteContext, VideoParams } from './types'
 
 const withRoute: <T, U>(
   action: Action<RouteContext<T>, U>
@@ -83,14 +84,9 @@ export const openGuide: Action<RouteContext<GuideParams>> = withRoute(
 )
 
 export const openApi: AsyncAction<RouteContext<VideoParams>> = withRoute(
-  async ({ state, effects }, routeContext) => {
+  async ({ state }, routeContext) => {
     state.page = Page.API
     state.currentApi = routeContext.params.title
-    if (!state.apis.length) {
-      state.isLoadingApis = true
-      state.apis = await effects.request('/backend/apis')
-      state.isLoadingApis = false
-    }
   }
 )
 

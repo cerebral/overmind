@@ -10,7 +10,7 @@ import { useOvermind } from '../overmind'
 const App = () => {
   const { state } = useOvermind()
 
-  if (overmind.state.isLoading) {
+  if (state.isLoading) {
     return <div>Loading app...</div>
   }
 
