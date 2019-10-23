@@ -4,7 +4,7 @@ There are two different ways to connect Overmind to React. You can either use a 
 
 When you connect Overmind to a component you ensure that whenever any tracked state changes, only components interested in that state will re-render, and will do so "at their location in the component tree". That means we remove a lot of unnecessary work from React. There is no reason for the whole React component tree to re-render when only one component is interested in a change.
 
-## With hook
+## Hook
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hook" })
 ```
@@ -36,7 +36,7 @@ Here you can also use the traditional approach of subscribing to updates.
 h(Example, { name: "guide/usingovermindwithreact/hook_effect_subscription" })
 ```
 
-## With HOC
+## Higher Order Component
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hoc" })
 ```
@@ -67,4 +67,25 @@ To run effects in components based on changes to state you use the **addMutation
 
 ```marksy
 h(Example, { name: "guide/usingovermindwithreact/hoc_effect" })
+```
+
+## React Native
+
+Overmind supports React Native with **hook** and **Higher Order Component**. What to take notice of though is that native environments sometimes hides the **render** function of React. That can be a bit confusing in terms of setting up the **Provider**. If your environment only exports an initial component, that component needs to be responsible for settings up the providers and rendering your main component:
+
+```jsx
+import { createOvermind } from 'overmind'
+import { Provider } from 'overmind-react'
+import { config } from './overmind'
+import MyApp from './MyApp'
+
+const overmind = createOvermind(config)
+
+export function App() {
+  return (
+    <Provider value={overmind}>
+      <MyApp />
+    </Provider>
+  )
+}
 ```
