@@ -35,6 +35,6 @@
     "query-string": "^6.2.0"
   },
   "devDependencies": {
-		"@types/node": "^10.12.21"
+		"@types/node": "^12.11.6"
   }
 }
