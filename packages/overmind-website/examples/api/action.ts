@@ -3,9 +3,9 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Action } from 'overmind'
+import { AsyncAction } from 'overmind'
 
-export const getPosts: Action = async ({ state, actions, effects }) => {
+export const getPosts: AsyncAction = async ({ state, actions, effects }) => {
   state.isLoadingPosts = true
   state.posts = await effects.api.getPosts()
   state.isLoadingPosts = false
