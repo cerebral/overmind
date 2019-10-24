@@ -67,7 +67,7 @@
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.1.0",
     "@types/jest": "23.1.4",
-    "@types/node": "10.12.21",
+    "@types/node": "^12.11.6",
     "@types/react": "16.7.13",
     "@types/react-dom": "16.0.6",
     "@types/vscode": "^1.35.0",
@@ -75,6 +75,7 @@
     "@vue/component-compiler-utils": "2.1.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-transform-vue-jsx": "3.7.0",
+    "bundlesize": "0.17.2",
     "commitizen": "^2.10.1",
     "concurrently": "3.6.1",
     "cz-customizable": "^5.2.0",
@@ -118,8 +119,7 @@
     "webpack": "4.35.0",
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "3.1.11",
-    "webpack-merge": "4.2.1",
-    "bundlesize": "0.17.2"
+    "webpack-merge": "4.2.1"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
