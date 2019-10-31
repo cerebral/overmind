@@ -24,7 +24,7 @@ describe('Actions', () => {
     })
     test('should handle errors', async () => {
       const overmind = createOvermindMock(config, {
-        api = {
+        api: {
           getPost() {
             throw new Error('test')
           }
