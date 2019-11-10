@@ -55,7 +55,7 @@ export default statechart(config, loginChart)
       ]
     : [
         {
-          fileName: 'overmind/login/index.ts',
+          fileName: 'overmind/login/index.js',
           code: `
 import { statechart } from 'overmind/config'
 import * as actions from './actions'

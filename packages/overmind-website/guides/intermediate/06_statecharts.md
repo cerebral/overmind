@@ -131,6 +131,29 @@ What to take notice of in this example is that we simply **spread** a chart into
 
 In this example we also took advantage of the **entry** and **exit** hooks of a transition state. These also points to actions. When a transition is made into the transition state the **entry** will run. This behavior is nested. When an exit hook exists and a transition is made away from the transition state it will also run. This behivor is also nested of course.
 
+## Parallel statecharts
+
+It is also possible to define your charts in a parallel manner. Basically wherever you would insert a chart, you can insert an array of charts. Parallel charts does not affect each other, but they are affected by the statechart as a whole. That means if you have nested parallel charts their **entry** and **exit** actions will run when transitioning the statehcart at a higher level.
+
+```marksy
+h(Example, { name: "guide/statecharts/parallel.ts" })
+```
+
+In this example we passed an array to the chart configuration itself. But the **chart** property used to nest charts can also hold an array of charts.
+
+```js
+{
+  initial: 'foo',
+  states: {
+    foo: {
+      chart: [chartA, chartB]
+    },
+    bar: {}
+  }
+}
+```
+
+
 ## Devtools
 
 The Overmind devtools understands statecharts. That means you are able to get an overview of available statecharts and even manipulate them directly in the devtools.

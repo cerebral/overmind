@@ -1,6 +1,5 @@
 import { IConfig } from 'overmind'
 import { createHook } from 'overmind-react'
-import { merge, namespaced, statechart } from 'overmind/config'
 
 import * as actions from './actions'
 import * as effects from './effects'
@@ -36,15 +35,12 @@ const chart = {
   },
 }
 
-export const config = statechart(
-  {
-    onInitialize,
-    state,
-    actions,
-    effects,
-  },
-  [chart, chart2]
-)
+export const config = {
+  onInitialize,
+  state,
+  actions,
+  effects,
+}
 
 declare module 'overmind' {
   interface Config extends IConfig<typeof config> {}
