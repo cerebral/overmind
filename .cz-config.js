@@ -34,7 +34,7 @@ module.exports = {
     { name: 'overmind-devtools' },
     { name: 'overmind-devtools-client' },
     { name: 'overmind-devtools-vscode' },
-    { name: 'overmind-components' },
+    { name: 'overmind-graphql' },
     { name: 'overmind-react' },
     { name: 'overmind-vue' },
     { name: 'overmind-angular' },
