@@ -62,10 +62,10 @@ export default App
           code: `
 import { createHook } from 'overmind-react'          
           
-export const overmind = createOvermind({
+export const config = {
   state: {},
   actions: {}
-})
+}
 
 export const useOvermind = createHook()
 `,
