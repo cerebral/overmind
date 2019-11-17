@@ -5,7 +5,7 @@ export default (ts) =>
           code: `
 import { Action } from 'overmind'
 
-export const setTitle: Action<string> = async ({ state }, title) => {
+export const setTitle: Action<string> = ({ state }, title) => {
   state.title = title
 }
 `,
@@ -14,7 +14,7 @@ export const setTitle: Action<string> = async ({ state }, title) => {
     : [
         {
           code: `
-export const setTitle = async ({ state }, title) => {
+export const setTitle = ({ state }, title) => {
   state.title = title
 }
 `,
