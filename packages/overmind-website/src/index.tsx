@@ -1,11 +1,12 @@
-import { createElement } from 'react'
-import { render } from 'react-dom'
 import { injectGlobal } from 'emotion'
-import * as iconFont from './icomoon.woff2'
-import App from './components/App'
-import { setConfig } from 'react-hot-loader'
 import { createOvermind } from 'overmind'
 import { Provider } from 'overmind-react'
+import { createElement } from 'react'
+import { render } from 'react-dom'
+import { setConfig } from 'react-hot-loader'
+
+import App from './components/App'
+import * as iconFont from './icomoon.woff2'
 import { config } from './overmind'
 
 const overmind = createOvermind(
@@ -18,6 +19,20 @@ const overmind = createOvermind(
         devtools: true,
       }
 )
+
+const isSomeState = overmind.state.matches({
+  chart2: {
+    bar: true,
+  },
+  chart: {
+    foo: {
+      nested: {
+        mip: true,
+      },
+    },
+  },
+})
+
 setConfig({
   ignoreSFC: true, // RHL will be __completely__ disabled for SFC
   pureRender: true, // RHL will not change render method
