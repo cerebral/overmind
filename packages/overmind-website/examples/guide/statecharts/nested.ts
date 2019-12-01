@@ -2,9 +2,9 @@ export default (ts, view) =>
   ts
     ? [
         {
-          fileName: 'overmind/login/index.ts',
+          fileName: 'overmind/dashboard/index.ts',
           code: `
-import { Statechart, statechart } from 'overmind/config'
+import { Statechart, statecharts } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -13,98 +13,98 @@ const config = {
   actions
 }
 
-enum IssuesState {
-  LOADING = 'LOADING',
-  LIST = 'LIST',
-  ERROR = 'ERROR'
-}
-
-const issuesChart: Statechart<typeof config, IssuesState> = {
-  initial: IssuesState.LOADING,
+const issuesChart: Statechart<typeof config, {
+  LOADING: void
+  LIST: void
+  ERROR: void
+}> = {
+  initial: 'LOADING',
   states: {
-    [IssuesState.LOADING]: {
+    LOADING: {
       entry: 'fetchIssues',
       exit: 'abortFetchIssues',
       on: {
-        resolveIssues: IssuesState.LIST,
-        rejectIssues: IssuesState.ERROR
+        resolveIssues: 'LIST',
+        rejectIssues: 'ERROR'
       }
     },
-    [IssuesState.LIST]: {
+    LIST: {
       on: {
         toggleIssueCompleted: null
       }
     },
-    [IssuesState.ERROR]: {
+    ERROR: {
       on: {
-        retry: IssuesState.LOADING
+        retry: 'LOADING'
       }
     },
   }
 }
 
-enum ProjectsState {
-  LOADING = 'LOADING',
-  LIST = 'LIST',
-  ERROR = 'ERROR'
-}
-
-const projectsChart: Statechart<typeof config, ProjectsState> = {
-  initial: ProjectsState.LOADING,
+const projectsChart: Statechart<typeof config, {
+  LOADING: void
+  LIST: void
+  ERROR: void
+}> = {
+  initial: 'LOADING',
   states: {
-    [ProjectsState.LOADING]: {
+    LOADING: {
       entry: 'fetchProjects',
       exit: 'abortFetchProjects',
       on: {
-        resolveIssues: ProjectsState.LIST,
-        rejectIssues: ProjectsState.ERROR
+        resolveIssues: 'LIST',
+        rejectIssues: 'ERROR'
       }
     },
-    [ProjectsState.LIST]: {
+    LIST: {
       on: {
         expandAttendees: null
       }
     },
-    [ProjectsState.ERROR]: {
+    ERROR: {
       on: {
-        retry: ProjectsState.LOADING
+        retry: 'LOADING'
       }
     },
   }
 }
 
-enum DashboardState {
-  ISSUES = 'ISSUES',
-  PROJECTS = 'PROJECTS'
-}
-
-const dashboardChart: Statechart<typeof config, DashboardState> = {
-  initial: DashboardState.ISSUES,
+const dashboardChart: Statechart<typeof config, {
+  ISSUES: {
+    issues: typeof issuesChart
+  }
+  PROJECTS: {
+    projects: typeof projectsChart
+  }
+}> = {
+  initial: 'ISSUES',
   states: {
-    [DashboardState.ISSUES]: {
+    ISSUES: {
       on: {
-        openProject: DashboardState.PROJECTS
+        openProjects: 'PROJECTS'
       },
-      chart: issuesChart
+      charts: { issuesChart }
     },
-    [DashboardState.PROJECTS]: {
+    PROJECTS: {
       on: {
-        openIssues: DashboardState.ISSUES
+        openIssues: 'ISSUES'
       },
-      chart: projectsChart
+      charts: { projectsChart }
     }
   }
 }
 
-export default statechart(config, dashboardChart)
+export default statecharts(config, {
+  dashboard: dashboardChart
+})
 `,
         },
       ]
     : [
         {
-          fileName: 'overmind/login/index.js',
+          fileName: 'overmind/dashboard/index.ts',
           code: `
-import { statechart } from 'overmind/config'
+import { statecharts } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -137,6 +137,7 @@ const issuesChart = {
   }
 }
 
+
 const projectsChart = {
   initial: 'LOADING',
   states: {
@@ -166,20 +167,22 @@ const dashboardChart = {
   states: {
     ISSUES: {
       on: {
-        openProject: 'PROJECTS'
+        openProjects: 'PROJECTS'
       },
-      chart: issuesChart
+      charts: { issuesChart }
     },
     PROJECTS: {
       on: {
         openIssues: 'ISSUES'
       },
-      chart: projectsChart
+      charts: { projectsChart }
     }
   }
 }
 
-export default statechart(config, dashboardChart)
+export default statecharts(config, {
+  dashboard: dashboardChart
+})
 `,
         },
       ]

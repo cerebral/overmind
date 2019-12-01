@@ -4,7 +4,7 @@ export default (ts, view) =>
         {
           fileName: 'overmind/login/index.ts',
           code: `
-import { Statechart, statechart } from 'overmind/config'
+import { Statechart, statecharts } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -13,43 +13,43 @@ const config = {
   actions
 }
 
-enum LoginState {
-  LOGIN = 'LOGIN',
-  AUTHENTICATING = 'AUTHENTICATING',
-  AUTHENTICATED = 'AUTHENTICATED',
-  ERROR = 'ERROR'
-}
-
-const loginChart: Statechart<typeof config, LoginState> = {
-  initial: LoginState.LOGIN,
+const loginChart: Statechart<typeof config, {
+  LOGIN: void
+  AUTHENTICATING: void
+  AUTHENTICATED: void
+  ERROR: void
+}> = {
+  initial: 'LOGIN',
   states: {
-    [LoginState.LOGIN]: {
+    LOGIN: {
       on: {
         changeUsername: null,
         changePassword: null,
-        login: LoginState.AUTHENTICATING
+        login: 'AUTHENTICATING'
       }
     },
-    [LoginState.AUTHENTICATING]: {
+    AUTHENTICATING: {
       on: {
-        resolveUser: LoginState.AUTHENTICATED,
-        rejectUser: LoginState.ERROR
+        resolveUser: 'AUTHENTICATED',
+        rejectUser: 'ERROR'
       }
     },
-    [LoginState.AUTHENTICATED]: {
+    AUTHENTICATED: {
       on: {
-        logout: LoginState.LOGIN
+        logout: 'LOGIN'
       }
     },
-    [LoginState.ERROR]: {
+    ERROR: {
       on: {
-        tryAgain: LoginState.LOGIN
+        tryAgain: 'LOGIN'
       }
     }
   }
 }
 
-export default statechart(config, loginChart)
+export default statecharts(config, {
+  login: loginChart
+})
 `,
         },
       ]
@@ -57,7 +57,7 @@ export default statechart(config, loginChart)
         {
           fileName: 'overmind/login/index.js',
           code: `
-import { statechart } from 'overmind/config'
+import { statecharts } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -95,7 +95,9 @@ const loginChart = {
   }
 }
 
-export default statechart(config, loginChart)
+export default statecharts(config, {
+  login: loginChart
+})
 `,
         },
       ]
