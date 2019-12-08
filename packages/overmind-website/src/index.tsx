@@ -20,19 +20,6 @@ const overmind = createOvermind(
       }
 )
 
-const isSomeState = overmind.state.matches({
-  chart2: {
-    bar: true,
-  },
-  chart: {
-    foo: {
-      nested: {
-        mip: true,
-      },
-    },
-  },
-})
-
 setConfig({
   ignoreSFC: true, // RHL will be __completely__ disabled for SFC
   pureRender: true, // RHL will not change render method

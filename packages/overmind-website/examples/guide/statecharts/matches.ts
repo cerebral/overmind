@@ -3,14 +3,22 @@ export default (ts, view) =>
     ? [
         {
           code: `
-state.login.matches(LoginState.Login)
+state.login.matches({
+  login: {
+    LOGIN: true
+  }
+})
 `,
         },
       ]
     : [
         {
           code: `
-state.login.matches('LOGIN')
+state.login.matches({
+  login: {
+    LOGIN: true
+  }
+})
 `,
         },
       ]
