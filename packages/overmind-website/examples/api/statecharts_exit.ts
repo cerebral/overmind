@@ -3,7 +3,7 @@ export default (ts) =>
     ? [
         {
           code: `
-import { Statechart, statechart } from 'overmind/config'
+import { Statechart, statecharts } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -12,30 +12,30 @@ const config = {
   state
 }
 
-enum States {
-  STATE_A = 'STATE_A',
-  STATEA_B = 'STATE_B'
-}
-
-const chart: Statechart<typeof config, States> = {
-  initial: States.STATE_A,
+const chart: Statechart<typeof config, {
+  STATE_A: void
+  STATE_B: void
+}> = {
+  initial: 'STATE_A',
   states: {
-    [States.STATE_A]: {
+    STATE_A: {
       entry: 'someActionName',
       exit: 'someOtherActionName'
     },
-    [States.STATE_B]: {}
+    STATE_B: {}
   }
 }
 
-export default statechart(config, chart)
+export default statecharts(config, {
+  chartId: chart
+})
 `,
         },
       ]
     : [
         {
           code: `
-import { statechart } from 'overmind/config'
+import { statecharts } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -55,7 +55,9 @@ const chart = {
   }
 }
 
-export default statechart(config, chart)
+export default statecharts(config, {
+  chartId: chart
+})
 `,
         },
       ]

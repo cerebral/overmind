@@ -12,29 +12,8 @@ const config = {
   state
 }
 
-const nestedChart: Statechart<typeof config, {
-  FOO: void
-  BAR: void
-}> = {
-  initial: 'FOO',
-  states: {
-    FOO: {
-      on: {
-        transitionToBar: 'BAR'
-      }
-    },
-    BAR: {
-      on: {
-        transitionToFoo: 'FOO'
-      }
-    }
-  }
-}
-
 const chart: Statechart<typeof config, {
-  STATE_A: {
-    nestedChartId: typeof nestedChart
-  }
+  STATE_A: void
   STATE_B: void
 }> = {
   initial: 'STATE_A',
@@ -42,8 +21,7 @@ const chart: Statechart<typeof config, {
     STATE_A: {
       on: {
         transitionToStateB: 'STATE_B'
-      },
-      charts: { nestedChartId: nestedChart }
+      }
     },
     STATE_B: {
       on: {
@@ -54,7 +32,8 @@ const chart: Statechart<typeof config, {
 }
 
 export default statecharts(config, {
-  chartId: chart
+  chartA: chart,
+  chartB: chart
 })
 `,
         },
@@ -71,31 +50,13 @@ const config = {
   state
 }
 
-
-const nestedChart = {
-  initial: 'FOO',
-  states: {
-    FOO: {
-      on: {
-        transitionToBar: 'BAR'
-      }
-    },
-    BAR: {
-      on: {
-        transitionToFoo: 'FOO'
-      }
-    }
-  }
-}
-
 const chart = {
   initial: 'STATE_A',
   states: {
     STATE_A: {
       on: {
         transitionToStateB: 'STATE_B'
-      },
-      charts: { nestedChartId: nestedChart }
+      }
     },
     STATE_B: {
       on: {
@@ -106,7 +67,8 @@ const chart = {
 }
 
 export default statecharts(config, {
-  chartId: chart
+  chartA: chart,
+  chartB: chart
 })
 `,
         },

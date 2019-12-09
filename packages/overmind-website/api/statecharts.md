@@ -2,9 +2,9 @@
 
 Statecharts is a configuration factory, just like **merge**, **namespaced** and **lazy**. It allows you to restrict what actions are to be run in certain states.
 
-## statechart
+## statecharts
 
-The factory function you use to wrap an Overmind configuration.
+The factory function you use to wrap an Overmind configuration. You add one or multiple charts to the configuration, where the key is the *id* of the chart.
 
 ```marksy
 h(Example, { name: "api/statecharts_statechart" })
@@ -47,11 +47,59 @@ h(Example, { name: "api/statecharts_on" })
 ```
 
 ## nested
-A nested statechart will operate within its parent transition state. The means when the parent transition state is entered or exited any defined **entry** and **exit** actions will be run. When the parent enters its transition state the **initial** state of the child statechart will be activated.
+A nested statechart will operate within its parent transition state. The means when the parent transition state is entered or exited any defined **entry** and **exit** actions will be run. When the parent enters its transition state the **initial** state of the child statechart(s) will be activated.
 
 ```marksy
 h(Example, { name: "api/statecharts_nested" })
 ```
 
+## parallel
+Multiple statecharts will run in parallel. Either for the factory configuration or nested charts. You can add the same chart multiple times behind different ids.
 
+```marksy
+h(Example, { name: "api/statecharts_parallel" })
+```
 
+## matches
+
+The matches API is used in your components to identify what state your charts are in. It is accessed on the **state**.
+
+```js
+// Given that you have added statecharts to the root configuration
+state.matches({
+  chartA: {
+    STATE_A: true
+  }
+})
+
+// Nested chart
+state.matches({
+  chartA: {
+    STATE_A: {
+      nestedChartA: {
+        FOO: true
+      }
+    }
+  }
+})
+
+// Parallel
+state.matches({
+  chartA: {
+    STATE_A: true
+  },
+  chartB: {
+    STATE_B: true
+  }
+})
+
+// Negative check
+state.matches({
+  chartA: {
+    STATE_A: true
+  },
+  chartB: {
+    STATE_B: false
+  }
+})
+```
