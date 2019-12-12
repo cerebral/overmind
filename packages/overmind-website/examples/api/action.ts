@@ -5,7 +5,7 @@ export default (ts) =>
           code: `
 import { AsyncAction } from 'overmind'
 
-export const getPosts: AsyncAction = async ({ state, actions, effects }) => {
+export const getPosts: ({state, actions, effects}: { state: any; actions: any; effects: any }) => Promise<void> = async ({ state, actions, effects }) => {
   state.isLoadingPosts = true
   state.posts = await effects.api.getPosts()
   state.isLoadingPosts = false
