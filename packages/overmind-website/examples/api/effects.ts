@@ -4,7 +4,6 @@ export default (ts) =>
         {
           fileName: 'overmind/effects.ts',
           code: `
-import axios from 'axios'
 import { User, Item } from './state'
 
 export const api = {
@@ -26,8 +25,6 @@ export const api = {
         {
           fileName: 'effects.js',
           code: `
-import axios from 'axios'
-
 export const api = {
   async getUser() {
     const response = await fetch('/user')
