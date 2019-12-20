@@ -12,7 +12,9 @@ type IParams = {
 } | void
 
 export const router = {
-  initialize(routes: { [url: string]: (IParams) => void }) {
+  initialize<Params extends IParams>(routes: {
+    [url: string]: (params: Params) => void | Promise<void>
+  }): void {
     Object.keys(routes).forEach(url => {
       page(url, ({ params, querystring }) => {
         const payload = Object.assign({}, params, queryString.parse(querystring))
