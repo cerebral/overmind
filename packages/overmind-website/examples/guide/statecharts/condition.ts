@@ -35,9 +35,7 @@ const loginChart: Statechart<typeof config, {
   }
 }
 
-export default statecharts(config, {
-  login: loginChart
-})
+export default statecharts(config, loginChart)
 `,
         },
       ]

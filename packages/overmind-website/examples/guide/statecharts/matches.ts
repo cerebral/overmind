@@ -4,9 +4,7 @@ export default (ts, view) =>
         {
           code: `
 state.login.matches({
-  login: {
-    LOGIN: true
-  }
+  LOGIN: true
 })
 `,
         },
@@ -15,9 +13,7 @@ state.login.matches({
         {
           code: `
 state.login.matches({
-  login: {
-    LOGIN: true
-  }
+  LOGIN: true
 })
 `,
         },

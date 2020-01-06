@@ -5,11 +5,9 @@ export default (ts, view) =>
           code: `
 // Nested
 const isSearching = state.dashboard.matches({
-  issues: {
-    LIST: {
-      search: {
-        SEARCHING: true
-      }
+  LIST: {
+    search: {
+      SEARCHING: true
     }
   }
 })
@@ -41,11 +39,9 @@ const isOnlyDownloading = state.files.matches({
           code: `
 // Nested
 const isSearching = state.dashboard.matches({
-  issues: {
-    LIST: {
-      search: {
-        SEARCHING: true
-      }
+  LIST: {
+    search: {
+      SEARCHING: true
     }
   }
 })

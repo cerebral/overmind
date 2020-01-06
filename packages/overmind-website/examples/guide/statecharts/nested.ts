@@ -94,9 +94,7 @@ const dashboardChart: Statechart<typeof config, {
   }
 }
 
-export default statecharts(config, {
-  dashboard: dashboardChart
-})
+export default statecharts(config, dashboardChart)
 `,
         },
       ]

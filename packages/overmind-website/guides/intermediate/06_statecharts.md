@@ -86,7 +86,7 @@ As you can see we have no state indicating that we have received an error, like 
   password: '',
   user: null,
   authenticationError: null,
-  states: [['login', 'LOGIN']],
+  states: [['ROOT_CHART', 'LOGIN']],
   actions: {
     changeUsername: true,
     changePassword: true,
