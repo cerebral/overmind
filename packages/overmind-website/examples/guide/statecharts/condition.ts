@@ -69,9 +69,7 @@ const loginChart = {
   }
 }
 
-export default statecharts(config, {
-  login: loginChart
-})
+export default statecharts(config, loginChart)
 `,
         },
       ]
