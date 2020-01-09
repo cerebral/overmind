@@ -8,6 +8,18 @@ You define actions under the **actions** key of your application configuration.
 h(Example, { name: "guide/writingapplicationlogic/define" })
 ```
 
+```marksy
+h(TypescriptNotice, null, `
+  There are two different action types in Overmind, **Action** and **AsyncAction**. Both of them takes an Input param and an Output param where both of them default to **void**.
+
+  \`Action<void, void>\` 
+
+  \`AsyncAction<void, void>\`.
+
+  The difference is that **AsyncAction** returns a Promise of the output, **Promise<void>**. Basically whenever you use an **async** action or explicitly return a promise from an action you should use the **AsyncAction** type.
+`)
+```
+
 ## Using the context
 
 The context has three parts: **state**, **effects** and **actions**. Typically you destructure the context to access these pieces directly:
