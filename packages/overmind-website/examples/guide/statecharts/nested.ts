@@ -4,7 +4,7 @@ export default (ts, view) =>
         {
           fileName: 'overmind/dashboard/index.ts',
           code: `
-import { Statechart, statecharts } from 'overmind/config'
+import { Statechart, statechart } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -70,12 +70,8 @@ const projectsChart: Statechart<typeof config, {
 }
 
 const dashboardChart: Statechart<typeof config, {
-  ISSUES: {
-    issues: typeof issuesChart
-  }
-  PROJECTS: {
-    projects: typeof projectsChart
-  }
+  ISSUES: typeof issuesChart
+  PROJECTS: typeof projectsChart
 }> = {
   initial: 'ISSUES',
   states: {
@@ -83,18 +79,18 @@ const dashboardChart: Statechart<typeof config, {
       on: {
         openProjects: 'PROJECTS'
       },
-      charts: { issuesChart }
+      chart: issuesChart
     },
     PROJECTS: {
       on: {
         openIssues: 'ISSUES'
       },
-      charts: { projectsChart }
+      chart: projectsChart
     }
   }
 }
 
-export default statecharts(config, dashboardChart)
+export default statechart(config, dashboardChart)
 `,
         },
       ]
@@ -102,7 +98,7 @@ export default statecharts(config, dashboardChart)
         {
           fileName: 'overmind/dashboard/index.ts',
           code: `
-import { statecharts } from 'overmind/config'
+import { statechart } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -167,18 +163,18 @@ const dashboardChart = {
       on: {
         openProjects: 'PROJECTS'
       },
-      charts: { issuesChart }
+      chart: issuesChart
     },
     PROJECTS: {
       on: {
         openIssues: 'ISSUES'
       },
-      charts: { projectsChart }
+      chart: projectsChart
     }
   }
 }
 
-export default statecharts(config, dashboardChart)
+export default statechart(config, dashboardChart)
 `,
         },
       ]

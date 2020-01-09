@@ -4,7 +4,7 @@ export default (ts, view) =>
         {
           fileName: 'overmind/login/index.ts',
           code: `
-import { Statechart, statecharts } from 'overmind/config'
+import { Statechart, statechart } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -47,7 +47,7 @@ const loginChart: Statechart<typeof config, {
   }
 }
 
-export default statecharts(config, loginChart)
+export default statechart(config, loginChart)
 `,
         },
       ]
@@ -55,7 +55,7 @@ export default statecharts(config, loginChart)
         {
           fileName: 'overmind/login/index.js',
           code: `
-import { statecharts } from 'overmind/config'
+import { statechart } from 'overmind/config'
 import * as actions from './actions'
 import { state } from './state'
 
@@ -93,7 +93,7 @@ const loginChart = {
   }
 }
 
-export default statecharts(config, loginChart)
+export default statechart(config, loginChart)
 `,
         },
       ]
