@@ -55,7 +55,7 @@ A single state tree favours serializable state. That means state that can be `JS
 
 ## Defining actions
 
-When you need to change your state you define actions. Overmind only allows changing the state of the application inside the actions. An error will be thrown if you try to change the state inside a component. The actions are plain functions/methods. The only thing that makes them special is that they all receieve a preset first argument, called **the context**:
+When you need to change your state you define actions. Overmind only allows changing the state of the application inside the actions. An error will be thrown if you try to change the state inside a component. The actions are plain functions/methods. The only thing that makes them special is that they all receive a preset first argument, called **the context**:
 
 ```ts
 createOvermind({
@@ -251,7 +251,7 @@ To scale up your code even more you can split it into **namespaces**. You can re
 
 ## Get to know Typescript
 
-Now that we have insight into the building blocks of Overmind it is time to introduce typing. If you are already familar with [Typescript](https://www.typescriptlang.org/) you will certainly enjoy the minimal typing required to get full type safety across your application. If you are unfamiliar with Typescript Overmind is a great project to start using it, for the very same reason.
+Now that we have insight into the building blocks of Overmind it is time to introduce typing. If you are already familiar with [Typescript](https://www.typescriptlang.org/) you will certainly enjoy the minimal typing required to get full type safety across your application. If you are unfamiliar with Typescript Overmind is a great project to start using it, for the very same reason.
 
 Have a look at this new project where we have typed the application:
 
@@ -354,7 +354,7 @@ Our todo has been added and we can even see how the derived state was affected b
 
 ## Managing complexity
 
-Overmind gives you a basic foundation with its **state**, **actions** and **effects**. As mentioned previously you can split these up into multiple namespaces to organize your code. This manages the complexity of scaling. There is also a complexity of reusability and managing execution over time. The **operators** API allows you to split your logic into many different composable parts. With operators like **debounce**, **waitUntil** etc. you are able to manage execution over time. With the latest addition of **statecharts** you have the possiblity to manage the complexity of state and interaction. What interactions should be allowed in what states.
+Overmind gives you a basic foundation with its **state**, **actions** and **effects**. As mentioned previously you can split these up into multiple namespaces to organize your code. This manages the complexity of scaling. There is also a complexity of reusability and managing execution over time. The **operators** API allows you to split your logic into many different composable parts. With operators like **debounce**, **waitUntil** etc. you are able to manage execution over time. With the latest addition of **statecharts** you have the possibility to manage the complexity of state and interaction. What interactions should be allowed in what states.
 
 The great thing about Overmind is that none of these concepts are forced upon you. If you want to build your entire app in the root namespace, only using actions, that is perfectly fine. You want to bring in operators for a single action to manage time complexity, do that. Or do you have a concept where you want to safely control what actions can run in certain states, use a statechart. Overmind just gives you tools, it is up to you to determine if they are needed or not.
 

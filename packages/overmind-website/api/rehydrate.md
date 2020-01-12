@@ -6,4 +6,4 @@ It is possible to update the complete state of Overmind using the **rehydrate** 
 h(Example, { name: "api/rehydrate" })
 ```
 
-The function takes into acount the state structure of Overmind which is based on objects where functions are derived state. That means it will leave derived state alone, resulting in them rather updating if any of their dependecies where updated by rehydration.
+The function takes into account the state structure of Overmind which is based on objects where functions are derived state. That means it will leave derived state alone, resulting in them rather updating if any of their dependencies where updated by rehydration.

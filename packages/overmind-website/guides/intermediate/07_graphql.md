@@ -68,7 +68,7 @@ h(Example, { name: "guide/graphql/optimistic_post.ts" })
 
 There are two points of options in the Graphql factory. The **headers** and the **options**.
 
-The headers option is a function which receives the state of the application. That means you can produce request headers dynamically. This can be useful related to authentciation.
+The headers option is a function which receives the state of the application. That means you can produce request headers dynamically. This can be useful related to authentication.
 
 ```marksy
 h(Example, { name: "guide/graphql/headers.ts" })

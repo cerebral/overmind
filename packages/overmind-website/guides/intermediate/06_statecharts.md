@@ -1,6 +1,6 @@
 # Statecharts
 
-Just like [operators](/guides/intermediate/04_goingfunctional) is a declarative abstraction over plain actions, **statecharts** is a declarative abtraction over an Overmind configuration of **state** and **actions**. That means you will define your charts by:
+Just like [operators](/guides/intermediate/04_goingfunctional) is a declarative abstraction over plain actions, **statecharts** is a declarative abstraction over an Overmind configuration of **state** and **actions**. That means you will define your charts by:
 
 ```js
 const configWithStatechart = statechart(config, chart)
@@ -16,7 +16,7 @@ There are several benefits to using statecharts:
 
 You can basically think of a statechart as a way of limiting what actions are available to be executed in certain states of the application. This concept is very old and was originally used to design machines where the user was exposed to all points of interaction, all buttons and switches, at any time. Statecharts would help make sure that at certain states certain buttons and switches would not operate.
 
-A simple example of this is a Walkman. When the Walkman is in a **playing** state you should not be able to hit the **eject** button. On the web this might seem unnecessary as points of interaction is dynamic. We simply hide and/or disable buttons. But this is the exact problem. It is fragile. It is fragile because the UI implementation itself is all you depend on to prevent logic from running when it should not. A statechart is a much more resiliant way to ensure what logic can actually run in any given state.
+A simple example of this is a Walkman. When the Walkman is in a **playing** state you should not be able to hit the **eject** button. On the web this might seem unnecessary as points of interaction is dynamic. We simply hide and/or disable buttons. But this is the exact problem. It is fragile. It is fragile because the UI implementation itself is all you depend on to prevent logic from running when it should not. A statechart is a much more resilient way to ensure what logic can actually run in any given state.
 
 In Overmind we talk about these statechart states as **transition states**.
 
@@ -162,7 +162,7 @@ Our actions are defined something like:
 h(Example, { name: "guide/statecharts/actions.ts" })
 ```
 
-What to take notice of here is that with traditional Overmind we would most likely just set the **user** or the **authenticationError** directly in the **login** action. That is not the case with statcharts because our actions are the triggers for transitions. That means whenever we want to deal with transitions we create an action for it, even completely empty actions like **tryAgain**. This simplifies our chart definition and also we avoid having a generic **transition** action that would not be typed in TypeScript etc.
+What to take notice of here is that with traditional Overmind we would most likely just set the **user** or the **authenticationError** directly in the **login** action. That is not the case with statecharts because our actions are the triggers for transitions. That means whenever we want to deal with transitions we create an action for it, even completely empty actions like **tryAgain**. This simplifies our chart definition and also we avoid having a generic **transition** action that would not be typed in TypeScript etc.
 
 
 Now these two charts would operate individually. This is also the case for the **chart** property on the states of a chart.
