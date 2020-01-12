@@ -1,13 +1,14 @@
-import {
-  Page,
-  Video,
-  Guide,
-  Api,
-  GuideParams,
-  Demo,
-  SearchResult,
-} from './types'
 import { Derive } from 'overmind'
+
+import {
+  Api,
+  Demo,
+  Guide,
+  GuideParams,
+  Page,
+  SearchResult,
+  Video,
+} from './types'
 
 type State = {
   page: Page
@@ -32,7 +33,6 @@ type State = {
   versions: {
     [name: string]: string
   }
-  foo: Derive<State, string>
 }
 
 const state: State = {
@@ -56,7 +56,6 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
-  foo: () => 'bar',
 }
 
 export default state

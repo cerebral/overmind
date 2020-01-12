@@ -87,6 +87,14 @@ Are things loading or not, is the user logged in or not? These are typical uses 
 
 All values, with the exception of booleans, can also be **null**. Non-existing. You can have a non-existing object, array, string or number. It means that if we haven't selected a mode, both the string version and number version would have the value **null**.
 
+## StateModel
+
+If you prefer to model your state as a class you can use the **StateModel** base class. This is a class that Overmind is able to recognize to give you the reactive functionality as expected. This class also ensures that the devtools is able to present it correctly.
+
+```marksy
+h(Example, { name: "guide/definingstate/statemodel" })
+```
+
 ## Deriving state
 
 

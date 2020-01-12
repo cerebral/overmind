@@ -75,9 +75,13 @@ module.exports = (env, args) => {
                   pragma: 'createElement',
                 },
               ],
-              '@babel/preset-env',
+              [
+                '@babel/preset-env',
+                { exclude: ['@babel/plugin-transform-classes'] },
+              ],
             ],
             plugins: [
+              '@babel/plugin-proposal-class-properties',
               '@babel/plugin-syntax-dynamic-import',
               [
                 '@babel/plugin-transform-runtime',

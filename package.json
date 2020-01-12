@@ -24,6 +24,7 @@
     "url": "git+https://github.com/cerebral/overmind.git"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
@@ -42,7 +43,7 @@
     "is-plain-obj": "1.1.0",
     "lodash.throttle": "4.1.1",
     "marksy": "6.1.0",
-    "npm": "6.13.4",
+    "npm": "6.3.0",
     "page": "1.8.6",
     "petit-dom": "0.2.2",
     "preact": "8.3.1",
