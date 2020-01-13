@@ -87,14 +87,6 @@ Are things loading or not, is the user logged in or not? These are typical uses 
 
 All values, with the exception of booleans, can also be **null**. Non-existing. You can have a non-existing object, array, string or number. It means that if we haven't selected a mode, both the string version and number version would have the value **null**.
 
-## StateModel
-
-If you prefer to model your state as a class you can use the **StateModel** base class. This is a class that Overmind is able to recognize to give you the reactive functionality as expected. This class also ensures that the devtools is able to present it correctly.
-
-```marksy
-h(Example, { name: "guide/definingstate/statemodel" })
-```
-
 ## Deriving state
 
 
@@ -151,6 +143,14 @@ You'd rather have a reference to the user id, and for example use a **getter** t
 
 ```marksy
 h(Example, { name: "guide/definingstate/reference_correct" })
+```
+
+## Classes
+
+If you prefer to model state as a class you can do that. You can even define methods to change the state and derive state with getters. You will typically use classes to define models or similar in combination with a normal state structure. Note that there are no cached getters for classes as explained above.
+
+```marksy
+h(Example, { name: "guide/definingstate/classes" })
 ```
 
 ## Exposing the state

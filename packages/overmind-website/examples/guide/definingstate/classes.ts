@@ -4,9 +4,7 @@ export default (ts) =>
         {
           fileName: 'overmind/models.ts',
           code: `
-import { StateModel } from 'overmind'
-
-export class User extends StateModel {
+export class User {
   public id: string
   private firstName: string
   private lastName: string
@@ -30,9 +28,7 @@ export class User extends StateModel {
         {
           fileName: 'overmind/models.js',
           code: `
-import { StateModel } from 'overmind'
-
-export class User extends StateModel {
+export class User {
   constructor(firstName, lastName) {
     super()
     this.firstName = firstName
