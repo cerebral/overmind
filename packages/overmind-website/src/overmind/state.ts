@@ -33,6 +33,11 @@ type State = {
   versions: {
     [name: string]: string
   }
+  user: User
+}
+
+class User {
+  name = 'Bob'
 }
 
 const state: State = {
@@ -56,6 +61,7 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
+  user: new User(),
 }
 
 export default state
