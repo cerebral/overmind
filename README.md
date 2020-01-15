@@ -1,7 +1,5 @@
 # Overmind
 
-
-
 ### What is it?
 
 Overmind is a tool to build web applications. It allows you to choose your favourite way of expressing UI, while given great insight into your running application using the Overmind development tool.The benefits of Overmind
