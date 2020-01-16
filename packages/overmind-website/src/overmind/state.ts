@@ -38,6 +38,11 @@ type State = {
 
 class User {
   name = 'Bob'
+  toJSON() {
+    return {
+      name: 'ARNE',
+    }
+  }
 }
 
 const state: State = {
