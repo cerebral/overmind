@@ -6,6 +6,7 @@ import {
   filter,
   mutate,
   pipe,
+  rehydrate,
 } from 'overmind'
 
 import { GuideParams, Page, RouteContext, VideoParams } from './types'
@@ -122,4 +123,16 @@ export const changeQuery: Operator<string> = pipe(
 
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
+}
+
+export const test: Action = ({ state }) => {
+  rehydrate(
+    state,
+    {
+      user: {
+        name: 'Bob',
+      },
+    },
+    {}
+  )
 }

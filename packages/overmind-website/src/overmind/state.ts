@@ -1,4 +1,4 @@
-import { Derive } from 'overmind'
+import { Derive, SERIALIZE } from 'overmind'
 
 import {
   Api,
@@ -37,11 +37,11 @@ type State = {
 }
 
 class User {
+  [SERIALIZE]
   name = 'Bob'
-  toJSON() {
-    return {
-      name: 'ARNE',
-    }
+  toJSON() {}
+  static fromJSON(json) {
+    return Object.assign(new User(), json)
   }
 }
 
