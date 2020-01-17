@@ -1,5 +1,3 @@
-import { Derive, SERIALIZE } from 'overmind'
-
 import {
   Api,
   Demo,
@@ -33,16 +31,6 @@ type State = {
   versions: {
     [name: string]: string
   }
-  user: User
-}
-
-class User {
-  [SERIALIZE]
-  name = 'Bob'
-  toJSON() {}
-  static fromJSON(json) {
-    return Object.assign(new User(), json)
-  }
 }
 
 const state: State = {
@@ -66,7 +54,6 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
-  user: new User(),
 }
 
 export default state

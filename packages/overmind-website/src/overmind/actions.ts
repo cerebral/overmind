@@ -124,15 +124,3 @@ export const changeQuery: Operator<string> = pipe(
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
-
-export const test: Action = ({ state }) => {
-  rehydrate(
-    state,
-    {
-      user: {
-        name: 'Bob',
-      },
-    },
-    {}
-  )
-}
