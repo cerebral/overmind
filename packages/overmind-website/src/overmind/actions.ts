@@ -124,3 +124,7 @@ export const changeQuery: Operator<string> = pipe(
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
 }
+
+export const login: Action = ({ state }) => {
+  state.mode.authenticating(() => {})
+}
