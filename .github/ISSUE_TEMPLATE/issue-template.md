@@ -1,10 +1,8 @@
 ---
-name: Issue template
-about: Welcome
+name: Report BUG
+about: If you want support we recommend rather joining the [discord chat](https://discord.gg/CdpmRhQ)
 title: "[BUG]"
 labels: bug
-assignees: ''
+assignees: 'christianalfoni'
 
 ---
-
-Hi there!  If you want support we recommend rather joining the [discord chat](https://discord.gg/CdpmRhQ) as you will get much faster and better support there. Please use issues for bugs.
