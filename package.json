@@ -24,6 +24,7 @@
     "url": "git+https://github.com/cerebral/overmind.git"
   },
   "dependencies": {
+    "@absinthe/socket": "0.2.1",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
@@ -45,6 +46,7 @@
     "npm": "6.3.0",
     "page": "1.8.6",
     "petit-dom": "0.2.2",
+    "phoenix": "1.4.13",
     "preact": "8.3.1",
     "preact-compat": "3.18.4",
     "prismjs": "1.15.0",
