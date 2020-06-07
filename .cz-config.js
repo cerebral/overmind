@@ -37,6 +37,7 @@ module.exports = {
     { name: 'overmind-graphql' },
     { name: 'overmind-statechart' },
     { name: 'overmind-react' },
+    { name: 'overmind-svelte' },
     { name: 'overmind-vue' },
     { name: 'overmind-angular' },
     { name: 'action-chain' },
