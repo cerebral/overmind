@@ -43,6 +43,7 @@ module.exports = {
     { name: 'action-chain' },
     { name: 'proxy-state-tree' },
     { name: 'betsy' },
+    { name: 'a-json' },
   ],
 
   // it needs to match the value for field type. Eg.: 'fix'
