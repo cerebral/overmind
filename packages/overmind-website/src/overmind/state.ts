@@ -1,3 +1,5 @@
+import { Statemachine, statemachine } from 'overmind'
+
 import {
   Api,
   Demo,
@@ -7,6 +9,12 @@ import {
   SearchResult,
   Video,
 } from './types'
+
+type Mode =
+  | 'unauthenticated'
+  | 'authenticating'
+  | 'authenticated'
+  | 'unauthenticating'
 
 type State = {
   page: Page
@@ -31,6 +39,7 @@ type State = {
   versions: {
     [name: string]: string
   }
+  mode: Statemachine<Mode>
 }
 
 const state: State = {
@@ -54,6 +63,15 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
+  mode: statemachine<Mode>({
+    initial: 'unauthenticated',
+    states: {
+      unauthenticated: ['authenticating'],
+      authenticating: ['unauthenticated', 'authenticated'],
+      authenticated: ['unauthenticating'],
+      unauthenticating: ['unauthenticated', 'authenticated'],
+    },
+  }),
 }
 
 export default state

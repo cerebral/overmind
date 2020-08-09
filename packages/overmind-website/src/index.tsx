@@ -20,6 +20,8 @@ const overmind = createOvermind(
       }
 )
 
+overmind.actions.login()
+
 setConfig({
   ignoreSFC: true, // RHL will be __completely__ disabled for SFC
   pureRender: true, // RHL will not change render method

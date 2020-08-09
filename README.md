@@ -1,6 +1,6 @@
 # Overmind
 
-Visit website for more information: [www.overmindjs.org](https://www.overmindjs.org).
+Visit website for more information: [www.overmindjs.org](https://overmindjs.org).
 
 ## Release procedure
 

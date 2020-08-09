@@ -35,12 +35,15 @@ module.exports = {
     { name: 'overmind-devtools-client' },
     { name: 'overmind-devtools-vscode' },
     { name: 'overmind-graphql' },
+    { name: 'overmind-statechart' },
     { name: 'overmind-react' },
+    { name: 'overmind-svelte' },
     { name: 'overmind-vue' },
     { name: 'overmind-angular' },
     { name: 'action-chain' },
     { name: 'proxy-state-tree' },
     { name: 'betsy' },
+    { name: 'non-blocking-json' },
   ],
 
   // it needs to match the value for field type. Eg.: 'fix'

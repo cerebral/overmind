@@ -12,6 +12,7 @@ lib
 .cache
 .DS_Store
 devtoolsDist
+packages/overmind-website/**/*
 
 # Runtime data
 pids

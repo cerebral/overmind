@@ -8,6 +8,7 @@ import {
   pipe,
   rehydrate,
 } from 'overmind'
+import { PROXY_TREE } from 'proxy-state-tree'
 
 import { GuideParams, Page, RouteContext, VideoParams } from './types'
 
@@ -123,4 +124,12 @@ export const changeQuery: Operator<string> = pipe(
 
 export const viewHelpGotIt: Action = ({ state }) => {
   state.showViewHelp = false
+}
+
+export const login: AsyncAction = ({ state }) => {
+  return state.mode.authenticating(async () => {
+    await Promise.resolve()
+    console.log('UHM?!??', state[PROXY_TREE].isBlocking)
+    state.query = 'hihihi'
+  })
 }
