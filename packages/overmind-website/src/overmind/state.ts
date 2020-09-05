@@ -1,5 +1,3 @@
-import { Statemachine, statemachine } from 'overmind'
-
 import {
   Api,
   Demo,
@@ -39,7 +37,6 @@ type State = {
   versions: {
     [name: string]: string
   }
-  mode: Statemachine<Mode>
 }
 
 const state: State = {
@@ -63,15 +60,6 @@ const state: State = {
   isLoadingVideos: false,
   showViewHelp: false,
   versions: {},
-  mode: statemachine<Mode>({
-    initial: 'unauthenticated',
-    states: {
-      unauthenticated: ['authenticating'],
-      authenticating: ['unauthenticated', 'authenticated'],
-      authenticated: ['unauthenticating'],
-      unauthenticating: ['unauthenticated', 'authenticated'],
-    },
-  }),
 }
 
 export default state
