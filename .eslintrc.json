@@ -24,8 +24,8 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
-      "parser": "typescript-eslint-parser",
-      "plugins": ["typescript"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint/eslint-plugin"],
       "rules": {
         "import/export": "off",
         "no-dupe-class-members": "off",
