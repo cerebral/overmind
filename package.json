@@ -61,8 +61,7 @@
     "tslib": "1.10.0",
     "vscode": "^1.1.36",
     "vue": "3.0.0-rc.10",
-    "ws": "7.0.0",
-    "cross-fetch": "3.0.6"
+    "ws": "7.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",
