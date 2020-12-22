@@ -36,7 +36,7 @@
     "emotion": "9.2.12",
     "express": "4.16.3",
     "graphql": "14.5.8",
-    "graphql-request": "1.8.2",
+    "graphql-request": "3.3.0",
     "graphql-tag": "2.10.3",
     "install": "0.12.1",
     "is-plain-obj": "1.1.0",
