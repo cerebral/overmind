@@ -1,0 +1,9 @@
+{
+    "name": "overmind/vue3",
+    "private": true,
+    "main": "../lib/vue3",
+    "module": "../es/vue3",
+    "jsnext:main": "../es/vue3",
+    "typings": "../lib/vue3.d.ts"
+  }
+  
