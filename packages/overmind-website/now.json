@@ -1,8 +1,0 @@
-{
-  "name": "overmind-website",
-  "version": 2,
-  "builds": [
-    { "src": "package.json", "use": "@now/static-build" },
-    { "src": "backend/index.js", "use": "@now/node-server" }
-  ]
-}

@@ -29,7 +29,6 @@ module.exports = {
   ],
 
   scopes: [
-    { name: 'website' },
     { name: 'overmind' },
     { name: 'overmind-devtools' },
     { name: 'overmind-devtools-client' },
