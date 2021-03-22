@@ -5,9 +5,5 @@ export const cooker = Cooker(process.argv, {
     host: 'localhost:8787, reconnect: false',
   },
   path: '.',
-  packagesGlobs: [
-    'packages/node_modules/*',
-    'packages/overmind-website',
-    'packages/demos/*',
-  ],
+  packagesGlobs: ['packages/node_modules/*'],
 })
