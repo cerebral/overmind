@@ -11,7 +11,7 @@
   "scripts": {
     "build": "npm run build:lib & npm run build:es",
     "build:lib": "tsc --outDir lib --module commonjs",
-    "build:es": "tsc --outDir es --module es2015",
+    "build:es": "tsc --outDir es --module ES2020 --target ES2020",
     "clean": "rimraf es lib coverage",
     "typecheck": "tsc --noEmit",
     "prebuild": "npm run clean",
@@ -26,8 +26,7 @@
   ],
   "files": [
     "lib",
-    "es",
-    "react"
+    "es"
   ],
   "engines": {
     "browsers": [
