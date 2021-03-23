@@ -31,7 +31,8 @@
     "es"
   ],
   "dependencies": {
-    "overmind": "next"
+    "overmind": "next",
+    "react": "*"
   },
   "devDependencies": {
     "@types/node": "^12.11.6",
