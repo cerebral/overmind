@@ -1,11 +1,11 @@
-packages/*/**/node_modules/
-packages/*/**/lib/
-packages/*/**/es/
-packages/*/**/dist/
+node_modules
+packages/*/lib/
+packages/*/es/
+packages/*/dist/
 **/build/
 **/*.min.js
 **/bundle.js
 **/coverage/
 **/vendor/
 *.d.ts
-packages/node_modules/overmind-react/*
+packages/overmind-react/*

@@ -12,7 +12,6 @@ lib
 .cache
 .DS_Store
 devtoolsDist
-packages/overmind-website/**/*
 
 # Runtime data
 pids
@@ -43,8 +42,6 @@ build/Release
 
 # Dependency directories
 node_modules
-!/packages/node_modules
-/packages/node_modules/**/node_modules
 jspm_packages
 
 # Lock files
