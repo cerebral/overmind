@@ -29,6 +29,7 @@
     "es"
   ],
   "dependencies": {
+    "@angular/core": "*",
     "overmind": "next"
   },
   "devDependencies": {
