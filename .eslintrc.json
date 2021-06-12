@@ -11,13 +11,7 @@
     "node": true,
     "es6": true
   },
-  "extends": [
-    "standard",
-    "standard-jsx",
-    "plugin:prettier/recommended",
-    "prettier/react",
-    "prettier/standard"
-  ],
+  "extends": ["standard", "standard-jsx", "plugin:prettier/recommended"],
   "rules": {
     "linebreak-style": ["error", "unix"]
   },
@@ -37,7 +31,7 @@
         "no-use-before-define": "off",
         "no-useless-constructor": "off",
         "@typescript-eslint/no-unused-vars": "error",
-        "standard/no-callback-literal": "off"
+        "react/jsx-handler-names": "off"
       }
     }
   ]
