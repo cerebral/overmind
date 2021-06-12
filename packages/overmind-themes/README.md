@@ -1,3 +1,0 @@
-# overmind
-
-To be filled
