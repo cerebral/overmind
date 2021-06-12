@@ -695,7 +695,7 @@ export class Overmind<ThisConfig extends IConfiguration>
     })
   }
 
-  private initializeDevtools(host, name, eventHub, actions) {
+  private initializeDevtools(host, name, eventHub, initialState, actions) {
     if (utils.ENVIRONMENT === 'production') return
     const devtools = new Devtools(name)
     devtools.connect(
