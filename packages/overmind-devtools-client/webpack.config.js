@@ -24,16 +24,10 @@ module.exports = {
               '@babel/preset-typescript',
               {
                 isTSX: true,
-                jsxPragma: 'createElement',
                 allExtensions: true,
               },
             ],
-            [
-              '@babel/preset-react',
-              {
-                pragma: 'createElement',
-              },
-            ],
+            ['@babel/preset-react'],
             '@babel/preset-env',
           ],
           plugins: [

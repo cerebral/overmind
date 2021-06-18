@@ -3,7 +3,6 @@
     "target": "es5",
     "module": "commonjs",
     "jsx": "react",
-    "jsxFactory": "createElement",
     "rootDir": "src",
     "outDir": "dist",
     "newLine": "LF",
