@@ -2,7 +2,6 @@
 
 Visit website for more information: [www.overmindjs.org](https://overmindjs.org).
 
-
 ## Release procedure
 
 ```sh
