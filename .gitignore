@@ -43,7 +43,6 @@ build/Release
 
 # Dependency directories
 node_modules
-!packages/node_modules
 jspm_packages
 
 # Lock files
@@ -73,3 +72,4 @@ typings/
 
 # next.js build output
 .next
+
