@@ -5,5 +5,5 @@ export const cooker = Cooker(process.argv, {
     host: 'localhost:8787, reconnect: false',
   },
   path: '.',
-  packagesGlobs: ['packages/*'],
+  packagesGlobs: ['packages/node_modules/*'],
 })
