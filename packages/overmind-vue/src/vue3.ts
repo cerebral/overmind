@@ -67,7 +67,7 @@ export function createStateHook<Config extends IConfiguration>(): StateHook<
       )
 
       if (!value.tree) {
-        value.tree = overmindInstance.proxyStateTree.getTrackStateTree()
+        value.tree = overmindInstance.proxyStateTreeInstance.getTrackStateTree()
         value.componentInstanceId = componentInstanceId++
         value.onUpdate = (_: any, __: any, flushId: number) => {
           value.currentFlushId = flushId
