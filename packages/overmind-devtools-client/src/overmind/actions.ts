@@ -1,4 +1,4 @@
-import { debounce, pipe, wait, fork } from 'overmind'
+import { debounce, pipe, wait, fork, Overmind } from 'overmind'
 import { Context } from './'
 
 import * as o from './operators'
@@ -11,7 +11,10 @@ import {
 } from './types'
 import { createApp, isValidJson } from './utils'
 
-export const onInitializeOvermind = async ({ state, effects }, app) => {
+export const onInitializeOvermind = async (
+  { state, effects }: Context,
+  app: Overmind<Context>
+) => {
   state.port = effects.utils.getPort()
 
   effects.connector.onMessage(app.actions.onMessage)
@@ -21,8 +24,6 @@ export const onInitializeOvermind = async ({ state, effects }, app) => {
 
   state.actionsSplitSize =
     (await effects.storage.get('devtool.actionsSplitSize')) || 200
-
-  state.appHost = (await effects.storage.get('devtool.appHost')) || null
 }
 
 export const onMessage = pipe(
@@ -237,10 +238,6 @@ export const submitState = ({ state, effects }: Context, newState: string) => {
 
 export const toggleRuntimeConfig = ({ state }: Context) => {
   state.isShowingRuntime = !state.isShowingRuntime
-}
-
-export const onAppHostConnected = ({ effects }: Context) => {
-  effects.connector.openChromeDevtools()
 }
 
 export const refreshApp = ({ state, effects }: Context) => {

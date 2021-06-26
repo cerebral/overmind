@@ -15,11 +15,7 @@ export const config = {
   state,
 }
 
-export type Context = IContext<{
-  state: typeof config.state
-  actions: typeof config.actions
-  effects: typeof config.effects
-}>
+export type Context = IContext<typeof config>
 
 export const useAppState = createStateHook<Context>()
 export const useActions = createActionsHook<Context>()
