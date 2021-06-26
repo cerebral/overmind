@@ -27,7 +27,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
-    "axios": "0.19.0",
+    "axios": "0.21.1",
     "color": "3.0.0",
     "color-hash": "1.0.3",
     "electron": "13.1.2",
