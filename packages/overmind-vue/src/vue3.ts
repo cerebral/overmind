@@ -4,6 +4,7 @@ import {
   IConfiguration,
   MODE_SSR,
   Overmind,
+  IContext,
 } from 'overmind'
 import {
   Ref,
@@ -37,20 +38,20 @@ export const withOvermind = (
   })
 }
 
-export interface StateHook<Config extends IConfiguration> {
-  (): Ref<Overmind<Config>['state']>
-  <CB extends (state: Overmind<Config>['state']) => object>(
-    cb: CB
-  ): CB extends (state: Overmind<Config>['state']) => infer O
+export interface StateHook<Context extends IContext<{ state: {} }>> {
+  (): Ref<Context['state']>
+  <CB extends (state: Context['state']) => object>(cb: CB): CB extends (
+    state: Context['state']
+  ) => infer O
     ? O extends object
       ? Ref<O>
       : never
     : never
 }
 
-export function createStateHook<Config extends IConfiguration>(): StateHook<
-  Config
-> {
+export function createStateHook<
+  Context extends IContext<{ state: {} }>
+>(): StateHook<Context> {
   const componentId = nextComponentId++
   let componentInstanceId = 0
   return ((cb: any) => {
@@ -138,61 +139,63 @@ export function createStateHook<Config extends IConfiguration>(): StateHook<
   }) as any
 }
 
-export interface ActionsHook<Config extends IConfiguration> {
-  (): Ref<Overmind<Config>['actions']>
-  <CB extends (actions: Overmind<Config>['actions']) => object>(
-    cb: CB
-  ): CB extends (actions: Overmind<Config>['actions']) => infer O
+export interface ActionsHook<Context extends IContext<{ actions: {} }>> {
+  (): Ref<Context['actions']>
+  <CB extends (actions: Context['actions']) => object>(cb: CB): CB extends (
+    actions: Context['actions']
+  ) => infer O
     ? O extends object
       ? Ref<O>
       : never
     : never
 }
 
-export function createActionsHook<Config extends IConfiguration>(): ActionsHook<
-  Config
-> {
-  return ((cb?: any): Overmind<Config>['actions'] => {
+export function createActionsHook<
+  Context extends IContext<{ actions: {} }>
+>(): ActionsHook<Context> {
+  return ((cb?: any): Context['actions'] => {
     const overmindInstance = inject<any>('overmind')
 
     return cb ? cb(overmindInstance.actions) : overmindInstance.actions
   }) as any
 }
 
-export interface EffectsHook<Config extends IConfiguration> {
-  (): Ref<Overmind<Config>['effects']>
-  <CB extends (effects: Overmind<Config>['effects']) => object>(
-    cb: CB
-  ): CB extends (effects: Overmind<Config>['effects']) => infer O
+export interface EffectsHook<Context extends IContext<{ effects: {} }>> {
+  (): Ref<Context['effects']>
+  <CB extends (effects: Context['effects']) => object>(cb: CB): CB extends (
+    effects: Context['effects']
+  ) => infer O
     ? O extends object
       ? Ref<O>
       : never
     : never
 }
 
-export function createEffectsHook<Config extends IConfiguration>(): EffectsHook<
-  Config
-> {
-  return ((cb?: any): Overmind<Config>['effects'] => {
+export function createEffectsHook<
+  Context extends IContext<{ effects: {} }>
+>(): EffectsHook<Context> {
+  return ((cb?: any): Context['effects'] => {
     const overmindInstance = inject<any>('overmind')
 
     return cb ? cb(overmindInstance.effects) : overmindInstance.effects
   }) as any
 }
 
-export function createReactionHook<Config extends IConfiguration>() {
-  return (): Overmind<Config>['reaction'] => {
+export function createReactionHook<Context extends IContext<{ state: {} }>>() {
+  return (): Context['reaction'] => {
     const overmindInstance = inject<any>('overmind')
 
     return overmindInstance.reaction
   }
 }
 
-export function createHooks<Config extends IConfiguration>() {
+export function createHooks<
+  Context extends IContext<{ state: {}; actions: {}; effects: {} }>
+>() {
   return {
-    state: createStateHook<Config>(),
-    actions: createActionsHook<Config>(),
-    effects: createEffectsHook<Config>(),
-    reaction: createReactionHook<Config>(),
+    state: createStateHook<Context>(),
+    actions: createActionsHook<Context>(),
+    effects: createEffectsHook<Context>(),
+    reaction: createReactionHook<Context>(),
   }
 }
