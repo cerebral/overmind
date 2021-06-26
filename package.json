@@ -43,7 +43,7 @@
     "lodash.clonedeep": "4.5.0",
     "lodash.throttle": "4.1.1",
     "marksy": "6.1.0",
-    "npm": "6.3.0",
+    "npm": "6.14.6",
     "page": "1.8.6",
     "petit-dom": "0.2.2",
     "phoenix": "1.4.13",
