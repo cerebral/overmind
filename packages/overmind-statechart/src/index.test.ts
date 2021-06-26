@@ -213,7 +213,10 @@ describe('Statecharts', () => {
 
     type Context = IContext<{
       state: typeof state
-      actions: typeof actions
+      actions: {
+        onInitializeOvermind: typeof actions.onInitializeOvermind
+        increaseCount: typeof actions.increaseCount
+      }
     }>
 
     const instance = createOvermind(
@@ -1054,7 +1057,12 @@ describe('Statecharts', () => {
 
     type Context = IContext<{
       state: typeof state
-      actions: typeof actions
+      actions: {
+        step: typeof actions.step
+        step2: typeof actions.step2
+        entry: typeof actions.entry
+        exit: typeof actions.exit
+      }
     }>
 
     const instance = createOvermind(
