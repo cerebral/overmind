@@ -120,7 +120,7 @@ export function createStateHook<
       onBeforeUnmount(() => {
         if (overmindInstance.mode.mode === MODE_SSR) return
 
-        overmindInstance.proxyStateTree.disposeTree(value.tree)
+        overmindInstance.proxyStateTreeInstance.disposeTree(value.tree)
         if (IS_PRODUCTION) {
           return
         }
