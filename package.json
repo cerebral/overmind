@@ -60,7 +60,7 @@
     "svelte": "3.20.1",
     "tslib": "2.3.0",
     "vue": "3.0.0-rc.10",
-    "ws": "7.0.0"
+    "ws": "7.4.6"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",
