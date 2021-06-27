@@ -171,7 +171,7 @@ export class StateMachine<
       const transition = this[VALUE][TRANSITIONS]
 
       result = transition({ type, data }, this)
-    } else {
+    } else if (this[VALUE][TRANSITIONS][this[VALUE].current][type]) {
       const transition = this[VALUE][TRANSITIONS][this[VALUE].current][type]
 
       result = transition(data, this)
