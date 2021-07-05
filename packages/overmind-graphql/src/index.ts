@@ -123,7 +123,7 @@ function createError(message: string) {
   throw new Error(`OVERMIND-GRAPHQL: ${message}`)
 }
 
-type Literals = string | string[]
+type Literals = string | ReadonlyArray<string>
 
 export const gql = (
   literals: Literals,
