@@ -28,8 +28,7 @@
   ],
   "files": [
     "lib",
-    "es",
-    "react"
+    "es"
   ],
   "dependencies": {
     "overmind": "next"
@@ -37,5 +36,8 @@
   "devDependencies": {
     "@types/node": "^12.11.6",
     "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "react": "*"
   }
 }
