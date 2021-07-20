@@ -9,7 +9,7 @@
     "commit": "git-cz",
     "commitmsg": "cz-customizable-ghooks",
     "fixdeps": "repo-cooker --fix-dependencies",
-    "format": "npm run lint -- --fix && prettier --write --with-node-modules \"**/*.md\" \"**/*.css\" \"**/*.json\"",
+    "format": "npm run lint -- --fix && prettier --write \"**/*.md\" \"**/*.json\"",
     "install": "npm run link && npm run build",
     "link": "repo-cooker --link",
     "lint": "eslint \"**/*.js\" \"**/*.ts\"",
@@ -128,7 +128,7 @@
       "git add"
     ],
     "*.{md,css,json}": [
-      "prettier --write --with-node-modules",
+      "prettier --write",
       "git add"
     ]
   },
