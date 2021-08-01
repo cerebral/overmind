@@ -1,3 +1,4 @@
+import { LogLevel } from './internalTypes'
 import { SERIALIZE } from './rehydrate'
 
 export type Message = {
@@ -23,7 +24,7 @@ export class Devtools {
   private hasWarnedReconnect: boolean = false
   private reconnectInterval: number = 10000
   private name: string
-  constructor(name: string) {
+  constructor(name: string, private logLevel: LogLevel = 'error') {
     this.name =
       typeof location !== 'undefined' &&
       location.search.includes('OVERMIND_DEVTOOL')
@@ -48,7 +49,7 @@ export class Devtools {
       this.flushBuffer()
     }
     this.ws.onerror = () => {
-      console.error(
+      console[this.logLevel](
         `OVERMIND DEVTOOLS: Not able to connect. You are trying to connect to "${host}", but there was no devtool there. Try the following:
         
           - Make sure you are running the latest version of the devtools, using "npx overmind-devtools@latest" or install latest extension for VSCode

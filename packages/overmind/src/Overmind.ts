@@ -6,7 +6,7 @@ import { Devtools, DevtoolsMessage } from './Devtools'
 import * as internalTypes from './internalTypes'
 import { proxifyEffects } from './proxyfyEffects'
 import { rehydrate } from './rehydrate'
-import { IConfiguration, IReaction, IContext } from './types'
+import { IConfiguration, IContext, IReaction } from './types'
 import * as utils from './utils'
 
 const hotReloadingCache = {}
@@ -144,7 +144,8 @@ export class Overmind<ThisConfig extends IConfiguration>
           name,
           eventHub,
           proxyStateTreeInstance.sourceState,
-          configuration.actions
+          configuration.actions,
+          options.devtoolsLogLevel
         )
       } else if (options.devtools !== false) {
         warning +=
@@ -695,9 +696,16 @@ export class Overmind<ThisConfig extends IConfiguration>
     })
   }
 
-  private initializeDevtools(host, name, eventHub, initialState, actions) {
+  private initializeDevtools(
+    host,
+    name,
+    eventHub,
+    initialState,
+    actions,
+    logLevel: internalTypes.LogLevel
+  ) {
     if (utils.ENVIRONMENT === 'production') return
-    const devtools = new Devtools(name)
+    const devtools = new Devtools(name, logLevel)
     devtools.connect(
       host,
       (message: DevtoolsMessage) => {
