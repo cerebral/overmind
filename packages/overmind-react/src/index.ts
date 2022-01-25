@@ -136,6 +136,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
       })
 
       return () => {
+        mountedRef.current = false
         overmind.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
           componentId: component.__componentId,
           componentInstanceId,
