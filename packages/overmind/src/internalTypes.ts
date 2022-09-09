@@ -4,7 +4,6 @@ import {
   IMutationTree,
   ITrackStateTree,
 } from 'proxy-state-tree'
-
 import { IAction, IOperator } from './types'
 
 export type SubType<Base, Condition> = Pick<
@@ -18,6 +17,8 @@ export type NestedPartial<T> = T extends Function
   ? T
   : Partial<{ [P in keyof T]: NestedPartial<T[P]> }>
 
+export type LogLevel = 'debug' | 'info' | 'warn' | 'error'
+
 export type Options = {
   delimiter?: string
   name?: string
@@ -26,6 +27,7 @@ export type Options = {
   logProxies?: boolean
   hotReloading?: boolean
   strict?: boolean
+  devtoolsLogLevel?: LogLevel
 }
 
 export type DefaultMode = {
