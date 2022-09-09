@@ -702,7 +702,7 @@ export class Overmind<ThisConfig extends IConfiguration>
     eventHub,
     initialState,
     actions,
-    logLevel: internalTypes.LogLevel
+    logLevel: internalTypes.LogLevel = 'error'
   ) {
     if (utils.ENVIRONMENT === 'production') return
     const devtools = new Devtools(name, logLevel)
