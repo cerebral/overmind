@@ -1,16 +1,26 @@
-import { ENVIRONMENT, EventType } from 'overmind'
+import {
+  ENVIRONMENT,
+  EventType,
+  IReaction,
+  IConfiguration,
+  Overmind,
+} from 'overmind'
 import { afterUpdate, onDestroy, onMount } from 'svelte'
+import { ITrackCallback } from 'proxy-state-tree'
 
 const IS_PRODUCTION = ENVIRONMENT === 'production'
 
 let nextComponentId = 0
 
-export function createMixin(overmind) {
+export function createMixin<Config extends IConfiguration>(
+  overmind: Overmind<Config>
+) {
   const componentId = nextComponentId++
   let nextComponentInstanceId = 0
   let currentFlushId = 0
 
   const subscribe = (listener) => {
+    // @ts-ignore
     const tree = overmind.proxyStateTreeInstance.getTrackStateTree()
     const componentInstanceId = nextComponentInstanceId++
     let isUpdating = false
@@ -57,6 +67,7 @@ export function createMixin(overmind) {
     }
 
     return () => {
+      // @ts-ignore
       overmind.proxyStateTreeInstance.disposeTree(tree)
       overmind.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
         componentId,
