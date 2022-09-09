@@ -15,7 +15,7 @@ export function createMixin(overmind) {
     const componentInstanceId = nextComponentInstanceId++
     let isUpdating = false
 
-    const onUpdate = (mutations, paths, flushId) => {
+    const onUpdate: ITrackCallback = (_mutations, _paths, flushId) => {
       tree.track(onUpdate)
       currentFlushId = flushId
       isUpdating = true
@@ -66,12 +66,14 @@ export function createMixin(overmind) {
     }
   }
 
-  const reaction = (...args) => {
+  const reaction: IReaction<Config> = (...args) => {
     const dispose = overmind.reaction(...args)
 
     onDestroy(() => {
       dispose()
     })
+
+    return dispose
   }
 
   return {
