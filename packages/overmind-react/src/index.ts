@@ -71,6 +71,146 @@ const useCurrentComponent = () => {
     : {}
 }
 
+class ReactTrackerV18 {
+  tree
+  result
+  cb
+  disposeTimeout
+  constructor(tree: any) {
+    this.tree = tree
+    this.result = { state: tree.state }
+  }
+
+  subscribe = (cb) => {
+    this.cb = cb
+
+    if (this.disposeTimeout) {
+      clearTimeout(this.disposeTimeout)
+    }
+
+    return () => {
+      if (IS_PRODUCTION) {
+        this.tree.dispose()
+      } else {
+        // This is necessary due to Reacts double render in strict mode
+        this.disposeTimeout = setTimeout(() => {
+          this.tree.dispose()
+        }, 100)
+      }
+    }
+  }
+
+  getState = () => {
+    return this.result
+  }
+
+  track() {
+    this.tree.track(() => {
+      this.result = {
+        state: this.tree.state,
+      }
+      // In dev mode "subscribe" is only called on the last "double render"
+      // instance, so we do not have a callback in that case
+      if (this.cb) {
+        this.cb()
+      }
+    })
+  }
+
+  stopTracking() {
+    this.tree.stopTracking()
+  }
+}
+
+const useStateV18 = <Context extends IContext<{ state: {} }>>(
+  cb?: (state: Context['state']) => any
+): Context['state'] => {
+  const overmind = react.useContext(context) as Overmind<any>
+
+  if (!(overmind as any).mode) {
+    throwMissingContextError()
+  }
+
+  if (isNode || (overmind as any).mode.mode === MODE_SSR) {
+    return overmind.state
+  }
+
+  const ref = react.useRef(null)
+
+  if (!ref.current) {
+    // @ts-ignore
+    ref.current = new ReactTrackerV18(overmind.getTrackStateTree())
+  }
+
+  const tracker = ref.current as any
+
+  // @ts-ignore
+  const snapshot = react.useSyncExternalStore(
+    tracker.subscribe,
+    tracker.getState
+  )
+  const mountedRef = react.useRef<any>(false)
+  const state = cb ? cb(snapshot.state) : snapshot.state
+
+  tracker.track()
+
+  if (IS_PRODUCTION) {
+    react.useLayoutEffect(
+      () => {
+        tracker.stopTracking()
+      },
+      [tracker]
+    )
+  } else {
+    const component = useCurrentComponent()
+    const name = getDisplayName(component)
+    component.__componentId =
+      typeof component.__componentId === 'undefined'
+        ? nextComponentId++
+        : component.__componentId
+
+    const { current: componentInstanceId } = react.useRef<any>(
+      currentComponentInstanceId++
+    )
+
+    react.useLayoutEffect(() => {
+      mountedRef.current = true
+      overmind.eventHub.emitAsync(EventType.COMPONENT_ADD, {
+        componentId: component.__componentId,
+        componentInstanceId,
+        name,
+        paths: Array.from(tracker.tree.pathDependencies) as any,
+      })
+
+      return () => {
+        mountedRef.current = false
+        overmind.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
+          componentId: component.__componentId,
+          componentInstanceId,
+          name,
+        })
+      }
+    }, [])
+
+    react.useLayoutEffect(
+      () => {
+        tracker.stopTracking()
+
+        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+          componentId: component.__componentId,
+          componentInstanceId,
+          name,
+          flushId: 0,
+          paths: Array.from(tracker.tree.pathDependencies) as any,
+        })
+      },
+      [tracker]
+    )
+  }
+
+  return state
+}
+
 const useState = <Context extends IContext<{ state: {} }>>(
   cb?: (state: Context['state']) => any
 ): Context['state'] => {
@@ -219,7 +359,9 @@ export interface StateHook<Context extends IContext<{}>> {
 
 export const createStateHook: <
   Context extends IContext<{ state: {} }>
->() => StateHook<Context> = () => useState
+>() => StateHook<Context> = () =>
+  // @ts-ignore
+  react.useSyncExternalStore ? useStateV18 : useState
 
 export const createActionsHook: <
   Context extends IContext<{ actions: {} }>
