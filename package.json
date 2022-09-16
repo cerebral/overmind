@@ -105,7 +105,7 @@
     "prettier": "1.15.2",
     "raw-loader": "0.5.1",
     "react-test-renderer": "^16.9.0",
-    "repo-cooker": "^7.3.1",
+    "repo-cooker": "^7.4.0",
     "rimraf": "2.6.2",
     "source-map-loader": "0.2.4",
     "svelte-jester": "1.1.5",
