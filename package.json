@@ -57,7 +57,7 @@
     "react-icons": "^3.5.0",
     "react-split-pane": "0.1.87",
     "styled-components": "3.3.3",
-    "svelte": "3.20.1",
+    "svelte": "3.49.0",
     "tslib": "2.3.0",
     "vue": "3.0.0-rc.10",
     "ws": "7.0.0"
