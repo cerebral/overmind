@@ -77,7 +77,7 @@ type ExtracType<T extends {}, K> = {
     : never
 }
 
-type ExtractDeepType<T extends {}, K, U = ExtracType<T, K>> = {
+type ExtractDeepType<T extends {}, K, U extends {} = ExtracType<T, K>> = {
   [P in ExcludeNever<U>]: U[P]
 }
 
