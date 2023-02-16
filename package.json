@@ -34,7 +34,7 @@
     "electron-json-storage": "4.5.0",
     "electron-prompt": "1.6.2",
     "emotion": "9.2.12",
-    "express": "4.16.3",
+    "express": "4.17.3",
     "graphql": "14.5.8",
     "graphql-request": "3.3.0",
     "graphql-tag": "2.10.3",
