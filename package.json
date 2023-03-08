@@ -82,7 +82,7 @@
     "@typescript-eslint/parser": "^4.3.0",
     "babel-loader": "^8.0.5",
     "bundlesize": "0.17.2",
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.3.0",
     "concurrently": "3.6.1",
     "cz-customizable": "^5.2.0",
     "cz-customizable-ghooks": "^1.5.0",
