@@ -12,7 +12,6 @@ https://gist.github.com/christianalfoni/f1c4bfe320dcb24c403635d9bca3fa40
 $ git checkout next
 $ git pull
 $ npm install # make sure any new dependencies are installed
-$ npm install --no-save nodegit  # needed for "repo-cooker --release"
 $ npm run release -- --dry-run --print-release  # and check release notes
 $ git checkout master
 $ git pull

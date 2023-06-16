@@ -6,13 +6,6 @@ install:
 cache:
   directories:
     - '$HOME/.npm'
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      # needed by nodegit (repo-cooker)
-      - libstdc++-4.9-dev
 git:
   depth: 9999
 notifications:
@@ -24,7 +17,7 @@ script:
       npm prune
       npm run checkdeps
       npm run lint
-      npm test -- --no-parallel
+      npm test
     fi
 after_success:
   - |
@@ -35,7 +28,6 @@ after_success:
     fi
     if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_BRANCH == 'next' ]] && [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
       printf "//registry.npmjs.org/:_authToken=$NPM_TOKEN\n" > ~/.npmrc
-      npm install --no-save nodegit
       npm run release -- --no-parallel --print-release
     fi
 branches:
