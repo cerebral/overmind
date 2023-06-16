@@ -12,7 +12,7 @@ module.exports = (env) => ({
     devtoolModuleFilenameTemplate: '../[resource-path]',
   },
   devServer: {
-    disableHostCheck: true,
+    allowedHosts: 'all',
   },
   externals: {
     vscode: 'commonjs vscode',

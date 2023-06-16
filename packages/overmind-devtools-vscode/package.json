@@ -16,7 +16,6 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:overmind-devtools.start",
     "onWebviewPanel:overmindDevtools"
   ],
   "main": "./dist/extension.js",
@@ -63,7 +62,7 @@
       "build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
   },
   "devDependencies": {
-      "@types/node": "^12.11.6",
+      "@types/node": "^20.3.1",
       "tslint": "^5.12.1"
   },
   "peerDependencies": {

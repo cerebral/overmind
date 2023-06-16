@@ -34,7 +34,7 @@
     "overmind": "next"
   },
   "devDependencies": {
-    "@types/node": "^12.11.6",
+    "@types/node": "^20.3.1",
     "tslib": "^2.3.0"
   }
 }

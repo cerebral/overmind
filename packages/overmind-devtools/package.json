@@ -24,10 +24,9 @@
 		"electron-json-storage": "^4.5.0",
 		"electron-prompt": "^1.6.2",
 		"overmind-devtools-client": "next",
-		"ws": "^7.0.0"
+		"ws": "^7.5.9"
 	},
 	"devDependencies": {
-		"@types/node": "^12.11.6",
-		"@babel/plugin-proposal-class-properties": "^7.3.4"
+		"@babel/plugin-proposal-class-properties": "^7.18.6"
 	}
 }
