@@ -1,17 +1,19 @@
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const base = require('./webpack.config.js')
 
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = merge(base, {
-  devtool: 'source-map',
   mode: 'production',
+  devtool: 'source-map',
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
-        parallel: true,
-        sourceMap: true,
+        terserOptions: {
+          sourceMap: true,
+        },
       }),
     ],
   },

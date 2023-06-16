@@ -8,13 +8,14 @@ module.exports = {
     path: path.resolve('dist'),
     filename: 'proxy-state-tree.min.js',
   },
+  devtool: 'source-map',
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
-        parallel: true,
-        sourceMap: true,
         terserOptions: {
+          sourceMap: true,
           module: true,
         },
       }),
