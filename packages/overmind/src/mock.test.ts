@@ -87,7 +87,7 @@ describe('Mock', () => {
       },
     ])
   })
-  test('should preserve getters', async (done) => {
+  test('should preserve getters', async () => {
     expect.assertions(1)
     const state = {
       value: 0,
@@ -109,7 +109,6 @@ describe('Mock', () => {
     const mock = createOvermindMock(config)
     await mock.actions.updateValue()
     expect(mock.state.valuePlusTwo).toEqual(17)
-    done()
   })
   test('should allow setting initial state', async () => {
     expect.assertions(1)
