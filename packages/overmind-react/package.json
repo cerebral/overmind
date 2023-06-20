@@ -31,11 +31,11 @@
     "es"
   ],
   "dependencies": {
-    "overmind": "next"
+    "overmind": "next",
+    "tslib": "^2.6.0"
   },
   "devDependencies": {
-    "@types/node": "^20.3.1",
-    "tslib": "^2.3.0"
+    "@types/node": "^20.3.1"
   },
   "peerDependencies": {
     "react": "*"
