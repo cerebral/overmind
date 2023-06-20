@@ -18,11 +18,8 @@
 		"devtool"
 	],
 	"dependencies": {
-		"color": "^3.0.0",
-		"color-hash": "^1.0.3",
 		"electron": "^13.1.2",
 		"electron-json-storage": "^4.5.0",
-		"electron-prompt": "^1.6.2",
 		"overmind-devtools-client": "next",
 		"ws": "^7.5.9"
 	},
