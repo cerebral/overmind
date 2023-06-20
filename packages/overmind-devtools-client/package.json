@@ -17,9 +17,9 @@
 		"devtool"
 	],
 	"dependencies": {
+		"color-hash": "^2.0.2",
 		"emotion": "^9.2.12",
 		"lodash.clonedeep": "^4.5.0",
-		"lodash.throttle": "^4.1.1",
 		"overmind-react": "next",
 		"react": "16.9.0",
 		"react-dom": "16.9.0",
