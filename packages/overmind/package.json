@@ -36,7 +36,7 @@
   "dependencies": {
     "is-plain-obj": "^1.1.0",
     "betsy": "next",
-    "tslib": "^2.3.0",
+		"tslib": "^2.6.0",
     "proxy-state-tree": "next"
   },
   "devDependencies": {

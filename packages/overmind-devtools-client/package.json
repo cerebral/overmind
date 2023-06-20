@@ -24,6 +24,7 @@
 		"react": "16.9.0",
 		"react-dom": "16.9.0",
 		"react-split-pane": "^0.1.87",
+		"tslib": "^2.6.0",
 		"ws": "^7.5.9"
 	},
 	"devDependencies": {
@@ -31,7 +32,6 @@
 		"@types/node": "^20.3.1",
 		"@types/ws": "7.4.7",
 		"terser-webpack-plugin": "^5.3.9",
-		"tslib": "^2.3.0",
 		"webpack-merge": "^5.9.0"
 	}
 }
