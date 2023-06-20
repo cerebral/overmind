@@ -14,8 +14,4 @@ module.exports = {
   ],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   coveragePathIgnorePatterns: ['<rootDir>/node_modules/'],
-  haste: {
-    // This option is needed or else globbing ignores <rootDir>/node_modules.
-    providesModuleNodeModules: ['betsy'],
-  },
 }
