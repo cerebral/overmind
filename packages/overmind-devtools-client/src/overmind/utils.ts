@@ -1,7 +1,8 @@
 import * as ColorHash from 'color-hash'
-import clonedeep from 'lodash.clonedeep'
 
 import { Action, App, Flush, Mutation, OperatorsByPath } from './types'
+
+import clonedeep from 'lodash.clonedeep'
 
 export const runMutation = (state) => (mutation: Mutation) => {
   const pathArray = mutation.path.split(mutation.delimiter)
@@ -73,6 +74,7 @@ export const createApp = (data: Partial<App>): App =>
 
 export const nameToColor = (name, lightness = 0.5, saturation = 0.5) => {
   const colorHash = new ColorHash({
+    hash: 'bkdr',
     saturation: saturation,
     lightness: lightness,
   })

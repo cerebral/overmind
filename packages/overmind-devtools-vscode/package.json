@@ -62,7 +62,7 @@
       "build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
   },
   "devDependencies": {
-      "@types/node": "^20.3.1"
+      "@types/node": "^20.4.1"
   },
   "peerDependencies": {
       "overmind-devtools-client": "next"
