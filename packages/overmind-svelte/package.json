@@ -33,13 +33,13 @@
   ],
   "dependencies": {
     "overmind": "next",
-    "svelte": "^3.49.0",
+    "svelte": "^3.59.2",
 		"tslib": "^2.6.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/svelte": "^3.2.2",
-    "@types/node": "^20.3.1",
+    "@types/node": "^20.4.1",
     "svelte-jester": "^2.3.2"
   },
   "setupFilesAfterEnv": [
