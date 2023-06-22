@@ -75,14 +75,7 @@ export class Devtools {
   }
 
   private reconnect(host, onMessage) {
-    setTimeout(
-      () =>
-        this.connect(
-          host,
-          onMessage
-        ),
-      this.reconnectInterval
-    )
+    setTimeout(() => this.connect(host, onMessage), this.reconnectInterval)
   }
 
   send(message: Message) {
@@ -91,7 +84,7 @@ export class Devtools {
     const circularReferenceCache = this.circularReferenceCache
 
     this.sendMessage(
-      JSON.stringify(message, function(_, value) {
+      JSON.stringify(message, function (_, value) {
         if (typeof value === 'function') {
           return '[Function]'
         }

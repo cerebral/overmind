@@ -91,9 +91,7 @@ export class Proxifier {
 
     if (value && value[IS_PROXY] === true) {
       throw new Error(
-        `proxy-state-tree - You are trying to insert a value that already exists in the state tree on path "${
-          value[PATH]
-        }"`
+        `proxy-state-tree - You are trying to insert a value that already exists in the state tree on path "${value[PATH]}"`
       )
     }
 
@@ -106,9 +104,8 @@ export class Proxifier {
     }
 
     if (this.isDefaultProxifier()) {
-      const trackStateTree = this.tree.master.currentTree as ITrackStateTree<
-        any
-      >
+      const trackStateTree = this.tree.master
+        .currentTree as ITrackStateTree<any>
 
       if (!trackStateTree) {
         return
@@ -206,9 +203,9 @@ export class Proxifier {
 
             mutationTree.addMutation({
               method,
-              path: path,
+              path,
               delimiter: proxifier.delimiter,
-              args: args,
+              args,
               hasChangedValue: true,
             })
 

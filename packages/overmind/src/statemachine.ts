@@ -27,16 +27,16 @@ export type StatemachineTransitions<
   | {
       [State in States['current']]: {
         [Type in Events['type']]?: [BaseState] extends [never]
-          ? ((
+          ? (
               event: Events extends { type: Type } ? Events['data'] : never,
               state: States extends { current: State } ? States : never
-            ) => States | void)
-          : ((
+            ) => States | void
+          : (
               event: Events extends { type: Type } ? Events['data'] : never,
               state: States extends { current: State }
                 ? States & BaseState
                 : never
-            ) => States | void)
+            ) => States | void
       }
     }
 
@@ -153,9 +153,7 @@ export class StateMachine<
     if (this[VALUE][IS_DISPOSED]) {
       if (process.env.NODE_ENV === 'development') {
         console.warn(
-          `Overmind - The statemachine at "${
-            this[PATH]
-          }" has been disposed, but you tried to transition on it`
+          `Overmind - The statemachine at "${this[PATH]}" has been disposed, but you tried to transition on it`
         )
       }
       return this

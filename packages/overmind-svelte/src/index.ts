@@ -71,7 +71,7 @@ export function createMixin<Config extends IConfiguration>(
       overmind.proxyStateTreeInstance.disposeTree(tree)
       overmind.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
         componentId,
-        componentInstanceId: componentInstanceId,
+        componentInstanceId,
         name: '',
       })
     }
@@ -92,6 +92,6 @@ export function createMixin<Config extends IConfiguration>(
     actions: overmind.actions,
     effects: overmind.effects,
     addMutationListener: overmind.addMutationListener,
-    reaction: reaction,
+    reaction,
   }
 }

@@ -27,7 +27,7 @@ function createDefaultOvermind() {
     item: {
       isAwesome: true,
     },
-    value: (null as unknown) as StateValue,
+    value: null as unknown as StateValue,
   }
   const changeFoo = (context: Context) => {
     context.state.foo = 'bar2'

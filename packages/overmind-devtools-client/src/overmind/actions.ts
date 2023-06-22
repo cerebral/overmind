@@ -85,9 +85,8 @@ export const toggleExpandState = ({ state }: Context, path: string[]) => {
       1
     )
   } else {
-    state.currentApp.expandedStatePaths = state.currentApp.expandedStatePaths.concat(
-      pathString
-    )
+    state.currentApp.expandedStatePaths =
+      state.currentApp.expandedStatePaths.concat(pathString)
   }
 }
 

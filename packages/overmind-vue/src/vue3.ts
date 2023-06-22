@@ -83,13 +83,13 @@ export function createStateHook<
         value.isUpdating = false
       }
 
-      onBeforeUpdate(function(this: any) {
+      onBeforeUpdate(function (this: any) {
         if (overmindInstance.mode.mode === MODE_SSR) return
 
         value.tree.track(value.onUpdate)
       })
 
-      onRenderTracked(function(this: any) {
+      onRenderTracked(function (this: any) {
         if (IS_PRODUCTION) {
           return
         }
