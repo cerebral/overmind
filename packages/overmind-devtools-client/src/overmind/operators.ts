@@ -70,11 +70,10 @@ export const addFlush = ({ state }: Context, message: FlushMessage) => {
       flushId: message.data.flushId,
     }
   } else {
-    state.apps[message.appName].flushByOperatorId[
-      getOperatorId(message.data)
-    ] = {
-      flushId: message.data.flushId,
-    }
+    state.apps[message.appName].flushByOperatorId[getOperatorId(message.data)] =
+      {
+        flushId: message.data.flushId,
+      }
   }
 }
 

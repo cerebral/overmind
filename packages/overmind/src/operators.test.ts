@@ -306,10 +306,7 @@ describe('OPERATORS', () => {
 
   test('debounce', () => {
     expect.assertions(1)
-    const test = pipe(
-      debounce(100),
-      ({ state }: Context) => state.runCount++
-    )
+    const test = pipe(debounce(100), ({ state }: Context) => state.runCount++)
     const state = {
       runCount: 0,
     }
@@ -338,10 +335,7 @@ describe('OPERATORS', () => {
 
   test('throttle', () => {
     expect.assertions(1)
-    const test = pipe(
-      throttle(0),
-      ({ state }: Context) => state.runCount++
-    )
+    const test = pipe(throttle(0), ({ state }: Context) => state.runCount++)
     const state = {
       runCount: 0,
     }

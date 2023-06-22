@@ -61,9 +61,8 @@ function useForceRerender() {
 }
 
 let currentComponentInstanceId = 0
-const {
-  ReactCurrentOwner,
-} = (react as any).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+const { ReactCurrentOwner } = (react as any)
+  .__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
 const useCurrentComponent = () => {
   return ReactCurrentOwner &&
     ReactCurrentOwner.current &&
@@ -155,12 +154,9 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
   tracker.track()
 
   if (IS_PRODUCTION) {
-    react.useLayoutEffect(
-      () => {
-        tracker.stopTracking()
-      },
-      [tracker]
-    )
+    react.useLayoutEffect(() => {
+      tracker.stopTracking()
+    }, [tracker])
   } else {
     const component = useCurrentComponent()
     const name = getDisplayName(component)
@@ -192,20 +188,17 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
       }
     }, [])
 
-    react.useLayoutEffect(
-      () => {
-        tracker.stopTracking()
+    react.useLayoutEffect(() => {
+      tracker.stopTracking()
 
-        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-          componentId: component.__componentId,
-          componentInstanceId,
-          name,
-          flushId: 0,
-          paths: Array.from(tracker.tree.pathDependencies) as any,
-        })
-      },
-      [tracker]
-    )
+      overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+        componentId: component.__componentId,
+        componentInstanceId,
+        name,
+        flushId: 0,
+        paths: Array.from(tracker.tree.pathDependencies) as any,
+      })
+    }, [tracker])
   }
 
   return state
@@ -234,17 +227,14 @@ const useState = <Context extends IContext<{ state: {} }>>(
   const state = cb ? cb(tree.state) : tree.state
 
   if (IS_PRODUCTION) {
-    react.useLayoutEffect(
-      () => {
-        mountedRef.current = true
-        tree.stopTracking()
+    react.useLayoutEffect(() => {
+      mountedRef.current = true
+      tree.stopTracking()
 
-        return () => {
-          tree.dispose()
-        }
-      },
-      [tree]
-    )
+      return () => {
+        tree.dispose()
+      }
+    }, [tree])
 
     tree.track((_, __, flushId) => {
       if (!mountedRef.current) {
@@ -285,24 +275,21 @@ const useState = <Context extends IContext<{ state: {} }>>(
       }
     }, [])
 
-    react.useLayoutEffect(
-      () => {
-        tree.stopTracking()
+    react.useLayoutEffect(() => {
+      tree.stopTracking()
 
-        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-          componentId: component.__componentId,
-          componentInstanceId,
-          name,
-          flushId,
-          paths: Array.from(tree.pathDependencies) as any,
-        })
+      overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+        componentId: component.__componentId,
+        componentInstanceId,
+        name,
+        flushId,
+        paths: Array.from(tree.pathDependencies) as any,
+      })
 
-        return () => {
-          tree.dispose()
-        }
-      },
-      [tree]
-    )
+      return () => {
+        tree.dispose()
+      }
+    }, [tree])
     tree.track((_, __, flushId) => {
       if (!mountedRef.current) {
         // This one is not dealt with by the useLayoutEffect
@@ -340,9 +327,9 @@ const useEffects = <
   return overmind.effects
 }
 
-const useReaction = <Context extends IContext<{ state: {} }>>(): IReaction<
-  Context
-> => {
+const useReaction = <
+  Context extends IContext<{ state: {} }>
+>(): IReaction<Context> => {
   const overmind = react.useContext(context) as Overmind<any>
 
   if (!(overmind as any).mode) {

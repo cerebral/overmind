@@ -84,16 +84,13 @@ const state: State = {
     )
   }),
   componentsMounted: derived((state: State) =>
-    Object.keys(state.currentApp.components).reduce(
-      (aggr, key) => {
-        if (state.currentApp.components[key].isMounted) {
-          return aggr.concat(state.currentApp.components[key])
-        }
+    Object.keys(state.currentApp.components).reduce((aggr, key) => {
+      if (state.currentApp.components[key].isMounted) {
+        return aggr.concat(state.currentApp.components[key])
+      }
 
-        return aggr
-      },
-      [] as Component[]
-    )
+      return aggr
+    }, [] as Component[])
   ),
   componentsUpdateCount: derived((state: State) =>
     state.componentsMounted.reduce(
@@ -138,24 +135,21 @@ const state: State = {
   groupedComponents: derived((state: State) => {
     const components = state.componentsMounted
 
-    return components.reduce(
-      (aggr, component) => {
-        if (aggr[component.name]) {
-          aggr[component.name].components.push(component)
-        } else {
-          aggr[component.name] = {
-            name: component.name,
-            components: [component],
-            isCollapsed: !state.currentApp.expandedComponents.includes(
-              component.name
-            ),
-          }
+    return components.reduce((aggr, component) => {
+      if (aggr[component.name]) {
+        aggr[component.name].components.push(component)
+      } else {
+        aggr[component.name] = {
+          name: component.name,
+          components: [component],
+          isCollapsed: !state.currentApp.expandedComponents.includes(
+            component.name
+          ),
         }
+      }
 
-        return aggr
-      },
-      {} as GroupedComponents
-    )
+      return aggr
+    }, {} as GroupedComponents)
   }),
   history: derived((state: State) => {
     return state.currentApp.messages.reduce((aggr, message) => {

@@ -12,7 +12,8 @@ import * as utils from './utils'
 const hotReloadingCache = {}
 
 export class Overmind<ThisConfig extends IConfiguration>
-  implements IConfiguration {
+  implements IConfiguration
+{
   private proxyStateTreeInstance: proxyStateTree.ProxyStateTree<object>
   private actionReferences: { [path: string]: Function } = {}
   private nextExecutionId: number = 0
@@ -192,9 +193,8 @@ export class Overmind<ThisConfig extends IConfiguration>
         (this.devtools && options.hotReloading !== false)
       ) {
         eventHub.on(internalTypes.EventType.MUTATIONS, (execution) => {
-          this.reydrateMutationsForHotReloading = this.reydrateMutationsForHotReloading.concat(
-            execution.mutations
-          )
+          this.reydrateMutationsForHotReloading =
+            this.reydrateMutationsForHotReloading.concat(execution.mutations)
         })
       }
       eventHub.on(internalTypes.EventType.OPERATOR_ASYNC, (execution) => {
@@ -311,7 +311,7 @@ export class Overmind<ThisConfig extends IConfiguration>
     namespacePath.pop()
 
     if (utils.ENVIRONMENT === 'production') {
-      return ({
+      return {
         [utils.EXECUTION]: true,
         parentExecution,
         namespacePath,
@@ -323,7 +323,7 @@ export class Overmind<ThisConfig extends IConfiguration>
           return this.proxyStateTreeInstance.getTrackStateTree()
         },
         emit: this.eventHub.emit.bind(this.eventHub),
-      } as any) as internalTypes.Execution
+      } as any as internalTypes.Execution
     }
 
     const mutationTrees: any[] = []
@@ -687,7 +687,7 @@ export class Overmind<ThisConfig extends IConfiguration>
         ...execution,
         ...effect,
         args: effect.args,
-        result: result,
+        result,
         isPending: false,
         error: false,
       })
@@ -706,45 +706,42 @@ export class Overmind<ThisConfig extends IConfiguration>
   ) {
     if (utils.ENVIRONMENT === 'production') return
     const devtools = new Devtools(name, logLevel)
-    devtools.connect(
-      host,
-      (message: DevtoolsMessage) => {
-        switch (message.type) {
-          case 'refresh': {
-            location.reload()
-            break
-          }
-          case 'executeAction': {
-            const action = message.data.name
-              .split('.')
-              .reduce((aggr, key) => aggr[key], this.actions)
-            message.data.payload
-              ? action(JSON.parse(message.data.payload))
-              : action()
-            break
-          }
-          case 'mutation': {
-            const tree = this.proxyStateTreeInstance.getMutationTree()
-            const path = message.data.path.slice()
-            const value = JSON.parse(`{ "value": ${message.data.value} }`).value
-            const key = path.pop()
-            const state = path.reduce((aggr, key) => aggr[key], tree.state)
+    devtools.connect(host, (message: DevtoolsMessage) => {
+      switch (message.type) {
+        case 'refresh': {
+          location.reload()
+          break
+        }
+        case 'executeAction': {
+          const action = message.data.name
+            .split('.')
+            .reduce((aggr, key) => aggr[key], this.actions)
+          message.data.payload
+            ? action(JSON.parse(message.data.payload))
+            : action()
+          break
+        }
+        case 'mutation': {
+          const tree = this.proxyStateTreeInstance.getMutationTree()
+          const path = message.data.path.slice()
+          const value = JSON.parse(`{ "value": ${message.data.value} }`).value
+          const key = path.pop()
+          const state = path.reduce((aggr, key) => aggr[key], tree.state)
 
-            state[key] = value
-            tree.flush(true)
-            tree.dispose()
-            this.devtools.send({
-              type: 'state',
-              data: {
-                path: message.data.path,
-                value,
-              },
-            })
-            break
-          }
+          state[key] = value
+          tree.flush(true)
+          tree.dispose()
+          this.devtools.send({
+            type: 'state',
+            data: {
+              path: message.data.path,
+              value,
+            },
+          })
+          break
         }
       }
-    )
+    })
     for (const type in internalTypes.EventType) {
       eventHub.on(
         internalTypes.EventType[type],

@@ -23,9 +23,7 @@ export interface IMutationTree<T extends object> {
   getMutations(): IMutation[]
   getObjectChanges(): Set<string>
   trackPaths(): () => Set<string>
-  flush(
-    async?: boolean
-  ): {
+  flush(async?: boolean): {
     mutations: IMutation[]
     flushId: number
   }

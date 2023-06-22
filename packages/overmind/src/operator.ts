@@ -21,7 +21,10 @@ export function action<T extends OperatorContextFunction<any, any>>(
         const result = operation(context, value) as any
 
         if (isPromise(result)) {
-          next(null, result.then((resolvedValue) => resolvedValue))
+          next(
+            null,
+            result.then((resolvedValue) => resolvedValue)
+          )
         } else {
           next(null, result)
         }

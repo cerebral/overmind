@@ -332,7 +332,7 @@ export function statechart<
           data: {
             path: context.execution.namespacePath,
             states: getInitialStates(charts),
-            charts: charts,
+            charts,
             actions: getCanTransitionActions(
               copiedActions,
               charts,
@@ -444,9 +444,8 @@ export function statechart<
               return
             }
 
-            const currentStatePath = stateTarget.states[
-              transitionAction.index
-            ].slice()
+            const currentStatePath =
+              stateTarget.states[transitionAction.index].slice()
             const stateTransitions = currentStatePath.map(() => null)
 
             // Build new transition path
@@ -470,9 +469,8 @@ export function statechart<
             )
 
             // Go down old path and trigger exits where the state has changed
-            const traverseOldPath = stateTarget.states[
-              transitionAction.index
-            ].slice()
+            const traverseOldPath =
+              stateTarget.states[transitionAction.index].slice()
 
             while (traverseOldPath.length) {
               const target = getStateTarget(charts, traverseOldPath)
@@ -544,7 +542,7 @@ export function statechart<
               data: {
                 path: context.execution.namespacePath,
                 states: stateTarget.states,
-                charts: charts,
+                charts,
                 actions: getCanTransitionActions(
                   config.actions,
                   charts,

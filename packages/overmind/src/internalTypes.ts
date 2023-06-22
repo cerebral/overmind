@@ -37,14 +37,12 @@ export type DefaultMode = {
 export type TestMode = {
   mode: Symbol
   options: {
-    effectsCallback: (
-      effect: {
-        effectId: number
-        name: string
-        method: string
-        args: any[]
-      }
-    ) => {}
+    effectsCallback: (effect: {
+      effectId: number
+      name: string
+      method: string
+      args: any[]
+    }) => {}
   }
 }
 
@@ -77,9 +75,7 @@ export type Execution = {
   parentExecution?: Execution
   path: string[]
   emit(event: EventType, value: any): void
-  flush(
-    isAsync?: boolean
-  ): {
+  flush(isAsync?: boolean): {
     mutations: IMutation[]
     flushId: number
   }

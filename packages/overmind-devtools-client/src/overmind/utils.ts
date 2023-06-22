@@ -75,8 +75,8 @@ export const createApp = (data: Partial<App>): App =>
 export const nameToColor = (name, lightness = 0.5, saturation = 0.5) => {
   const colorHash = new ColorHash({
     hash: 'bkdr',
-    saturation: saturation,
-    lightness: lightness,
+    saturation,
+    lightness,
   })
 
   return colorHash.hex(name)
