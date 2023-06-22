@@ -25,12 +25,12 @@
 		"react-dom": "16.9.0",
 		"react-split-pane": "^0.1.87",
 		"tslib": "^2.6.0",
-		"ws": "^7.5.9"
+		"ws": "^8.13.0"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6",
 		"@types/node": "^20.4.1",
-		"@types/ws": "7.4.7",
+		"@types/ws": "8.5.5",
 		"terser-webpack-plugin": "^5.3.9",
 		"webpack-merge": "^5.9.0"
 	}

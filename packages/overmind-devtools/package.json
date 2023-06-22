@@ -18,10 +18,10 @@
 		"devtool"
 	],
 	"dependencies": {
-		"electron": "^13.1.2",
-		"electron-json-storage": "^4.5.0",
+		"electron": "^25.2.0",
+		"electron-json-storage": "^4.6.0",
 		"overmind-devtools-client": "next",
-		"ws": "^7.5.9"
+		"ws": "^8.13.0"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6"
