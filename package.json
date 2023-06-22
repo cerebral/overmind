@@ -7,13 +7,14 @@
     "build": "repo-cooker --build",
     "checkdeps": "repo-cooker --check-dependencies",
     "commit": "git-cz",
-    "commitmsg": "cz-customizable-ghooks",
+    "commit-msg": "cz-customizable-ghooks",
     "fixdeps": "repo-cooker --fix-dependencies",
     "format": "npm run lint -- --fix && prettier --write \"**/*.md\" \"**/*.json\"",
     "install": "npm run link && npm run build",
     "link": "repo-cooker --link",
     "lint": "eslint \"**/*.js\" \"**/*.ts\"",
-    "precommit": "lint-staged",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install",
     "release": "repo-cooker --release",
     "test": "repo-cooker test --no-parallel"
   },
@@ -68,8 +69,8 @@
     "babel-loader": "9.1.2",
     "bundlesize": "0.18.1",
     "commitizen": "4.3.0",
-    "cz-customizable": "5.2.0",
-    "cz-customizable-ghooks": "1.5.0",
+    "cz-customizable": "7.0.0",
+    "cz-customizable-ghooks": "2.0.0",
     "eslint": "7.28.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-standard": "16.0.3",
@@ -81,10 +82,10 @@
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-standard": "4.0.1",
     "html-webpack-plugin": "5.5.3",
-    "husky": "0.14.3",
+    "husky": "8.0.3",
     "jest": "29.6.1",
     "jest-environment-jsdom": "29.6.1",
-    "lint-staged": "11.0.0",
+    "lint-staged": "13.2.3",
     "prettier": "1.15.2",
     "react-test-renderer": "16.9.0",
     "repo-cooker": "8.0.6",
@@ -102,14 +103,8 @@
     "webpack-merge": "5.9.0"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{md,css,json}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,ts,tsx}": "eslint --fix",
+    "*.{md,css,json}": "prettier --write"
   },
   "config": {
     "commitizen": {
