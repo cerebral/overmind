@@ -1,21 +1,23 @@
 import * as React from 'react'
 import * as styles from './styles'
-import { useAppState } from '../../overmind'
+
 import {
+  EffectHistoryRecord,
+  FlushHistoryRecord,
   HistoryRecordType,
   MutationHistoryRecord,
-  FlushHistoryRecord,
-  EffectHistoryRecord,
 } from '../../overmind/types'
-import ValueInspector from '../ValueInspector'
 import {
+  FaCheck,
+  FaClock,
   FaCode,
+  FaDatabase,
   FaLink,
   FaSave,
-  FaDatabase,
-  FaClock,
-  FaCheck,
 } from 'react-icons/fa'
+
+import ValueInspector from '../ValueInspector'
+import { useAppState } from '../../overmind'
 
 const History: React.FunctionComponent = () => {
   const state = useAppState()
@@ -85,12 +87,14 @@ const History: React.FunctionComponent = () => {
           }
           case HistoryRecordType.Effect: {
             const effectRecord = record as EffectHistoryRecord
+            const effectHistory = state.history[index - 1]
+              ? (state.history[index - 1] as EffectHistoryRecord)
+              : undefined
 
             // If the effect was sync, we do not show both start and end
             if (
-              state.history[index - 1] &&
-              state.history[index - 1].data.effectId ===
-                effectRecord.data.effectId
+              effectHistory &&
+              effectHistory.data.effectId === effectRecord.data.effectId
             ) {
               return null
             }

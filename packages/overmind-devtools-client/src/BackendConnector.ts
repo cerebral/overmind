@@ -26,7 +26,7 @@ class WebsocketConnector {
   public connect(
     port: string | number // TODO: return Promise so we can wait for it
   ) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       if (this.socket) {
         reject(new Error('TODO: Socked already open, what now?'))
       }

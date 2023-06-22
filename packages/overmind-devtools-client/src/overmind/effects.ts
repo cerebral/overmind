@@ -17,7 +17,7 @@ export const utils = {
 
 export const storage = {
   clear() {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       connector.send('storage:clear', null, (error) => {
         if (error) {
           reject(error)
@@ -39,7 +39,7 @@ export const storage = {
     })
   },
   set(key, data) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       connector.send(
         'storage:set',
         {
