@@ -38,6 +38,7 @@
     "@types/node": "^20.4.1"
   },
   "peerDependencies": {
-    "react": "*"
+    "react": "*",
+    "react-test-renderer": "*"
   }
 }
