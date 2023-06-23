@@ -41,7 +41,7 @@
     "react-split-pane": "0.1.87",
     "svelte": "3.49.0",
     "tslib": "2.6.0",
-    "vue": "3.0.0-rc.10",
+    "vue": "3.3.4",
     "ws": "8.13.0"
   },
   "devDependencies": {
@@ -96,7 +96,6 @@
     "ts-loader": "9.4.4",
     "typescript": "5.1.6",
     "url-loader": "4.1.1",
-    "vue": "3.0.0-rc.10",
     "webpack": "5.88.1",
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.15.1",
