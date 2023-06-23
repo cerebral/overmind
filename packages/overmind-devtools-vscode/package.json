@@ -3,14 +3,14 @@
   "displayName": "Overmind Devtools VSCode",
   "description": "Devtools for Overmind",
   "publisher": "christianalfoni",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "icon": "logo_simplified_glow.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/cerebral/overmind.git"
   },
   "engines": {
-    "vscode": "^1.35.0"
+    "vscode": "^1.80.0"
   },
   "categories": [
     "Other"
@@ -61,8 +61,9 @@
       "build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
   },
   "devDependencies": {
-      "@types/node": "^20.4.1"
-  },
+      "@types/node": "^20.4.1",
+      "@types/vscode": "^1.80.0"
+    },
   "peerDependencies": {
       "overmind-devtools-client": "next"
   }
