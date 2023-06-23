@@ -75,27 +75,35 @@ class ReactTrackerV18 {
   tree
   result
   cb
-  disposeTimeout
+  updateCb
   constructor(tree: any) {
     this.tree = tree
     this.result = { state: tree.state }
+    this.updateCb = () => {
+      this.result = {
+        state: this.tree.state,
+      }
+
+      if (this.cb) {
+        this.cb()
+      } else {
+        this.tree.dispose()
+      }
+    }
   }
 
   subscribe = (cb) => {
     this.cb = cb
 
-    if (this.disposeTimeout) {
-      clearTimeout(this.disposeTimeout)
-    }
-
     return () => {
       if (IS_PRODUCTION) {
         this.tree.dispose()
       } else {
-        // This is necessary due to Reacts double render in strict mode
-        this.disposeTimeout = setTimeout(() => {
-          this.tree.dispose()
-        }, 100)
+        // In development we do not dispose of the tree as React will do
+        // "test runs" on effect hooks, it will rather be disposed when there is an
+        // update to the tracked paths, but there is no longer a callback to trigger. This
+        // can cause memory leaks in edge cases, but this is just development and does not matter
+        delete this.cb
       }
     }
   }
@@ -105,16 +113,7 @@ class ReactTrackerV18 {
   }
 
   track() {
-    this.tree.track(() => {
-      this.result = {
-        state: this.tree.state,
-      }
-      // In dev mode "subscribe" is only called on the last "double render"
-      // instance, so we do not have a callback in that case
-      if (this.cb) {
-        this.cb()
-      }
-    })
+    this.tree.track(this.updateCb)
   }
 
   stopTracking() {
