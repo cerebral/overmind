@@ -39,7 +39,7 @@
   "devDependencies": {
     "bundlesize": "^0.18.1",
     "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.87.0"
+    "webpack": "^5.88.1"
   },
   "bundlesize": [
     {

@@ -89,7 +89,7 @@
     "prettier": "2.8.8",
     "react-test-renderer": "16.9.0",
     "repo-cooker": "8.0.6",
-    "rimraf": "2.6.2",
+    "rimraf": "5.0.1",
     "svelte-jester": "2.3.2",
     "terser-webpack-plugin": "5.3.9",
     "ts-jest": "29.1.1",
@@ -97,7 +97,7 @@
     "typescript": "5.1.6",
     "url-loader": "4.1.1",
     "vue": "3.0.0-rc.10",
-    "webpack": "5.87.0",
+    "webpack": "5.88.1",
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.15.1",
     "webpack-merge": "5.9.0"
