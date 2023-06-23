@@ -1,5 +1,5 @@
-import * as vscode from 'vscode'
 import * as path from 'path'
+import * as vscode from 'vscode'
 
 type Options = {
   context: vscode.ExtensionContext
@@ -12,7 +12,7 @@ export class DevtoolsPanel {
 
   private readonly _options: Options
 
-  private _panel!: vscode.WebviewPanel
+  private _panel!: vscode.WebviewPanel | undefined
 
   constructor(options: Options) {
     this._options = options
