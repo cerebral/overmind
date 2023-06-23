@@ -39,7 +39,7 @@
     "react-dom": "16.9.0",
     "react-icons": "3.5.0",
     "react-split-pane": "0.1.87",
-    "svelte": "3.49.0",
+    "svelte": "3.59.2",
     "tslib": "2.6.0",
     "vue": "3.3.4",
     "ws": "8.13.0"
