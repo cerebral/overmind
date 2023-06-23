@@ -62,7 +62,8 @@
   },
   "devDependencies": {
       "@types/node": "^20.4.1",
-      "@types/vscode": "^1.80.0"
+      "@types/vscode": "^1.80.0",
+      "webpack": "^5.88.1"
     },
   "peerDependencies": {
       "overmind-devtools-client": "next"
