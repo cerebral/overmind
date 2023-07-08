@@ -1,3 +1,5 @@
+import * as react from 'react'
+
 import {
   ENVIRONMENT,
   EventType,
@@ -7,7 +9,6 @@ import {
   Overmind,
   OvermindMock,
 } from 'overmind'
-import * as react from 'react'
 
 const IS_PRODUCTION = ENVIRONMENT === 'production'
 const IS_TEST = ENVIRONMENT === 'test'
@@ -359,8 +360,8 @@ export interface StateHook<Context extends IContext<{}>> {
 export const createStateHook: <
   Context extends IContext<{ state: {} }>
 >() => StateHook<Context> = () =>
-  // @ts-ignore
-  react.useSyncExternalStore ? useStateV18 : useState
+  // eslint-disable-next-line dot-notation
+  typeof react['useSyncExternalStore'] === 'function' ? useStateV18 : useState
 
 export const createActionsHook: <
   Context extends IContext<{ actions: {} }>
