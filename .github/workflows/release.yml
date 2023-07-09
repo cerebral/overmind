@@ -21,9 +21,8 @@ jobs:
           cache: 'npm'
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: git remote set-url origin https://cerebraljs:${REPO_COOKER_GITHUB_TOKEN}@github.com/cerebral/repo-cooker
-      - run: git config user.email "cerebraljs@gmail.com"
-      - run: git config user.name "Cerebral JS"
+      - run: git config user.name "cerebral[bot]"
+      - run: git config user.email "136202705+cerebral[bot]@users.noreply.github.com"
       - name: Generate token
         id: generate_token
         uses: tibdex/github-app-token@v1
