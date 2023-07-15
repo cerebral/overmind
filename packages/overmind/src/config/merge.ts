@@ -35,20 +35,20 @@ export function merge<A extends IConfiguration, B extends IConfiguration>(
 export function merge<
   A extends IConfiguration,
   B extends IConfiguration,
-  C extends IConfiguration
+  C extends IConfiguration,
 >(configA: A, configB: B, configC: C): A & B & C
 export function merge<
   A extends IConfiguration,
   B extends IConfiguration,
   C extends IConfiguration,
-  D extends IConfiguration
+  D extends IConfiguration,
 >(configA: A, configB: B, configC: C, configD: D): A & B & C & D
 export function merge<
   A extends IConfiguration,
   B extends IConfiguration,
   C extends IConfiguration,
   D extends IConfiguration,
-  E extends IConfiguration
+  E extends IConfiguration,
 >(configA: A, configB: B, configC: C, configD: D, configE: E): A & B & C & D & E
 export function merge<
   A extends IConfiguration,
@@ -56,7 +56,7 @@ export function merge<
   C extends IConfiguration,
   D extends IConfiguration,
   E extends IConfiguration,
-  F extends IConfiguration
+  F extends IConfiguration,
 >(
   configA: A,
   configB: B,
@@ -72,7 +72,7 @@ export function merge<
   D extends IConfiguration,
   E extends IConfiguration,
   F extends IConfiguration,
-  G extends IConfiguration
+  G extends IConfiguration,
 >(
   configA: A,
   configB: B,
@@ -90,7 +90,7 @@ export function merge<
   E extends IConfiguration,
   F extends IConfiguration,
   G extends IConfiguration,
-  H extends IConfiguration
+  H extends IConfiguration,
 >(
   configA: A,
   configB: B,
@@ -110,7 +110,7 @@ export function merge<
   F extends IConfiguration,
   G extends IConfiguration,
   H extends IConfiguration,
-  I extends IConfiguration
+  I extends IConfiguration,
 >(
   configA: A,
   configB: B,

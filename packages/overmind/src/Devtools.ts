@@ -24,7 +24,10 @@ export class Devtools {
   private hasWarnedReconnect: boolean = false
   private reconnectInterval: number = 10000
   private name: string
-  constructor(name: string, private logLevel: LogLevel = 'error') {
+  constructor(
+    name: string,
+    private logLevel: LogLevel = 'error'
+  ) {
     this.name =
       typeof location !== 'undefined' &&
       location.search.includes('OVERMIND_DEVTOOL')

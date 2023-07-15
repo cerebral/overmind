@@ -7,7 +7,7 @@ export interface Statechart<
   C extends IConfiguration,
   S extends {
     [state: string]: Statecharts | Statechart<any, any> | void
-  }
+  },
 > {
   initial: keyof S
   states: {
@@ -246,7 +246,7 @@ type Match<T extends Statecharts | Statechart<any, any>> = T extends Statecharts
 
 export function statechart<
   C extends IConfiguration,
-  Charts extends Statecharts | Statechart<any, any>
+  Charts extends Statecharts | Statechart<any, any>,
 >(
   config: C,
   chartDefinition: Charts

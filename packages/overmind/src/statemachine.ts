@@ -19,7 +19,7 @@ type TEvents = {
 export type StatemachineTransitions<
   States extends TState,
   Events extends TEvents,
-  BaseState extends TBaseState
+  BaseState extends TBaseState,
 > =
   | ([BaseState] extends [never]
       ? (event: Events, state: States) => States | void
@@ -43,7 +43,7 @@ export type StatemachineTransitions<
 export interface MachineMethods<
   States extends TState,
   Events extends TEvents,
-  BaseState extends TBaseState
+  BaseState extends TBaseState,
 > {
   matches<T extends States['current']>(
     current: T
@@ -63,7 +63,7 @@ export interface MachineMethods<
 export type Statemachine<
   States extends TState,
   Events extends TEvents,
-  BaseState extends TBaseState = never
+  BaseState extends TBaseState = never,
 > = [BaseState] extends [never]
   ? States & MachineMethods<States, Events, BaseState>
   : States & BaseState & MachineMethods<States, Events, BaseState>
@@ -108,7 +108,7 @@ export function deepCopy(obj) {
 export class StateMachine<
   State extends TState,
   Events extends TEvents,
-  BaseState extends TBaseState
+  BaseState extends TBaseState,
 > {
   current: State['current']
   private [INITIAL_STATE]: State['current']
@@ -205,7 +205,7 @@ export class StateMachine<
 export type StatemachineFactory<
   States extends TState,
   Events extends TEvents,
-  BaseState extends TBaseState
+  BaseState extends TBaseState,
 > = [BaseState] extends [never]
   ? {
       create(state: States): Statemachine<States, Events, {}>
@@ -220,7 +220,7 @@ export type StatemachineFactory<
 export function statemachine<
   States extends TState,
   Events extends TEvents,
-  BaseState extends TBaseState = never
+  BaseState extends TBaseState = never,
 >(
   transitions: StatemachineTransitions<States, Events, BaseState>
 ): StatemachineFactory<States, Events, BaseState> {
