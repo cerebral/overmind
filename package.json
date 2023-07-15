@@ -87,7 +87,7 @@
     "lint-staged": "13.2.3",
     "prettier": "2.8.8",
     "react-test-renderer": "16.9.0",
-    "repo-cooker": "8.0.12",
+    "repo-cooker": "8.0.21",
     "rimraf": "5.0.1",
     "svelte-jester": "2.3.2",
     "terser-webpack-plugin": "5.3.9",
