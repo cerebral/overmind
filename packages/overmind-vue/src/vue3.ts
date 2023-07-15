@@ -40,9 +40,9 @@ export const withOvermind = (
 
 export interface StateHook<Context extends IContext<{ state: {} }>> {
   (): Ref<Context['state']>
-  <CB extends (state: Context['state']) => object>(cb: CB): CB extends (
-    state: Context['state']
-  ) => infer O
+  <CB extends (state: Context['state']) => object>(
+    cb: CB
+  ): CB extends (state: Context['state']) => infer O
     ? O extends object
       ? Ref<O>
       : never
@@ -50,7 +50,7 @@ export interface StateHook<Context extends IContext<{ state: {} }>> {
 }
 
 export function createStateHook<
-  Context extends IContext<{ state: {} }>
+  Context extends IContext<{ state: {} }>,
 >(): StateHook<Context> {
   const componentId = nextComponentId++
   let componentInstanceId = 0
@@ -141,9 +141,9 @@ export function createStateHook<
 
 export interface ActionsHook<Context extends IContext<{ actions: {} }>> {
   (): Ref<Context['actions']>
-  <CB extends (actions: Context['actions']) => object>(cb: CB): CB extends (
-    actions: Context['actions']
-  ) => infer O
+  <CB extends (actions: Context['actions']) => object>(
+    cb: CB
+  ): CB extends (actions: Context['actions']) => infer O
     ? O extends object
       ? Ref<O>
       : never
@@ -151,7 +151,7 @@ export interface ActionsHook<Context extends IContext<{ actions: {} }>> {
 }
 
 export function createActionsHook<
-  Context extends IContext<{ actions: {} }>
+  Context extends IContext<{ actions: {} }>,
 >(): ActionsHook<Context> {
   return ((cb?: any): Context['actions'] => {
     const overmindInstance = inject<any>('overmind')
@@ -162,9 +162,9 @@ export function createActionsHook<
 
 export interface EffectsHook<Context extends IContext<{ effects: {} }>> {
   (): Ref<Context['effects']>
-  <CB extends (effects: Context['effects']) => object>(cb: CB): CB extends (
-    effects: Context['effects']
-  ) => infer O
+  <CB extends (effects: Context['effects']) => object>(
+    cb: CB
+  ): CB extends (effects: Context['effects']) => infer O
     ? O extends object
       ? Ref<O>
       : never
@@ -172,7 +172,7 @@ export interface EffectsHook<Context extends IContext<{ effects: {} }>> {
 }
 
 export function createEffectsHook<
-  Context extends IContext<{ effects: {} }>
+  Context extends IContext<{ effects: {} }>,
 >(): EffectsHook<Context> {
   return ((cb?: any): Context['effects'] => {
     const overmindInstance = inject<any>('overmind')
@@ -190,7 +190,7 @@ export function createReactionHook<Context extends IContext<{ state: {} }>>() {
 }
 
 export function createHooks<
-  Context extends IContext<{ state: {}; actions: {}; effects: {} }>
+  Context extends IContext<{ state: {}; actions: {}; effects: {} }>,
 >() {
   return {
     state: createStateHook<Context>(),

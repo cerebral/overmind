@@ -218,7 +218,7 @@ describe('OPERATORS', () => {
           data: string
         }
     const test = pipe(
-      () => ({ type: 'foo' } as Test),
+      () => ({ type: 'foo' }) as Test,
       fork('type', {
         foo: () => {
           return 'FOO'

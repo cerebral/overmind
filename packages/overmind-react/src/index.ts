@@ -304,7 +304,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
 }
 
 const useActions = <
-  Context extends IContext<{ actions: {} }>
+  Context extends IContext<{ actions: {} }>,
 >(): Context['actions'] => {
   const overmind = react.useContext(context) as Overmind<any>
 
@@ -316,7 +316,7 @@ const useActions = <
 }
 
 const useEffects = <
-  Context extends IContext<{ effects: {} }>
+  Context extends IContext<{ effects: {} }>,
 >(): Context['effects'] => {
   const overmind = react.useContext(context) as Overmind<any>
 
@@ -328,7 +328,7 @@ const useEffects = <
 }
 
 const useReaction = <
-  Context extends IContext<{ state: {} }>
+  Context extends IContext<{ state: {} }>,
 >(): IReaction<Context> => {
   const overmind = react.useContext(context) as Overmind<any>
 
@@ -345,25 +345,25 @@ export interface StateHook<Context extends IContext<{}>> {
 }
 
 export const createStateHook: <
-  Context extends IContext<{ state: {} }>
+  Context extends IContext<{ state: {} }>,
 >() => StateHook<Context> = () =>
   // eslint-disable-next-line dot-notation
   typeof react['useSyncExternalStore'] === 'function' ? useStateV18 : useState
 
 export const createActionsHook: <
-  Context extends IContext<{ actions: {} }>
+  Context extends IContext<{ actions: {} }>,
 >() => () => Context['actions'] = () => {
   return useActions as any
 }
 
 export const createEffectsHook: <
-  Context extends IContext<{ effects: {} }>
+  Context extends IContext<{ effects: {} }>,
 >() => () => Context['effects'] = () => {
   return useEffects as any
 }
 
 export const createReactionHook: <
-  Context extends IContext<{ state: {} }>
+  Context extends IContext<{ state: {} }>,
 >() => () => IReaction<Context> = () => {
   return useReaction as any
 }

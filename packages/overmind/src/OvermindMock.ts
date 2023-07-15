@@ -34,7 +34,7 @@ export function createOvermindMock<Config extends IConfiguration>(
     | [
         Config,
         internalTypes.NestedPartial<Config['effects']>,
-        (state: Config['state']) => void
+        (state: Config['state']) => void,
       ]
 ): OvermindMock<Config> {
   const setState = typeof args[1] === 'function' ? args[1] : args[2]

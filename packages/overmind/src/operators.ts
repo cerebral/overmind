@@ -236,7 +236,7 @@ export function parallel<I, O1, O2>(
   I,
   [
     O1 extends Promise<infer O1R> ? O1R : O1,
-    O2 extends Promise<infer O2R> ? O2R : O2
+    O2 extends Promise<infer O2R> ? O2R : O2,
   ]
 >
 export function parallel<I, O1, O2, O3>(
@@ -248,7 +248,7 @@ export function parallel<I, O1, O2, O3>(
   [
     O1 extends Promise<infer O1R> ? O1R : O1,
     O2 extends Promise<infer O2R> ? O2R : O2,
-    O3 extends Promise<infer O3R> ? O3R : O3
+    O3 extends Promise<infer O3R> ? O3R : O3,
   ]
 >
 export function parallel<I, O1, O2, O3, O4>(
@@ -262,7 +262,7 @@ export function parallel<I, O1, O2, O3, O4>(
     O1 extends Promise<infer O1R> ? O1R : O1,
     O2 extends Promise<infer O2R> ? O2R : O2,
     O3 extends Promise<infer O3R> ? O3R : O3,
-    O4 extends Promise<infer O4R> ? O4R : O4
+    O4 extends Promise<infer O4R> ? O4R : O4,
   ]
 >
 export function parallel<I, O1, O2, O3, O4, O5>(
@@ -278,7 +278,7 @@ export function parallel<I, O1, O2, O3, O4, O5>(
     O2 extends Promise<infer O2R> ? O2R : O2,
     O3 extends Promise<infer O3R> ? O3R : O3,
     O4 extends Promise<infer O4R> ? O4R : O4,
-    O5 extends Promise<infer O5R> ? O5R : O5
+    O5 extends Promise<infer O5R> ? O5R : O5,
   ]
 >
 export function parallel<I, O1, O2, O3, O4, O5, O6>(
@@ -296,7 +296,7 @@ export function parallel<I, O1, O2, O3, O4, O5, O6>(
     O3 extends Promise<infer O3R> ? O3R : O3,
     O4 extends Promise<infer O4R> ? O4R : O4,
     O5 extends Promise<infer O5R> ? O5R : O5,
-    O6 extends Promise<infer O6R> ? O6R : O6
+    O6 extends Promise<infer O6R> ? O6R : O6,
   ]
 >
 export function parallel<T extends OperatorContextFunction<any, any>>(

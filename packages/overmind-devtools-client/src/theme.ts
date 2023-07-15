@@ -1,5 +1,5 @@
 export function getThemeCss<
-  T extends { [key: string]: { [key: string]: string } }
+  T extends { [key: string]: { [key: string]: string } },
 >(variables: T): string {
   return `
 :root {
@@ -13,7 +13,7 @@ export function getThemeCss<
 }
 
 export function getTheme<
-  T extends { [key: string]: { [key: string]: string } }
+  T extends { [key: string]: { [key: string]: string } },
 >(variables: T): { [P in keyof T]: { [C in keyof T[P]]: string } } {
   return Object.keys(variables).reduce(
     (aggr, key) => ({

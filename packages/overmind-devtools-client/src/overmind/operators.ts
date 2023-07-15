@@ -371,6 +371,6 @@ export const getMessage = (_, value: Message) =>
   ({
     ...value.message,
     appName: value.appName,
-  } as AppMessage<any>)
+  }) as AppMessage<any>
 
 export const updateOperatorAsync = () => () => {}
