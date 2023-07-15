@@ -61,7 +61,7 @@
       "build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
   },
   "devDependencies": {
-      "@types/node": "^20.4.1",
+      "@types/node": "^20.4.2",
       "@types/vscode": "^1.80.0",
       "webpack": "^5.88.1"
     },

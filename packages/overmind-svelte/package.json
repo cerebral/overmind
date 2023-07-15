@@ -39,7 +39,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/svelte": "^3.2.2",
-    "@types/node": "^20.4.1",
+    "@types/node": "^20.4.2",
     "svelte-jester": "^2.3.2"
   },
   "setupFilesAfterEnv": [
