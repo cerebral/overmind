@@ -2,7 +2,7 @@ import * as React from 'react'
 import { injectGlobal } from 'emotion'
 import { createOvermind } from 'overmind'
 import { Provider } from 'overmind-react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 import Devtools from './components/Devtools'
 import { config } from './overmind'
@@ -29,35 +29,65 @@ injectGlobal`
     height: 100%;
   }
 
-  .Resizer {
-    background: var(--colors-background);
-    opacity: .2;
-    z-index: 1;
-    box-sizing: border-box;
-    background-clip: padding-box;
-  }
 
- .Resizer:hover {
-    transition: all 0.5s ease;
+  .react-split {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    width: 100%;
   }
-  .Resizer.vertical {
-    width: 5px;
-    margin: 0 -5px;
-    border-left: 2px solid var(--colors-border);
-    border-right: 2px solid var(--colors-border);
+  .react-split__pane {
+    height: 100%;
+    position: absolute;
+    white-space: normal;
+    width: 100%;
+    overflow: hidden;
+  }
+  .react-split__sash {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: background-color 0.1s;
+    width: 100%;
+    z-index: 2;
+  }
+  .react-split__sash--disabled {
+    pointer-events: none;
+  }
+  .react-split__sash--vertical {
+    transition: opacity 0.5s ease;
+    cursor: col-resize;
+    background-color: var(--colors-border);
     opacity: 0.8;
+  }
+  .react-split__sash--horizontal {
+    cursor: row-resize;
+  }
+  .react-split__sash-content {
+    width: 100%;
+    height: 100%;
+  }
+  .react-split__sash-content--active {
+    background-color: #175ede;
+  }
+  .react-split--dragging.react-split--vertical {
     cursor: col-resize;
   }
-
-  .Resizer.vertical:hover {
-    opacity: 1;
+  .react-split--dragging.react-split--horizontal {
+    cursor: row-resize;
   }
   
-  .Resizer.disabled {
-    cursor: not-allowed;
+  body.react-split--disabled {
+    user-select: none;
   }
-  .Resizer.disabled:hover {
-    border-color: transparent;
+  
+  .split-sash-content {
+    width: 100%;
+    height: 100%;
+  }
+  .split-sash-content.split-sash-content-vscode.split-sash-content-active {
+    background-color: var(--colors-border);
+    opacity: 1;
   }
 `
 
@@ -72,9 +102,10 @@ const overmind = createOvermind(config, {
 const container = document.createElement('div')
 container.id = 'app'
 document.body.appendChild(container)
-render(
+
+const root = createRoot(container)
+root.render(
   <Provider value={overmind}>
     <Devtools />
-  </Provider>,
-  container
+  </Provider>
 )

@@ -1,4 +1,4 @@
-import * as ColorHash from 'color-hash'
+import ColorHash from 'color-hash'
 
 import { Action, App, Flush, Mutation, OperatorsByPath } from './types'
 

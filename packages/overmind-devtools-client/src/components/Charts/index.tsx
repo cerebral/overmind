@@ -1,6 +1,6 @@
 import { css } from 'emotion'
 import * as React from 'react'
-import SplitPane from 'react-split-pane'
+import SplitPane, { Pane } from 'split-pane-react'
 
 import { useAppState, useActions } from '../../overmind'
 import { nameToColor } from '../../overmind/utils'
@@ -21,36 +21,39 @@ const Charts: React.FunctionComponent = () => {
         <div className={styles.columns}>
           <SplitPane
             split="vertical"
-            minSize={100}
-            defaultSize={state.chartsSplitSize}
-            onChange={(size) => actions.updateChartsSplitSize(size)}
+            sizes={[state.chartsSplitSize]}
+            onChange={(size) => actions.updateChartsSplitSize(size[0])}
           >
-            <div className={styles.listWrapper}>
-              {chartKeys.map((path) => {
-                return (
-                  <div
-                    className={css(
-                      styles.chartItem,
-                      state.currentApp.currentChartId === path &&
-                        styles.selected
-                    )}
-                    key={path}
-                    onClick={() => actions.selectChart(path)}
-                  >
-                    <span
-                      className={styles.chartColor}
-                      style={{
-                        backgroundColor: nameToColor(path),
-                      }}
-                    />
-                    <span className={textStyles.denseNormal}>
-                      {path || '[ROOT]'}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-            <Chart chart={state.currentChart} statePath={[]} />
+            <Pane minSize={100}>
+              <div className={styles.listWrapper}>
+                {chartKeys.map((path) => {
+                  return (
+                    <div
+                      className={css(
+                        styles.chartItem,
+                        state.currentApp.currentChartId === path &&
+                          styles.selected
+                      )}
+                      key={path}
+                      onClick={() => actions.selectChart(path)}
+                    >
+                      <span
+                        className={styles.chartColor}
+                        style={{
+                          backgroundColor: nameToColor(path),
+                        }}
+                      />
+                      <span className={textStyles.denseNormal}>
+                        {path || '[ROOT]'}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            </Pane>
+            <Pane>
+              <Chart chart={state.currentChart} statePath={[]} />
+            </Pane>
           </SplitPane>
         </div>
       ) : (
