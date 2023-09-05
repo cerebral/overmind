@@ -1,4 +1,4 @@
-import { debounce, pipe, wait, fork, Overmind } from 'overmind'
+import { pipe, wait, fork, Overmind } from 'overmind'
 import { Context } from './'
 
 import * as o from './operators'
@@ -272,7 +272,6 @@ export const setAppDataFromStorage = async (
   )
 
 export const updateActionsSplitSize = pipe(
-  debounce(200),
   async ({ state, effects }: Context, size: number) => {
     state.actionsSplitSize = size
 
@@ -281,7 +280,6 @@ export const updateActionsSplitSize = pipe(
 )
 
 export const updateChartsSplitSize = pipe(
-  debounce(200),
   async ({ state, effects }: Context, size: number) => {
     state.chartsSplitSize = size
 
@@ -290,6 +288,7 @@ export const updateChartsSplitSize = pipe(
 )
 
 export const clearActions = ({ state }: Context) => {
+  state.currentApp.actions = {}
   state.currentApp.actionsList = []
   state.currentApp.currentActionId = null
 }

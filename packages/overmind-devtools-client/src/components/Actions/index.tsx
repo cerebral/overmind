@@ -1,5 +1,5 @@
 import * as React from 'react'
-import SplitPane from 'react-split-pane'
+import SplitPane, { Pane } from 'split-pane-react'
 import { useAppState, useActions } from '../../overmind'
 import ActionsList from '../ActionsList'
 import Action from '../Action'
@@ -18,12 +18,15 @@ const Actions: React.FunctionComponent = () => {
         <div className={styles.columns}>
           <SplitPane
             split="vertical"
-            minSize={100}
-            defaultSize={state.actionsSplitSize}
-            onChange={(size) => actions.updateActionsSplitSize(size)}
+            sizes={[state.actionsSplitSize]}
+            onChange={(size) => actions.updateActionsSplitSize(size[0])}
           >
-            <ActionsList />
-            <Action action={state.currentAction} />
+            <Pane minSize={100}>
+              <ActionsList />
+            </Pane>
+            <Pane>
+              <Action action={state.currentAction} />
+            </Pane>
           </SplitPane>
         </div>
       ) : (
