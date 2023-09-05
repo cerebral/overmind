@@ -146,6 +146,7 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
   // @ts-ignore
   const snapshot = react.useSyncExternalStore(
     tracker.subscribe,
+    tracker.getState,
     tracker.getState
   )
   const mountedRef = react.useRef<any>(false)
