@@ -1,6 +1,8 @@
 import { Overmind, createOvermindMock, IContext } from 'overmind'
 import * as React from 'react'
-import * as renderer from 'react-test-renderer'
+import { render, act } from '@testing-library/react'
+
+import '@testing-library/jest-dom'
 
 import { Provider, createStateHook } from './'
 
@@ -38,23 +40,22 @@ describe('React', () => {
       return <h1>{state.foo}</h1>
     }
 
-    const tree = renderer
-      .create(
-        <Provider value={app}>
-          <FooComponent />
-        </Provider>
-      )
-      .toJSON()
+    const { container } = render(
+      <Provider value={app}>
+        <FooComponent />
+      </Provider>
+    )
 
     expect(renderCount).toBe(1)
 
-    renderer.act(() => {
+    act(() => {
       app.actions.doThis()
     })
 
     expect(renderCount).toBe(2)
-    expect(tree).toMatchSnapshot()
+    expect(container).toMatchSnapshot()
   })
+
   test('should allow using hooks with scoped tracking', () => {
     let renderCount = 0
 
@@ -92,30 +93,28 @@ describe('React', () => {
       return <h1>{state.foo}</h1>
     }
 
-    const tree = renderer
-      .create(
-        <Provider value={app}>
-          <FooComponent />
-        </Provider>
-      )
-      .toJSON()
+    const { container } = render(
+      <Provider value={app}>
+        <FooComponent />
+      </Provider>
+    )
 
     expect(renderCount).toBe(1)
 
-    renderer.act(() => {
+    act(() => {
       app.actions.doThis()
     })
 
     expect(renderCount).toBe(1)
 
-    renderer.act(() => {
+    act(() => {
       app.actions.doThat()
     })
     expect(renderCount).toBe(2)
 
     // This is not showing the expected result, but logging the rendering does, so must be the
     // library messing it up
-    expect(tree).toMatchSnapshot()
+    expect(container).toMatchSnapshot()
   })
   test('should allow using mocked Overmind', () => {
     let renderCount = 0
@@ -148,16 +147,14 @@ describe('React', () => {
     }
 
     const mock = createOvermindMock(config)
-    const tree = renderer
-      .create(
-        <Provider value={mock}>
-          <FooComponent />
-        </Provider>
-      )
-      .toJSON()
+    const { container } = render(
+      <Provider value={mock}>
+        <FooComponent />
+      </Provider>
+    )
 
     expect(renderCount).toBe(1)
-    expect(tree).toMatchSnapshot()
+    expect(container).toMatchSnapshot()
   })
   test('should throw an error without provider', () => {
     expect.assertions(1)
@@ -171,7 +168,7 @@ describe('React', () => {
     }
 
     expect(() => {
-      renderer.create(<FooComponent />).toJSON()
+      render(<FooComponent />)
     }).toThrow(Error)
   })
 })

@@ -1,4 +1,4 @@
-import * as react from 'react'
+import * as React from 'react'
 
 import {
   ENVIRONMENT,
@@ -19,9 +19,9 @@ const isNode =
   process.title.includes('node')
 
 export type IReactComponent<P = any> =
-  | react.FunctionComponent<P>
-  | react.ComponentClass<P>
-  | react.ClassicComponentClass<P>
+  | React.FunctionComponent<P>
+  | React.ComponentClass<P>
+  | React.ClassicComponentClass<P>
 
 function getFiberType(component) {
   if (component.type) {
@@ -44,15 +44,15 @@ function throwMissingContextError() {
   )
 }
 
-const context = react.createContext<Overmind<any>>({} as Overmind<any>)
+const context = React.createContext<Overmind<any>>({} as Overmind<any>)
 let nextComponentId = 0
 
-export const Provider: react.ProviderExoticComponent<
-  react.ProviderProps<Overmind<any> | OvermindMock<any>>
+export const Provider: React.ProviderExoticComponent<
+  React.ProviderProps<Overmind<any> | OvermindMock<any>>
 > = context.Provider
 
 function useForceRerender() {
-  const [flushId, forceRerender] = react.useState(-1)
+  const [flushId, forceRerender] = React.useState(-1)
 
   return {
     flushId,
@@ -61,7 +61,7 @@ function useForceRerender() {
 }
 
 let currentComponentInstanceId = 0
-const { ReactCurrentOwner } = (react as any)
+const { ReactCurrentOwner } = (React as any)
   .__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
 const useCurrentComponent = () => {
   return ReactCurrentOwner &&
@@ -124,7 +124,7 @@ class ReactTrackerV18 {
 const useStateV18 = <Context extends IContext<{ state: {} }>>(
   cb?: (state: Context['state']) => any
 ): Context['state'] => {
-  const overmind = react.useContext(context) as Overmind<any>
+  const overmind = React.useContext(context) as Overmind<any>
 
   if (!(overmind as any).mode) {
     throwMissingContextError()
@@ -134,7 +134,7 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
     return overmind.state
   }
 
-  const ref = react.useRef(null)
+  const ref = React.useRef(null)
 
   if (!ref.current) {
     // @ts-ignore
@@ -144,18 +144,19 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
   const tracker = ref.current as any
 
   // @ts-ignore
-  const snapshot = react.useSyncExternalStore(
+  const snapshot = React.useSyncExternalStore(
     tracker.subscribe,
     tracker.getState,
     tracker.getState
   )
-  const mountedRef = react.useRef<any>(false)
+  const mountedRef = React.useRef<any>(false)
+  // @ts-ignore
   const state = cb ? cb(snapshot.state) : snapshot.state
 
   tracker.track()
 
   if (IS_PRODUCTION) {
-    react.useLayoutEffect(() => {
+    React.useLayoutEffect(() => {
       tracker.stopTracking()
     }, [tracker])
   } else {
@@ -166,11 +167,11 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
         ? nextComponentId++
         : component.__componentId
 
-    const { current: componentInstanceId } = react.useRef<any>(
+    const { current: componentInstanceId } = React.useRef<any>(
       currentComponentInstanceId++
     )
 
-    react.useLayoutEffect(() => {
+    React.useLayoutEffect(() => {
       mountedRef.current = true
       overmind.eventHub.emitAsync(EventType.COMPONENT_ADD, {
         componentId: component.__componentId,
@@ -189,7 +190,7 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
       }
     }, [])
 
-    react.useLayoutEffect(() => {
+    React.useLayoutEffect(() => {
       tracker.stopTracking()
 
       overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
@@ -208,7 +209,7 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
 const useState = <Context extends IContext<{ state: {} }>>(
   cb?: (state: Context['state']) => any
 ): Context['state'] => {
-  const overmind = react.useContext(context) as Overmind<any>
+  const overmind = React.useContext(context) as Overmind<any>
 
   if (!(overmind as any).mode) {
     throwMissingContextError()
@@ -218,9 +219,9 @@ const useState = <Context extends IContext<{ state: {} }>>(
     return overmind.state
   }
 
-  const mountedRef = react.useRef<any>(false)
+  const mountedRef = React.useRef<any>(false)
   const { flushId, forceRerender } = useForceRerender()
-  const tree = react.useMemo(
+  const tree = React.useMemo(
     () => (overmind as any).proxyStateTreeInstance.getTrackStateTree(),
     [flushId]
   )
@@ -228,7 +229,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
   const state = cb ? cb(tree.state) : tree.state
 
   if (IS_PRODUCTION) {
-    react.useLayoutEffect(() => {
+    React.useLayoutEffect(() => {
       mountedRef.current = true
       tree.stopTracking()
 
@@ -253,11 +254,11 @@ const useState = <Context extends IContext<{ state: {} }>>(
         ? nextComponentId++
         : component.__componentId
 
-    const { current: componentInstanceId } = react.useRef<any>(
+    const { current: componentInstanceId } = React.useRef<any>(
       currentComponentInstanceId++
     )
 
-    react.useLayoutEffect(() => {
+    React.useLayoutEffect(() => {
       mountedRef.current = true
       overmind.eventHub.emitAsync(EventType.COMPONENT_ADD, {
         componentId: component.__componentId,
@@ -276,7 +277,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
       }
     }, [])
 
-    react.useLayoutEffect(() => {
+    React.useLayoutEffect(() => {
       tree.stopTracking()
 
       overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
@@ -307,7 +308,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
 const useActions = <
   Context extends IContext<{ actions: {} }>,
 >(): Context['actions'] => {
-  const overmind = react.useContext(context) as Overmind<any>
+  const overmind = React.useContext(context) as Overmind<any>
 
   if (!(overmind as any).mode) {
     throwMissingContextError()
@@ -319,7 +320,7 @@ const useActions = <
 const useEffects = <
   Context extends IContext<{ effects: {} }>,
 >(): Context['effects'] => {
-  const overmind = react.useContext(context) as Overmind<any>
+  const overmind = React.useContext(context) as Overmind<any>
 
   if (!(overmind as any).mode) {
     throwMissingContextError()
@@ -331,7 +332,7 @@ const useEffects = <
 const useReaction = <
   Context extends IContext<{ state: {} }>,
 >(): IReaction<Context> => {
-  const overmind = react.useContext(context) as Overmind<any>
+  const overmind = React.useContext(context) as Overmind<any>
 
   if (!(overmind as any).mode) {
     throwMissingContextError()
@@ -349,7 +350,7 @@ export const createStateHook: <
   Context extends IContext<{ state: {} }>,
 >() => StateHook<Context> = () =>
   // eslint-disable-next-line dot-notation
-  typeof react['useSyncExternalStore'] === 'function' ? useStateV18 : useState
+  typeof React['useSyncExternalStore'] === 'function' ? useStateV18 : useState
 
 export const createActionsHook: <
   Context extends IContext<{ actions: {} }>,

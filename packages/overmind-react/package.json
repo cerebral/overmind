@@ -35,10 +35,10 @@
     "tslib": "^2.6.0"
   },
   "devDependencies": {
-    "@types/node": "^20.4.2"
+    "@types/node": "^20.4.2",
+    "@testing-library/react": "^14.0.0"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-test-renderer": "*"
+    "react": "*"
   }
 }
