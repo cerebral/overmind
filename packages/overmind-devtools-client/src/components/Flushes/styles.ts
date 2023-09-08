@@ -7,7 +7,7 @@ export const wrapper = css({
   padding: '2rem 1rem',
   height: '100vh',
   boxSizing: 'border-box',
-  overflowY: 'scroll',
+  overflowY: 'auto',
 })
 
 export const panels = css({

@@ -4,7 +4,7 @@ import { colors } from '../../theme'
 export const wrapper = css({
   padding: '1rem',
   height: '100%',
-  overflowY: 'scroll',
+  overflowY: 'auto',
   boxSizing: 'border-box',
 })
 

@@ -76,7 +76,7 @@ export const resultWrapper = css({
   top: '100%',
   minWidth: '100%',
   maxHeight: '75vh',
-  overflowY: 'scroll',
+  overflowY: 'auto',
   left: 0,
   backgroundColor: colors.border,
   borderBottomLeftRadius: 3,
