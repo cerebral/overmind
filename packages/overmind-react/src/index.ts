@@ -143,7 +143,6 @@ const useStateV18 = <Context extends IContext<{ state: {} }>>(
 
   const tracker = ref.current as any
 
-  // @ts-ignore
   const snapshot = React.useSyncExternalStore(
     tracker.subscribe,
     tracker.getState,
