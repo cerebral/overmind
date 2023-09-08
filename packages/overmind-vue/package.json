@@ -32,10 +32,10 @@
   ],
   "dependencies": {
     "overmind": "next",
-		"tslib": "^2.6.0"
+		"tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.4.2"
+    "@types/node": "^20.5.9"
   },
   "peerDependencies": {
     "vue": "*"

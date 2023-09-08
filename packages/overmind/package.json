@@ -37,13 +37,13 @@
     "betsy": "next",
     "is-plain-obj": "^3.0.0",
     "proxy-state-tree": "next",
-		"tslib": "^2.6.0"
+		"tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.5.9",
     "bundlesize": "^0.18.1",
     "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.88.1"
+    "webpack": "^5.88.2"
   },
   "bundlesize": [
     {
