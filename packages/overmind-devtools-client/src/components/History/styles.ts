@@ -6,7 +6,7 @@ export const wrapper = css({
   padding: '2rem',
   height: '100vh',
   boxSizing: 'border-box',
-  overflowY: 'scroll',
+  overflowY: 'auto',
   fontSize: 14,
 })
 

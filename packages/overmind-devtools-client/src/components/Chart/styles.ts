@@ -3,7 +3,7 @@ import { css } from 'emotion'
 import { colors } from '../../theme'
 
 export const outerWrapper = css({
-  overflowY: 'scroll',
+  overflowY: 'auto',
   boxSizing: 'border-box',
   margin: '1rem',
   height: '100%',

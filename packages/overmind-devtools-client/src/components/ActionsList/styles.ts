@@ -11,7 +11,7 @@ export const separator = css({
 export const wrapper = css({
   padding: '1rem',
   height: '100%',
-  overflowY: 'scroll',
+  overflowY: 'auto',
   boxSizing: 'border-box',
 })
 
