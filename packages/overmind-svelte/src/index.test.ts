@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { render, fireEvent } from '@testing-library/svelte'
 
 import { Overmind } from 'overmind'

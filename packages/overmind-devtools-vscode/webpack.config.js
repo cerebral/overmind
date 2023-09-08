@@ -27,7 +27,7 @@ module.exports = (env) => ({
         options: {
           presets: ['@babel/preset-typescript', '@babel/preset-env'],
           plugins: [
-            '@babel/plugin-proposal-class-properties',
+            '@babel/plugin-transform-class-properties',
             '@babel/plugin-transform-runtime',
           ],
         },
@@ -36,7 +36,7 @@ module.exports = (env) => ({
         test: /\.js$/,
         loader: 'babel-loader',
         options: {
-          plugins: ['@babel/plugin-proposal-object-rest-spread'],
+          plugins: ['@babel/plugin-transform-object-rest-spread'],
         },
       },
     ],
