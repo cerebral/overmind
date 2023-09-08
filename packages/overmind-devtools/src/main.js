@@ -20,13 +20,11 @@ function createWindow() {
     minWidth: 500,
   })
 
-  electron.protocol.registerFileProtocol('filestub', (request, callback) => {
-    const url = request.url.substr(10)
-    const file = {
-      path: path.normalize(`${path.join(__dirname, '..')}/${url}`),
-    }
+  electron.protocol.handle('filestub', (request) => {
+    const url = request.url.substring(10)
+    const file = path.normalize(`${path.join(__dirname, '..')}/${url}`)
 
-    callback(file)
+    return electron.net.fetch('file://' + file)
   })
 
   const devtoolBackend = DevtoolBackend.create({
