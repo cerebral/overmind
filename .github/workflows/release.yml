@@ -37,7 +37,7 @@ jobs:
           REPO_COOKER_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish vscode extension to Visual Studio Marketplace
-        if: github.event_name != 'pull_request' && github.ref == 'ref/heads/master'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
@@ -45,7 +45,7 @@ jobs:
           packagePath: ./packages/overmind-devtools-vscode/
           skipDuplicate: true
       - name: Publish pre-release extension to Visual Studio Marketplace on next branch
-        if: github.event_name != 'pull_request' && github.ref == 'ref/heads/next'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/next'
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
