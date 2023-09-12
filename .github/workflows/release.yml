@@ -30,8 +30,27 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
           repository: cerebral/repo-cooker
-      - run: npm run release -- --no-parallel --print-release
+      - name: Release packages
+        run: npm run release -- --no-parallel --print-release
         if: github.event_name != 'pull_request'
         env:
           REPO_COOKER_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Publish vscode extension to Visual Studio Marketplace
+        if: github.event_name != 'pull_request' && github.ref == 'ref/head/master'
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          packagePath: ./packages/overmind-devtools-vscode/
+          skipDuplicate: true
+      - name: Publish pre-release extension to Visual Studio Marketplace on next branch
+        if: github.event_name != 'pull_request' && github.ref == 'ref/head/next'
+        uses: HaaLeo/publish-vscode-extension@v1
+        
+        with:
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          packagePath: ./packages/overmind-devtools-vscode/
+          skipDuplicate: true
+          preRelease: true
