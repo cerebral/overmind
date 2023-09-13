@@ -43,6 +43,7 @@ jobs:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
           packagePath: ./packages/overmind-devtools-vscode/
+          dependencies: false
           skipDuplicate: true
       - name: Publish pre-release extension to Visual Studio Marketplace on next branch
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/next'
@@ -51,5 +52,6 @@ jobs:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
           packagePath: ./packages/overmind-devtools-vscode/
+          dependencies: false
           skipDuplicate: true
           preRelease: true

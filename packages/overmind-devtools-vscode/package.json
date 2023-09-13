@@ -60,13 +60,13 @@
     "watch": "webpack --mode none --watch",
     "build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
   },
-  "dependencies": {
-    "overmind-devtools-client": "next"
-  },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "7.22.5",
     "@types/node": "^20.5.9",
     "@types/vscode": "^1.82.0",
     "webpack": "^5.88.2"
+  },
+  "peerDependencies": {
+    "overmind-devtools-client": "next"
   }
 }
