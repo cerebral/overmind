@@ -62,7 +62,7 @@
     "@types/phoenix": "1.6.1",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "@types/vscode": "1.82.0",
+    "@types/vscode": "1.70.0",
     "@types/ws": "8.5.5",
     "@typescript-eslint/eslint-plugin": "6.6.0",
     "@typescript-eslint/parser": "6.6.0",
