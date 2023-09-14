@@ -1,9 +1,7 @@
 # Change Log
 
-All notable changes to the "overmind-devtools" extension will be documented in this file.
+You can find the changes inside the **Overmind Monorepo** under
+[**Releases**](https://github.com/cerebral/overmind/releases).
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+For changes in the **Overmind Extension** look for the packages
+**overmind-devtools-vscode** and **overmind-devtools-client**.

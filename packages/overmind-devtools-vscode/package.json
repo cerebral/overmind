@@ -3,14 +3,15 @@
   "displayName": "Overmind Devtools VSCode",
   "description": "Devtools for Overmind",
   "publisher": "christianalfoni",
-  "version": "0.0.38",
+  "version": "10.0.4",
+  "license": "MIT",
   "icon": "logo_simplified_glow.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/cerebral/overmind.git"
   },
   "engines": {
-    "vscode": "^1.82.0"
+    "vscode": "^1.70.0"
   },
   "categories": [
     "Other"
@@ -63,7 +64,7 @@
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "7.22.5",
     "@types/node": "^20.5.9",
-    "@types/vscode": "^1.82.0",
+    "@types/vscode": "^1.70.0",
     "webpack": "^5.88.2"
   },
   "peerDependencies": {
