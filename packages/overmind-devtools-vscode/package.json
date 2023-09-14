@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "7.22.5",
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.6.1",
     "@types/vscode": "^1.70.0",
     "webpack": "^5.88.2"
   },
