@@ -19,7 +19,7 @@
 		"devtool"
 	],
 	"dependencies": {
-		"electron": "^26.2.0",
+		"electron": "^26.2.1",
 		"electron-json-storage": "^4.6.0",
 		"overmind-devtools-client": "next",
 		"ws": "^8.14.1"
