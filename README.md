@@ -4,12 +4,12 @@ Visit website for more information: [www.overmindjs.org](https://overmindjs.org)
 
 ## Maintainer needed
 
-https://gist.github.com/christianalfoni/f1c4bfe320dcb24c403635d9bca3fa40
+<https://gist.github.com/christianalfoni/f1c4bfe320dcb24c403635d9bca3fa40>
 
 ## Release procedure
 
 ```sh
-git checkout next
+git switch next
 git pull
 npm install # make sure any new dependencies are installed
 npm run release -- --dry-run --print-release  # and check release notes
