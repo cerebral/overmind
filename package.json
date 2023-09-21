@@ -29,7 +29,7 @@
     "electron": "26.2.1",
     "electron-json-storage": "4.6.0",
     "emotion": "9.2.12",
-    "graphql": "16.8.0",
+    "graphql": "16.8.1",
     "graphql-request": "5.1.0",
     "graphql-tag": "2.12.6",
     "is-plain-obj": "3.0.0",
