@@ -1,6 +1,6 @@
 {
 	"name": "overmind-devtools",
-	"version": "29.0.4",
+	"version": "29.0.5",
 	"description": "Overmind devtool",
   "main": "src/main.js",
 	"author": "Christian Alfoni <christianalfoni@gmail.com>",
@@ -19,9 +19,9 @@
 		"devtool"
 	],
 	"dependencies": {
-		"electron": "^26.2.1",
+		"electron": "^26.3.0",
 		"electron-json-storage": "^4.6.0",
 		"overmind-devtools-client": "next",
-		"ws": "^8.14.1"
+		"ws": "^8.14.2"
 	}
 }

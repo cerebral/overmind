@@ -32,7 +32,7 @@
   ],
   "dependencies": {
     "@absinthe/socket": "^0.2.1",
-    "graphql": "^16.8.0",
+    "graphql": "^16.8.1",
     "graphql-request": "^5.1.0",
     "graphql-tag": "^2.12.6",
     "overmind": "next",
@@ -40,7 +40,7 @@
 		"tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.6.1",
-    "@types/phoenix": "^1.6.1"
+    "@types/node": "^20.8.3",
+    "@types/phoenix": "^1.6.2"
   }
 }

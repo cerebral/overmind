@@ -40,7 +40,7 @@
 		"tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.6.1",
+    "@types/node": "^20.8.3",
     "bundlesize": "^0.18.1",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.88.2"
