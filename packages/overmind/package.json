@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand && npm run test:size",
     "test:watch": "jest --watch --updateSnapshot --coverage false",
-    "test:size": "bundlesize",
+    "test:size": "size-limit",
     "prebuild": "npm run clean",
     "postbuild": "rimraf {lib,es}/**/__tests__",
     "posttest": "npm run typecheck"
@@ -37,18 +37,19 @@
     "betsy": "next",
     "is-plain-obj": "^3.0.0",
     "proxy-state-tree": "next",
-		"tslib": "^2.6.2"
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
+    "@size-limit/file": "^8.2.6",
     "@types/node": "^20.8.3",
-    "bundlesize": "^0.18.1",
+    "size-limit": "^8.2.6",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.88.2"
   },
-  "bundlesize": [
+  "size-limit": [
     {
       "path": "./dist/overmind.min.js",
-      "maxSize": "12 kB"
+      "limit": "1 kB"
     }
   ]
 }

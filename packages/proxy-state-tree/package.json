@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand && npm run test:size",
     "test:watch": "jest --watch --updateSnapshot --coverage false",
-    "test:size": "bundlesize",
+    "test:size": "size-limit",
     "prebuild": "npm run clean",
     "postbuild": "rimraf {lib,es}/**/__tests__",
     "posttest": "npm run typecheck"
@@ -37,14 +37,15 @@
   },
   "homepage": "https://github.com/christianalfoni/proxy-state-tree#readme",
   "devDependencies": {
-    "bundlesize": "^0.18.1",
+    "@size-limit/file": "^8.2.6",
+    "size-limit": "^8.2.6",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.88.2"
   },
-  "bundlesize": [
+  "size-limit": [
     {
       "path": "./dist/proxy-state-tree.min.js",
-      "maxSize": "4 kB"
+      "limit": "300 B"
     }
   ]
 }
