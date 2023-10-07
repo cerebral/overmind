@@ -242,10 +242,7 @@ const Nested: React.FunctionComponent<NestedProps> = React.memo(
                 {isClass ? (
                   <span className={styles.inlineClass}>{value.name}</span>
                 ) : null}{' '}
-                {keys
-                  .sort()
-                  .slice(0, 3)
-                  .join(', ') + '...'}
+                {keys.sort().slice(0, 3).join(', ') + '...'}
               </span>
             )}
           </span>
