@@ -8,19 +8,19 @@ import {
 
 export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
   private disposeOnReset: Function
-  master: IProxyStateTree<T>
+  root: IProxyStateTree<T>
   pathDependencies: Set<string> = new Set()
-  callback: ITrackCallback
-  shouldTrack: boolean = false
   state: T
   proxifier: IProxifier<T>
   trackPathListeners: Array<(path: string) => void> = []
-  constructor(master: IProxyStateTree<T>) {
-    this.master = master
-    this.proxifier = master.proxifier
-    this.state = master.state
+  constructor(root: IProxyStateTree<T>) {
+    this.root = root
+    this.proxifier = root.proxifier
+    this.state = root.state
   }
 
+  // Does not seem to be used
+  /*
   trackPaths() {
     const paths = new Set<string>()
     const listener = (path) => {
@@ -37,6 +37,11 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
       return paths
     }
   }
+  */
+
+  track() {
+    this.root.changeTrackStateTree(this)
+  }
 
   canMutate() {
     return false
@@ -47,50 +52,24 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
   }
 
   addTrackingPath(path: string) {
-    if (!this.shouldTrack) {
-      return
-    }
-
     this.pathDependencies.add(path)
-
-    if (this.callback) {
-      this.master.addPathDependency(path, this.callback)
-    }
   }
 
-  track(cb?: ITrackCallback) {
-    this.master.changeTrackStateTree(this)
-    this.shouldTrack = true
-
-    this.clearTracking()
-
-    if (cb) {
-      this.callback = (...args) => {
-        if (!this.callback) {
-          return
-        }
-        // eslint-disable-next-line
-        cb(...args)
-      }
+  subscribe(cb: ITrackCallback) {
+    this.root.changeTrackStateTree(null)
+    console.log('Adddig', this.pathDependencies)
+    for (const path of this.pathDependencies) {
+      this.root.addPathDependency(path, cb)
     }
-
-    return this
-  }
-
-  clearTracking() {
-    if (this.callback) {
+    return () => {
+      console.log('Removing', this.pathDependencies)
       for (const path of this.pathDependencies) {
-        this.master.removePathDependency(path, this.callback)
+        this.root.removePathDependency(path, cb)
       }
     }
-
-    this.pathDependencies.clear()
   }
 
-  stopTracking() {
-    this.shouldTrack = false
-  }
-
+  /*
   trackScope(scope: ITrackScopedCallback<T>, cb?: ITrackCallback) {
     const previousPreviousTree = this.master.previousTree
     const previousCurrentTree = this.master.currentTree
@@ -99,25 +78,7 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
     const result = scope(this)
     this.master.currentTree = previousCurrentTree
     this.master.previousTree = previousPreviousTree
-    this.stopTracking()
     return result
   }
-
-  dispose() {
-    if (!this.callback) {
-      this.pathDependencies.clear()
-
-      return this
-    }
-
-    this.clearTracking()
-    this.callback = null
-    this.proxifier = this.master.proxifier
-
-    if (this.master.currentTree === this) {
-      this.master.currentTree = null
-    }
-
-    return this
-  }
+*/
 }
