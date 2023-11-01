@@ -9,7 +9,7 @@ import {
 
 export class MutationTree<T extends object> implements IMutationTree<T> {
   private mutationCallbacks: IMutationCallback[] = []
-  master: IProxyStateTree<T>
+  root: IProxyStateTree<T>
   state: T
   proxifier: IProxifier<T>
   mutations: IMutation[] = []
@@ -17,11 +17,11 @@ export class MutationTree<T extends object> implements IMutationTree<T> {
   isTracking: boolean = false
   isBlocking: boolean = false
   trackPathListeners: Array<(path: string) => void> = []
-  constructor(master: IProxyStateTree<T>, proxifier?: IProxifier<T>) {
+  constructor(root: IProxyStateTree<T>, proxifier?: IProxifier<T>) {
     this.isTracking = true
-    this.master = master
+    this.root = root
     this.proxifier = proxifier || new Proxifier(this)
-    this.state = this.proxifier.proxify(master.sourceState, '')
+    this.state = this.proxifier.proxify(root.sourceState, '')
   }
 
   trackPaths() {
@@ -58,7 +58,7 @@ export class MutationTree<T extends object> implements IMutationTree<T> {
   }
 
   addMutation(mutation: IMutation, objectChangePath?: string) {
-    const currentFlushId = this.master.currentFlushId
+    const currentFlushId = this.root.currentFlushId
 
     this.mutations.push(mutation)
 
@@ -66,7 +66,7 @@ export class MutationTree<T extends object> implements IMutationTree<T> {
       this.objectChanges.add(objectChangePath)
     }
 
-    for (const cb of this.master.mutationCallbacks) {
+    for (const cb of this.root.mutationCallbacks) {
       cb(
         mutation,
         new Set(
@@ -88,7 +88,7 @@ export class MutationTree<T extends object> implements IMutationTree<T> {
   }
 
   flush(isAsync: boolean = false) {
-    return this.master.flush(this, isAsync)
+    return this.root.flush(this, isAsync)
   }
 
   onMutation(callback: IMutationCallback) {
@@ -114,7 +114,7 @@ export class MutationTree<T extends object> implements IMutationTree<T> {
   dispose() {
     this.isTracking = false
     this.mutationCallbacks.length = 0
-    this.proxifier = this.master.proxifier
+    this.proxifier = this.root.proxifier
 
     return this
   }

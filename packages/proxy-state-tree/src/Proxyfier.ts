@@ -59,8 +59,8 @@ export class Proxifier {
   delimiter: string
   ssr: boolean
   constructor(private tree: TTree) {
-    this.delimiter = tree.master.options.delimiter
-    this.ssr = Boolean(tree.master.options.ssr)
+    this.delimiter = tree.root.options.delimiter
+    this.ssr = Boolean(tree.root.options.ssr)
   }
 
   private concat(path, prop) {
@@ -70,7 +70,7 @@ export class Proxifier {
   ensureMutationTrackingIsEnabled(path) {
     if (ENVIRONMENT === 'production') return
 
-    if (this.tree.master.options.devmode && !this.tree.canMutate()) {
+    if (this.tree.root.options.devmode && !this.tree.canMutate()) {
       throw new Error(
         `proxy-state-tree - You are mutating the path "${path}", but it is not allowed. The following could have happened:
         
@@ -83,7 +83,7 @@ export class Proxifier {
   }
 
   isDefaultProxifier() {
-    return this.tree.proxifier === this.tree.master.proxifier
+    return this.tree.proxifier === this.tree.root.proxifier
   }
 
   ensureValueDosntExistInStateTreeElsewhere(value) {
@@ -104,7 +104,7 @@ export class Proxifier {
     }
 
     if (this.isDefaultProxifier()) {
-      const trackStateTree = this.tree.master
+      const trackStateTree = this.tree.root
         .currentTree as ITrackStateTree<any>
 
       if (!trackStateTree) {
@@ -122,8 +122,8 @@ export class Proxifier {
   // a tracking proxy that is not part of the current tracking tree (pass as prop)
   // we move the ownership to the current tracker
   getTrackingTree() {
-    if (this.tree.master.currentTree && this.isDefaultProxifier()) {
-      return this.tree.master.currentTree
+    if (this.tree.root.currentTree && this.isDefaultProxifier()) {
+      return this.tree.root.currentTree
     }
 
     if (!this.tree.canTrack()) {
@@ -138,7 +138,7 @@ export class Proxifier {
   }
 
   getMutationTree() {
-    return this.tree.master.mutationTree || (this.tree as IMutationTree<any>)
+    return this.tree.root.mutationTree || (this.tree as IMutationTree<any>)
   }
 
   private isProxyCached(value, path) {
@@ -281,10 +281,10 @@ export class Proxifier {
           const value = descriptor.get.call(proxy)
 
           if (
-            proxifier.tree.master.options.devmode &&
-            proxifier.tree.master.options.onGetter
+            proxifier.tree.root.options.devmode &&
+            proxifier.tree.root.options.onGetter
           ) {
-            proxifier.tree.master.options.onGetter(
+            proxifier.tree.root.options.onGetter(
               proxifier.concat(path, prop),
               value
             )
@@ -299,8 +299,8 @@ export class Proxifier {
         const currentTree = trackingTree || proxifier.tree
 
         if (typeof targetValue === 'function') {
-          if (proxifier.tree.master.options.onGetFunction) {
-            return proxifier.tree.master.options.onGetFunction(
+          if (proxifier.tree.root.options.onGetFunction) {
+            return proxifier.tree.root.options.onGetFunction(
               trackingTree || proxifier.tree,
               nestedPath,
               target,
@@ -340,9 +340,9 @@ export class Proxifier {
 
         if (
           typeof value === 'function' &&
-          proxifier.tree.master.options.onSetFunction
+          proxifier.tree.root.options.onSetFunction
         ) {
-          value = proxifier.tree.master.options.onSetFunction(
+          value = proxifier.tree.root.options.onSetFunction(
             proxifier.getTrackingTree() || proxifier.tree,
             nestedPath,
             target,

@@ -30,11 +30,6 @@ export {
 export * from './types'
 
 export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
-  private cache = {
-    mutationTree: [] as IMutationTree<T>[],
-    trackStateTree: [] as ITrackStateTree<T>[],
-  }
-
   flushCallbacks: IFlushCallback[] = []
   mutationCallbacks: IMutationCallback[] = []
   currentFlushId: number = 0
@@ -83,18 +78,19 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
   }
 
   getMutationTree(): IMutationTree<T> {
+    // We never want to do tracking when we want to do mutations
+    this.changeTrackStateTree(null)
+
     if (!this.options.devmode) {
       return (this.mutationTree =
         this.mutationTree || new MutationTree(this, this.proxifier))
     }
 
-    const tree = this.cache.mutationTree.pop() || new MutationTree(this)
-
-    return tree
+    return new MutationTree(this)
   }
 
   getTrackStateTree(): ITrackStateTree<T> {
-    return this.cache.trackStateTree.pop() || new TrackStateTree(this)
+    return new TrackStateTree(this)
   }
 
   getTrackStateTreeWithProxifier(): ITrackStateTree<T> {
@@ -117,9 +113,9 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
 
   disposeTree(tree: IMutationTree<T> | ITrackStateTree<T>) {
     if (tree instanceof MutationTree) {
-      this.cache.mutationTree.push((tree as IMutationTree<T>).dispose())
+      ;(tree as IMutationTree<T>).dispose()
     } else if (tree instanceof TrackStateTree) {
-      this.cache.trackStateTree.push((tree as ITrackStateTree<T>).dispose())
+      // (tree as ITrackStateTree<T>).dispose()
     }
   }
 

@@ -29,7 +29,7 @@ export interface IMutationTree<T extends object> {
   }
   dispose(): IMutationTree<T>
   objectChanges: Set<string>
-  master: IProxyStateTree<T>
+  root: IProxyStateTree<T>
   proxifier: IProxifier<T>
   mutations: IMutation[]
   state: T
@@ -51,20 +51,15 @@ export interface ITrackScopedCallback<T extends object> {
 
 export interface ITrackStateTree<T extends object> {
   addTrackingPath(path: string): void
-  track(cb?: ITrackCallback): ITrackStateTree<T>
-  stopTracking(): void
-  trackScope(scope: ITrackScopedCallback<T>, callback?: ITrackCallback): any
-  trackPaths(): () => Set<string>
+  subscribe(cb: ITrackCallback): () => void
+  track(): void
+  // trackScope(scope: ITrackScopedCallback<T>, callback?: ITrackCallback): any
   canTrack(): boolean
   canMutate(): boolean
-  dispose(): ITrackStateTree<T>
-  clearTracking(): void
-  master: IProxyStateTree<T>
-  shouldTrack: boolean
+  root: IProxyStateTree<T>
   proxifier: IProxifier<T>
   state: T
   pathDependencies: Set<string>
-  callback: ITrackCallback
   trackPathListeners: Array<(path: string) => void>
 }
 
