@@ -1,9 +1,11 @@
 # proxy-state-tree
-An implementation of the Mobx/Vue state tracking approach with a state tree, for library authors 
+
+An implementation of the Mobx/Vue state tracking approach with a state tree, for library authors.
 
 `npm install proxy-state-tree`
 
 ## Why
+
 The **proxy-state-tree** project is created to stimulate innovation in state management. The introduction of [Flux](https://facebook.github.io/flux/) was followed by a big wave of libraries trying to improve on the idea. All these iterations helped moving the community forward and [Redux](https://redux.js.org/) was born a year later. It was frustrating to have all these variations of the same idea, but at the same time it made the core idea better. One factor I believe made this possible is that Flux state management is based on **immutability**. It is a difficult concept to understand, but when you understand it, it is easy to implement the concept of **change**. You literally just check if a value you depend on has changed. That said, immutability tends to put a lof effort on the hands of the consumer. You have to think really hard about how you structure state and expose state to components to avoid performance issues and prevent boilerplate.
 
 [vuejs](https://vuejs.org/) and [mobx](https://github.com/mobxjs/mobx) has a different approach to **change**. They use **getter/setter interception** to track access to state and changes to state. This concept completely removes the consumers burden of how the state is structured and how it is exposed to the different parts of the app. You just expose state in any form and the usage is automatically tracked and optimized. The problem with this approach though is that it is difficult to implement as a library author. **I want to change that!**
@@ -119,9 +121,9 @@ const mutationTree = tree.getMutationTree()
 mutationTree.state.foo = "bar"
 ```
 
-This forked tree is allowed to perform actual mutations. 
+This forked tree is allowed to perform actual mutations.
 
-### onMutation
+### mutationTree.onMutation
 
 ```js
 const mutationTree = tree.getMutationTree()
@@ -133,7 +135,7 @@ mutationTree.onMutation((mutation) => {
 
 Allows you to listen to mutations on the specific tree.
 
-## diposeTree
+## disposeTree
 
 ```js
 const tree = new ProxyStateTree({})
@@ -204,7 +206,6 @@ tree.onFlush(() => {})
 
 Get notified when a flush is made.
 
-
 ## rescope
 
 ```js
@@ -228,6 +229,6 @@ Rescoping proxies between trees is useful in development as the MutationTrees ha
 
 When running in development all **TrackStateTree** forks has the same *proxifier*, meaning they share proxies. They can do this cause the trees "hand over" tracking to each other.
 
-Every fork of a **MutationTree** has its own *proxifier*. The reason for this is that in development each mutation tree fork should live on its own for tracking purposes. 
+Every fork of a **MutationTree** has its own *proxifier*. The reason for this is that in development each mutation tree fork should live on its own for tracking purposes.
 
 When running in production there is only one *proxifier* shared among all trees, and there is only one mutationtree instance as tracking is no longer needed.
