@@ -79,7 +79,7 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
 
   getMutationTree(): IMutationTree<T> {
     // We never want to do tracking when we want to do mutations
-    this.changeTrackStateTree(null)
+    this.clearTrackStateTree()
 
     if (!this.options.devmode) {
       return (this.mutationTree =
@@ -111,11 +111,14 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
     this.currentTree = tree
   }
 
+  clearTrackStateTree() {
+    this.previousTree = null
+    this.currentTree = null
+  }
+
   disposeTree(tree: IMutationTree<T> | ITrackStateTree<T>) {
     if (tree instanceof MutationTree) {
       ;(tree as IMutationTree<T>).dispose()
-    } else if (tree instanceof TrackStateTree) {
-      // (tree as ITrackStateTree<T>).dispose()
     }
   }
 

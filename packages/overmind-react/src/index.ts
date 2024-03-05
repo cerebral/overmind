@@ -121,90 +121,6 @@ class ReactTrackerV18 {
   }
 }
 
-const useStateV18 = <Context extends IContext<{ state: {} }>>(
-  cb?: (state: Context['state']) => any
-): Context['state'] => {
-  const overmind = React.useContext(context) as Overmind<any>
-
-  if (!(overmind as any).mode) {
-    throwMissingContextError()
-  }
-
-  if (isNode || (overmind as any).mode.mode === MODE_SSR) {
-    return overmind.state
-  }
-
-  const ref = React.useRef(null)
-
-  if (!ref.current) {
-    // @ts-ignore
-    ref.current = new ReactTrackerV18(overmind.getTrackStateTree())
-  }
-
-  const tracker = ref.current as any
-
-  const snapshot = React.useSyncExternalStore(
-    tracker.subscribe,
-    tracker.getState,
-    tracker.getState
-  )
-  const mountedRef = React.useRef<any>(false)
-  // @ts-ignore
-  const state = cb ? cb(snapshot.state) : snapshot.state
-
-  tracker.track()
-
-  if (IS_PRODUCTION) {
-    React.useLayoutEffect(() => {
-      tracker.stopTracking()
-    }, [tracker])
-  } else {
-    const component = useCurrentComponent()
-    const name = getDisplayName(component)
-    component.__componentId =
-      typeof component.__componentId === 'undefined'
-        ? nextComponentId++
-        : component.__componentId
-
-    const { current: componentInstanceId } = React.useRef<any>(
-      currentComponentInstanceId++
-    )
-
-    React.useLayoutEffect(() => {
-      mountedRef.current = true
-      overmind.eventHub.emitAsync(EventType.COMPONENT_ADD, {
-        componentId: component.__componentId,
-        componentInstanceId,
-        name,
-        paths: Array.from(tracker.tree.pathDependencies) as any,
-      })
-
-      return () => {
-        mountedRef.current = false
-        overmind.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
-          componentId: component.__componentId,
-          componentInstanceId,
-          name,
-        })
-      }
-    }, [])
-
-    React.useLayoutEffect(() => {
-      tracker.stopTracking()
-
-      overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-        componentId: component.__componentId,
-        componentInstanceId,
-        name,
-        flushId: 0,
-        paths: Array.from(tracker.tree.pathDependencies) as any,
-      })
-    }, [tracker])
-  }
-
-  return state
-}
-
 const useState = <Context extends IContext<{ state: {} }>>(
   cb?: (state: Context['state']) => any
 ): Context['state'] => {
@@ -218,33 +134,23 @@ const useState = <Context extends IContext<{ state: {} }>>(
     return overmind.state
   }
 
-  const mountedRef = React.useRef<any>(false)
   const { flushId, forceRerender } = useForceRerender()
-  const tree = React.useMemo(
-    () => (overmind as any).proxyStateTreeInstance.getTrackStateTree(),
-    [flushId]
-  )
 
-  const state = cb ? cb(tree.state) : tree.state
+  const trackStateTree = (
+    overmind as any
+  ).proxyStateTreeInstance.getTrackStateTree()
+  const state = cb ? cb(trackStateTree.state) : trackStateTree.state
+
+  trackStateTree.track()
 
   if (IS_PRODUCTION) {
-    React.useLayoutEffect(() => {
-      mountedRef.current = true
-      tree.stopTracking()
-
-      return () => {
-        tree.dispose()
-      }
-    }, [tree])
-
-    tree.track((_, __, flushId) => {
-      if (!mountedRef.current) {
-        // This one is not dealt with by the useLayoutEffect
-        tree.dispose()
-        return
-      }
-      forceRerender(flushId)
-    })
+    React.useEffect(
+      () =>
+        trackStateTree.subscribe((_, __, flushId) => {
+          forceRerender(flushId)
+        }),
+      []
+    )
   } else {
     const component = useCurrentComponent()
     const name = getDisplayName(component)
@@ -257,48 +163,29 @@ const useState = <Context extends IContext<{ state: {} }>>(
       currentComponentInstanceId++
     )
 
-    React.useLayoutEffect(() => {
-      mountedRef.current = true
-      overmind.eventHub.emitAsync(EventType.COMPONENT_ADD, {
-        componentId: component.__componentId,
-        componentInstanceId,
-        name,
-        paths: Array.from(tree.pathDependencies) as any,
-      })
-
-      return () => {
-        mountedRef.current = false
-        overmind.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
-          componentId: component.__componentId,
-          componentInstanceId,
-          name,
-        })
-      }
-    }, [])
-
-    React.useLayoutEffect(() => {
-      tree.stopTracking()
-
+    React.useEffect(() => {
       overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
         componentId: component.__componentId,
         componentInstanceId,
         name,
-        flushId,
-        paths: Array.from(tree.pathDependencies) as any,
+        paths: Array.from(trackStateTree.pathDependencies) as any,
+      })
+
+      const dispose = trackStateTree.subscribe((_, __, flushId) => {
+        forceRerender(flushId)
       })
 
       return () => {
-        tree.dispose()
+        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+          componentId: component.__componentId,
+          componentInstanceId,
+          name,
+          paths: [],
+        })
+
+        dispose()
       }
-    }, [tree])
-    tree.track((_, __, flushId) => {
-      if (!mountedRef.current) {
-        // This one is not dealt with by the useLayoutEffect
-        tree.dispose()
-        return
-      }
-      forceRerender(flushId)
-    })
+    }, [])
   }
 
   return state
@@ -349,7 +236,7 @@ export const createStateHook: <
   Context extends IContext<{ state: {} }>,
 >() => StateHook<Context> = () =>
   // eslint-disable-next-line dot-notation
-  typeof React['useSyncExternalStore'] === 'function' ? useStateV18 : useState
+  useState
 
 export const createActionsHook: <
   Context extends IContext<{ actions: {} }>,

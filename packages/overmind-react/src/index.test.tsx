@@ -88,6 +88,7 @@ describe('React', () => {
 
     const FooComponent: React.FunctionComponent = () => {
       const state = useState((state) => state.foo[0])
+      console.log('WTF?')
       renderCount++
 
       return <h1>{state.foo}</h1>
@@ -110,6 +111,7 @@ describe('React', () => {
     act(() => {
       app.actions.doThat()
     })
+
     expect(renderCount).toBe(2)
 
     // This is not showing the expected result, but logging the rendering does, so must be the

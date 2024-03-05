@@ -558,6 +558,8 @@ export function throttle<T>(ms: number): IOperator<T, T> {
   )
 }
 
+// waitUntil((state) => state.foo === 'bar')
+
 export function waitUntil<T, C extends IContext<{}>>(
   operation: (state: C['state']) => boolean
 ): IOperator<T, T> {
@@ -568,13 +570,17 @@ export function waitUntil<T, C extends IContext<{}>>(
       if (err) next(err, value)
       else {
         const tree = context.execution.getTrackStateTree()
+        let disposer
         const test = () => {
+          disposer?.()
+
           if (operation(tree.state)) {
-            tree.dispose()
             next(null, value)
+          } else {
+            disposer = tree.subscribe(test)
           }
         }
-        tree.trackScope(test, test)
+        tree.trackScope(test)
       }
     }
   )
