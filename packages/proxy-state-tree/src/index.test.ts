@@ -451,7 +451,7 @@ describe('OBJECTS', () => {
       const tree = new ProxyStateTree(state)
       const mutationTree = tree.getMutationTree()
 
-      delete mutationTree.state.foo
+      delete (mutationTree.state as any)?.foo
 
       expect(mutationTree.mutations).toEqual([
         {
@@ -526,15 +526,16 @@ describe('ARRAYS', () => {
     test('should correctly keep track of changing indexes', () => {
       expect.assertions(4)
       let iterations = 0
-      const tree = new ProxyStateTree({
-        items: [],
-      })
+      const state = {
+        items: [] as { title: string }[],
+      }
+      const tree = new ProxyStateTree(state)
 
       const accessTree = tree.getTrackStateTree()
 
       function trackPaths() {
         accessTree.track()
-        accessTree.state.items.map((item) => item.title)
+        accessTree.state.items.map((item: { title: string }) => item.title)
         accessTree.subscribe(trackPaths)
 
         if (iterations === 1) {
@@ -609,7 +610,7 @@ describe('ARRAYS', () => {
 
     test('should throw if parts of state are nested', () => {
       const state = {
-        foo: [undefined],
+        foo: [] as object[],
         bar: {
           nested: 'baz',
         },
@@ -625,7 +626,7 @@ describe('ARRAYS', () => {
 
     test('should track PUSH mutations', () => {
       const state = {
-        foo: [],
+        foo: [] as string[],
       }
       const tree = new ProxyStateTree(state)
       const mutationTree = tree.getMutationTree()
@@ -685,7 +686,7 @@ describe('ARRAYS', () => {
     })
     test('should track UNSHIFT mutations', () => {
       const state = {
-        foo: [],
+        foo: [] as string[],
       }
       const tree = new ProxyStateTree(state)
       const mutationTree = tree.getMutationTree()
