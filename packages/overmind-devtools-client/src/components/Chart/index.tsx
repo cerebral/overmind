@@ -147,11 +147,10 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                       >
                         {Object.keys(nestedChart.states[key].on || {}).map(
                           (onKey) => {
-                            let target
+                            let target: string
                             if (nestedChart.states[key].on[onKey]) {
                               target =
-                                // @ts-ignore
-                                nestedChart.states[key].on[onKey].target ||
+                                nestedChart.states[key].on[onKey][target] ||
                                 nestedChart.states[key].on[onKey]
                             }
                             return (

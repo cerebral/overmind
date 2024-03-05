@@ -340,7 +340,6 @@ describe('Statemachine', () => {
 
     const overmind = createOvermindMock(config)
 
-    // @ts-ignore
     overmind.actions.changeFoo()
 
     expect(overmind.state.obj.foo).toBe('bar2')

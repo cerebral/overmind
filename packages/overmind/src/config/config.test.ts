@@ -69,12 +69,9 @@ describe('Config', () => {
       app.actions.lazy.loadConfig('configA'),
       app.actions.loadConfigB(),
     ]).then(() => {
-      // @ts-ignore
-      expect(app.state.configA.foo).toEqual('bar')
-      // @ts-ignore
-      expect(app.state.configB.bar).toEqual('baz')
-      // @ts-ignore
-      expect(app.actions.configA.returnStateFromB()).toEqual('baz')
+      expect(app.state.configA?.foo).toEqual('bar')
+      expect(app.state.configB?.bar).toEqual('baz')
+      expect(app.actions.configA?.returnStateFromB()).toEqual('baz')
     })
   })
 
@@ -128,8 +125,7 @@ describe('Config', () => {
     await overmind.onInitialize()
 
     await overmind.actions.lazy.loadConfig('config')
-    // @ts-ignore
-    overmind.actions.config.changeFoo()
+    overmind.actions.config?.changeFoo()
     expect(overmind.state.config!.foo).toEqual('bar2')
   })
 })
