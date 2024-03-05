@@ -88,7 +88,6 @@ describe('React', () => {
 
     const FooComponent: React.FunctionComponent = () => {
       const state = useState((state) => state.foo[0])
-      console.log('WTF?')
       renderCount++
 
       return <h1>{state.foo}</h1>
@@ -169,6 +168,7 @@ describe('React', () => {
       return <h1>{(state as any).foo}</h1>
     }
 
+    jest.spyOn(console, 'error') // suppress the error message
     expect(() => {
       render(<FooComponent />)
     }).toThrow(Error)

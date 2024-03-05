@@ -33,7 +33,7 @@ describe('REHYDRATE', () => {
       foo: 'bar2',
     })
   })
-  test.only('should allow rehydration of single class value', () => {
+  test('should allow rehydration of single class value', () => {
     expect.assertions(1)
     class User {
       name = 'Bob'

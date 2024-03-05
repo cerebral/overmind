@@ -9,7 +9,7 @@ yarn-error.log*
 dist
 es
 lib
-.cache
+.*cache
 .DS_Store
 devtoolsDist
 
