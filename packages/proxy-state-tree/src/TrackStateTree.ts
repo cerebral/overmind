@@ -19,8 +19,6 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
     this.state = root.state
   }
 
-  // Does not seem to be used
-  /*
   trackPaths() {
     const paths = new Set<string>()
     const listener = (path) => {
@@ -37,10 +35,11 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
       return paths
     }
   }
-  */
 
   track() {
     this.root.changeTrackStateTree(this)
+
+    return this
   }
 
   canMutate() {
@@ -57,28 +56,26 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
 
   subscribe(cb: ITrackCallback) {
     this.root.changeTrackStateTree(null)
-    console.log('Adddig', this.pathDependencies)
     for (const path of this.pathDependencies) {
       this.root.addPathDependency(path, cb)
     }
     return () => {
-      console.log('Removing', this.pathDependencies)
       for (const path of this.pathDependencies) {
         this.root.removePathDependency(path, cb)
       }
     }
   }
 
-  /*
-  trackScope(scope: ITrackScopedCallback<T>, cb?: ITrackCallback) {
-    const previousPreviousTree = this.master.previousTree
-    const previousCurrentTree = this.master.currentTree
-    this.master.currentTree = this
-    this.track(cb)
-    const result = scope(this)
-    this.master.currentTree = previousCurrentTree
-    this.master.previousTree = previousPreviousTree
-    return result
+  trackScope(scope: ITrackScopedCallback<T>) {
+    const previousPreviousTree = this.root.previousTree
+    const previousCurrentTree = this.root.currentTree
+
+    this.root.currentTree = this
+    this.track()
+    scope(this)
+    this.root.currentTree = previousCurrentTree
+    this.root.previousTree = previousPreviousTree
+
+    return this
   }
-*/
 }

@@ -52,8 +52,8 @@ export interface ITrackScopedCallback<T extends object> {
 export interface ITrackStateTree<T extends object> {
   addTrackingPath(path: string): void
   subscribe(cb: ITrackCallback): () => void
-  track(): void
-  // trackScope(scope: ITrackScopedCallback<T>, callback?: ITrackCallback): any
+  track(): ITrackStateTree<T>
+  trackScope(scope: ITrackScopedCallback<T>): any
   canTrack(): boolean
   canMutate(): boolean
   root: IProxyStateTree<T>
@@ -92,7 +92,8 @@ export interface IProxyStateTree<T extends object> {
   removePathDependency(path: string, callback: ITrackCallback): void
   getTrackStateTree(): ITrackStateTree<T>
   getMutationTree(): IMutationTree<T>
-  changeTrackStateTree(tree: ITrackStateTree<T>): void
+  changeTrackStateTree(tree: ITrackStateTree<T> | null): void
+  clearTrackStateTree(): void
   disposeTree(proxy: TTree): void
   onMutation(cb: IMutationCallback): void
   flush(

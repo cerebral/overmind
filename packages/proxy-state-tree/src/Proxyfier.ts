@@ -104,9 +104,7 @@ export class Proxifier {
     }
 
     if (this.isDefaultProxifier()) {
-      const trackStateTree = this.tree.root
-        .currentTree as ITrackStateTree<any>
-
+      const trackStateTree = this.tree.root.currentTree as ITrackStateTree<any>
       if (!trackStateTree) {
         return
       }
@@ -294,6 +292,7 @@ export class Proxifier {
         }
 
         const trackingTree = proxifier.getTrackingTree()
+
         const targetValue = target[prop]
         const nestedPath = proxifier.concat(path, prop)
         const currentTree = trackingTree || proxifier.tree

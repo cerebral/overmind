@@ -47,7 +47,6 @@ describe('TrackStateTree', () => {
     mutationTree.flush()
     expect(reactionCount).toBe(1)
   })
-  /*
   test('should allow tracking by mutation', () => {
     let reactionCount = 0
     const tree = new ProxyStateTree({
@@ -71,27 +70,28 @@ describe('TrackStateTree', () => {
 
     expect(reactionCount).toBe(1)
   })
-  test('should stop tracking on command', () => {
+  test('should stop tracking when creating mutation trees', () => {
     let reactionCount = 0
     const tree = new ProxyStateTree({
       foo: 'bar',
       bar: 'baz',
     })
 
-    const accessTree = tree
-      .getTrackStateTree()
-      .track((mutations, paths, flushId) => {
-        reactionCount++
-        expect(flushId).toBe(0)
-      })
+    const accessTree = tree.getTrackStateTree()
+
+    accessTree.track()
 
     accessTree.state.foo
 
-    accessTree.stopTracking()
-
-    accessTree.state.bar
+    // This actually happens last in the component via useEffect
+    accessTree.subscribe((mutations, paths, flushId) => {
+      reactionCount++
+      expect(flushId).toBe(0)
+    })
 
     const mutationTree = tree.getMutationTree()
+
+    accessTree.state.bar
 
     mutationTree.state.foo = 'bar2'
     mutationTree.flush()
@@ -108,8 +108,8 @@ describe('TrackStateTree', () => {
     const accessTreeA = tree.getTrackStateTreeWithProxifier()
     const accessTreeB = tree.getTrackStateTreeWithProxifier()
 
-    accessTreeA.track(() => {})
-    accessTreeB.track(() => {})
+    accessTreeA.track()
+    accessTreeB.track()
 
     accessTreeA.state.foo
     accessTreeB.state.bar
@@ -144,7 +144,8 @@ describe('CLASSES', () => {
         user: new User(),
       }
       const tree = new ProxyStateTree(state)
-      const trackStateTree = tree.getTrackStateTree().track(() => {})
+      const trackStateTree = tree.getTrackStateTree()
+      trackStateTree.track()
 
       expect(trackStateTree.state.user[IS_PROXY]).toBeTruthy()
     })
@@ -157,9 +158,10 @@ describe('CLASSES', () => {
         user: new User(),
       }
       const tree = new ProxyStateTree(state)
-      expect(tree.getTrackStateTree().track(() => {}).state.user.name).toBe(
-        'Bob'
-      )
+      const trackStateTree = tree.getTrackStateTree()
+      trackStateTree.track()
+
+      expect(trackStateTree.state.user.name).toBe('Bob')
     })
 
     test('should track access properties', () => {
@@ -170,9 +172,12 @@ describe('CLASSES', () => {
         user: new User(),
       }
       const tree = new ProxyStateTree(state)
-      const trackStateTree = tree.getTrackStateTree().track(() => {})
+      const trackStateTree = tree.getTrackStateTree()
+      trackStateTree.track()
 
       expect(trackStateTree.state.user.name).toBe('Bob')
+
+      trackStateTree.subscribe(() => {})
 
       expect(Object.keys((tree as any).pathDependencies)).toEqual([
         'user',
@@ -192,9 +197,11 @@ describe('CLASSES', () => {
         user: new User(),
       }
       const tree = new ProxyStateTree(state)
-      const trackStateTree = tree.getTrackStateTree().track(() => {})
+      const trackStateTree = tree.getTrackStateTree().track()
 
       expect(trackStateTree.state.user.name).toBe('Bob Saget')
+
+      trackStateTree.subscribe(() => {})
 
       expect(Object.keys((tree as any).pathDependencies)).toEqual([
         'user',
@@ -213,7 +220,7 @@ describe('CLASSES', () => {
       }
       const tree = new ProxyStateTree(state)
       expect(() => {
-        tree.getTrackStateTree().track(() => {}).state.user.name = 'bar2'
+        tree.getTrackStateTree().track().state.user.name = 'bar2'
       }).toThrow()
     })
 
@@ -240,7 +247,8 @@ describe('CLASSES', () => {
       }
       const tree = new ProxyStateTree(state)
       const mutationTree = tree.getMutationTree()
-      const accessTree = tree.getTrackStateTree().track(() => {
+      const accessTree = tree.getTrackStateTree().track()
+      accessTree.subscribe(() => {
         renderCount++
       })
       accessTree.addTrackingPath('user.name')
@@ -336,7 +344,7 @@ describe('OBJECTS', () => {
         foo: {},
       }
       const tree = new ProxyStateTree(state)
-      const trackStateTree = tree.getTrackStateTree().track(() => {})
+      const trackStateTree = tree.getTrackStateTree().track()
 
       expect(trackStateTree.state.foo[IS_PROXY]).toBeTruthy()
     })
@@ -348,7 +356,7 @@ describe('OBJECTS', () => {
         },
       }
       const tree = new ProxyStateTree(state)
-      expect(tree.getTrackStateTree().track(() => {}).state.foo.bar).toBe('baz')
+      expect(tree.getTrackStateTree().track().state.foo.bar).toBe('baz')
     })
 
     test('should track access properties', () => {
@@ -358,9 +366,11 @@ describe('OBJECTS', () => {
         },
       }
       const tree = new ProxyStateTree(state)
-      const trackStateTree = tree.getTrackStateTree().track(() => {})
+      const trackStateTree = tree.getTrackStateTree().track()
 
       expect(trackStateTree.state.foo.bar).toBe('baz')
+
+      trackStateTree.subscribe(() => {})
 
       expect(Object.keys((tree as any).pathDependencies)).toEqual([
         'foo',
@@ -376,7 +386,7 @@ describe('OBJECTS', () => {
       }
       const tree = new ProxyStateTree(state)
       expect(() => {
-        tree.getTrackStateTree().track(() => {}).state.foo = 'bar2'
+        tree.getTrackStateTree().track().state.foo = 'bar2'
       }).toThrow()
     })
 
@@ -399,7 +409,8 @@ describe('OBJECTS', () => {
       }
       const tree = new ProxyStateTree(state)
       const mutationTree = tree.getMutationTree()
-      const accessTree = tree.getTrackStateTree().track(() => {
+      const accessTree = tree.getTrackStateTree().track()
+      accessTree.subscribe(() => {
         renderCount++
       })
       accessTree.addTrackingPath('foo')
@@ -463,7 +474,7 @@ describe('ARRAYS', () => {
         foo: [],
       }
       const tree = new ProxyStateTree(state)
-      const trackStateTree = tree.getTrackStateTree().track(() => {})
+      const trackStateTree = tree.getTrackStateTree().track()
       const foo = trackStateTree.state.foo
 
       expect(foo[IS_PROXY]).toBeTruthy()
@@ -474,7 +485,7 @@ describe('ARRAYS', () => {
         foo: 'bar',
       }
       const tree = new ProxyStateTree(state)
-      expect(tree.getTrackStateTree().track(() => {}).state.foo[0]).toBe('b')
+      expect(tree.getTrackStateTree().track().state.foo[0]).toBe('b')
     })
 
     test('should track access properties', () => {
@@ -482,8 +493,9 @@ describe('ARRAYS', () => {
         foo: ['bar'],
       }
       const tree = new ProxyStateTree(state)
-      const accessTree = tree.getTrackStateTree().track(() => {})
+      const accessTree = tree.getTrackStateTree().track()
       expect(accessTree.state.foo[0]).toBe('bar')
+      accessTree.subscribe(() => {})
       expect(Object.keys((tree as any).pathDependencies)).toEqual([
         'foo',
         'foo.0',
@@ -500,24 +512,16 @@ describe('ARRAYS', () => {
         bar: 'baz',
       })
 
-      tree.getTrackStateTree().trackScope(
-        (treeA) => {
-          treeA.state.foo.forEach((item) => {
-            tree.getTrackStateTree().trackScope(
-              (treeB) => {
-                item.title // eslint-disable-line
-                expect(treeB.pathDependencies).toEqual(new Set(['foo.0.title']))
-              },
-              () => {}
-            )
+      tree.getTrackStateTree().trackScope((treeA) => {
+        treeA.state.foo.forEach((item) => {
+          tree.getTrackStateTree().trackScope((treeB) => {
+            item.title // eslint-disable-line
+            expect(treeB.pathDependencies).toEqual(new Set(['foo.0.title']))
           })
-          treeA.state.bar
-          expect(treeA.pathDependencies).toEqual(
-            new Set(['foo', 'foo.0', 'bar'])
-          )
-        },
-        () => {}
-      )
+        })
+        treeA.state.bar
+        expect(treeA.pathDependencies).toEqual(new Set(['foo', 'foo.0', 'bar']))
+      })
     })
     test('should correctly keep track of changing indexes', () => {
       expect.assertions(4)
@@ -529,8 +533,9 @@ describe('ARRAYS', () => {
       const accessTree = tree.getTrackStateTree()
 
       function trackPaths() {
-        accessTree.track(trackPaths)
+        accessTree.track()
         accessTree.state.items.map((item) => item.title)
+        accessTree.subscribe(trackPaths)
 
         if (iterations === 1) {
           expect(Array.from(accessTree.pathDependencies)).toEqual([
@@ -560,6 +565,7 @@ describe('ARRAYS', () => {
       }
 
       trackPaths()
+
       const mutationTree = tree.getMutationTree()
       mutationTree.state.items.unshift({
         title: 'foo',
@@ -584,7 +590,7 @@ describe('ARRAYS', () => {
       foo: [],
     }
     const tree = new ProxyStateTree(state)
-    const trackStateTree = tree.getTrackStateTree().track(() => {})
+    const trackStateTree = tree.getTrackStateTree().track()
     const foo = trackStateTree.state.foo
 
     expect(foo[IS_PROXY]).toBeTruthy()
@@ -593,7 +599,7 @@ describe('ARRAYS', () => {
   describe('MUTATIONS', () => {
     test('should throw when mutating without tracking mutations', () => {
       const state = {
-        foo: [],
+        foo: [] as string[],
       }
       const tree = new ProxyStateTree(state)
       expect(() => {
@@ -737,7 +743,7 @@ describe('FUNCTIONS', () => {
       foo: () => 'bar',
     }
     const tree = new ProxyStateTree(state)
-    const accessTree = tree.getTrackStateTree().track(() => {})
+    const accessTree = tree.getTrackStateTree().track()
     expect(accessTree.state.foo).toBe('bar')
   })
 
@@ -751,7 +757,7 @@ describe('FUNCTIONS', () => {
       },
     }
     const tree = new ProxyStateTree(state)
-    const accessTree = tree.getTrackStateTree().track(() => {})
+    const accessTree = tree.getTrackStateTree().track()
 
     expect(accessTree.state.foo).toBe('bar')
   })
@@ -771,7 +777,7 @@ describe('FUNCTIONS', () => {
         target[prop]('foo', proxyStateTree, path),
     })
 
-    const accessTree = tree.getTrackStateTree().track(() => {})
+    const accessTree = tree.getTrackStateTree().track()
 
     expect(accessTree.state.foo).toBe('bar')
   })
@@ -788,18 +794,19 @@ describe('FUNCTIONS', () => {
         return proxyStateTree.state.items.map((item) => item)
       },
     })
-    const accessTree = tree
-      .getTrackStateTree()
-      .track((mutations, paths, flushId) => {
-        reactionCount++
-        expect(flushId).toBe(0)
-      })
-    const mutationTree = tree.getMutationTree()
+    const accessTree = tree.getTrackStateTree().track()
 
     // @ts-ignore
     accessTree.state.foo.forEach((item) => {
       item.title
     })
+
+    accessTree.subscribe((mutations, paths, flushId) => {
+      reactionCount++
+      expect(flushId).toBe(0)
+    })
+
+    const mutationTree = tree.getMutationTree()
 
     mutationTree.state.items.push({
       title: 'bar',
@@ -816,14 +823,16 @@ describe('REACTIONS', () => {
     const tree = new ProxyStateTree({
       foo: 'bar',
     })
-    const accessTree = tree
-      .getTrackStateTree()
-      .track((mutations, paths, flushId) => {
-        reactionCount++
-        expect(flushId).toBe(0)
-      })
-    const mutationTree = tree.getMutationTree()
+    const accessTree = tree.getTrackStateTree().track()
+
     accessTree.state.foo // eslint-disable-line
+
+    accessTree.subscribe((mutations, paths, flushId) => {
+      reactionCount++
+      expect(flushId).toBe(0)
+    })
+
+    const mutationTree = tree.getMutationTree()
 
     mutationTree.state.foo = 'bar2'
     mutationTree.flush()
@@ -862,8 +871,10 @@ describe('REACTIONS', () => {
     }
 
     const mutationTree = tree.getMutationTree()
-    const accessTree = tree.getTrackStateTree().track(render)
+    const accessTree = tree.getTrackStateTree().track()
+
     accessTree.addTrackingPath('foo')
+    accessTree.subscribe(render)
     mutationTree.state.foo = 'bar2'
     mutationTree.flush()
     expect(renderCount).toBe(1)
@@ -875,13 +886,15 @@ describe('REACTIONS', () => {
       foo: 'bar',
       bar: 'baz',
     })
-    const accessTree = tree.getTrackStateTree().track(() => {
-      reactionCount++
-    })
-    const mutationTree = tree.getMutationTree()
+    const accessTree = tree.getTrackStateTree().track()
 
     accessTree.state.foo // eslint-disable-line
     accessTree.state.bar // eslint-disable-line
+
+    accessTree.subscribe(() => {
+      reactionCount++
+    })
+    const mutationTree = tree.getMutationTree()
 
     mutationTree.state.foo = 'bar2'
     mutationTree.state.bar = 'baz2'
@@ -895,17 +908,24 @@ describe('REACTIONS', () => {
       foo: 'bar',
       bar: 'baz',
     })
-    const accessTree = tree.getTrackStateTree().track(render)
-    const mutationTree = tree.getMutationTree()
+    const accessTree = tree.getTrackStateTree()
+
     function render() {
+      accessTree.track()
+
       if (accessTree.state.foo === 'bar') {
+        accessTree.subscribe(render)
         return
       }
 
       accessTree.state.bar // eslint-disable-line
+      accessTree.subscribe(render)
     }
 
     render()
+
+    const mutationTree = tree.getMutationTree()
+
     mutationTree.state.foo = 'bar2'
     mutationTree.flush()
     expect((tree.pathDependencies as any).foo.size).toBe(1)
@@ -917,7 +937,8 @@ describe('REACTIONS', () => {
       foo: 'bar',
       bar: 'baz',
     })
-    const accessTree = tree.getTrackStateTree().track(render)
+    const accessTree = tree.getTrackStateTree().track()
+    accessTree.subscribe(render)
     const mutationTree = tree.getMutationTree()
     function render() {
       if (accessTree.state.foo === 'bar') {
@@ -976,7 +997,7 @@ describe('ITERATIONS', () => {
         },
       ],
     })
-    const accessTree = tree.getTrackStateTree().track(() => {})
+    const accessTree = tree.getTrackStateTree().track()
 
     accessTree.state.items.forEach((item) => {
       item.title // eslint-disable-line
@@ -994,7 +1015,7 @@ describe('ITERATIONS', () => {
         bar: 'baz',
       },
     })
-    const accessTree = tree.getTrackStateTree().track(() => {})
+    const accessTree = tree.getTrackStateTree().track()
     Object.keys(accessTree.state.items).forEach((key) => {
       accessTree.state.items[key] // eslint-disable-line
     })
@@ -1010,11 +1031,12 @@ describe('ITERATIONS', () => {
     const tree = new ProxyStateTree({
       items: {} as any,
     })
-    const accessTree = tree.getTrackStateTree().track(update)
-    const mutationTree = tree.getMutationTree()
-    function update() {
-      accessTree.state.items // eslint-disable-line
+    const accessTree = tree.getTrackStateTree()
 
+    function update() {
+      accessTree.track()
+      accessTree.state.items // eslint-disable-line
+      accessTree.subscribe(update)
       if (runCount === 1) {
         expect(accessTree.pathDependencies).toEqual(new Set(['items']))
       }
@@ -1029,6 +1051,8 @@ describe('ITERATIONS', () => {
     }
 
     update()
+
+    const mutationTree = tree.getMutationTree()
     mutationTree.state.items.foo = 'bar'
     mutationTree.flush()
     mutationTree.state.items.bar = 'baz'
@@ -1049,15 +1073,18 @@ describe('ITERATIONS', () => {
         },
       ],
     })
-    const accessTree = tree.getTrackStateTree().track(() => {
+    const accessTree = tree.getTrackStateTree().track()
+
+    accessTree.state.items.map((item) => item.title)
+
+    accessTree.subscribe(() => {
       reactionCount++
     })
-    const mutationTree = tree.getMutationTree()
-    accessTree.state.items.map((item) => item.title)
 
     expect(accessTree.pathDependencies).toEqual(
       new Set(['items', 'items.0', 'items.0.title', 'items.1', 'items.1.title'])
     )
+    const mutationTree = tree.getMutationTree()
 
     mutationTree.state.items.push({
       title: 'mip',
@@ -1078,15 +1105,18 @@ describe('ITERATIONS', () => {
         },
       ],
     })
-    const accessTree = tree.getTrackStateTree().track(() => {
-      reactionCount++
-    })
-    const mutationTree = tree.getMutationTree()
+    const accessTree = tree.getTrackStateTree().track()
 
     accessTree.state.items.map((item) => item.title)
+
+    accessTree.subscribe(() => {
+      reactionCount++
+    })
+
     expect(accessTree.pathDependencies).toEqual(
       new Set(['items', 'items.0', 'items.0.title', 'items.1', 'items.1.title'])
     )
+    const mutationTree = tree.getMutationTree()
     mutationTree.state.items[0].title = 'baz'
     mutationTree.flush()
     expect(reactionCount).toBe(1)
@@ -1097,15 +1127,18 @@ describe('ITERATIONS', () => {
     const tree = new ProxyStateTree({
       items: [1, 2],
     })
-    const accessTree = tree.getTrackStateTree().track(() => {
-      reactionCount++
-    })
-    const mutationTree = tree.getMutationTree()
+    const accessTree = tree.getTrackStateTree().track()
 
     accessTree.state.items.map((item) => item)
+
+    accessTree.subscribe(() => {
+      reactionCount++
+    })
+
     expect(accessTree.pathDependencies).toEqual(
       new Set(['items', 'items.0', 'items.1'])
     )
+    const mutationTree = tree.getMutationTree()
     mutationTree.state.items[0] = 99
     mutationTree.flush()
     expect(reactionCount).toBe(1)
@@ -1118,7 +1151,7 @@ describe('RESCOPING', () => {
       foo: 'bar',
     })
 
-    const accessTree = tree.getTrackStateTree().track(() => {})
+    const accessTree = tree.getTrackStateTree().track()
     const mutationTree = tree.getMutationTree()
 
     const state = accessTree.state
@@ -1147,9 +1180,10 @@ describe('GETTER', () => {
     const mutationTree = tree.getMutationTree()
 
     function render() {
-      accessTree.track(render)
+      accessTree.track()
       accessTree.state.user.fullName
       renderCount++
+      accessTree.subscribe(render)
     }
 
     render()
@@ -1158,6 +1192,4 @@ describe('GETTER', () => {
     mutationTree.flush()
     expect(renderCount).toBe(2)
   })
-
-  */
 })
