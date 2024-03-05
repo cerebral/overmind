@@ -159,7 +159,7 @@ export class StateMachine<
       return this
     }
 
-    const tree = this[PROXY_TREE].master.mutationTree || this[PROXY_TREE]
+    const tree = this[PROXY_TREE].root.mutationTree || this[PROXY_TREE]
 
     tree.enableMutations()
 

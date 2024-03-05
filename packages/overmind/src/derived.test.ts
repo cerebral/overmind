@@ -54,8 +54,9 @@ describe('Derived', () => {
     const trackStateTree = app.getTrackStateTree()
     const onTrack = () => {}
     function render() {
-      trackStateTree.track(onTrack)
+      trackStateTree.track()
       app.state.upperFoo
+      trackStateTree.subscribe(onTrack)
     }
     app.eventHub.on(EventType.DERIVED_DIRTY, () => {
       dirtyCount++
@@ -105,8 +106,9 @@ describe('Derived', () => {
     const trackStateTree = app.getTrackStateTree()
     const onTrack = () => {}
     function render() {
-      trackStateTree.track(onTrack)
+      trackStateTree.track()
       app.state.upperFoo
+      trackStateTree.subscribe(onTrack)
     }
     render()
     app.actions.addDerived()
@@ -154,8 +156,9 @@ describe('Derived', () => {
       renderCount++
     }
     function render() {
-      trackStateTree.track(onTrack)
+      trackStateTree.track()
       app.state.upperFoo()
+      trackStateTree.subscribe(onTrack)
     }
     render()
     app.actions.changeFoo()
@@ -194,8 +197,9 @@ describe('Derived', () => {
       renderCount++
     }
     function render() {
-      trackStateTree.track(onTrack)
+      trackStateTree.track()
       app.state.upperFoo
+      trackStateTree.subscribe(onTrack)
     }
     render()
     app.actions.changeFoo()
@@ -303,16 +307,15 @@ describe('Derived', () => {
     const trackStateTree = app.getTrackStateTree()
 
     function render() {
+      trackStateTree.track()
       runCount++
       if (runCount === 1) {
         expect(trackStateTree.state.nestedDerived.upperFoo).toBe('BAR')
       } else {
         expect(trackStateTree.state.nestedDerived.upperFoo).toBe('BAR2')
       }
-      trackStateTree.stopTracking()
+      trackStateTree.subscribe(render)
     }
-
-    trackStateTree.track(render)
 
     render()
 

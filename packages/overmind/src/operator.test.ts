@@ -198,15 +198,13 @@ describe('OPERATOR', () => {
           if (err) next(err, value)
           else {
             const tree = context.execution.getTrackStateTree()
-            tree.trackScope(
-              () => {
-                operation(tree.state)
-              },
-              () => {
-                tree.dispose()
-                next(null, value)
-              }
-            )
+            tree.trackScope(() => {
+              operation(tree.state)
+            })
+            const dispose = tree.subscribe(() => {
+              dispose()
+              next(null, value)
+            })
           }
         }
       )
@@ -256,13 +254,15 @@ describe('OPERATOR', () => {
           if (err) next(err, value)
           else {
             const tree = context.execution.getTrackStateTree()
+
             const test = () => {
               if (operation(tree.state)) {
-                tree.dispose()
+                dispose()
                 next(null, value)
               }
             }
-            tree.trackScope(test, test)
+            tree.trackScope(test)
+            const dispose = tree.subscribe(test)
           }
         }
       )
