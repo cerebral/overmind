@@ -106,9 +106,16 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
     return tree
   }
 
-  changeTrackStateTree(tree: ITrackStateTree<T>) {
+  setTrackStateTree(tree: ITrackStateTree<T>) {
     this.previousTree = this.currentTree
     this.currentTree = tree
+  }
+
+  unsetTrackStateTree(tree: ITrackStateTree<T>) {
+    // We only allow unsetting it when it is currently the active tree
+    if (this.currentTree === tree) {
+      this.currentTree = null
+    }
   }
 
   clearTrackStateTree() {

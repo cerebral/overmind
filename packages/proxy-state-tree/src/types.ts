@@ -92,7 +92,8 @@ export interface IProxyStateTree<T extends object> {
   removePathDependency(path: string, callback: ITrackCallback): void
   getTrackStateTree(): ITrackStateTree<T>
   getMutationTree(): IMutationTree<T>
-  changeTrackStateTree(tree: ITrackStateTree<T> | null): void
+  setTrackStateTree(tree: ITrackStateTree<T> | null): void
+  unsetTrackStateTree(tree: ITrackStateTree<T> | null): void
   clearTrackStateTree(): void
   disposeTree(proxy: TTree): void
   onMutation(cb: IMutationCallback): void
