@@ -6,10 +6,6 @@ import {
   ITrackStateTree,
 } from './types'
 
-// @ts-ignore
-/// const registry = new FinalizationRegistry((message) => console.log(message))
-// let id = 0
-
 export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
   private disposeOnReset: Function
   root: IProxyStateTree<T>
@@ -21,8 +17,6 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
     this.root = root
     this.proxifier = root.proxifier
     this.state = root.state
-
-    // registry.register(this, id++ + ' has been collected')
   }
 
   trackPaths() {

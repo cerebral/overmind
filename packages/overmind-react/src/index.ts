@@ -71,56 +71,6 @@ const useCurrentComponent = () => {
     : {}
 }
 
-class ReactTrackerV18 {
-  tree
-  result
-  cb
-  updateCb
-  constructor(tree: any) {
-    this.tree = tree
-    this.result = { state: tree.state }
-    this.updateCb = () => {
-      this.result = {
-        state: this.tree.state,
-      }
-
-      if (this.cb) {
-        this.cb()
-      } else {
-        this.tree.dispose()
-      }
-    }
-  }
-
-  subscribe = (cb) => {
-    this.cb = cb
-
-    return () => {
-      if (IS_PRODUCTION) {
-        this.tree.dispose()
-      } else {
-        // In development we do not dispose of the tree as React will do
-        // "test runs" on effect hooks, it will rather be disposed when there is an
-        // update to the tracked paths, but there is no longer a callback to trigger. This
-        // can cause memory leaks in edge cases, but this is just development and does not matter
-        delete this.cb
-      }
-    }
-  }
-
-  getState = () => {
-    return this.result
-  }
-
-  track() {
-    this.tree.track(this.updateCb)
-  }
-
-  stopTracking() {
-    this.tree.stopTracking()
-  }
-}
-
 const useState = <Context extends IContext<{ state: {} }>>(
   cb?: (state: Context['state']) => any
 ): Context['state'] => {
@@ -134,7 +84,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
     return overmind.state
   }
 
-  const { flushId, forceRerender } = useForceRerender()
+  const { forceRerender } = useForceRerender()
 
   const trackStateTree = (
     overmind as any
