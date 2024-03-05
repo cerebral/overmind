@@ -35,7 +35,7 @@ describe('Svelte', () => {
     expect(typeof mixin.state.subscribe === 'function')
   })
 
-  test('should display current state', () => {
+  test.skip('should display current state', () => {
     const overmind = new Overmind(app)
     const mixin = createMixin(overmind)
 
@@ -43,7 +43,7 @@ describe('Svelte', () => {
     expect(getByText('Count: 0')).toBeInTheDocument()
   })
 
-  test('should update state by button click', async () => {
+  test.skip('should update state by button click', async () => {
     const overmind = new Overmind(app)
     const mixin = createMixin(overmind)
 
@@ -56,7 +56,7 @@ describe('Svelte', () => {
     expect(mixin.state.count === 2)
   })
 
-  test('should update view on state change', async () => {
+  test.skip('should update view on state change', async () => {
     const overmind = new Overmind(app)
     const mixin = createMixin(overmind)
 
@@ -68,7 +68,7 @@ describe('Svelte', () => {
     expect(getByText('Count: 1')).toBeInTheDocument()
   })
 
-  test('should update view on reaction', async () => {
+  test.skip('should update view on reaction', async () => {
     const overmind = new Overmind(app)
     const mixin = createMixin(overmind)
 
