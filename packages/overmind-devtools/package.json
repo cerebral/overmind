@@ -10,8 +10,8 @@
 		"overmind-devtools": "bin.js"
 	},
 	"scripts": {
-    "start": "electron .",
-    "prod": "NODE_ENV=production electron . --not-packaged=true",
+    	"start": "electron .",
+    	"prod": "NODE_ENV=production electron . --not-packaged=true",
 		"build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
 	},
 	"keywords": [
