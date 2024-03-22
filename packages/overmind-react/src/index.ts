@@ -99,7 +99,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
         trackStateTree.subscribe((_, __, flushId) => {
           forceRerender(flushId)
         }),
-      []
+      [trackStateTree]
     )
   } else {
     const component = useCurrentComponent()
@@ -135,7 +135,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
 
         dispose()
       }
-    }, [])
+    }, [trackStateTree])
   }
 
   return state
