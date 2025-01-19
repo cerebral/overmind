@@ -61,14 +61,19 @@ function useForceRerender() {
 }
 
 let currentComponentInstanceId = 0
-const { ReactCurrentOwner } = (React as any)
-  .__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+
+const {
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: oldReactInternals,
+  __CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE:
+    newReactInternals,
+} = React as any
+
 const useCurrentComponent = () => {
-  return ReactCurrentOwner &&
-    ReactCurrentOwner.current &&
-    ReactCurrentOwner.current.elementType
-    ? ReactCurrentOwner.current.elementType
-    : {}
+  return (
+    oldReactInternals?.ReactCurrentOwner?.current?.elementType ??
+    newReactInternals?.A?.getOwner?.()?.elementType ??
+    {}
+  )
 }
 
 const useState = <Context extends IContext<{ state: {} }>>(
