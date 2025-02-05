@@ -895,6 +895,8 @@ export class Overmind<ThisConfig extends IConfiguration>
       const tree = this.proxyStateTreeInstance.getTrackStateTree()
       let returnValue
       const updateReaction = () => {
+        disposer?.()
+
         tree.trackScope(() => (returnValue = stateCallback(tree.state as any)))
         disposer = tree.subscribe(() => {
           updateReaction()
