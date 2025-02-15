@@ -2,10 +2,6 @@
 
 Visit website for more information: [www.overmindjs.org](https://overmindjs.org).
 
-## Maintainer needed
-
-<https://gist.github.com/christianalfoni/f1c4bfe320dcb24c403635d9bca3fa40>
-
 ## Contributing
 
 // List all packages and state how to develop and test them
