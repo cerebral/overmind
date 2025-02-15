@@ -15,5 +15,5 @@
     "sourceMap": true,
     "inlineSources": true
   },
-  "exclude": ["node_modules", "dist", "es", "lib", "src/**/*.test.ts"]
+  "exclude": ["node_modules", "dist", "es", "lib", "src/**/*.test.tsx?"]
 }
