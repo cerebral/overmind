@@ -22,6 +22,6 @@
 		"electron": "^26.3.0",
 		"electron-json-storage": "^4.6.0",
 		"overmind-devtools-client": "next",
-		"ws": "^8.14.2"
+		"ws": "^8.18.0"
 	}
 }
