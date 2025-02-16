@@ -20,6 +20,15 @@ const Actions: React.FunctionComponent = () => {
             split="vertical"
             sizes={[state.actionsSplitSize]}
             onChange={(size) => actions.updateActionsSplitSize(size[0])}
+            sashRender={() => (
+              <div
+                style={{
+                  cursor: 'col-resize',
+                  width: '5px',
+                  background: '#ccc',
+                }}
+              />
+            )}
           >
             <Pane minSize={100}>
               <ActionsList />
