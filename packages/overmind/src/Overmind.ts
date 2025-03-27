@@ -911,7 +911,7 @@ export class Overmind<ThisConfig extends IConfiguration>
       updateCallback(stateCallback(this.state as any))
     }
 
-    return disposer
+    return () => disposer?.()
   }
 
   addMutationListener = (cb: proxyStateTree.IMutationCallback) => {
