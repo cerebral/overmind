@@ -37,7 +37,7 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
   previousTree: TTree
   mutationTree: IMutationTree<T>
   proxifier: IProxifier<T>
-  master: ProxyStateTree<T>
+  root: ProxyStateTree<T>
   pathDependencies: {
     [path: string]: Set<ITrackCallback>
   } = {}
@@ -54,7 +54,7 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
       options.delimiter = '.'
     }
 
-    this.master = this
+    this.root = this
     this.sourceState = state
     this.options = options
 
@@ -64,7 +64,7 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
   /*
     We create a base proxifier for tracking state. That means there is one
     proxifier for all track state trees. This works because the actual tracking
-    refers to the current tree on "master"
+    refers to the current tree on "root"
   */
   private createTrackStateProxifier() {
     const trackStateTree = new TrackStateTree(this)

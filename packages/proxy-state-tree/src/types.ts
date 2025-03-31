@@ -119,7 +119,7 @@ export interface IProxyStateTree<T extends object> {
   pathDependencies: {
     [path: string]: Set<ITrackCallback>
   }
-  master: IProxyStateTree<T>
+  root: IProxyStateTree<T>
   proxifier: IProxifier<T>
   currentTree: TTree
   previousTree: TTree
