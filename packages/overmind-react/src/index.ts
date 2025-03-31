@@ -119,6 +119,23 @@ const useState = <Context extends IContext<{ state: {} }>>(
     )
 
     React.useEffect(() => {
+      overmind.eventHub.emitAsync(EventType.COMPONENT_ADD, {
+        componentId: component.__componentId,
+        componentInstanceId,
+        name,
+        paths: [],
+      })
+
+      return () => {
+        overmind.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
+          componentId: component.__componentId,
+          componentInstanceId,
+          name,
+        })
+      }
+    }, [])
+
+    React.useEffect(() => {
       overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
         componentId: component.__componentId,
         componentInstanceId,
@@ -131,13 +148,6 @@ const useState = <Context extends IContext<{ state: {} }>>(
       })
 
       return () => {
-        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-          componentId: component.__componentId,
-          componentInstanceId,
-          name,
-          paths: [],
-        })
-
         dispose()
       }
     }, [trackStateTree])
