@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_branch }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
@@ -23,22 +23,21 @@ jobs:
       - run: npm ci
       - run: git config user.name "cerebral[bot]"
       - run: git config user.email "136202705+cerebral[bot]@users.noreply.github.com"
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
+      - name: Create token
+        id: create_token
+        uses: tibdex/github-app-token@v2
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
-          repository: cerebral/repo-cooker
       - name: Release packages
         run: npm run release -- --no-parallel --print-release
         if: github.event_name != 'pull_request'
         env:
-          REPO_COOKER_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          REPO_COOKER_GITHUB_TOKEN: ${{ steps.create_token.outputs.token }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish vscode extension to Visual Studio Marketplace
         if: github.event_name != 'pull_request' && github.event.workflow_run.head_branch == 'master'
-        uses: HaaLeo/publish-vscode-extension@v1
+        uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
