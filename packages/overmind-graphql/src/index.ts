@@ -147,8 +147,8 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
         typeof _http.headers === 'function'
           ? _http.headers()
           : _http.options && _http.options.headers
-          ? _http.options.headers
-          : {}
+            ? _http.options.headers
+            : {}
 
       if (_clients[_http.endpoint]) {
         _clients[_http.endpoint].setHeaders(headers)

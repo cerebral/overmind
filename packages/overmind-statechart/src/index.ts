@@ -237,12 +237,12 @@ type Match<T extends Statecharts | Statechart<any, any>> = T extends Statecharts
       }
     }
   : T extends Statechart<any, any>
-  ? {
-      [S in keyof T['states']]?: T['states'][S]['chart'] extends void
-        ? boolean
-        : boolean | Match<T['states'][S]['chart']>
-    }
-  : never
+    ? {
+        [S in keyof T['states']]?: T['states'][S]['chart'] extends void
+          ? boolean
+          : boolean | Match<T['states'][S]['chart']>
+      }
+    : never
 
 export function statechart<
   C extends IConfiguration,

@@ -285,19 +285,35 @@ const Nested: React.FunctionComponent<NestedProps> = React.memo(
                 })
               )
             : isClass
-            ? [
-                <span
-                  className={styles.otherValue}
-                  key={path.concat((path ? delimiter : '') + '__CLASS__')}
-                >
-                  {value.name}
-                </span>,
-                ...Object.keys(value.value)
+              ? [
+                  <span
+                    className={styles.otherValue}
+                    key={path.concat((path ? delimiter : '') + '__CLASS__')}
+                  >
+                    {value.name}
+                  </span>,
+                  ...Object.keys(value.value)
+                    .sort()
+                    .map((key) => {
+                      return renderValue({
+                        path: path.concat((path ? delimiter : '') + key),
+                        value: value.value[key],
+                        delimiter,
+                        renderPaths,
+                        expandedPaths,
+                        onClickPath,
+                        onSubmitState,
+                        onToggleExpand,
+                        selectedStatePath,
+                      })
+                    }),
+                ]
+              : Object.keys(value)
                   .sort()
                   .map((key) => {
                     return renderValue({
                       path: path.concat((path ? delimiter : '') + key),
-                      value: value.value[key],
+                      value: value[key],
                       delimiter,
                       renderPaths,
                       expandedPaths,
@@ -306,23 +322,7 @@ const Nested: React.FunctionComponent<NestedProps> = React.memo(
                       onToggleExpand,
                       selectedStatePath,
                     })
-                  }),
-              ]
-            : Object.keys(value)
-                .sort()
-                .map((key) => {
-                  return renderValue({
-                    path: path.concat((path ? delimiter : '') + key),
-                    value: value[key],
-                    delimiter,
-                    renderPaths,
-                    expandedPaths,
-                    onClickPath,
-                    onSubmitState,
-                    onToggleExpand,
-                    selectedStatePath,
-                  })
-                })}
+                  })}
         </div>
         <div className={styles.bracket(false)}>{endBracket}</div>
       </div>

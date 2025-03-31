@@ -80,8 +80,8 @@ const Components: React.FunctionComponent = () => {
                         component.paths.length <= 10
                           ? colors.green
                           : component.paths.length <= 20
-                          ? colors.yellow
-                          : colors.red,
+                            ? colors.yellow
+                            : colors.red,
                     }}
                   >
                     {component.paths.length}

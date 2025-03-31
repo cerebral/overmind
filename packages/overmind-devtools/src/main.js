@@ -199,13 +199,13 @@ function createWindow() {
         )
       ) {
         // eslint-disable-next-line
-     callback({
+        callback({
           redirectURL,
         })
         return
       }
       // eslint-disable-next-line
-   callback({});
+      callback({})
     }
   )
 }

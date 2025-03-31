@@ -157,21 +157,22 @@ type NestedActions = {
   [key: string]: Function | NestedActions
 }
 
-export type ResolveAction<T> = T extends IOperator<void, infer R>
-  ? () => Promise<R>
-  : T extends IOperator<infer P | undefined, infer R>
-  ? (payload?: P) => Promise<R>
-  : T extends IOperator<infer P, infer R>
-  ? (payload: P) => Promise<R>
-  : T extends IAction<void, infer R>
-  ? () => R
-  : T extends IAction<infer P | undefined, infer R>
-  ? (payload?: P) => R
-  : T extends IAction<infer P, infer R>
-  ? (payload: P) => R
-  : T extends NestedActions
-  ? { [K in keyof T]: ResolveAction<T[K]> }
-  : never
+export type ResolveAction<T> =
+  T extends IOperator<void, infer R>
+    ? () => Promise<R>
+    : T extends IOperator<infer P | undefined, infer R>
+      ? (payload?: P) => Promise<R>
+      : T extends IOperator<infer P, infer R>
+        ? (payload: P) => Promise<R>
+        : T extends IAction<void, infer R>
+          ? () => R
+          : T extends IAction<infer P | undefined, infer R>
+            ? (payload?: P) => R
+            : T extends IAction<infer P, infer R>
+              ? (payload: P) => R
+              : T extends NestedActions
+                ? { [K in keyof T]: ResolveAction<T[K]> }
+                : never
 
 export interface ContextFunction<P extends any, R extends any> {
   (

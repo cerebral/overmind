@@ -71,10 +71,10 @@ type ExtracType<T extends {}, K> = {
   [P in FilteredKeys<T, K | {}>]: T[P] extends SerializableValue
     ? (data: any) => Serializable
     : T[P] extends {}
-    ? ExtracType<T[P], K> extends { [key: string]: never }
-      ? never
-      : ExtractDeepType<T[P], K>
-    : never
+      ? ExtracType<T[P], K> extends { [key: string]: never }
+        ? never
+        : ExtractDeepType<T[P], K>
+      : never
 }
 
 type ExtractDeepType<T extends {}, K, U extends {} = ExtracType<T, K>> = {

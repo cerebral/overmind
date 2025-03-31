@@ -137,8 +137,8 @@ export class Overmind<ThisConfig extends IConfiguration>
         const name = options.name
           ? options.name
           : typeof document === 'undefined'
-          ? 'NoName'
-          : document.title || 'NoName'
+            ? 'NoName'
+            : document.title || 'NoName'
 
         this.initializeDevtools(
           host,
