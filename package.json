@@ -85,7 +85,7 @@
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "lint-staged": "15.4.3",
-    "prettier": "3.0.3",
+    "prettier": "3.5.3",
     "repo-cooker": "8.0.22",
     "rimraf": "5.0.5",
     "size-limit": "11.1.6",
