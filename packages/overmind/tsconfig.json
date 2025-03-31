@@ -7,7 +7,7 @@
     "rootDir": "src",
     "outDir": ".code",
     "newLine": "LF",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "es2022"],
     "esModuleInterop": true,
     "moduleResolution": "node",
     "importHelpers": true,
