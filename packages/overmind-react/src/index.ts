@@ -136,14 +136,14 @@ const useState = <Context extends IContext<{ state: {} }>>(
     }, [])
 
     React.useEffect(() => {
-      overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-        componentId: component.__componentId,
-        componentInstanceId,
-        name,
-        paths: Array.from(trackStateTree.pathDependencies) as any,
-      })
-
       const dispose = trackStateTree.subscribe((_, __, flushId) => {
+        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+          componentId: component.__componentId,
+          componentInstanceId,
+          name,
+          paths: Array.from(trackStateTree.pathDependencies) as any,
+          flushId,
+        })
         forceRerender(flushId)
       })
 
