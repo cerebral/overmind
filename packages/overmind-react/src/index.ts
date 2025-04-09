@@ -19,9 +19,13 @@ const isNode =
   process.title.includes('node')
 
 export type IReactComponent<P = any> =
+  | React.FC<P>
   | React.FunctionComponent<P>
   | React.ComponentClass<P>
-  | React.ClassicComponentClass<P>
+  | React.ForwardRefExoticComponent<P>
+  | React.MemoExoticComponent<React.ComponentType<P>>
+  | React.LazyExoticComponent<React.ComponentType<P>>
+  | React.ComponentType<P>
 
 function getFiberType(component) {
   if (component.type) {
