@@ -35,6 +35,18 @@ const RuntimeConfig: React.FunctionComponent = () => {
           <div className={styles.configDescription}>
             <h4 className={styles.configTitle}>Devtool port</h4>
             <div>Application has to connect to this port.</div>
+            <div style={{ color: colors.green, marginTop: '4px' }}>
+              Current server port: {state.port}
+            </div>
+            <div
+              style={{
+                color: colors.highlight,
+                fontSize: '12px',
+                marginTop: '4px',
+              }}
+            >
+              Start with OV_DEV_PORT=xxxx npm start to change the port
+            </div>
             <pre className={styles.code}>
               <span style={{ color: colors.purple }}>const</span> overmind ={' '}
               {state.port === 3031 ? (
@@ -58,18 +70,15 @@ const RuntimeConfig: React.FunctionComponent = () => {
             </pre>
           </div>
           <div className={styles.configValue}>
-            <input
-              id="port-input"
-              className={styles.newPort}
-              defaultValue={String(state.port)}
-              onClick={(event) => event.stopPropagation()}
-              onKeyDown={(event) => {
-                if (event.keyCode === 13) {
-                  // @ts-ignore
-                  handleFormSubmit(event)
-                }
-              }}
-            />
+            <form onClick={(e) => e.stopPropagation()}>
+              <input
+                id="port-input"
+                className={styles.newPort}
+                value={String(state.port)}
+                disabled
+                readOnly
+              />
+            </form>
           </div>
         </div>
       </div>

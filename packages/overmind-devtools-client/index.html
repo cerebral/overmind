@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Overmind DevTools</title>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
       rel="stylesheet"
@@ -14,43 +14,67 @@
       rel="stylesheet"
     />
     <script>
-      /*
-        THIS CODE IS COPIED FOR DEVELOPMENT PURPOSES, A BIT RISKY, BUT HAVE NO OTHER SOLUTION
-      */
+      // Port configuration injected by webpack template
+      window.__OVERMIND_DEVTOOLS_BACKEND_PORT__ = '<%= PORT %>'
+
       const vscode =
         window.vscode || (window.acquireVsCodeApi && window.acquireVsCodeApi())
+      const isVSCodeExtension = typeof vscode !== 'undefined'
+      const isElectron =
+        typeof window !== 'undefined' &&
+        typeof window.process === 'object' &&
+        typeof window.process.type === 'string' &&
+        window.process.type === 'renderer'
 
       function onPortSubmit(newPort) {
-        if (vscode) {
-          vscode.postMessage({
-            command: 'newPort',
-            text: newPort,
-          })
+        if (isVSCodeExtension) {
+          try {
+            vscode.postMessage({ command: 'newPort', text: newPort })
+          } catch (err) {
+            console.error('Failed to send message to VSCode:', err)
+          }
+        } else if (isElectron) {
+          try {
+            const { ipcRenderer } = window.require('electron')
+            ipcRenderer.send('newPort', newPort)
+          } catch (err) {
+            window.location.href = `${window.location.origin}${window.location.pathname}?port=${newPort}`
+          }
         } else {
-          const { ipcRenderer } = require('electron')
-
-          ipcRenderer.send('newPort', newPort)
+          window.location.href = `${window.location.origin}${window.location.pathname}?port=${newPort}`
         }
       }
 
       function onRestart() {
-        if (vscode) {
-          vscode.postMessage({
-            command: 'restart',
-          })
-        } else {
-          const { ipcRenderer } = require('electron')
-
-          ipcRenderer.send('restart')
+        if (isVSCodeExtension) {
+          try {
+            vscode.postMessage({ command: 'restart' })
+          } catch (err) {
+            console.error('Failed to send restart message to VSCode:', err)
+          }
+        } else if (isElectron) {
+          try {
+            const { ipcRenderer } = window.require('electron')
+            ipcRenderer.send('restart')
+          } catch (err) {
+            console.error('Failed to send restart message in Electron:', err)
+          }
         }
       }
 
       function handleFormSubmit(event) {
         event.preventDefault()
         var input = document.querySelector('#port-input')
+        var port = input.value
         input.setAttribute('disabled', true)
-        console.log(input)
-        onPortSubmit(input.value)
+
+        if (isNaN(port) || port < 1 || port > 65535) {
+          alert('Please enter a valid port number (1-65535)')
+          input.removeAttribute('disabled')
+          return
+        }
+
+        onPortSubmit(port)
       }
     </script>
   </head>

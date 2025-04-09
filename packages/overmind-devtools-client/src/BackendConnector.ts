@@ -17,42 +17,89 @@ class WebsocketConnector {
   private socket: WebSocket
   private messagesBeforeConnected: Array<[string, any, any]> = []
   private isOpen = false
+  private currentPort: number
+
   private schedulePing() {
     setTimeout(() => {
       this.send('ping')
     }, 1000 * 10)
   }
 
-  public connect(
-    port: string | number // TODO: return Promise so we can wait for it
-  ) {
+  getCurrentPort(): number {
+    return this.currentPort
+  }
+
+  public connect(port: string | number) {
+    this.currentPort = Number(port)
     return new Promise<void>((resolve, reject) => {
       if (this.socket) {
-        reject(new Error('TODO: Socked already open, what now?'))
+        this.socket.close()
+        this.socket = null
       }
-      this.socket = new WebSocket(`ws://localhost:${port}?devtools=1`)
-      this.socket.onmessage = (message) => {
-        const parsedMessage = JSON.parse(message.data)
 
-        if (parsedMessage.type === 'pong') {
-          this.schedulePing()
-        } else {
-          this.emit(parsedMessage.type, parsedMessage.data)
+      console.log(
+        `Connecting to WebSocket at ws://localhost:${port}?devtools=1`
+      )
+      this.socket = new WebSocket(`ws://localhost:${port}?devtools=1`)
+
+      let hasResolved = false
+
+      this.socket.onmessage = (message) => {
+        try {
+          const parsedMessage = JSON.parse(message.data)
+          if (parsedMessage.type === 'pong') {
+            this.schedulePing()
+          } else {
+            this.emit(parsedMessage.type, parsedMessage.data)
+          }
+        } catch (err) {
+          console.error('Error parsing message:', err)
         }
       }
+
       this.socket.onopen = () => {
-        resolve()
         this.isOpen = true
-        this.messagesBeforeConnected.forEach((message) => {
-          this.send(...message)
-        })
-        this.messagesBeforeConnected.length = 0
+
+        // Send any queued messages
+        if (this.messagesBeforeConnected.length) {
+          this.messagesBeforeConnected.forEach((message) => {
+            this.send(...message)
+          })
+          this.messagesBeforeConnected.length = 0
+        }
+
         this.schedulePing()
+
+        if (!hasResolved) {
+          hasResolved = true
+          resolve()
+        }
       }
-      this.socket.onclose = (reason) => {
-        console.log('Socket closed', reason)
-        setTimeout(() => this.connect(port), 1000)
+
+      this.socket.onclose = (event) => {
+        this.socket = null
+        this.isOpen = false
+
+        if (!hasResolved) {
+          hasResolved = true
+          reject(new Error(`Connection closed: ${event.reason || 'Unknown'}`))
+        }
       }
+
+      this.socket.onerror = () => {
+        if (!hasResolved) {
+          hasResolved = true
+          reject(new Error(`Failed to connect to port ${port}`))
+        }
+      }
+
+      // Connection timeout
+      setTimeout(() => {
+        if (!hasResolved) {
+          hasResolved = true
+          reject(new Error(`Connection timed out`))
+        }
+      }, 5000)
     })
   }
 
@@ -66,7 +113,6 @@ class WebsocketConnector {
     if (!this.callbacks[event]) {
       this.callbacks[event] = []
     }
-
     this.callbacks[event].push(cb)
   }
 
@@ -81,6 +127,7 @@ class WebsocketConnector {
       this.messagesBeforeConnected.push([event, data, onEvaluated])
       return
     }
+
     const nextEvaluationId = this.nextEvaluationId++
 
     this.socket.send(

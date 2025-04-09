@@ -1,6 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
+// Get port from environment variable
+const port = process.env.OV_DEV_PORT || 3031
+
 module.exports = {
   devtool: 'inline-source-map',
   mode: 'development',
@@ -11,6 +14,16 @@ module.exports = {
   },
   devServer: {
     allowedHosts: 'all',
+    webSocketServer: false,
+    hot: false,
+    liveReload: false,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    client: {
+      overlay: false,
+      logging: 'warn',
+    },
   },
   module: {
     rules: [
@@ -53,6 +66,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Overmind Devtools',
       template: './index.html',
+      templateParameters: {
+        PORT: port,
+      },
     }),
   ],
 }

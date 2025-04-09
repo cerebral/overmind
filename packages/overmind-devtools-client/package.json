@@ -6,7 +6,9 @@
 	"license": "MIT",
 	"repository": "git+https://github.com/cerebral/overmind.git",
 	"scripts": {
-		"start": "webpack-dev-server",
+		"start": "concurrently \"npm run start:ws\" \"npm run start:web\"",
+		"start:ws": "node server.js",
+		"start:web": "OV_DEV_PORT=$OV_DEV_PORT webpack-dev-server",
 		"build": "webpack --config webpack.prod.js",
 		"typecheck": "tsc --noEmit",
 		"prepare": "npm run build",

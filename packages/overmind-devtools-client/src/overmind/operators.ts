@@ -301,14 +301,30 @@ export const updateOperator = (
 
 export const updateState = ({ state }: Context, message: StateMessage) => {
   const app = state.apps[message.appName]
-  const path = message.data.path
+  const path = [...message.data.path] // Create a copy of the path
   const key = path.pop()
-  const target = path.reduce(
-    (aggr, key) => (aggr[key].__CLASS__ ? aggr[key].value : aggr[key]),
-    app.state
-  )
 
-  target[key] = message.data.value
+  // Safely traverse the path and handle undefined or missing parent objects
+  const target = path.reduce((aggr, pathKey) => {
+    if (aggr === null || aggr === undefined) return undefined
+
+    // Handle class wrappers safely
+    if (aggr[pathKey]) {
+      return aggr[pathKey].__CLASS__ ? aggr[pathKey].value : aggr[pathKey]
+    } else {
+      // Create missing paths
+      aggr[pathKey] = {}
+      return aggr[pathKey]
+    }
+  }, app.state)
+
+  if (target && typeof target === 'object') {
+    target[key] = message.data.value
+  } else {
+    console.warn(
+      `Cannot update state at path ${message.data.path.join('.')}: parent object not found`
+    )
+  }
 }
 
 export const updateAction = ({ state }: Context, message: EndActionMessage) => {

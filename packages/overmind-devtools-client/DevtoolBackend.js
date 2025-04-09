@@ -14,25 +14,55 @@ class DevtoolBackend {
 
   connect(port) {
     if (this.devtoolServer) {
-      this.devtoolServer.close()
+      const oldServer = this.devtoolServer
+      this.devtoolServer = null
+
+      return new Promise((resolve, reject) => {
+        try {
+          this.devtoolServer = new WebSocket.Server({ port })
+          this.currentPort = port
+
+          this.devtoolServer.on('connection', this.onConnection)
+          this.devtoolServer.on('error', reject)
+          this.devtoolServer.on('close', () =>
+            console.log('WebSocket server closed')
+          )
+
+          this.devtoolServer.on('listening', () => {
+            console.log(`DevTools WebSocket server listening on port ${port}`)
+
+            if (oldServer) {
+              try {
+                oldServer.close()
+              } catch (err) {
+                console.log('Error closing old server:', err.message)
+              }
+            }
+
+            resolve()
+          })
+        } catch (err) {
+          console.error(`Error creating WebSocket server on port ${port}:`, err)
+          reject(err)
+        }
+      })
+    } else {
+      return new Promise((resolve, reject) => {
+        this.devtoolServer = new WebSocket.Server({ port })
+        this.devtoolServer.on('connection', this.onConnection)
+        this.devtoolServer.on('error', reject)
+        this.devtoolServer.on('close', () =>
+          console.log('WebSocket server closed')
+        )
+        this.devtoolServer.on('listening', resolve)
+      })
     }
-
-    return new Promise((resolve, reject) => {
-      this.devtoolServer = new WebSocket.Server({
-        port,
-      })
-
-      this.devtoolServer.on('connection', this.onConnection)
-      this.devtoolServer.on('error', reject)
-      this.devtoolServer.on('close', (reason) => {
-        console.log('Devtools backend closed', reason)
-      })
-      this.devtoolServer.on('listening', resolve)
-    })
   }
 
   close() {
-    this.devtoolServer.close()
+    if (this.devtoolServer) {
+      this.devtoolServer.close()
+    }
   }
 
   getQuery(url) {
@@ -41,7 +71,6 @@ class DevtoolBackend {
       .split(',')
       .reduce((aggr, part) => {
         const parts = part.split('=')
-
         return Object.assign(aggr, {
           [parts[0]]: decodeURIComponent(parts[1]),
         })
@@ -50,8 +79,6 @@ class DevtoolBackend {
 
   onConnection(ws, req) {
     const query = this.getQuery(req.url)
-
-    // devtools connects with ?devtools=1 in url
     if (query.devtools) {
       this.onDevtoolConnection(ws, req)
     } else {
@@ -69,11 +96,7 @@ class DevtoolBackend {
 
     switch (parsedMessage.type) {
       case 'ping':
-        this.devtoolSocket.send(
-          JSON.stringify({
-            type: 'pong',
-          })
-        )
+        this.devtoolSocket.send(JSON.stringify({ type: 'pong' }))
         break
       case 'storage:get':
         this.evaluateDevtoolMessage(parsedMessage, () =>
@@ -100,7 +123,6 @@ class DevtoolBackend {
         this.options.openChromeDevtools()
         break
       default:
-        console.log('DEVTOOL MESSAGE', message)
         this.clientSockets[parsedMessage.data.appName].send(
           JSON.stringify(parsedMessage.data)
         )
@@ -113,7 +135,6 @@ class DevtoolBackend {
     }
 
     this.clientSockets[name] = ws
-
     ws.on('message', this.onClientMessage)
 
     const self = this
@@ -121,17 +142,27 @@ class DevtoolBackend {
       ws.removeEventListener('message', self.onClientMessage)
       ws.removeEventListener('close', onClose)
 
-      self.devtoolSocket.send(
-        JSON.stringify({
-          type: 'disconnect',
-          data: name,
-        })
-      )
+      if (
+        self.devtoolSocket &&
+        self.devtoolSocket.readyState === WebSocket.OPEN
+      ) {
+        self.devtoolSocket.send(
+          JSON.stringify({
+            type: 'disconnect',
+            data: name,
+          })
+        )
+      }
     })
   }
 
   onClientMessage(message) {
-    this.devtoolSocket.send(`{"type":"message","data":${message}}`)
+    if (
+      this.devtoolSocket &&
+      this.devtoolSocket.readyState === WebSocket.OPEN
+    ) {
+      this.devtoolSocket.send(`{"type":"message","data":${message}}`)
+    }
   }
 
   async evaluateDevtoolMessage(message, cb) {
@@ -150,6 +181,7 @@ class DevtoolBackend {
     }
   }
 
+  // Templates for error pages
   getChangePortMarkup(port, onPortSubmit, onRestart) {
     return `<!DOCTYPE html>
     <html lang="en">
@@ -157,20 +189,12 @@ class DevtoolBackend {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <link
-          href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css?family=Nunito:400,700"
-          rel="stylesheet"
-        />
+        <title>Port Error</title>
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet" />
         <script type="text/javascript">
           ${onPortSubmit.toString()}
-  
           ${onRestart.toString()}
-  
           function handleFormSubmit(event) {
             event.preventDefault()
             var input = document.querySelector('#port-input')
@@ -179,45 +203,13 @@ class DevtoolBackend {
           }
         </script>
         <style>
-          html, body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-color: hsl(206, 57%, 13%);
-          }
-          .wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-          }
-          .inner-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-          h1 {
-            color: white;
-          }
-          input {
-            border: 0;
-            border-radius: 3px;
-            width: 200px;
-            padding: 1rem;
-            font-size: 18px;
-            outline: none;
-          }
-          button {
-            padding: 1rem;
-            border: 0;
-            outline: 0;
-            color: white;
-            background-color: #fac863;
-            margin: 1rem;
-            font-size: 18px;
-            border-radius: 3px;
-            cursor: pointer;
-          }
+          html, body { margin: 0; padding: 0; height: 100vh; background-color: hsl(206, 57%, 13%); }
+          .wrapper { display: flex; align-items: center; justify-content: center; height: 100%; }
+          .inner-wrapper { display: flex; flex-direction: column; align-items: center; }
+          h1 { color: white; }
+          input { border: 0; border-radius: 3px; width: 200px; padding: 1rem; font-size: 18px; outline: none; }
+          button { padding: 1rem; border: 0; color: white; background-color: #fac863; 
+                  margin: 1rem; font-size: 18px; border-radius: 3px; cursor: pointer; }
         </style>
       </head>
       <body>
@@ -242,23 +234,15 @@ class DevtoolBackend {
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-      <title>Document</title>
-      <link
-        href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
-        rel="stylesheet"
-      />
-      <link
-        href="https://fonts.googleapis.com/css?family=Nunito:400,700"
-        rel="stylesheet"
-      />
+      <title>Overmind DevTools</title>
+      <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet" />
       <script type="text/javascript">
         window['__OVERMIND_DEVTOOLS_BACKEND_PORT__'] = "${port}";
       </script>
       <script type="text/javascript">
         ${onPortSubmit.toString()}
-
         ${onRestart.toString()}
-
         function handleFormSubmit(event) {
           event.preventDefault()
           var input = document.querySelector('#port-input')

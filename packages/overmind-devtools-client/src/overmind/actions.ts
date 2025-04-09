@@ -15,7 +15,8 @@ export const onInitializeOvermind = async (
   { state, effects }: Context,
   app: Overmind<Context>
 ) => {
-  state.port = effects.utils.getPort()
+  const config = effects.config.getConfiguration()
+  state.port = config.port
 
   effects.connector.onMessage(app.actions.onMessage)
   effects.connector.onDisconnect(app.actions.onDisconnect)
