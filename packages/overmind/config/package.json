@@ -4,5 +4,5 @@
   "main": "../lib/config",
   "module": "../es/config",
   "jsnext:main": "../es/config",
-  "typings": "../lib/config/index.d.ts"
+  "types": "../lib/config/index.d.ts"
 }

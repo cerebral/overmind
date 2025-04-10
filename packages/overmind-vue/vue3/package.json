@@ -4,6 +4,6 @@
     "main": "../lib/vue3",
     "module": "../es/vue3",
     "jsnext:main": "../es/vue3",
-    "typings": "../lib/vue3.d.ts"
+    "types": "../lib/vue3.d.ts"
   }
   
