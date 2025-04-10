@@ -119,7 +119,7 @@ The port is displayed in the DevTools UI, under the "Devtool port" section in th
 If you're having connection issues:
 
 1. **Cannot connect to WebSocket server**
-   * Check if the server is running (you should see "WebSocket server running on port 3031" in the console)
+   * Check if the server is running (you should see "Overmind DevTools WebSocket server running on port 3031" in the console)
    * Verify no other application is using the port
    * Try specifying a different port using the OV_DEV_PORT environment variable
 
@@ -134,8 +134,10 @@ If you're having connection issues:
 
 ## Local Development
 
+You can open Chrome DevTools from the application menu: Select **Application > Open Chrome DevTools**.
+
 This package bundle (`bundle.js`) is further used by the companion "host" packages (mentioned before).
 
-Hence, make sure you've built this package before development.
+Hence, make sure you've built this package before developing the related packages.
 
-**HINT**: you can also use the devtools electron app for local development by running [overmind-devtools](../overmind-devtools/README.md).
+**HINT**: you can also use the DevTools Electron app for local development by running [overmind-devtools](../overmind-devtools/README.md).

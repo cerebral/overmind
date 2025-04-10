@@ -1,22 +1,34 @@
-### Introduction
+# Overmind DevTools Electron
+
+## Introduction
 
 This package is one of three packages related to `overmind-devtools`.
 
 If you're looking for a little deeper insight about these, please check [overmind-devtools-client](../overmind-devtools-client/README.md).
 
-### Local development
+## Usage
 
-**PREREQUISITE**: make sure you firstly [built](../overmind-devtools-client/README.md) devtools UI core so that it can be hosted by this package (electron application).
+For normal use, you can run the DevTools directly using npx:
 
-Considering the above prerequisite is satisfied, run the following steps:
-1. Build the host:
 ```sh
-npm run build
+npx overmind-devtools
 ```
-2. Run the application:
+
+## Local Development
+
+**PREREQUISITE**: Make sure you first [built](../overmind-devtools-client/README.md) the devtools UI core.
+
+Run the development version with:
+
 ```sh
-npm run prod
+npm start
 ```
-3. Use `Application` tab and then clicking on `Open Chrome DevTools`:
+
+This will:
+
+1. Build the DevTools electron app
+2. Launch the Electron app with Chrome DevTools open for debugging
+
+You can also open Chrome DevTools from the application menu: Select **Application > Open Chrome DevTools**.
 
 ![overmind-devtools-debugging](./docs/assets/overmind-devtools-debugging.png)
