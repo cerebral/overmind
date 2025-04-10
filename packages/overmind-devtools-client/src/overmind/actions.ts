@@ -68,8 +68,15 @@ export const onDisconnect = ({ state }: Context, appName: string) => {
   }
 }
 
+export const setPortChangingState = (
+  { state }: Context,
+  isChanging: boolean
+) => {
+  state.isChangingPort = isChanging
+}
+
 export const changeNewPortValue = ({ state }: Context, port: string) => {
-  state.newPortValue = String(Number(port))
+  state.newPortValue = port.replace(/\D/g, '')
 }
 
 export const changeTab = ({ state, effects }: Context, tab: Tab) => {

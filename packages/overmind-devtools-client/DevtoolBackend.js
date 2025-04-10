@@ -38,7 +38,6 @@ class DevtoolBackend {
                 console.log('Error closing old server:', err.message)
               }
             }
-
             resolve()
           })
         } catch (err) {
@@ -51,9 +50,6 @@ class DevtoolBackend {
         this.devtoolServer = new WebSocket.Server({ port })
         this.devtoolServer.on('connection', this.onConnection)
         this.devtoolServer.on('error', reject)
-        this.devtoolServer.on('close', () =>
-          console.log('WebSocket server closed')
-        )
         this.devtoolServer.on('listening', resolve)
       })
     }

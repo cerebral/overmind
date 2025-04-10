@@ -2,7 +2,7 @@
 	"name": "overmind-devtools",
 	"version": "29.0.5",
 	"description": "Overmind devtool",
-  "main": "src/main.js",
+  	"main": "src/main.js",
 	"author": "Christian Alfoni <christianalfoni@gmail.com>",
 	"license": "MIT",
 	"repository": "git+https://github.com/cerebral/overmind.git",
@@ -10,8 +10,7 @@
 		"overmind-devtools": "bin.js"
 	},
 	"scripts": {
-    "start": "electron .",
-    "prod": "NODE_ENV=production electron . --not-packaged=true",
+		"start": "npm run build && electron .",
 		"build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
 	},
 	"keywords": [
@@ -22,6 +21,6 @@
 		"electron": "^26.3.0",
 		"electron-json-storage": "^4.6.0",
 		"overmind-devtools-client": "next",
-		"ws": "^8.18.0"
+		"ws": "^8.18.1"
 	}
 }

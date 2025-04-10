@@ -2,9 +2,32 @@ import BackendConnector from '../BackendConnector'
 
 export const connector = new BackendConnector()
 
+export const platform = {
+  isElectron(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.process === 'object' &&
+      window.process.type === 'renderer' &&
+      !!window.process.versions?.electron
+    )
+  },
+
+  isVSCodeExtension(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      (window.vscode !== undefined ||
+        typeof window.acquireVsCodeApi === 'function')
+    )
+  },
+
+  isBrowser(): boolean {
+    return !this.isElectron() && !this.isVSCodeExtension()
+  },
+}
+
 export const config = {
   getPort(): number {
-    // Try to get port from configured value
+    // Try configured value, then URL parameter, then default
     if (window.__OVERMIND_DEVTOOLS_BACKEND_PORT__) {
       const portNum = Number(window.__OVERMIND_DEVTOOLS_BACKEND_PORT__)
       if (!isNaN(portNum) && portNum !== 0) {
@@ -12,14 +35,12 @@ export const config = {
       }
     }
 
-    // Try URL parameter
     const urlParams = new URLSearchParams(location.search)
     const portParam = urlParams.get('port')
     if (portParam && !isNaN(Number(portParam))) {
       return Number(portParam)
     }
 
-    // Default port
     return 3031
   },
 

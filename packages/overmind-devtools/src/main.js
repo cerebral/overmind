@@ -12,6 +12,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
     },
     icon: path.resolve('icons', 'icon.png'),
     height: 768,
@@ -35,7 +36,6 @@ function createWindow() {
     openChromeDevtools() {
       mainWindow.openDevTools()
     },
-    // This storage requires objects to be stored, for some weird reason
     storage: {
       get(key) {
         return new Promise((resolve) => {
@@ -73,31 +73,39 @@ function createWindow() {
   }
 
   function openDevtools(port) {
-    if (process.env.NODE_ENV === 'production') {
-      mainWindow.loadURL(
-        'data:text/html;charset=UTF-8,' +
-          encodeURIComponent(
-            devtoolBackend.getMarkup('bundle.js', port, onPortSubmit, onRestart)
-          ),
-        {
-          baseURLForDataURL: `filestub://devtoolsDist/`,
-        }
-      )
-    } else {
-      mainWindow.loadURL(`http://localhost:8080?port=${port}`)
+    mainWindow.loadURL(
+      'data:text/html;charset=UTF-8,' +
+        encodeURIComponent(
+          devtoolBackend.getMarkup('bundle.js', port, onPortSubmit, onRestart)
+        ),
+      {
+        baseURLForDataURL: `filestub://devtoolsDist/`,
+      }
+    )
+
+    if (process.env.NODE_ENV !== 'production') {
       mainWindow.webContents.openDevTools()
     }
   }
 
   function startDevtoolBackend() {
-    return new Promise((resolve) => {
-      storage.get('port', (_, port) => {
-        port = typeof port === 'string' ? Number(port) : 3031
+    return new Promise((resolve, reject) => {
+      storage.get('port', (_, storedPort) => {
+        const port =
+          typeof storedPort === 'object' && storedPort?.value
+            ? Number(storedPort.value)
+            : typeof storedPort === 'string' || typeof storedPort === 'number'
+              ? Number(storedPort)
+              : 3031
+
+        if (devtoolBackend.close) {
+          devtoolBackend.close()
+        }
 
         devtoolBackend
           .connect(port)
           .then(() => resolve(port))
-          .catch(() => {
+          .catch((err) => {
             mainWindow.loadURL(
               'data:text/html;charset=UTF-8,' +
                 encodeURIComponent(
@@ -111,25 +119,29 @@ function createWindow() {
                 baseURLForDataURL: `file://${path.resolve()}/devtoolsDist/`,
               }
             )
+            reject(err)
           })
       })
     })
   }
 
   mainWindow.on('closed', () => app.quit())
-  app.on('activate', () => {
-    mainWindow.show()
-  })
+  app.on('activate', () => mainWindow.show())
+
   electron.ipcMain.on('newPort', (_, port) => {
     storage.set('port', port, () => {
-      startDevtoolBackend().then(openDevtools)
+      startDevtoolBackend()
+        .then(openDevtools)
+        .catch(() => {})
     })
   })
+
   electron.ipcMain.on('restart', () => {
     app.relaunch()
     app.quit()
   })
 
+  // Application menu
   electron.Menu.setApplicationMenu(
     electron.Menu.buildFromTemplate([
       {
@@ -198,19 +210,12 @@ function createWindow() {
           details.url
         )
       ) {
-        // eslint-disable-next-line
-        callback({
-          redirectURL,
-        })
+        callback({ redirectURL })
         return
       }
-      // eslint-disable-next-line
       callback({})
     }
   )
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)

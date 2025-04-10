@@ -19,12 +19,16 @@
 
       const vscode =
         window.vscode || (window.acquireVsCodeApi && window.acquireVsCodeApi())
-      const isVSCodeExtension = typeof vscode !== 'undefined'
-      const isElectron =
+      const isVSCodeExtension =
         typeof window !== 'undefined' &&
-        typeof window.process === 'object' &&
-        typeof window.process.type === 'string' &&
-        window.process.type === 'renderer'
+        (window.vscode !== undefined ||
+          typeof window.acquireVsCodeApi === 'function')
+      const isElectron = isVSCodeExtension
+        ? false
+        : typeof window !== 'undefined' &&
+          typeof window.process === 'object' &&
+          window.process.type === 'renderer' &&
+          !!window.process.versions?.electron
 
       function onPortSubmit(newPort) {
         if (isVSCodeExtension) {

@@ -48,11 +48,13 @@ type State = {
   actionsSplitSize: number
   chartsSplitSize: number
   isExecutingAction: boolean
+  isChangingPort: boolean
 }
 
 const state: State = {
   isShowingRuntime: false,
   isConnecting: true,
+  isChangingPort: false,
   error: null,
   showApps: false,
   currentAppName: null,
