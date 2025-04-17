@@ -57,6 +57,7 @@
   },
   "scripts": {
     "vscode:prepublish": "webpack --mode production",
+    "package": "npm run build && vsce package",
     "compile": "webpack --mode none",
     "watch": "webpack --mode none --watch",
     "build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
@@ -65,9 +66,8 @@
     "@babel/plugin-transform-class-properties": "7.25.9",
     "@types/node": "^20.8.3",
     "@types/vscode": "^1.70.0",
+    "@vscode/vsce": "^3.3.2",
+    "overmind-devtools-client": "next",
     "webpack": "^5.98.0"
-  },
-  "peerDependencies": {
-    "overmind-devtools-client": "next"
   }
 }
