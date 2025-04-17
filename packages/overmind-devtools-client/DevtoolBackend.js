@@ -14,51 +14,71 @@ class DevtoolBackend {
 
   connect(port) {
     if (this.devtoolServer) {
-      const oldServer = this.devtoolServer
-      this.devtoolServer = null
+      return this.close().then(() => this._createServer(port))
+    }
+    return this._createServer(port)
+  }
 
-      return new Promise((resolve, reject) => {
-        try {
-          this.devtoolServer = new WebSocket.Server({ port })
-          this.currentPort = port
-
-          this.devtoolServer.on('connection', this.onConnection)
-          this.devtoolServer.on('error', reject)
-          this.devtoolServer.on('close', () =>
-            console.log('WebSocket server closed')
-          )
-
-          this.devtoolServer.on('listening', () => {
-            console.log(`DevTools WebSocket server listening on port ${port}`)
-
-            if (oldServer) {
-              try {
-                oldServer.close()
-              } catch (err) {
-                console.log('Error closing old server:', err.message)
-              }
-            }
-            resolve()
-          })
-        } catch (err) {
-          console.error(`Error creating WebSocket server on port ${port}:`, err)
-          reject(err)
-        }
-      })
-    } else {
-      return new Promise((resolve, reject) => {
+  _createServer(port) {
+    return new Promise((resolve, reject) => {
+      try {
         this.devtoolServer = new WebSocket.Server({ port })
+        this.currentPort = port
+
         this.devtoolServer.on('connection', this.onConnection)
         this.devtoolServer.on('error', reject)
-        this.devtoolServer.on('listening', resolve)
-      })
-    }
+        this.devtoolServer.on('listening', () => {
+          console.log(`DevTools WebSocket server listening on port ${port}`)
+          resolve()
+        })
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  isConnected() {
+    return this.devtoolServer !== null && this.devtoolServer !== undefined
   }
 
   close() {
-    if (this.devtoolServer) {
-      this.devtoolServer.close()
-    }
+    return new Promise((resolve) => {
+      if (!this.devtoolServer) {
+        return resolve()
+      }
+
+      // Terminate all client connections
+      Object.values(this.clientSockets).forEach((socket) => {
+        if (socket && socket.readyState === WebSocket.OPEN) {
+          socket.terminate()
+        }
+      })
+      this.clientSockets = {}
+
+      // Clean up devtool socket
+      if (
+        this.devtoolSocket &&
+        this.devtoolSocket.readyState === WebSocket.OPEN
+      ) {
+        this.devtoolSocket.terminate()
+        this.devtoolSocket = null
+      }
+
+      // Terminate all server clients
+      if (this.devtoolServer.clients && this.devtoolServer.clients.size > 0) {
+        this.devtoolServer.clients.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.terminate()
+          }
+        })
+      }
+
+      // Close the server
+      this.devtoolServer.close(() => {
+        this.devtoolServer = null
+        resolve()
+      })
+    })
   }
 
   getQuery(url) {
@@ -184,7 +204,7 @@ class DevtoolBackend {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <title>Port Error</title>
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet" />
@@ -229,7 +249,7 @@ class DevtoolBackend {
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
       <title>Overmind DevTools</title>
       <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet" />

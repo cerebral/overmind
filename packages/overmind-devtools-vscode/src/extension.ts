@@ -7,9 +7,7 @@ const DevtoolBackend = require('overmind-devtools-client/DevtoolBackend')
 
 function onNewPortSubmit(newPort: string) {
   // @ts-ignore
-  const vscode = (window.vscode =
-    // @ts-ignore
-    window.vscode || acquireVsCodeApi())
+  const vscode = (window.vscode = window.vscode || acquireVsCodeApi())
   vscode.postMessage({
     command: 'newPort',
     text: newPort,
@@ -18,16 +16,14 @@ function onNewPortSubmit(newPort: string) {
 
 function onRestart() {
   // @ts-ignore
-  const vscode = (window.vscode =
-    // @ts-ignore
-    window.vscode || acquireVsCodeApi())
+  const vscode = (window.vscode = window.vscode || acquireVsCodeApi())
   vscode.postMessage({
     command: 'restart',
   })
 }
 
 // this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+// the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   const storage = {
     get(key: string) {
@@ -49,6 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
       })
     },
   }
+
   const devtoolBackend = DevtoolBackend.create({
     onRelaunch() {
       devtoolBackend.close()
@@ -56,12 +53,16 @@ export function activate(context: vscode.ExtensionContext) {
     },
     storage,
   })
+
+  let portChanged = false
+
   const devtoolsPanel = new DevtoolsPanel({
     context,
     onMessage: (command, text) => {
       switch (command) {
         case 'newPort':
           storage.set('overmind.port', text).then(() => startDevtools())
+          portChanged = true
           break
         case 'restart':
           devtoolBackend.close()
@@ -70,66 +71,113 @@ export function activate(context: vscode.ExtensionContext) {
       }
     },
     onDispose() {
+      if (portChanged) {
+        portChanged = false
+        return
+      }
       devtoolBackend.close()
     },
   })
 
+  let isConnecting = false
+
   function startDevtools(panel?: vscode.WebviewPanel) {
-    storage.get('overmind.port').then((port = 3031) => {
-      devtoolBackend
-        .connect(port)
-        .then(() => {
-          const content = (panel: vscode.WebviewPanel) => {
-            let scriptFile: vscode.Uri | string
+    if (isConnecting) return
+    isConnecting = true
 
-            if (
-              process.env.VSCODE_DEBUG_MODE ||
-              vscode.workspace
-                .getConfiguration()
-                .get('overmind.devmode.enabled')
-            ) {
-              scriptFile = <string>(
-                vscode.workspace.getConfiguration().get('overmind.devmode.url')
-              )
-            } else {
-              const onDiskPath = vscode.Uri.file(
-                path.join(context.extensionPath, 'devtoolsDist', 'bundle.js')
-              )
-              scriptFile = panel.webview.asWebviewUri(onDiskPath)
-            }
+    storage
+      .get('overmind.port')
+      .then((port = 3031) => {
+        try {
+          devtoolBackend.close()
+        } catch (err) {
+          log('Error closing connection:', err)
+        }
 
-            return devtoolBackend
-              .getMarkup(scriptFile, port, onNewPortSubmit, onRestart)
-              .replace(
-                '</head>',
-                `
-  <style>
-  :root {
-  --colors-background: var(--vscode-editor-background) !important;
-  --colors-foreground: var(--vscode-activityBar-background) !important;
-  --colors-border: var(--vscode-dropdown-border) !important;
-  --colors-text: var(--vscode-editor-foreground) !important;
-  --colors-highlight: var(--vscode-breadcrumb-focusForeground) !important;
-  }
-  </style>
-  </head>        
-  `
-              )
-          }
+        const connectionTimeout = setTimeout(() => {
+          isConnecting = false
+          showErrorPanel()
+        }, 5000)
 
-          devtoolsPanel.show(content)
-        })
-        .catch(() => {
+        function showErrorPanel() {
           devtoolsPanel.show(
-            devtoolBackend.getChangePortMarkup(
-              port,
-              onNewPortSubmit,
-              onRestart
-            ),
+            () =>
+              devtoolBackend.getChangePortMarkup(
+                port,
+                onNewPortSubmit,
+                onRestart
+              ),
             panel
           )
-        })
-    })
+        }
+
+        devtoolBackend
+          .connect(port)
+          .then(() => {
+            clearTimeout(connectionTimeout)
+            isConnecting = false
+
+            const content = (panel: vscode.WebviewPanel) => {
+              let scriptFile: vscode.Uri | string
+
+              if (
+                process.env.VSCODE_DEBUG_MODE ||
+                vscode.workspace
+                  .getConfiguration()
+                  .get('overmind.devmode.enabled')
+              ) {
+                scriptFile = <string>(
+                  vscode.workspace
+                    .getConfiguration()
+                    .get('overmind.devmode.url')
+                )
+              } else {
+                const onDiskPath = vscode.Uri.file(
+                  path.join(context.extensionPath, 'devtoolsDist', 'bundle.js')
+                )
+                scriptFile = panel.webview.asWebviewUri(onDiskPath)
+              }
+
+              try {
+                const markup = devtoolBackend.getMarkup(
+                  scriptFile,
+                  port,
+                  onNewPortSubmit,
+                  onRestart
+                )
+
+                if (typeof markup !== 'string') {
+                  return `<html><body>Error loading devtools content</body></html>`
+                }
+
+                return markup.replace(
+                  '</head>',
+                  `<style>
+:root {
+--colors-background: var(--vscode-editor-background) !important;
+--colors-foreground: var(--vscode-activityBar-background) !important;
+--colors-border: var(--vscode-dropdown-border) !important;
+--colors-text: var(--vscode-editor-foreground) !important;
+--colors-highlight: var(--vscode-breadcrumb-focusForeground) !important;
+}
+</style></head>`
+                )
+              } catch (err) {
+                return `<html><body>Error generating devtools content: ${err}</body></html>`
+              }
+            }
+
+            devtoolsPanel.show(content, panel)
+          })
+          .catch(() => {
+            clearTimeout(connectionTimeout)
+            isConnecting = false
+            showErrorPanel()
+          })
+      })
+      .catch(() => {
+        isConnecting = false
+      })
   }
 
   context.subscriptions.push(
@@ -147,7 +195,13 @@ export function activate(context: vscode.ExtensionContext) {
   }
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {
-  log('Extension deactivated')
+  try {
+    const existingPanel = DevtoolsPanel.findPanel()
+    if (existingPanel) {
+      existingPanel.dispose()
+    }
+  } catch (err) {
+    log('Error during deactivation:', err)
+  }
 }
