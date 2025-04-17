@@ -1,4 +1,5 @@
 import * as vscode from 'vscode'
+import { getNonce } from './utils/getNonce'
 import { log } from './utils/Logger'
 
 type Options = {
@@ -69,8 +70,24 @@ export class DevtoolsPanel {
         DevtoolsPanel.currentPanel = this
       }
 
-      const contentString =
+      const nonce = getNonce()
+
+      let contentString =
         typeof content === 'function' ? content(this.panel) : content
+
+      contentString = contentString
+        .replace(
+          '<head>',
+          `<head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; 
+          img-src ${this.panel.webview.cspSource} https:; 
+          script-src ${this.panel.webview.cspSource} 'nonce-${nonce}'; 
+          style-src ${this.panel.webview.cspSource} https: 'unsafe-inline';
+          font-src https:;
+          connect-src ws: wss: http: https:;">
+      `
+        )
+        .replace(/<script/g, `<script nonce="${nonce}"`)
 
       this.panel.webview.html = contentString
       this.panel.reveal(vscode.ViewColumn.Active, true)
