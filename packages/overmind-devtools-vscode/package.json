@@ -67,7 +67,14 @@
     "@types/node": "^20.8.3",
     "@types/vscode": "^1.70.0",
     "@vscode/vsce": "^3.3.2",
-    "overmind-devtools-client": "next",
     "webpack": "^5.98.0"
+  },
+  "peerDependencies": {
+    "overmind-devtools-client": "next"
+  },
+  "peerDependenciesMeta": {
+    "overmind-devtools-client": {
+      "optional": true
+    }
   }
 }
