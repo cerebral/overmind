@@ -9,7 +9,7 @@ export const separator = css({
 })
 
 export const wrapper = css({
-  padding: '1rem',
+  padding: '0.3rem',
   height: '100%',
   overflowY: 'auto',
   boxSizing: 'border-box',

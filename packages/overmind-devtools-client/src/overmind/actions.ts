@@ -304,3 +304,67 @@ export const clearActions = ({ state }: Context) => {
 export const selectChart = ({ state }: Context, id: string) => {
   state.currentApp.currentChartId = id
 }
+
+export const startSplitPaneDrag = (
+  { state }: Context,
+  {
+    startPos,
+    sizes,
+    split,
+    minSizes,
+  }: {
+    startPos: number
+    sizes: number[]
+    split: 'vertical' | 'horizontal'
+    minSizes?: number[]
+  }
+) => {
+  state.splitPane.isDragging = true
+  state.splitPane.startPos = startPos
+  state.splitPane.startSizes = [...sizes]
+  state.splitPane.currentSizes = [...sizes]
+  state.splitPane.minSizes = minSizes
+  state.splitPane.splitType = split
+}
+
+export const handleSplitPaneMove = (
+  { state }: Context,
+  {
+    currentPos,
+    containerSize,
+    onChange,
+    minSizes = [0, 0],
+  }: {
+    currentPos: number
+    containerSize: number
+    onChange?: (sizes: number[]) => void
+    minSizes?: number[]
+  }
+) => {
+  if (!state.splitPane.isDragging) return
+
+  state.splitPane.containerSize = containerSize
+
+  const delta = currentPos - state.splitPane.startPos
+
+  // Apply minimum size constraints
+  const minSize0 = minSizes[0] || 0
+  const minSize1 = minSizes[1] || 0
+
+  // Calculate new sizes with minimum constraints
+  const newFirstSize = Math.max(
+    minSize0,
+    Math.min(containerSize - minSize1, state.splitPane.startSizes[0] + delta)
+  )
+  const newSizes = [newFirstSize, containerSize - newFirstSize]
+
+  state.splitPane.currentSizes = newSizes
+
+  if (onChange) {
+    onChange(newSizes)
+  }
+}
+
+export const stopSplitPaneDrag = ({ state }: Context) => {
+  state.splitPane.isDragging = false
+}

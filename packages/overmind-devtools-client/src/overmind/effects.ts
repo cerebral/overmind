@@ -99,3 +99,15 @@ export const storage = {
     })
   },
 }
+
+export const splitPane = {
+  addDragListeners(onMove: (e: MouseEvent) => void, onUp: () => void) {
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+  },
+
+  removeDragListeners(onMove: (e: MouseEvent) => void, onUp: () => void) {
+    document.removeEventListener('mousemove', onMove)
+    document.removeEventListener('mouseup', onUp)
+  },
+}

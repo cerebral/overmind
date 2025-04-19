@@ -49,6 +49,15 @@ type State = {
   chartsSplitSize: number
   isExecutingAction: boolean
   isChangingPort: boolean
+  splitPane: {
+    isDragging: boolean
+    startPos: number
+    startSizes: number[]
+    currentSizes: number[]
+    minSizes: number[]
+    splitType: string
+    containerSize: number
+  }
 }
 
 const state: State = {
@@ -252,6 +261,15 @@ const state: State = {
       return aggr
     }, [])
   }),
+  splitPane: {
+    isDragging: false,
+    startPos: 0,
+    startSizes: [],
+    currentSizes: [],
+    minSizes: [],
+    splitType: 'vertical',
+    containerSize: 0,
+  },
 }
 
 export default state

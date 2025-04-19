@@ -10,7 +10,7 @@ export const wrapper = css({
 })
 
 export const listWrapper = css({
-  padding: '1rem',
+  padding: '0.3rem',
 })
 
 export const centerWrapper = css({

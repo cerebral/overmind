@@ -1,5 +1,5 @@
 import * as React from 'react'
-import SplitPane, { Pane } from 'split-pane-react'
+import SplitPane, { Pane } from '../common/SplitPane'
 import { useAppState, useActions } from '../../overmind'
 import ActionsList from '../ActionsList'
 import Action from '../Action'
@@ -20,17 +20,8 @@ const Actions: React.FunctionComponent = () => {
             split="vertical"
             sizes={[state.actionsSplitSize]}
             onChange={(size) => actions.updateActionsSplitSize(size[0])}
-            sashRender={() => (
-              <div
-                style={{
-                  cursor: 'col-resize',
-                  width: '5px',
-                  background: '#ccc',
-                }}
-              />
-            )}
           >
-            <Pane minSize={100}>
+            <Pane minSize={150}>
               <ActionsList />
             </Pane>
             <Pane>

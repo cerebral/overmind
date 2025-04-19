@@ -1,6 +1,6 @@
 import { css } from 'emotion'
 import * as React from 'react'
-import SplitPane, { Pane } from 'split-pane-react'
+import SplitPane, { Pane } from '../common/SplitPane'
 
 import { useAppState, useActions } from '../../overmind'
 import { nameToColor } from '../../overmind/utils'
@@ -24,7 +24,7 @@ const Charts: React.FunctionComponent = () => {
             sizes={[state.chartsSplitSize]}
             onChange={(size) => actions.updateChartsSplitSize(size[0])}
           >
-            <Pane minSize={100}>
+            <Pane minSize={150}>
               <div className={styles.listWrapper}>
                 {chartKeys.map((path) => {
                   return (
