@@ -15,7 +15,7 @@ The **proxy-state-tree** project is created to stimulate innovation in state man
 ## Create a tree
 
 ```js
-import { ProxyStateTree } from 'proxy-state-tree'
+import { ProxyStateTree } from 'proxy-state-tree'
 
 const initialState = {}
 
@@ -74,7 +74,10 @@ To support passing a proxy from one component to an other, the **rescope** metho
 const trackStateTreeA = tree.getTrackStateTreeWithProxifier()
 const trackStateTreeB = tree.getTrackStateTreeWithProxifier()
 
-const movedProxy = tree.rescope(trackStateTreeA.state.someObjectOrArray, trackStateTreeB)
+const movedProxy = tree.rescope(
+  trackStateTreeA.state.someObjectOrArray,
+  trackStateTreeB
+)
 ```
 
 ## track scope
@@ -92,11 +95,14 @@ Sometimes you do want to scope the tracking to a callback. This ensures that the
 ```js
 const trackStateTree = tree.getTrackStateTree()
 
-trackStateTree.trackScope((tree) => {
-  // Some logic accessing the state of the tree
-}, () => {
-  // Notifies about changes
-})
+trackStateTree.trackScope(
+  (tree) => {
+    // Some logic accessing the state of the tree
+  },
+  () => {
+    // Notifies about changes
+  }
+)
 ```
 
 ### addTrackingPath
@@ -118,7 +124,7 @@ const tree = new ProxyStateTree({
 
 const mutationTree = tree.getMutationTree()
 
-mutationTree.state.foo = "bar"
+mutationTree.state.foo = 'bar'
 ```
 
 This forked tree is allowed to perform actual mutations.
@@ -156,7 +162,7 @@ const tree = new ProxyStateTree({
 
 const mutationTree = tree.getMutationTree()
 
-mutationTree.state.foo = "bar2"
+mutationTree.state.foo = 'bar2'
 
 mutationTree.flush()
 ```
@@ -174,13 +180,13 @@ const tree = new ProxyStateTree({
 const mutationTree = tree.getMutationTree()
 const mutationTree2 = tree.getMutationTree()
 
-mutationTree.state.foo = "bar2"
-mutationTree2.state.bar = "baz2"
+mutationTree.state.foo = 'bar2'
+mutationTree2.state.bar = 'baz2'
 
 tree.flush([mutationTree, mutationTree2])
 ```
 
-A flush returns what mutations has been flushed out, also with a *flushId*.
+A flush returns what mutations has been flushed out, also with a _flushId_.
 
 ## onMutation
 
@@ -227,8 +233,8 @@ Rescoping proxies between trees is useful in development as the MutationTrees ha
 
 ## Production
 
-When running in development all **TrackStateTree** forks has the same *proxifier*, meaning they share proxies. They can do this cause the trees "hand over" tracking to each other.
+When running in development all **TrackStateTree** forks has the same _proxifier_, meaning they share proxies. They can do this cause the trees "hand over" tracking to each other.
 
-Every fork of a **MutationTree** has its own *proxifier*. The reason for this is that in development each mutation tree fork should live on its own for tracking purposes.
+Every fork of a **MutationTree** has its own _proxifier_. The reason for this is that in development each mutation tree fork should live on its own for tracking purposes.
 
-When running in production there is only one *proxifier* shared among all trees, and there is only one mutationtree instance as tracking is no longer needed.
+When running in production there is only one _proxifier_ shared among all trees, and there is only one mutationtree instance as tracking is no longer needed.

@@ -1,6 +1,6 @@
 const path = require('path')
 
-module.exports = (env) => ({
+module.exports = () => ({
   devtool: 'inline-source-map',
   target: 'node',
   mode: 'development',

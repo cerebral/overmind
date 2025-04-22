@@ -4,9 +4,9 @@
 
 There are three packages related to `overmind-devtools` experience:
 
-* [overmind-devtools-client](../overmind-devtools-client/) - "core" package that provides UI ("web client")
-* [overmind-devtools](../overmind-devtools/README.md) - standalone, electron application
-* [overmind-devtools-vscode](../overmind-devtools-vscode/) - VSCode extension
+- [overmind-devtools-client](../overmind-devtools-client/) - "core" package that provides UI ("web client")
+- [overmind-devtools](../overmind-devtools/README.md) - standalone, electron application
+- [overmind-devtools-vscode](../overmind-devtools-vscode/) - VSCode extension
 
 `overmind-devtools-client` is a core application that can be hosted by available "hosts": `overmind-devtools` and `overmind-devtools-vscode`.
 
@@ -32,8 +32,8 @@ npm start
 
 This starts:
 
-* The WebSocket server on port 3031 (for communication with Overmind apps)
-* The web client at <http://localhost:8080> (or another port if 8080 is in use)
+- The WebSocket server on port 3031 (for communication with Overmind apps)
+- The web client at <http://localhost:8080> (or another port if 8080 is in use)
 
 ### Connecting Your Application
 
@@ -63,31 +63,31 @@ The Overmind DevTools provide several powerful features:
 
 #### 1. State Tab
 
-* View and inspect your entire application state
-* Expand/collapse nested objects and arrays
-* Edit values directly in the DevTools
+- View and inspect your entire application state
+- Expand/collapse nested objects and arrays
+- Edit values directly in the DevTools
 
 #### 2. Actions Tab
 
-* See all executed actions in chronological order
-* Inspect payloads, mutations, and effects for each action
-* Review sequences of operations within actions
+- See all executed actions in chronological order
+- Inspect payloads, mutations, and effects for each action
+- Review sequences of operations within actions
 
 #### 3. Components Tab
 
-* Track React components using Overmind state
-* Monitor component update counts and path dependencies
-* Identify performance bottlenecks from unnecessary renders
+- Track React components using Overmind state
+- Monitor component update counts and path dependencies
+- Identify performance bottlenecks from unnecessary renders
 
 #### 4. Console Tab
 
-* Execute actions directly from the DevTools
-* Try different payloads without modifying application code
+- Execute actions directly from the DevTools
+- Try different payloads without modifying application code
 
 #### 5. Flushes Tab
 
-* Track state mutations and their effects on components
-* See which components updated after each state change
+- Track state mutations and their effects on components
+- See which components updated after each state change
 
 ### Changing the Port
 
@@ -119,18 +119,21 @@ The port is displayed in the DevTools UI, under the "Devtool port" section in th
 If you're having connection issues:
 
 1. **Cannot connect to WebSocket server**
-   * Check if the server is running (you should see "Overmind DevTools WebSocket server running on port 3031" in the console)
-   * Verify no other application is using the port
-   * Try specifying a different port using the OV_DEV_PORT environment variable
+
+   - Check if the server is running (you should see "Overmind DevTools WebSocket server running on port 3031" in the console)
+   - Verify no other application is using the port
+   - Try specifying a different port using the OV_DEV_PORT environment variable
 
 2. **No data appears in DevTools**
-   * Ensure your Overmind app is configured with the correct devtools option
-   * Check browser console for any errors
-   * Make sure the port in your app configuration matches the port used by the DevTools server
+
+   - Ensure your Overmind app is configured with the correct devtools option
+   - Check browser console for any errors
+   - Make sure the port in your app configuration matches the port used by the DevTools server
 
 3. **Components not appearing**
-   * Make sure you're using the overmind-react package correctly
-   * Verify components are consuming state via useAppState()
+
+   - Make sure you're using the overmind-react package correctly
+   - Verify components are consuming state via useAppState()
 
 ## Local Development
 

@@ -1,6 +1,6 @@
 # Copilot Instructions for Overmind
 
-This project is the Overmind monorepo which contains [Overmind](<https://overmindjs.org/>) and its related packages. The monorepo is managed using repo-cooker.
+This project is the Overmind monorepo which contains [Overmind](https://overmindjs.org/) and its related packages. The monorepo is managed using repo-cooker.
 Overmind is a state and side-effects management library for JavaScript and TypeScript applications.
 
 ## Project Goals
