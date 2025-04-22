@@ -40,11 +40,11 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@size-limit/file": "^11.1.6",
-    "@types/node": "^20.8.3",
-    "size-limit": "^11.1.6",
-    "terser-webpack-plugin": "^5.3.11",
-    "webpack": "^5.98.0"
+    "@size-limit/file": "^11.2.0",
+		"@types/node": "^20.17.30",
+    "size-limit": "^11.2.0",
+    "terser-webpack-plugin": "^5.3.14",
+    "webpack": "^5.99.6"
   },
   "size-limit": [
     {

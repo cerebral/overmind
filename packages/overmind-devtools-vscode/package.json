@@ -64,10 +64,10 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "7.25.9",
-    "@types/node": "^20.8.3",
+    "@types/node": "^20.17.30",
     "@types/vscode": "^1.70.0",
     "@vscode/vsce": "^3.3.2",
-    "webpack": "^5.98.0"
+    "webpack": "^5.99.6"
   },
   "peerDependencies": {
     "overmind-devtools-client": "next"

@@ -35,9 +35,10 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@types/node": "^20.8.3",
+		"@types/node": "^20.17.30",
+    "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
-    "@testing-library/react": "^15.0.7"
+    "@testing-library/react": "^16.3.0"
   },
   "peerDependencies": {
     "react": "*"
