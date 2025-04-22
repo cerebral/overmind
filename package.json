@@ -9,10 +9,10 @@
     "commit": "git-cz",
     "commit-msg": "cz-customizable-ghooks",
     "fixdeps": "repo-cooker --fix-dependencies",
-    "format": "npm run lint -- --fix && prettier --write \"**/*.md\" \"**/*.json\"",
+    "format": "eslint --fix . && prettier --write .",
     "install": "npm run link && npm run build",
     "link": "repo-cooker --link",
-    "lint": "eslint \"**/*.js\" \"**/*.ts?\"",
+    "lint": "eslint . && prettier --check .",
     "lint-staged": "lint-staged",
     "prepare": "husky",
     "release": "repo-cooker --release",
@@ -97,7 +97,10 @@
     "webpack-merge": "6.0.1"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": "eslint --fix",
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
     "*.{md,css,json}": "prettier --write"
   },
   "config": {

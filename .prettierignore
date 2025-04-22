@@ -5,5 +5,3 @@ package.json
 **/es
 **/build
 **/coverage
-node_modules
-*.md

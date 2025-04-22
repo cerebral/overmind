@@ -6,9 +6,6 @@
   "arrowParens": "always",
   "overrides": [
     {
-      "files": "packages/node_modules/**/*"
-    },
-    {
       "files": "*.md",
       "options": {
         "trailingComma": "none"
