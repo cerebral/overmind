@@ -14,7 +14,7 @@
     "link": "repo-cooker --link",
     "lint": "eslint \"**/*.js\" \"**/*.ts?\"",
     "lint-staged": "lint-staged",
-    "prepare": "husky install",
+    "prepare": "husky",
     "release": "repo-cooker --release",
     "test": "repo-cooker test --no-parallel"
   },
