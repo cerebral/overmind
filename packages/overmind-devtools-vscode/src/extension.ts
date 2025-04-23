@@ -54,7 +54,7 @@ export function activate(context: vscode.ExtensionContext) {
     storage,
   })
 
-  let portChanged = false
+  let restarted = false
 
   const devtoolsPanel = new DevtoolsPanel({
     context,
@@ -62,17 +62,18 @@ export function activate(context: vscode.ExtensionContext) {
       switch (command) {
         case 'newPort':
           storage.set('overmind.port', text).then(() => startDevtools())
-          portChanged = true
+          restarted = true
           break
         case 'restart':
           devtoolBackend.close()
           startDevtools()
+          restarted = true
           break
       }
     },
     onDispose() {
-      if (portChanged) {
-        portChanged = false
+      if (restarted) {
+        restarted = false
         return
       }
       devtoolBackend.close()
