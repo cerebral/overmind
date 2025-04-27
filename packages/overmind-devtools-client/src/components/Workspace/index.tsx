@@ -27,7 +27,7 @@ const pages: { [key in Tab]: React.FunctionComponent } = {
 const Workspace: React.FunctionComponent = () => {
   const state = useAppState()
 
-  const Page = pages[state.currentTab]
+  const Page = pages[state.currentTab] || pages[Tab.State]
 
   return (
     <div className={styles.wrapper}>
@@ -41,8 +41,13 @@ const Workspace: React.FunctionComponent = () => {
                 Click <FaChrome /> to adjust how you want to connect your app
               </div>
             </div>
-          ) : (
+          ) : Page ? (
             <Page />
+          ) : (
+            <div className={styles.waitWrapper}>
+              <h1>Invalid tab selected</h1>
+              <div>Please select another tab</div>
+            </div>
           )}
         </div>
       </div>

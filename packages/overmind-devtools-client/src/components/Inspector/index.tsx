@@ -419,7 +419,7 @@ const ValueComponent: React.FunctionComponent<ValueComponentProps> = React.memo(
 )
 
 export type RenderPaths = {
-  [path: string]: (children: React.ReactChildren) => React.ReactNode
+  [path: string]: (children: React.ReactNode) => React.ReactNode
 }
 
 type InspectorProps = {
