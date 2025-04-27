@@ -298,6 +298,12 @@ export class Overmind<ThisConfig extends IConfiguration>
               })
             }
           : undefined,
+        getDevtools: () => {
+          // If in development mode return DevTools instance
+          if (devmode && !ssr && this.devtools) {
+            return this.devtools
+          }
+        },
       }
     )
 
