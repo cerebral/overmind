@@ -29,23 +29,25 @@ export {
 
 export * from './types'
 
-export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
+export class ProxyStateTree<T extends object, D>
+  implements IProxyStateTree<T, D>
+{
   flushCallbacks: IFlushCallback[] = []
   mutationCallbacks: IMutationCallback[] = []
   currentFlushId: number = 0
   currentTree: TTree
   previousTree: TTree
-  mutationTree: IMutationTree<T>
+  mutationTree: IMutationTree<T, D>
   proxifier: IProxifier<T>
-  root: ProxyStateTree<T>
+  root: ProxyStateTree<T, D>
   pathDependencies: {
     [path: string]: Set<ITrackCallback>
   } = {}
 
   state: T
   sourceState: T
-  options: IOptions
-  constructor(state: T, options: IOptions = {}) {
+  options: IOptions<D>
+  constructor(state: T, options: IOptions<D> = {}) {
     if (typeof options.devmode === 'undefined') {
       options.devmode = true
     }
@@ -77,7 +79,7 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
     )
   }
 
-  getMutationTree(): IMutationTree<T> {
+  getMutationTree(): IMutationTree<T, D> {
     // We never want to do tracking when we want to do mutations
     this.clearTrackStateTree()
 
@@ -89,11 +91,11 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
     return new MutationTree(this)
   }
 
-  getTrackStateTree(): ITrackStateTree<T> {
+  getTrackStateTree(): ITrackStateTree<T, D> {
     return new TrackStateTree(this)
   }
 
-  getTrackStateTreeWithProxifier(): ITrackStateTree<T> {
+  getTrackStateTreeWithProxifier(): ITrackStateTree<T, D> {
     const tree = this.getTrackStateTree()
 
     if (this.options.ssr) {
@@ -106,12 +108,12 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
     return tree
   }
 
-  setTrackStateTree(tree: ITrackStateTree<T>) {
+  setTrackStateTree(tree: ITrackStateTree<T, D>) {
     this.previousTree = this.currentTree
     this.currentTree = tree
   }
 
-  unsetTrackStateTree(tree: ITrackStateTree<T>) {
+  unsetTrackStateTree(tree: ITrackStateTree<T, D>) {
     // We only allow unsetting it when it is currently the active tree
     if (this.currentTree === tree) {
       this.currentTree = null
@@ -123,9 +125,9 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
     this.currentTree = null
   }
 
-  disposeTree(tree: IMutationTree<T> | ITrackStateTree<T>) {
+  disposeTree(tree: IMutationTree<T, D> | ITrackStateTree<T, D>) {
     if (tree instanceof MutationTree) {
-      ;(tree as IMutationTree<T>).dispose()
+      ;(tree as IMutationTree<T, D>).dispose()
     }
   }
 
@@ -166,8 +168,8 @@ export class ProxyStateTree<T extends object> implements IProxyStateTree<T> {
       )
     } else {
       changes = {
-        mutations: (trees as IMutationTree<any>).getMutations(),
-        objectChanges: (trees as IMutationTree<any>).getObjectChanges(),
+        mutations: (trees as IMutationTree<any, any>).getMutations(),
+        objectChanges: (trees as IMutationTree<any, any>).getObjectChanges(),
       }
     }
 

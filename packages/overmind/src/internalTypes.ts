@@ -5,6 +5,7 @@ import {
   ITrackStateTree,
 } from 'proxy-state-tree'
 import { IAction, IOperator } from './types'
+import { Devtools } from './Devtools'
 
 export type SubType<Base, Condition> = Pick<
   Base,
@@ -79,8 +80,8 @@ export type Execution = {
     mutations: IMutation[]
     flushId: number
   }
-  getMutationTree(): IMutationTree<any>
-  getTrackStateTree(): ITrackStateTree<any>
+  getMutationTree(): IMutationTree<object, Devtools | undefined>
+  getTrackStateTree(): ITrackStateTree<object, Devtools | undefined>
   onFlush(cb: IFlushCallback): () => IFlushCallback[]
   value?: any
   error?: string

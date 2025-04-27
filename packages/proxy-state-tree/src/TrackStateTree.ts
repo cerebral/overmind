@@ -6,14 +6,16 @@ import {
   ITrackStateTree,
 } from './types'
 
-export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
+export class TrackStateTree<T extends object, D>
+  implements ITrackStateTree<T, D>
+{
   private disposeOnReset: Function
-  root: IProxyStateTree<T>
+  root: IProxyStateTree<T, D>
   pathDependencies: Set<string> = new Set()
   state: T
   proxifier: IProxifier<T>
   trackPathListeners: Array<(path: string) => void> = []
-  constructor(root: IProxyStateTree<T>) {
+  constructor(root: IProxyStateTree<T, D>) {
     this.root = root
     this.proxifier = root.proxifier
     this.state = root.state
@@ -66,7 +68,7 @@ export class TrackStateTree<T extends object> implements ITrackStateTree<T> {
     }
   }
 
-  trackScope(scope: ITrackScopedCallback<T>) {
+  trackScope(scope: ITrackScopedCallback<T, D>) {
     const previousPreviousTree = this.root.previousTree
     const previousCurrentTree = this.root.currentTree
 
