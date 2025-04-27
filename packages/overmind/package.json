@@ -16,7 +16,7 @@
     "clean": "rimraf es lib coverage",
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand && npm run test:size",
-    "test:watch": "jest --watch --updateSnapshot --coverage false",
+    "test:watch": "jest --watch --coverage false",
     "test:size": "size-limit",
     "prebuild": "npm run clean",
     "postbuild": "rimraf {lib,es}/**/__tests__",
