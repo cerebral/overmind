@@ -143,7 +143,6 @@ export class StateMachine<
     this[STATE] = state
     this[BASE_STATE] = baseState
     this[INITIAL_STATE] = state.current
-    this[BASE_STATE] = baseState
     this[TRANSITIONS] = transitions
     this[CURRENT_KEYS] = Object.keys(state)
     Object.assign(this, state, baseState)

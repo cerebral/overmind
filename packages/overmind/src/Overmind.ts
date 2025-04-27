@@ -22,7 +22,7 @@ export class Overmind<ThisConfig extends IConfiguration>
     | internalTypes.TestMode
     | internalTypes.SSRMode
 
-  private reydrateMutationsForHotReloading: proxyStateTree.IMutation[] = []
+  private rehydrateMutationsForHotReloading: proxyStateTree.IMutation[] = []
   private originalConfiguration
   private isStrict = false
   initialized: Promise<any>
@@ -144,7 +144,6 @@ export class Overmind<ThisConfig extends IConfiguration>
           host,
           name,
           eventHub,
-          proxyStateTreeInstance.sourceState,
           configuration.actions,
           options.devtoolsLogLevel
         )
@@ -193,8 +192,8 @@ export class Overmind<ThisConfig extends IConfiguration>
         (this.devtools && options.hotReloading !== false)
       ) {
         eventHub.on(internalTypes.EventType.MUTATIONS, (execution) => {
-          this.reydrateMutationsForHotReloading =
-            this.reydrateMutationsForHotReloading.concat(execution.mutations)
+          this.rehydrateMutationsForHotReloading =
+            this.rehydrateMutationsForHotReloading.concat(execution.mutations)
         })
       }
       eventHub.on(internalTypes.EventType.OPERATOR_ASYNC, (execution) => {
@@ -700,7 +699,6 @@ export class Overmind<ThisConfig extends IConfiguration>
     host,
     name,
     eventHub,
-    initialState,
     actions,
     logLevel: internalTypes.LogLevel = 'error'
   ) {
@@ -938,7 +936,7 @@ export class Overmind<ThisConfig extends IConfiguration>
     // We run any mutations ran during the session, it might fail though
     // as the state structure might have changed, but no worries we just
     // ignore that
-    this.reydrateMutationsForHotReloading.forEach((mutation) => {
+    this.rehydrateMutationsForHotReloading.forEach((mutation) => {
       try {
         rehydrate(mutationTree.state as any, [mutation])
       } catch (error) {
