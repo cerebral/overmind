@@ -15,7 +15,7 @@ export interface IMutationCallback {
   (mutation: IMutation, paths: Set<string>, flushId: number): void
 }
 
-export interface IMutationTree<T extends object> {
+export interface IMutationTree<T extends object, D> {
   addMutation(mutation: IMutation, objectChangePath?: string): void
   onMutation(callback: IMutationCallback): void
   canTrack(): boolean
@@ -27,9 +27,9 @@ export interface IMutationTree<T extends object> {
     mutations: IMutation[]
     flushId: number
   }
-  dispose(): IMutationTree<T>
+  dispose(): IMutationTree<T, D>
   objectChanges: Set<string>
-  root: IProxyStateTree<T>
+  root: IProxyStateTree<T, D>
   proxifier: IProxifier<T>
   mutations: IMutation[]
   state: T
@@ -45,31 +45,32 @@ export interface ITrackCallback {
   ): void
 }
 
-export interface ITrackScopedCallback<T extends object> {
-  (tree: ITrackStateTree<T>): any
+export interface ITrackScopedCallback<T extends object, D> {
+  (tree: ITrackStateTree<T, D>): any
 }
 
-export interface ITrackStateTree<T extends object> {
+export interface ITrackStateTree<T extends object, D> {
   addTrackingPath(path: string): void
   subscribe(cb: ITrackCallback): () => void
-  track(): ITrackStateTree<T>
-  trackScope(scope: ITrackScopedCallback<T>): any
+  track(): ITrackStateTree<T, D>
+  trackScope(scope: ITrackScopedCallback<T, D>): any
   canTrack(): boolean
   canMutate(): boolean
-  root: IProxyStateTree<T>
+  root: IProxyStateTree<T, D>
   proxifier: IProxifier<T>
   state: T
   pathDependencies: Set<string>
   trackPathListeners: Array<(path: string) => void>
 }
 
-export interface IOptions {
+export interface IOptions<D> {
   delimiter?: string
   devmode?: boolean
   ssr?: boolean
   onSetFunction?: (...args: any[]) => any
   onGetFunction?: (...args: any[]) => any
   onGetter?: Function
+  getDevtools?: () => D
 }
 
 export interface IFlushCallback {
@@ -81,31 +82,31 @@ export interface IFlushCallback {
   ): void
 }
 
-export type TTree = IMutationTree<any> | ITrackStateTree<any>
+export type TTree = IMutationTree<any, any> | ITrackStateTree<any, any>
 
 export interface IRemoveProxyCallback {
   (path: string): void
 }
 
-export interface IProxyStateTree<T extends object> {
+export interface IProxyStateTree<T extends object, D> {
   addPathDependency(path: string, callback: ITrackCallback): void
   removePathDependency(path: string, callback: ITrackCallback): void
-  getTrackStateTree(): ITrackStateTree<T>
-  getMutationTree(): IMutationTree<T>
-  setTrackStateTree(tree: ITrackStateTree<T> | null): void
-  unsetTrackStateTree(tree: ITrackStateTree<T> | null): void
+  getTrackStateTree(): ITrackStateTree<T, D>
+  getMutationTree(): IMutationTree<T, D>
+  setTrackStateTree(tree: ITrackStateTree<T, D> | null): void
+  unsetTrackStateTree(tree: ITrackStateTree<T, D> | null): void
   clearTrackStateTree(): void
   disposeTree(proxy: TTree): void
   onMutation(cb: IMutationCallback): void
   flush(
-    tree: IMutationTree<T>,
+    tree: IMutationTree<T, D>,
     isAsync: boolean
   ): {
     mutations: IMutation[]
     flushId: number
   }
   flush(
-    trees: IMutationTree<T>[],
+    trees: IMutationTree<T, D>[],
     isAsync: boolean
   ): {
     mutations: IMutation[]
@@ -115,15 +116,15 @@ export interface IProxyStateTree<T extends object> {
   rescope(value: any, tree: TTree): any
   sourceState: T
   state: T
-  options: IOptions
+  options: IOptions<D>
   pathDependencies: {
     [path: string]: Set<ITrackCallback>
   }
-  root: IProxyStateTree<T>
+  root: IProxyStateTree<T, D>
   proxifier: IProxifier<T>
   currentTree: TTree
   previousTree: TTree
-  mutationTree: IMutationTree<T>
+  mutationTree: IMutationTree<T, D>
   mutationCallbacks: IMutationCallback[]
   flushCallbacks: IFlushCallback[]
   currentFlushId: number

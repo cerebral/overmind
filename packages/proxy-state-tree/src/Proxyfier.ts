@@ -104,14 +104,17 @@ export class Proxifier {
     }
 
     if (this.isDefaultProxifier()) {
-      const trackStateTree = this.tree.root.currentTree as ITrackStateTree<any>
+      const trackStateTree = this.tree.root.currentTree as ITrackStateTree<
+        any,
+        any
+      >
       if (!trackStateTree) {
         return
       }
 
       trackStateTree.addTrackingPath(path)
     } else {
-      ;(this.tree as ITrackStateTree<any>).addTrackingPath(path)
+      ;(this.tree as ITrackStateTree<any, any>).addTrackingPath(path)
     }
   }
 
@@ -136,7 +139,7 @@ export class Proxifier {
   }
 
   getMutationTree() {
-    return this.tree.root.mutationTree || (this.tree as IMutationTree<any>)
+    return this.tree.root.mutationTree || (this.tree as IMutationTree<any, any>)
   }
 
   private isProxyCached(value, path) {

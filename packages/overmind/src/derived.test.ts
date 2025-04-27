@@ -310,9 +310,13 @@ describe('Derived', () => {
       trackStateTree.track()
       runCount++
       if (runCount === 1) {
-        expect(trackStateTree.state.nestedDerived.upperFoo).toBe('BAR')
+        expect((trackStateTree.state as State).nestedDerived.upperFoo).toBe(
+          'BAR'
+        )
       } else {
-        expect(trackStateTree.state.nestedDerived.upperFoo).toBe('BAR2')
+        expect((trackStateTree.state as State).nestedDerived.upperFoo).toBe(
+          'BAR2'
+        )
       }
       trackStateTree.subscribe(render)
     }

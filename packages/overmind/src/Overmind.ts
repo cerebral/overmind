@@ -14,7 +14,10 @@ const hotReloadingCache = {}
 export class Overmind<ThisConfig extends IConfiguration>
   implements IConfiguration
 {
-  private proxyStateTreeInstance: proxyStateTree.ProxyStateTree<object>
+  private proxyStateTreeInstance: proxyStateTree.ProxyStateTree<
+    object,
+    Devtools | undefined
+  >
   private actionReferences: { [path: string]: Function } = {}
   private nextExecutionId: number = 0
   private mode:
@@ -856,11 +859,17 @@ export class Overmind<ThisConfig extends IConfiguration>
     }, {}) as any
   }
 
-  getTrackStateTree(): proxyStateTree.ITrackStateTree<any> {
+  getTrackStateTree(): proxyStateTree.ITrackStateTree<
+    object,
+    Devtools | undefined
+  > {
     return this.proxyStateTreeInstance.getTrackStateTree()
   }
 
-  getMutationTree(): proxyStateTree.IMutationTree<any> {
+  getMutationTree(): proxyStateTree.IMutationTree<
+    object,
+    Devtools | undefined
+  > {
     return this.proxyStateTreeInstance.getMutationTree()
   }
 

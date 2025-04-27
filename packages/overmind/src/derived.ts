@@ -8,6 +8,7 @@ import {
 } from 'proxy-state-tree'
 
 import { EventType, Events } from './internalTypes'
+import { Devtools } from './Devtools'
 
 export const IS_DERIVED = Symbol('IS_DERIVED')
 export const IS_DERIVED_CONSTRUCTOR = Symbol('IS_DERIVED_CONSTRUCTOR')
@@ -43,8 +44,10 @@ export class Derived {
 
   evaluate(
     eventHub: EventEmitter<Events>,
-    tree: ITrackStateTree<any> | IMutationTree<any>,
-    proxyStateTree: ProxyStateTree<any>,
+    tree:
+      | ITrackStateTree<object, Devtools | undefined>
+      | IMutationTree<object, Devtools | undefined>,
+    proxyStateTree: ProxyStateTree<object, any>,
     path
   ) {
     if (!this.disposeOnMutation) {

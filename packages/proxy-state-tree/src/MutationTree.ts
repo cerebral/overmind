@@ -7,9 +7,9 @@ import {
   IProxyStateTree,
 } from './types'
 
-export class MutationTree<T extends object> implements IMutationTree<T> {
+export class MutationTree<T extends object, D> implements IMutationTree<T, D> {
   private mutationCallbacks: IMutationCallback[] = []
-  root: IProxyStateTree<T>
+  root: IProxyStateTree<T, D>
   state: T
   proxifier: IProxifier<T>
   mutations: IMutation[] = []
@@ -17,7 +17,7 @@ export class MutationTree<T extends object> implements IMutationTree<T> {
   isTracking: boolean = false
   isBlocking: boolean = false
   trackPathListeners: Array<(path: string) => void> = []
-  constructor(root: IProxyStateTree<T>, proxifier?: IProxifier<T>) {
+  constructor(root: IProxyStateTree<T, D>, proxifier?: IProxifier<T>) {
     this.isTracking = true
     this.root = root
     this.proxifier = proxifier || new Proxifier(this)
