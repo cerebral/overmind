@@ -5,7 +5,7 @@ export const wrapper = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'stretch',
-  height: '100%',
+  height: '100vh',
 })
 
 export const content = css({

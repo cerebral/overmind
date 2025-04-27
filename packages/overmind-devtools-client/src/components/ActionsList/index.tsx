@@ -47,7 +47,10 @@ const ActionsList: React.FunctionComponent = () => {
                   backgroundColor: nameToColor(action.actionName),
                 }}
               />
-              <span className={textStyles.denseNormal}>
+              <span
+                className={textStyles.denseNormal}
+                title={action.actionName}
+              >
                 {action.actionName}
               </span>
               <span
@@ -85,7 +88,10 @@ const ActionsList: React.FunctionComponent = () => {
                 className={styles.actionColor}
                 style={{ backgroundColor: nameToColor(mainAction.actionName) }}
               />
-              <span className={textStyles.denseNormal}>
+              <span
+                className={textStyles.denseNormal}
+                title={mainAction.actionName}
+              >
                 {mainAction.actionName} ( {groupedActionIds.length + 1} )
               </span>
             </div>
@@ -103,7 +109,10 @@ const ActionsList: React.FunctionComponent = () => {
                       key={actionId}
                       onClick={() => actions.selectAction(actionId)}
                     >
-                      <span className={textStyles.description}>
+                      <span
+                        className={textStyles.description}
+                        title={action.actionName}
+                      >
                         {action.actionName}
                       </span>
                     </div>
