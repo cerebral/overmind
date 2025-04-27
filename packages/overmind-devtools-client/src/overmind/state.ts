@@ -46,6 +46,7 @@ type State = {
   currentOperatorsByPath: OperatorsByPath[]
   isShowingRuntime: boolean
   actionsSplitSize: number
+  stateMachinesSplitSize: number
   chartsSplitSize: number
   isExecutingAction: boolean
   isChangingPort: boolean
@@ -68,6 +69,7 @@ const state: State = {
   showApps: false,
   currentAppName: null,
   actionsSplitSize: 200,
+  stateMachinesSplitSize: 250,
   chartsSplitSize: 200,
   port: 3031,
   apps: {},

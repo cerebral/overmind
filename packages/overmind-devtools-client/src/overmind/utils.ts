@@ -68,6 +68,15 @@ export const createApp = (data: Partial<App>): App =>
       expandedComponents: [],
       selectedStatePath: null,
       connectionState: 'connected',
+      stateMachines: {},
+      stateMachinesList: [],
+      stateMachineInstances: [],
+      currentStateMachineInstanceId: null,
+      machineQuery: '',
+      machineQuerySuggestion: '',
+      selectedStateMachine: '',
+      isQueryingMachine: false,
+      machineQueryPayload: '',
     },
     data
   )

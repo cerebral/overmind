@@ -202,6 +202,17 @@ export type App = {
   expandedComponents: string[]
   selectedStatePath: string
   connectionState: 'connected' | 'pending' | 'disconnected'
+  stateMachines: {
+    [id: string]: StateMachine
+  }
+  stateMachinesList: StateMachine[]
+  stateMachineInstances: StateMachineInstance[]
+  currentStateMachineInstanceId: number | null
+  machineQuery: string
+  machineQuerySuggestion: string
+  selectedStateMachine: string
+  isQueryingMachine: boolean
+  machineQueryPayload: string
 }
 
 export type Apps = {
@@ -227,6 +238,7 @@ export enum ExecutionType {
   GETTER = 'getter',
   STATE = 'state',
   CHART = 'chart',
+  MACHINE_TRANSITION = 'machine:transition',
 }
 
 export enum AppMessageType {
@@ -370,6 +382,38 @@ export type EffectMessage = AppMessage<{
   effectId: number
 }>
 
+export type StateMachineTransitionMessage = AppMessage<{
+  path: string
+  fromState: string
+  toState: string
+  eventType: string
+  payload?: any
+  timestamp: number
+}>
+
+export type StateMachineTransition = {
+  id: number
+  path: string
+  fromState: string
+  toState: string
+  eventType: string
+  payload?: any
+  timestamp: number
+}
+
+export type StateMachine = {
+  id: string
+  path: string
+  transitions: StateMachineTransition[]
+  instanceId?: number
+}
+
+export type StateMachineInstance = {
+  machineId: string
+  instanceId: number
+  count: number
+}
+
 export type Message = {
   appName: string
   message: AppMessage<any>
@@ -384,6 +428,7 @@ export enum Tab {
   Remove = 'Remove',
   History = 'History',
   Charts = 'Charts',
+  Transitions = 'Transitions',
 }
 
 export type GroupedComponent = {

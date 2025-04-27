@@ -59,7 +59,7 @@ const overmind = createOvermind(config, {
 
 ### DevTools Features
 
-The Overmind DevTools provide several powerful features:
+The Overmind DevTools provide several powerful features organized into tabs:
 
 #### 1. State Tab
 
@@ -72,22 +72,40 @@ The Overmind DevTools provide several powerful features:
 - See all executed actions in chronological order
 - Inspect payloads, mutations, and effects for each action
 - Review sequences of operations within actions
+- Execute actions directly from the DevTools
+- Try different payloads without modifying application code
 
-#### 3. Components Tab
+#### 3. Transitions Tab
+
+- Track state machine transitions in your application
+- View transition history with from/to states and event types
+- Inspect payloads associated with transitions
+- Select between different state machine instances
+
+#### 4. Charts Tab
+
+- Visualize state charts defined in your application
+
+#### 5. Components Tab
 
 - Track React components using Overmind state
 - Monitor component update counts and path dependencies
 - Identify performance bottlenecks from unnecessary renders
 
-#### 4. Console Tab
+#### 6. History Tab
 
-- Execute actions directly from the DevTools
-- Try different payloads without modifying application code
+- See a chronological history of mutations, flushes, and effects
+- Track how state changes over time
 
-#### 5. Flushes Tab
+#### 7. Flushes Tab
 
 - Track state mutations and their effects on components
 - See which components updated after each state change
+
+#### 8. Console Tab (Development only)
+
+- Debug internal DevTools messages and state
+- Only available in development mode
 
 ### Changing the Port
 
@@ -134,6 +152,11 @@ If you're having connection issues:
 
    - Make sure you're using the overmind-react package correctly
    - Verify components are consuming state via useAppState()
+
+4. **State machines not showing in Transitions tab**
+
+   - Ensure you're using Overmind state machines properly
+   - Check that state transitions are triggered in your application
 
 ## Local Development
 
