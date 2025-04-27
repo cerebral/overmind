@@ -1,7 +1,8 @@
 import isPlainObject from 'is-plain-obj'
-import { PATH, PROXY_TREE, VALUE } from 'proxy-state-tree'
+import { MutationTree, PATH, PROXY_TREE, VALUE } from 'proxy-state-tree'
 
 import { IState } from '.'
+import { Devtools } from './Devtools'
 
 type TState = {
   current: string
@@ -158,7 +159,8 @@ export class StateMachine<
       return this
     }
 
-    const tree = this[PROXY_TREE].root.mutationTree || this[PROXY_TREE]
+    const tree: MutationTree<object, Devtools | undefined> =
+      this[PROXY_TREE].root.mutationTree || this[PROXY_TREE]
 
     tree.enableMutations()
 
@@ -175,6 +177,8 @@ export class StateMachine<
     }
 
     if (result) {
+      this[VALUE].previousState = this[VALUE].current
+
       this[VALUE][CURRENT_KEYS].forEach((key) => {
         if (key !== 'current') {
           delete this[key]
@@ -182,6 +186,23 @@ export class StateMachine<
       })
       this[VALUE][CURRENT_KEYS] = Object.keys(result)
       Object.assign(this, result)
+
+      // Report to DevTools if available
+      const devtools = tree.root.options.getDevtools?.()
+      if (devtools && typeof devtools.send === 'function') {
+        devtools.send({
+          type: 'machine:transition',
+          data: {
+            path: this[PATH],
+            fromState: this[VALUE].previousState,
+            toState: this[VALUE].current,
+            eventType: type,
+            payload: data,
+            timestamp: Date.now(),
+          },
+        })
+      }
+
       this[VALUE][TRANSITION_LISTENERS].forEach((listener) => listener(this))
     }
 
