@@ -3,6 +3,7 @@ import * as styles from './styles'
 
 type Props = {
   text: string
+  children?: React.ReactNode
 }
 
 const Tooltip: React.FunctionComponent<Props> = ({ text, children }) => (

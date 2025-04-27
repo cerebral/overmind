@@ -225,7 +225,6 @@ const state: State = {
       let currentValue = state.currentAction.value
       const traversePath = operator.path.slice()
       traversePath.unshift('')
-      // eslint-disable-next-line
       traversePath.reduce((childrenByPath, key, index) => {
         const isLastKey = index === traversePath.length - 1
         const matchingChildren = childrenByPath.find(
@@ -249,7 +248,6 @@ const state: State = {
             ? matchingChildren.push(newChild)
             : childrenByPath.push([newChild])
 
-          // eslint-disable-next-line
           return
         }
 

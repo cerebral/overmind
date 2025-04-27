@@ -163,15 +163,26 @@ export const updateDerived = ({ state }: Context, message: DerivedMessage) => {
   const path = actualPath.slice()
   const key = path.pop()
   const target = path.reduce(
-    (aggr, pathKey) =>
-      aggr && aggr.__CLASS__ ? aggr[pathKey].value : aggr[pathKey],
+    (aggr: Record<string, any>, pathKey: string) =>
+      aggr && aggr.__CLASS__
+        ? aggr[pathKey]
+          ? aggr[pathKey].value
+          : undefined
+        : aggr
+          ? aggr[pathKey]
+          : undefined,
     appState
   )
-
-  if (target.__CLASS__) {
-    target.value[key] = message.data.value
+  if (target) {
+    if (target.__CLASS__) {
+      target.value[key] = message.data.value
+    } else {
+      target[key] = message.data.value
+    }
   } else {
-    target[key] = message.data.value
+    console.warn(
+      `Cannot update derived value at path ${actualPath.join('.')}: parent object not found`
+    )
   }
 
   state.apps[message.appName].derived[

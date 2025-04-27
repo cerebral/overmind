@@ -1,12 +1,14 @@
 import { css } from 'emotion'
 import * as React from 'react'
+import { PropsWithChildren } from 'react'
 
 import { useActions, useAppState } from '../../overmind'
 import * as textStyles from '../../styles/text'
 import Inspector, { RenderPaths } from '../Inspector'
 import * as styles from './styles'
-
-const DerivedWrapper: React.FunctionComponent = ({ children }) => (
+const DerivedWrapper: React.FunctionComponent<PropsWithChildren<{}>> = ({
+  children,
+}) => (
   <div className={styles.label}>
     <div className={styles.labelWrapper}>
       <div className={styles.derivedLabel}>
