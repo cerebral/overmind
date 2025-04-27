@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { useAppState } from '../../overmind'
 import { Tab } from '../../overmind/types'
-import * as styles from './styles'
-import Tabs from '../Tabs'
 import Actions from '../Actions'
-
-import Console from '../Console'
-import State from '../State'
+import Charts from '../Charts'
 import Components from '../Components'
+import Console from '../Console'
 import Flushes from '../Flushes'
 import History from '../History'
-import Charts from '../Charts'
+import State from '../State'
+import StateMachines from '../StateMachines'
+import Tabs from '../Tabs'
+import * as styles from './styles'
 import { FaChrome } from 'react-icons/fa'
 
 const pages: { [key in Tab]: React.FunctionComponent } = {
@@ -22,6 +22,7 @@ const pages: { [key in Tab]: React.FunctionComponent } = {
   [Tab.Remove]: () => null,
   [Tab.History]: History,
   [Tab.Charts]: Charts,
+  [Tab.Transitions]: StateMachines,
 }
 
 const Workspace: React.FunctionComponent = () => {

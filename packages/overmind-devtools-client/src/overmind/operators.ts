@@ -1,5 +1,4 @@
 import { Context } from 'vm'
-
 import {
   ActionGroupItem,
   ActionItem,
@@ -24,7 +23,9 @@ import {
   StartActionMessage,
   StartOperatorMessage,
   StateMessage,
+  StateMachineTransitionMessage,
   UpdateComponentMessage,
+  App,
 } from './types'
 import {
   createApp,
@@ -401,3 +402,73 @@ export const getMessage = (_, value: Message) =>
   }) as AppMessage<any>
 
 export const updateOperatorAsync = () => () => {}
+
+export const addStateMachineTransition = (
+  { state },
+  message: StateMachineTransitionMessage
+) => {
+  const machineId = `${message.data.path}`
+  const app: App = state.apps[message.appName]
+
+  if (!app.stateMachines[machineId]) {
+    app.stateMachines[machineId] = {
+      id: machineId,
+      path: message.data.path,
+      transitions: [],
+    }
+  }
+
+  let transitionId = message.data.timestamp
+  const existingTransitionIds = app.stateMachines[machineId].transitions.map(
+    (transition) => transition.id
+  )
+  while (existingTransitionIds.includes(transitionId)) {
+    transitionId++
+  }
+
+  const transition = {
+    id: transitionId,
+    path: message.data.path,
+    fromState: message.data.fromState,
+    toState: message.data.toState,
+    eventType: message.data.eventType,
+    payload: message.data.payload,
+    timestamp: message.data.timestamp,
+  }
+
+  app.stateMachines[machineId].transitions.unshift(transition)
+
+  const lastInstance = app.stateMachineInstances[0]
+  if (lastInstance && lastInstance.machineId === machineId) {
+    lastInstance.count++
+
+    const machineInstance = app.stateMachinesList.find(
+      (m) => m.instanceId === lastInstance.instanceId
+    )
+    if (machineInstance) {
+      machineInstance.transitions.unshift(transition)
+    }
+  } else {
+    const instanceId = transitionId
+
+    app.stateMachineInstances.unshift({
+      machineId,
+      instanceId,
+      count: 1,
+    })
+
+    const newInstance = {
+      id: machineId,
+      instanceId,
+      path: message.data.path,
+      transitions: [transition],
+    }
+
+    app.stateMachinesList.unshift(newInstance)
+  }
+
+  // Set as current if none selected
+  if (!app.currentStateMachineInstanceId) {
+    app.currentStateMachineInstanceId = app.stateMachinesList[0].instanceId
+  }
+}

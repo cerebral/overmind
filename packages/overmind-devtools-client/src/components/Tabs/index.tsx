@@ -9,6 +9,7 @@ import {
   FaProjectDiagram,
   FaSave,
   FaTerminal,
+  FaRandom,
 } from 'react-icons/fa'
 
 import { useAppState, useActions } from '../../overmind'
@@ -91,6 +92,20 @@ const Tabs: React.FunctionComponent = () => {
             {state.hasActionsError ? '!' : state.actionsCount}
           </span>
         </div>
+      </Tooltip>
+      <Tooltip text="Transitions">
+        <button
+          className={css(
+            styles.button,
+            state.currentApp &&
+              state.currentTab === Tab.Transitions &&
+              styles.activeButton
+          )}
+          disabled={state.isConnecting}
+          onClick={() => actions.changeTab(Tab.Transitions)}
+        >
+          <FaRandom />
+        </button>
       </Tooltip>
       <Tooltip text="Charts">
         <button

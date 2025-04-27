@@ -51,6 +51,7 @@ export const onMessage = pipe(
     [ExecutionType.OPERATOR_ASYNC]: o.updateOperatorAsync,
     [ExecutionType.GETTER]: o.runGetterMutation,
     [ExecutionType.CHART]: o.addChart,
+    [ExecutionType.MACHINE_TRANSITION]: o.addStateMachineTransition,
     [AppMessageType.PORT_EXISTS]: () => {},
   })
 )
@@ -303,6 +304,71 @@ export const clearActions = ({ state }: Context) => {
 
 export const selectChart = ({ state }: Context, id: string) => {
   state.currentApp.currentChartId = id
+}
+
+export const updateStateMachineSplitSize = pipe(
+  async ({ state, effects }: Context, size: number) => {
+    state.stateMachinesSplitSize = size
+
+    await effects.storage.set('devtool.stateMachinesSplitSize', size)
+  }
+)
+
+export const selectStateMachineInstance = (
+  { state }: Context,
+  machineInstanceId: number
+) => {
+  state.currentApp.currentStateMachineInstanceId = machineInstanceId
+}
+
+export const clearStateMachines = ({ state }: Context) => {
+  state.currentApp.stateMachines = {}
+  state.currentApp.stateMachinesList = []
+  state.currentApp.stateMachineInstances = []
+  state.currentApp.currentStateMachineInstanceId = null
+}
+
+export const toggleQueryingMachine = ({ state }: Context) => {
+  state.currentApp.isQueryingMachine = !state.currentApp.isQueryingMachine
+}
+
+export const changeMachineQuery = ({ state }: Context, query: string) => {
+  state.currentApp.machineQuery = query
+
+  const hit = Object.keys(state.currentApp.stateMachines).find((path) =>
+    path.startsWith(query)
+  )
+  if (query.length && hit) {
+    state.currentApp.machineQuerySuggestion = hit
+  } else {
+    state.currentApp.machineQuerySuggestion = ''
+  }
+}
+
+export const selectStateMachine = (
+  { state, effects }: Context,
+  path: string
+) => {
+  state.currentApp.selectedStateMachine = path
+  state.currentApp.isQueryingMachine = false
+  state.currentApp.machineQueryPayload = ''
+  effects.storage.set(`${state.currentApp.name}.selectedStateMachine`, path)
+}
+
+export const submitMachineQuery = ({ state, effects }: Context) => {
+  if (!state.currentApp.machineQuerySuggestion) {
+    return
+  }
+
+  state.currentApp.selectedStateMachine =
+    state.currentApp.machineQuerySuggestion
+  state.currentApp.isQueryingMachine = false
+  state.currentApp.machineQueryPayload = ''
+
+  effects.storage.set(
+    `${state.currentApp.name}.selectedStateMachine`,
+    state.currentApp.selectedStateMachine
+  )
 }
 
 export const startSplitPaneDrag = (
