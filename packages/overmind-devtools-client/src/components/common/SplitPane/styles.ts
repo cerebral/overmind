@@ -64,9 +64,9 @@ export const divider = (
   })
 
 export const paneBase = css({
-  overflow: 'auto',
+  overflow: 'hidden',
   width: '100%',
-  height: '100%',
+  height: 'calc(100vh - 6rem)',
   '& *': {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
