@@ -56,6 +56,7 @@ export interface ITrackStateTree<T extends object, D> {
   trackScope(scope: ITrackScopedCallback<T, D>): any
   canTrack(): boolean
   canMutate(): boolean
+  trackPaths(): () => Set<string>
   root: IProxyStateTree<T, D>
   proxifier: IProxifier<T>
   state: T
