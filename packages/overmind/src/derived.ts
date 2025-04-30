@@ -84,10 +84,7 @@ export class Derived {
 
     // During development we need to move the ownership of whatever state is returned from
     // the derived to track it correctly. In production we only have one proxifier, so no worries
-    if (
-      tree instanceof TrackStateTree &&
-      (this.isDirty || this.previousProxifier !== tree.proxifier)
-    ) {
+    if (this.isDirty || this.previousProxifier !== tree.proxifier) {
       const getPaths = tree.trackPaths()
 
       this.value = this.runScope(tree, path)
