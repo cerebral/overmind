@@ -1,5 +1,5 @@
 import isPlainObject from 'is-plain-obj'
-import { MutationTree, PATH, PROXY_TREE, VALUE } from 'proxy-state-tree'
+import { IMutationTree, PATH, PROXY_TREE, VALUE } from 'proxy-state-tree'
 
 import { IState } from '.'
 import { Devtools } from './Devtools'
@@ -159,7 +159,7 @@ export class StateMachine<
       return this
     }
 
-    const tree: MutationTree<object, Devtools | undefined> =
+    const tree: IMutationTree<object, Devtools | undefined> =
       this[PROXY_TREE].root.mutationTree || this[PROXY_TREE]
 
     tree.enableMutations()

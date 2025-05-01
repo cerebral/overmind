@@ -27,12 +27,16 @@ export interface IMutationTree<T extends object, D> {
     mutations: IMutation[]
     flushId: number
   }
+  blockMutations(): void
+  enableMutations(): void
   dispose(): IMutationTree<T, D>
   objectChanges: Set<string>
   root: IProxyStateTree<T, D>
   proxifier: IProxifier<T>
   mutations: IMutation[]
   state: T
+  isTracking: boolean
+  isBlocking: boolean
   trackPathListeners: Array<(path: string) => void>
 }
 

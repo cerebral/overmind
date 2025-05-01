@@ -9,7 +9,6 @@ import {
 export class TrackStateTree<T extends object, D>
   implements ITrackStateTree<T, D>
 {
-  private disposeOnReset: Function
   root: IProxyStateTree<T, D>
   pathDependencies: Set<string> = new Set()
   state: T
