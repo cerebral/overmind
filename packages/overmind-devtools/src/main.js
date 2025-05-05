@@ -12,7 +12,6 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
     },
     icon: path.resolve('icons', 'icon.png'),
     height: 768,
@@ -73,17 +72,18 @@ function createWindow() {
   }
 
   function openDevtools(port) {
-    mainWindow.loadURL(
-      'data:text/html;charset=UTF-8,' +
-        encodeURIComponent(
-          devtoolBackend.getMarkup('bundle.js', port, onPortSubmit, onRestart)
-        ),
-      {
-        baseURLForDataURL: `filestub://devtoolsDist/`,
-      }
-    )
-
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'production') {
+      mainWindow.loadURL(
+        'data:text/html;charset=UTF-8,' +
+          encodeURIComponent(
+            devtoolBackend.getMarkup('bundle.js', port, onPortSubmit, onRestart)
+          ),
+        {
+          baseURLForDataURL: `filestub://devtoolsDist/`,
+        }
+      )
+    } else {
+      mainWindow.loadURL(`http://localhost:8080?port=${port}`)
       mainWindow.webContents.openDevTools()
     }
   }

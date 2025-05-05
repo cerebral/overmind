@@ -26,7 +26,7 @@ To run the DevTools web client locally:
 # Navigate to the package directory
 cd overmind/packages/overmind-devtools-client
 
-# Start both the WebSocket server and web client
+# Start both the WebSocket and the DevTools server
 npm start
 ```
 

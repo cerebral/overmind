@@ -18,7 +18,6 @@ const storage = {
 
 // Get port from environment or use default
 const PORT = process.env.OV_DEV_PORT || 3031
-console.log(`Starting with port: ${PORT}`)
 global.OV_DEV_PORT = PORT
 process.env.OV_DEV_PORT = String(PORT)
 

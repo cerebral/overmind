@@ -28,7 +28,6 @@ class DevtoolBackend {
         this.devtoolServer.on('connection', this.onConnection)
         this.devtoolServer.on('error', reject)
         this.devtoolServer.on('listening', () => {
-          console.log(`DevTools WebSocket server listening on port ${port}`)
           resolve()
         })
       } catch (err) {

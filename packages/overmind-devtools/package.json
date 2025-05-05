@@ -10,7 +10,8 @@
 		"overmind-devtools": "bin.js"
 	},
 	"scripts": {
-		"start": "npm run build && electron .",
+		"start": "npm run build && NODE_ENV=production electron .",
+		"dev": "npm run build && electron .",
 		"build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
 	},
 	"keywords": [
