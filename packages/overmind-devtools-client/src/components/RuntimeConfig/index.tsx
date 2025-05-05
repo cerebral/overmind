@@ -26,8 +26,7 @@ const RuntimeConfig: React.FunctionComponent = () => {
 
     try {
       if (effects.platform.isElectron()) {
-        const { ipcRenderer } = window.require('electron')
-        ipcRenderer.send('newPort', newPort)
+        window.electronAPI.setNewPort(newPort)
       } else if (effects.platform.isVSCodeExtension()) {
         const vscode = window.vscode || window.acquireVsCodeApi()
         vscode.postMessage({

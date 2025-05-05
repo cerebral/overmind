@@ -25,10 +25,7 @@
           typeof window.acquireVsCodeApi === 'function')
       const isElectron = isVSCodeExtension
         ? false
-        : typeof window !== 'undefined' &&
-          typeof window.process === 'object' &&
-          window.process.type === 'renderer' &&
-          !!window.process.versions?.electron
+        : !!window.electronEnv.isRenderer
 
       function onPortSubmit(newPort) {
         if (isVSCodeExtension) {
@@ -39,8 +36,7 @@
           }
         } else if (isElectron) {
           try {
-            const { ipcRenderer } = window.require('electron')
-            ipcRenderer.send('newPort', newPort)
+            window.electronAPI.setNewPort(Number(newPort))
           } catch (err) {
             window.location.href = `${window.location.origin}${window.location.pathname}?port=${newPort}`
           }
@@ -58,8 +54,7 @@
           }
         } else if (isElectron) {
           try {
-            const { ipcRenderer } = window.require('electron')
-            ipcRenderer.send('restart')
+            window.electronAPI.restart()
           } catch (err) {
             console.error('Failed to send restart message in Electron:', err)
           }

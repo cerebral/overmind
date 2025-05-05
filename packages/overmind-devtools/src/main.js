@@ -12,6 +12,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
     icon: path.resolve('icons', 'icon.png'),
     height: 768,

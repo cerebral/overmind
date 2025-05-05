@@ -2,16 +2,15 @@ declare global {
   interface Window {
     __OVERMIND_DEVTOOLS_BACKEND_PORT__: string
 
-    // Electron environment
-    process?: {
-      type: string
-      versions?: {
-        electron?: string
-        [key: string]: any
-      }
-      [key: string]: any
+    // Electron
+    electronEnv?: {
+      isRenderer: boolean
+      electronVersion: string
     }
-    require?: (module: string) => any
+    electronAPI?: {
+      setNewPort: (port: number) => void
+      restart: () => void
+    }
 
     // VSCode environment
     vscode?: any

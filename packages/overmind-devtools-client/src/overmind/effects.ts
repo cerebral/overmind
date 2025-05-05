@@ -5,10 +5,7 @@ export const connector = new BackendConnector()
 export const platform = {
   isElectron(): boolean {
     return (
-      typeof window !== 'undefined' &&
-      typeof window.process === 'object' &&
-      window.process.type === 'renderer' &&
-      !!window.process.versions?.electron
+      !!window.electronEnv?.isRenderer && !!window.electronEnv?.electronVersion
     )
   },
 

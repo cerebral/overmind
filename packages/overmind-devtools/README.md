@@ -14,24 +14,27 @@ For normal use, you can run the DevTools directly using npx:
 npx overmind-devtools
 ```
 
-To run the local production version, you can run:
-
-```sh
-npm start
-```
-
-## Local Development
-
-Make sure you first [built](../overmind-devtools-client/README.md) the devtools UI core:
+To run the production version locally, make sure you first
+[built](../overmind-devtools-client/README.md) the devtools UI core:
 
 ```sh
 cd ../overmind-devtools-client
 npm run build
 ```
 
-After that, run the devtools server on `overmind-devtools-client`:
+Then, you can run the Electron app:
 
 ```sh
+cd ../overmind-devtools
+npm start
+```
+
+## Local Development
+
+Make sure you first start the DevTools server on `overmind-devtools-client`:
+
+```sh
+cd ../overmind-devtools-client
 npm run start:devtools
 ```
 

@@ -1,6 +1,6 @@
 {
 	"name": "overmind-devtools",
-	"version": "29.0.5",
+	"version": "29.2.0",
 	"description": "Overmind devtool",
   	"main": "src/main.js",
 	"author": "Christian Alfoni <christianalfoni@gmail.com>",
@@ -11,7 +11,7 @@
 	},
 	"scripts": {
 		"start": "npm run build && NODE_ENV=production electron .",
-		"dev": "npm run build && electron .",
+		"dev": "electron .",
 		"build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
 	},
 	"keywords": [
