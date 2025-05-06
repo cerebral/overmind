@@ -5,7 +5,13 @@ export const wrapper = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'stretch',
-  height: '100vh',
+  height: '100%',
+  '*': {
+    scrollbarColor: `rgba(121, 121, 121, 0.4) ${colors.foreground}`,
+    ':hover': {
+      scrollbarColor: `rgba(100, 100, 100, 0.7) ${colors.foreground}`,
+    },
+  },
 })
 
 export const content = css({

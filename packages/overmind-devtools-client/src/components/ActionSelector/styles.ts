@@ -79,8 +79,6 @@ export const resultWrapper = css({
   overflowY: 'auto',
   left: 0,
   backgroundColor: colors.border,
-  borderBottomLeftRadius: 3,
-  borderBottomRightRadius: 3,
   zIndex: 2,
 })
 

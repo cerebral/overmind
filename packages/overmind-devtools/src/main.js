@@ -193,6 +193,34 @@ function createWindow() {
           { role: 'selectall' },
         ],
       },
+      {
+        label: 'View',
+        submenu: [
+          {
+            label: 'Zoom In',
+            accelerator: 'CmdOrCtrl+=',
+            click() {
+              mainWindow.webContents.send('zoom-in')
+            },
+          },
+          {
+            label: 'Zoom Out',
+            accelerator: 'CmdOrCtrl+-',
+            click() {
+              mainWindow.webContents.send('zoom-out')
+            },
+          },
+          {
+            label: 'Reset Zoom',
+            accelerator: 'CmdOrCtrl+0',
+            click() {
+              mainWindow.webContents.send('zoom-reset')
+            },
+          },
+          { type: 'separator' },
+          { role: 'togglefullscreen' },
+        ],
+      },
     ])
   )
 

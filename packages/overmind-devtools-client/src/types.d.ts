@@ -10,6 +10,9 @@ declare global {
     electronAPI?: {
       setNewPort: (port: number) => void
       restart: () => void
+      onZoomIn: (callback: () => void) => void
+      onZoomOut: (callback: () => void) => void
+      onZoomReset: (callback: () => void) => void
     }
 
     // VSCode environment

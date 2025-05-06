@@ -434,3 +434,21 @@ export const handleSplitPaneMove = (
 export const stopSplitPaneDrag = ({ state }: Context) => {
   state.splitPane.isDragging = false
 }
+
+export const zoomIn = ({ state }: Context) => {
+  state.zoom.level = Math.min(
+    state.zoom.max,
+    state.zoom.level + state.zoom.step
+  )
+}
+
+export const zoomOut = ({ state }: Context) => {
+  state.zoom.level = Math.max(
+    state.zoom.min,
+    state.zoom.level - state.zoom.step
+  )
+}
+
+export const resetZoom = ({ state }: Context) => {
+  state.zoom.level = 1
+}

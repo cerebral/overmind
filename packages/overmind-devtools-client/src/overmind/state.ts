@@ -59,6 +59,12 @@ type State = {
     splitType: string
     containerSize: number
   }
+  zoom: {
+    level: number
+    min: number
+    max: number
+    step: number
+  }
 }
 
 const state: State = {
@@ -269,6 +275,12 @@ const state: State = {
     minSizes: [],
     splitType: 'vertical',
     containerSize: 0,
+  },
+  zoom: {
+    level: 1,
+    min: 0.5,
+    max: 2,
+    step: 0.1,
   },
 }
 
