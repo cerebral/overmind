@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useAppState, useActions, useEffects } from '../../../overmind'
+import { useAppState, useActions, useEffects } from '../../overmind'
 
 type ZoomContextType = {
   zoomLevel: number

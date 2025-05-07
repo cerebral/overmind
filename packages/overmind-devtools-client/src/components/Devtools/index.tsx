@@ -2,9 +2,9 @@ import * as React from 'react'
 import { useAppState, useEffects } from '../../overmind'
 import * as styles from './styles'
 import * as text from '../../styles/text'
-import App from '../App'
 import { css } from 'emotion'
 import Workspace from '../Workspace'
+import Zoomable from '../Zoomable'
 
 const Devtools: React.FunctionComponent = () => {
   const state = useAppState()
@@ -27,7 +27,7 @@ const Devtools: React.FunctionComponent = () => {
     return <Workspace />
   }
 
-  return <App />
+  return <Zoomable />
 }
 
 export default Devtools

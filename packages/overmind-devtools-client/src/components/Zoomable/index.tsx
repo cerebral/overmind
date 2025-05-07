@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { ZoomProvider, useZoom } from '../common/ZoomContext'
 import * as styles from './styles'
+import { ZoomProvider, useZoom } from './ZoomContext'
 import Workspace from '../Workspace'
 
 // Wrapper component that applies the zoom level
@@ -12,7 +12,7 @@ const ZoomableContainer: React.FC<{ children: React.ReactNode }> = ({
   return <div className={styles.container(zoomLevel)}>{children}</div>
 }
 
-const App: React.FC = () => {
+const Zoomable: React.FC = () => {
   return (
     <ZoomProvider>
       <ZoomableContainer>
@@ -22,4 +22,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default Zoomable
