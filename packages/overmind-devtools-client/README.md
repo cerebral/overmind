@@ -162,8 +162,4 @@ If you're having connection issues:
 
 You can open Chrome DevTools from the application menu: Select **Application > Open Chrome DevTools**.
 
-This package bundle (`bundle.js`) is further used by the companion "host" packages (mentioned before).
-
-Hence, make sure you've built this package before developing the related packages.
-
 **HINT**: you can also use the DevTools Electron app for local development by running [overmind-devtools](../overmind-devtools/README.md).
