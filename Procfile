@@ -1,1 +1,0 @@
-web: node packages/overmind-website/backend/index.js
