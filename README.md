@@ -24,7 +24,7 @@ in `packages/overmind-devtools-vscode/package.json`.
 Otherwise it will be ignored.
 Make also sure the token for Azure release (GitHub Actions Organization
 secret: VS_MARKETPLACE_TOKEN) is still valid.
-It expires after 1 year (current: 06.09.2024).
+It expires after 1 year (current expires: 24.04.2026).
 
 To show the right version inside the devtools standalone app,
 it needs to be set in `packages/overmind-devtools/package.json`.
