@@ -33,8 +33,5 @@
   "dependencies": {
     "overmind": "next",
 		"tslib": "^2.8.1"
-  },
-  "devDependencies": {
-		"@types/node": "^20.17.30"
   }
 }

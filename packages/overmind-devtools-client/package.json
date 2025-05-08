@@ -26,14 +26,17 @@
 		"react": "^19.1.0",
     	"react-dom": "^19.1.0",
 		"tslib": "^2.8.1",
-		"ws": "^8.18.1"
+		"ws": "^8.18.2"
 	},
 	"devDependencies": {
-    	"@babel/plugin-transform-class-properties": "7.25.9",
-		"@types/node": "^20.17.30",
-		"@types/ws": "8.18.1",
+    	"@babel/plugin-transform-class-properties": "^7.27.1",
+		"babel-loader": "^10.0.0",
+		"concurrently": "^9.1.2",
+		"html-webpack-plugin": "^5.6.3",
+		"url-loader": "^4.1.1",
 		"terser-webpack-plugin": "^5.3.14",
-		"webpack": "^5.99.6",
+		"webpack": "^5.99.8",
+		"webpack-dev-server": "^5.2.1",
 		"webpack-merge": "^6.0.1"
 	}
 }

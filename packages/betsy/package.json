@@ -29,10 +29,7 @@
 		"lib",
 		"es"
 	],
-  "dependencies": {
+	"dependencies": {
 		"tslib": "^2.8.1"
-	},
-	"devDependencies": {
-		"@types/node": "^20.17.30"
 	}
 }
