@@ -16,6 +16,8 @@ const StateMachines: React.FunctionComponent = () => {
         (machine) =>
           machine.instanceId === state.currentApp.currentStateMachineInstanceId
       )
+  const overmindNotSupportsTransitions =
+    state.currentApp?.features.transitions === null
 
   return (
     <div className={styles.wrapper}>
@@ -37,9 +39,18 @@ const StateMachines: React.FunctionComponent = () => {
         </div>
       ) : (
         <div className={styles.centerWrapper}>
-          <span className={textStyles.header}>
-            no state machine transitions recorded...
-          </span>
+          {overmindNotSupportsTransitions ? (
+            <span className={textStyles.title}>
+              State machine transitions are not supported in this version of
+              Overmind.
+              <br />
+              Please upgrade to Overmind 28.1.0+ to enable this feature.
+            </span>
+          ) : (
+            <span className={textStyles.header}>
+              no state machine transitions recorded...
+            </span>
+          )}
         </div>
       )}
     </div>
