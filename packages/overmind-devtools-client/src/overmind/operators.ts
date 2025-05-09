@@ -59,6 +59,10 @@ export const addStateAndActions = ({ state }, message: InitMessage) => {
   state.apps[message.appName].state = message.data.state
   state.apps[message.appName].actionPaths = message.data.actions
   state.apps[message.appName].delimiter = message.data.delimiter || '.'
+  state.apps[message.appName].provider.name =
+    message.data.provider?.name || 'overmind'
+  state.apps[message.appName].provider.version =
+    message.data.provider?.version || ''
 }
 
 export const addFlush = ({ state }: Context, message: FlushMessage) => {

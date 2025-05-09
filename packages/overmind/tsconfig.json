@@ -15,7 +15,8 @@
     "pretty": true,
     "sourceMap": true,
     "inlineSources": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "dist", "es", "lib"]
 }

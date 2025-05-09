@@ -8,6 +8,7 @@ import { proxifyEffects } from './proxyfyEffects'
 import { rehydrate } from './rehydrate'
 import { IConfiguration, IContext, IReaction } from './types'
 import * as utils from './utils'
+import pjson from '../package.json'
 
 const hotReloadingCache = {}
 
@@ -796,6 +797,10 @@ export class Overmind<ThisConfig extends IConfiguration>
         state: this.proxyStateTreeInstance.state,
         actions: utils.getActionPaths(actions),
         delimiter: this.delimiter,
+        provider: {
+          name: pjson.name || 'overmind',
+          version: pjson.version || '0.0.0',
+        },
       },
     })
     this.devtools = devtools

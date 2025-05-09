@@ -213,6 +213,10 @@ export type App = {
   selectedStateMachine: string
   isQueryingMachine: boolean
   machineQueryPayload: string
+  provider: {
+    name: string
+    version: string
+  }
 }
 
 export type Apps = {
@@ -261,6 +265,10 @@ export type InitMessage = AppMessage<{
   state: object
   delimiter: string
   actions: string[]
+  provider?: {
+    name: string
+    version?: string
+  }
 }>
 
 export type GetterMessage = AppMessage<{
@@ -397,8 +405,6 @@ export type StateMachineTransition = {
   fromState: string
   toState: string
   eventType: string
-  payload?: any
-  timestamp: number
 }
 
 export type StateMachine = {

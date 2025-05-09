@@ -77,6 +77,10 @@ export const createApp = (data: Partial<App>): App =>
       selectedStateMachine: '',
       isQueryingMachine: false,
       machineQueryPayload: '',
+      provider: {
+        name: '',
+        version: '',
+      },
     },
     data
   )
