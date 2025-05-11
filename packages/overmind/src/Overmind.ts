@@ -796,6 +796,10 @@ export class Overmind<ThisConfig extends IConfiguration>
         state: this.proxyStateTreeInstance.state,
         actions: utils.getActionPaths(actions),
         delimiter: this.delimiter,
+        features: {
+          transitions: true,
+          charts: utils.detectStateCharts(this.state),
+        },
       },
     })
     this.devtools = devtools
@@ -968,6 +972,10 @@ export class Overmind<ThisConfig extends IConfiguration>
         data: {
           state: this.state,
           actions: utils.getActionPaths(configuration.actions),
+          features: {
+            transitions: true,
+            charts: utils.detectStateCharts(this.state),
+          },
         },
       })
     }

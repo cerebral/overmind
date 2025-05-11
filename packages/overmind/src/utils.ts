@@ -173,3 +173,81 @@ export function createActionsProxy(actions, cb) {
     },
   })
 }
+
+export function detectStateCharts(state: any): boolean {
+  return traverseStateTree(state, hasStateChartStructure)
+}
+
+function traverseStateTree(
+  state: any,
+  checkFn: (state: any) => boolean,
+  visited = new Set()
+): boolean {
+  if (!state || typeof state !== 'object') {
+    return false
+  }
+
+  if (visited.has(state)) {
+    return false
+  }
+  visited.add(state)
+
+  if (checkFn(state)) {
+    return true
+  }
+
+  // Skip proxy leaf nodes but still traverse proxy namespace objects
+  if (
+    state[IS_PROXY] &&
+    !Object.keys(state).some((key) => typeof state[key] === 'object')
+  ) {
+    return false
+  }
+
+  if (Array.isArray(state)) {
+    for (let i = 0; i < state.length; i++) {
+      const item = state[i]
+      if (
+        item &&
+        typeof item === 'object' &&
+        traverseStateTree(item, checkFn, visited)
+      ) {
+        return true
+      }
+    }
+    return false
+  }
+
+  for (const key in state) {
+    if (
+      state.hasOwnProperty(key) &&
+      key !== '__proto__' &&
+      key !== 'constructor'
+    ) {
+      const value = state[key]
+      if (
+        value &&
+        typeof value === 'object' &&
+        traverseStateTree(value, checkFn, visited)
+      ) {
+        return true
+      }
+    }
+  }
+
+  return false
+}
+
+function hasStateChartStructure(state: any): boolean {
+  return !!(
+    state &&
+    typeof state === 'object' &&
+    state.states &&
+    Array.isArray(state.states) &&
+    state.states.length > 0 &&
+    Array.isArray(state.states[0]) &&
+    typeof state.matches === 'function' &&
+    state.actions &&
+    typeof state.actions === 'object'
+  )
+}
