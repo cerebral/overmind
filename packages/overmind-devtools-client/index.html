@@ -25,7 +25,7 @@
           typeof window.acquireVsCodeApi === 'function')
       const isElectron = isVSCodeExtension
         ? false
-        : !!window.electronEnv.isRenderer
+        : !!window.electronEnv?.isRenderer
 
       function onPortSubmit(newPort) {
         if (isVSCodeExtension) {
