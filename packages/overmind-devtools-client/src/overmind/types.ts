@@ -213,6 +213,12 @@ export type App = {
   selectedStateMachine: string
   isQueryingMachine: boolean
   machineQueryPayload: string
+  features: {
+    transitions: boolean | null
+    charts: boolean
+    components: boolean
+    flushes: boolean
+  }
 }
 
 export type Apps = {
@@ -261,6 +267,12 @@ export type InitMessage = AppMessage<{
   state: object
   delimiter: string
   actions: string[]
+  features?: {
+    transitions?: boolean
+    charts?: boolean
+    components?: boolean
+    flushes?: boolean
+  }
 }>
 
 export type GetterMessage = AppMessage<{

@@ -59,6 +59,20 @@ export const addStateAndActions = ({ state }, message: InitMessage) => {
   state.apps[message.appName].state = message.data.state
   state.apps[message.appName].actionPaths = message.data.actions
   state.apps[message.appName].delimiter = message.data.delimiter || '.'
+
+  // default to null for backwards compatibility
+  state.apps[message.appName].features.transitions = message.data.features
+    ?.transitions
+    ? message.data.features.transitions
+    : null
+
+  // default to true
+  state.apps[message.appName].features.charts =
+    message.data.features?.charts !== false
+  state.apps[message.appName].features.components =
+    message.data.features?.components !== false
+  state.apps[message.appName].features.flushes =
+    message.data.features?.flushes !== false
 }
 
 export const addFlush = ({ state }: Context, message: FlushMessage) => {

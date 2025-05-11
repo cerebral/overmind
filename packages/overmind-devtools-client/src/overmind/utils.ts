@@ -77,6 +77,12 @@ export const createApp = (data: Partial<App>): App =>
       selectedStateMachine: '',
       isQueryingMachine: false,
       machineQueryPayload: '',
+      features: {
+        transitions: true,
+        charts: false,
+        components: true,
+        flushes: true,
+      },
     },
     data
   )

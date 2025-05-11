@@ -23,6 +23,7 @@ import * as styles from './styles'
 const Tabs: React.FunctionComponent = () => {
   const state = useAppState()
   const actions = useActions()
+  const features = state.currentApp?.features
 
   function getRuntimeColor() {
     if (!state.currentApp) return colors.highlight
@@ -93,48 +94,54 @@ const Tabs: React.FunctionComponent = () => {
           </span>
         </div>
       </Tooltip>
-      <Tooltip text="Transitions">
-        <button
-          className={css(
-            styles.button,
-            state.currentApp &&
-              state.currentTab === Tab.Transitions &&
-              styles.activeButton
-          )}
-          disabled={state.isConnecting}
-          onClick={() => actions.changeTab(Tab.Transitions)}
-        >
-          <FaRandom />
-        </button>
-      </Tooltip>
-      <Tooltip text="Charts">
-        <button
-          className={css(
-            styles.button,
-            state.currentApp &&
-              state.currentTab === Tab.Charts &&
-              styles.activeButton
-          )}
-          disabled={state.isConnecting}
-          onClick={() => actions.changeTab(Tab.Charts)}
-        >
-          <FaProjectDiagram />
-        </button>
-      </Tooltip>
-      <Tooltip text="Components">
-        <button
-          className={css(
-            styles.button,
-            state.currentApp &&
-              state.currentTab === Tab.Components &&
-              styles.activeButton
-          )}
-          disabled={state.isConnecting}
-          onClick={() => actions.changeTab(Tab.Components)}
-        >
-          <FaCode />
-        </button>
-      </Tooltip>
+      {features?.transitions !== false ? (
+        <Tooltip text="Transitions">
+          <button
+            className={css(
+              styles.button,
+              state.currentApp &&
+                state.currentTab === Tab.Transitions &&
+                styles.activeButton
+            )}
+            disabled={state.isConnecting}
+            onClick={() => actions.changeTab(Tab.Transitions)}
+          >
+            <FaRandom />
+          </button>
+        </Tooltip>
+      ) : null}
+      {features?.charts ? (
+        <Tooltip text="Charts">
+          <button
+            className={css(
+              styles.button,
+              state.currentApp &&
+                state.currentTab === Tab.Charts &&
+                styles.activeButton
+            )}
+            disabled={state.isConnecting}
+            onClick={() => actions.changeTab(Tab.Charts)}
+          >
+            <FaProjectDiagram />
+          </button>
+        </Tooltip>
+      ) : null}
+      {features?.components !== false ? (
+        <Tooltip text="Components">
+          <button
+            className={css(
+              styles.button,
+              state.currentApp &&
+                state.currentTab === Tab.Components &&
+                styles.activeButton
+            )}
+            disabled={state.isConnecting}
+            onClick={() => actions.changeTab(Tab.Components)}
+          >
+            <FaCode />
+          </button>
+        </Tooltip>
+      ) : null}
       <Tooltip text="History">
         <button
           className={css(
@@ -149,20 +156,22 @@ const Tabs: React.FunctionComponent = () => {
           <FaHistory />
         </button>
       </Tooltip>
-      <Tooltip text="Flushes">
-        <button
-          className={css(
-            styles.button,
-            state.currentApp &&
-              state.currentTab === Tab.Flushes &&
-              styles.activeButton
-          )}
-          disabled={state.isConnecting}
-          onClick={() => actions.changeTab(Tab.Flushes)}
-        >
-          <FaSave />
-        </button>
-      </Tooltip>
+      {features?.flushes !== false ? (
+        <Tooltip text="Flushes">
+          <button
+            className={css(
+              styles.button,
+              state.currentApp &&
+                state.currentTab === Tab.Flushes &&
+                styles.activeButton
+            )}
+            disabled={state.isConnecting}
+            onClick={() => actions.changeTab(Tab.Flushes)}
+          >
+            <FaSave />
+          </button>
+        </Tooltip>
+      ) : null}
       {process.env.NODE_ENV === 'development' ? (
         <Tooltip text="Console">
           <button
