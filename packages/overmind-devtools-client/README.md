@@ -80,11 +80,12 @@ The Overmind DevTools provide several powerful features organized into tabs:
 - Track state machine transitions in your application
 - View transition history with from/to states and event types
 - Inspect payloads associated with transitions
-- Select between different state machine instances
+- Select between different state machines
 
-#### 4. Charts Tab
+#### 4. Charts Tab (optional)
 
 - Visualize state charts defined in your application
+- The tab is only available if the app is using `overmind-statechart`
 
 #### 5. Components Tab
 
@@ -106,6 +107,30 @@ The Overmind DevTools provide several powerful features organized into tabs:
 
 - Debug internal DevTools messages and state
 - Only available in development mode
+
+#### Removing features
+
+The `Charts`, `Transitions`, `Components` and `Flushes` tabs are optional and
+can be removed by setting the feature to `false` when initializing the DevTools:
+
+```javascript
+if (this.devtools) {
+  this.devtools.send({
+    type: 'init', // or 're_init'
+    data: {
+      state: this.state,
+      features: {
+        charts: false,
+        transitions: false,
+        components: false,
+        flushes: false
+      }
+    }
+  })
+}
+```
+
+This can be useful if you want to integrate the DevTools in a different state management library than Overmind.
 
 ### Changing the Port
 
