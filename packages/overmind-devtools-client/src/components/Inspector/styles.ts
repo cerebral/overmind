@@ -41,11 +41,13 @@ export const bracket = (pointer: boolean) =>
     cursor: pointer ? 'pointer' : 'default',
   })
 
-export const stringValue = css({
-  display: 'flex',
-  alignItems: 'center',
-  color: colors.yellow,
-})
+export const stringValue = (pointer: boolean) =>
+  css({
+    display: 'flex',
+    alignItems: 'center',
+    color: colors.yellow,
+    cursor: pointer ? 'pointer' : 'default',
+  })
 
 export const otherValue = css({
   display: 'flex',

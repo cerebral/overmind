@@ -350,7 +350,7 @@ const ValueComponent: React.FunctionComponent<ValueComponentProps> = React.memo(
     hasWrapper,
     delimiter,
   }) => {
-    const [isHoveringString, setHoveringString] = React.useState(false)
+    const [isExpandedString, setExpandedString] = React.useState(false)
 
     if (selectedStatePath && path === selectedStatePath) {
       return (
@@ -376,27 +376,25 @@ const ValueComponent: React.FunctionComponent<ValueComponentProps> = React.memo(
             onClickPath={onClickPath}
             disabled={!onSubmitState || hasWrapper}
           />
-          {value.substr(1, value.length - 2)}
+          {value.substring(1, value.length - 1)}
         </div>
       )
     }
 
     if (typeof value === 'string') {
+      const isExpandableString = value.length > 53
       return (
-        <div className={styles.stringValue}>
+        <div className={styles.stringValue(isExpandableString)}>
           <PathKey
             path={path}
             delimiter={delimiter}
             onClickPath={onClickPath}
             disabled={!onSubmitState || hasWrapper}
           />
-          <div
-            onMouseOver={() => setHoveringString(true)}
-            onMouseOut={() => setHoveringString(false)}
-          >
+          <div onClick={() => setExpandedString(!isExpandedString)}>
             "
-            {value.length > 50 && !isHoveringString
-              ? value.substr(0, 50) + '...'
+            {isExpandableString && !isExpandedString
+              ? value.substring(0, 50) + '...'
               : value}
             "
           </div>
