@@ -82,6 +82,7 @@ export const createApp = (data: Partial<App>): App =>
         charts: false,
         components: true,
         flushes: true,
+        runActions: true,
       },
     },
     data

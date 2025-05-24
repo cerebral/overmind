@@ -73,6 +73,8 @@ export const addStateAndActions = ({ state }, message: InitMessage) => {
     message.data.features?.components !== false
   state.apps[message.appName].features.flushes =
     message.data.features?.flushes !== false
+  state.apps[message.appName].features.runActions =
+    message.data.features?.runActions !== false
 }
 
 export const addFlush = ({ state }: Context, message: FlushMessage) => {

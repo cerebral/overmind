@@ -111,7 +111,9 @@ The Overmind DevTools provide several powerful features organized into tabs:
 #### Removing features
 
 The `Charts`, `Transitions`, `Components` and `Flushes` tabs are optional and
-can be removed by setting the feature to `false` when initializing the DevTools:
+can be removed by setting the feature to `false` when initializing the DevTools.
+You can also remove the `Run Actions` tool if you don't want to allow executing
+actions from the DevTools `Actions` tab.
 
 ```javascript
 if (this.devtools) {
@@ -123,7 +125,8 @@ if (this.devtools) {
         charts: false,
         transitions: false,
         components: false,
-        flushes: false
+        flushes: false,
+        runActions: false
       }
     }
   })

@@ -7,6 +7,10 @@ export const wrapper = css({
   height: '100%',
 })
 
+export const filler = css({
+  margin: '1rem',
+})
+
 export const centerWrapper = css({
   display: 'flex',
   height: '100%',

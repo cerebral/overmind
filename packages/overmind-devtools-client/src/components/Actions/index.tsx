@@ -13,7 +13,11 @@ const Actions: React.FunctionComponent = () => {
 
   return (
     <div className={styles.wrapper}>
-      <ActionsTools />
+      {state.currentApp?.features.runActions !== false ? (
+        <ActionsTools />
+      ) : (
+        <div className={styles.filler}></div>
+      )}
       {state.currentAction ? (
         <div className={styles.columns}>
           <SplitPane

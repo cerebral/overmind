@@ -218,6 +218,7 @@ export type App = {
     charts: boolean
     components: boolean
     flushes: boolean
+    runActions: boolean
   }
 }
 
@@ -272,6 +273,7 @@ export type InitMessage = AppMessage<{
     charts?: boolean
     components?: boolean
     flushes?: boolean
+    runActions?: boolean
   }
 }>
 
