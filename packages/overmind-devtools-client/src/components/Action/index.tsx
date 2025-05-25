@@ -11,12 +11,19 @@ import { OperatorsByPath, Action as TAction } from '../../overmind/types'
 
 type Props = {
   action: TAction
+  parentPath?: string[]
   inline?: boolean
 }
 
-const Action: React.FunctionComponent<Props> = ({ action, inline }) => {
+const Action: React.FunctionComponent<Props> = ({
+  action,
+  parentPath,
+  inline,
+}) => {
   const state = useAppState()
   const operatorsByPath = getOperatorsByPath(action)
+
+  console.log('WUT?', inline, action)
 
   function renderOperators(operatorsByPath: OperatorsByPath) {
     return operatorsByPath.map((operatorByPath, index) => {
@@ -35,6 +42,7 @@ const Action: React.FunctionComponent<Props> = ({ action, inline }) => {
           }}
         >
           <ActionOperator
+            parentPath={parentPath || action.path}
             operator={operatorByPath.operator}
             flush={flush}
             value={operatorByPath.value}
@@ -71,10 +79,7 @@ const Action: React.FunctionComponent<Props> = ({ action, inline }) => {
   if (inline) {
     return (
       <div className={styles.innerWrapper}>
-        <div className={styles.innerTitle}>{action.actionName}</div>
-        <div className={styles.innerContent}>
-          {operatorsByPath.map(renderOperators)}
-        </div>
+        {operatorsByPath.map(renderOperators)}
       </div>
     )
   }

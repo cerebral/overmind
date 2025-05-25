@@ -19,6 +19,7 @@ import {
   OperatorsByPath,
   Chart,
   ActionsListItemType,
+  StateMessage,
 } from './types'
 
 type State = {
@@ -173,6 +174,18 @@ const state: State = {
   history: derived((state: State) => {
     return state.currentApp.messages.reduce((aggr, message) => {
       switch (message.type) {
+        case ExecutionType.STATE: {
+          const stateMessage = message as StateMessage
+
+          if (!stateMessage.data.isMutation) {
+            return aggr
+          }
+
+          return aggr.concat({
+            type: HistoryRecordType.State,
+            data: stateMessage.data,
+          })
+        }
         case ExecutionType.MUTATIONS: {
           const mutationsMessage = message as MutationsMessage
 

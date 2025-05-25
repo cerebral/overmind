@@ -92,6 +92,7 @@ export type Action = {
   value: any
   hasError: boolean
   time: number
+  path: string[]
 }
 
 export type Actions = {
@@ -144,12 +145,19 @@ export enum HistoryRecordType {
   Mutation = 'Mutation',
   Effect = 'Effect',
   Flush = 'Flush',
+  State = 'State',
 }
 
 export type HistoryRecord =
   | MutationHistoryRecord
   | FlushHistoryRecord
   | EffectHistoryRecord
+  | StateHistoryRecord
+
+export type StateHistoryRecord = {
+  type: HistoryRecordType.State
+  data: StateMessage['data']
+}
 
 export type MutationHistoryRecord = {
   type: HistoryRecordType.Mutation
@@ -254,6 +262,7 @@ export type AppMessage<T> = {
 export type StateMessage = AppMessage<{
   path: string[]
   value: any
+  isMutation: boolean
 }>
 
 export type InitMessage = AppMessage<{

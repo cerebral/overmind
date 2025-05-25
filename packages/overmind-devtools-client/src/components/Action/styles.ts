@@ -11,7 +11,6 @@ export const wrapper = css({
 export const innerWrapper = css({
   margin: '0.5rem 0',
   padding: 0,
-  border: `1px solid ${colors.blue}`,
 })
 
 export const innerTitle = css({

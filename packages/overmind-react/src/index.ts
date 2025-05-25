@@ -103,7 +103,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
   trackStateTree.track()
 
   if (IS_PRODUCTION) {
-    React.useEffect(
+    React.useLayoutEffect(
       () =>
         trackStateTree.subscribe((_, __, flushId) => {
           forceRerender(flushId)
@@ -139,7 +139,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
       }
     }, [])
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
       const dispose = trackStateTree.subscribe((_, __, flushId) => {
         overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
           componentId: component.__componentId,

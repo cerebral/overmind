@@ -19,17 +19,21 @@ import * as styles from './styles'
 
 type Props = {
   operator: OperatorType
+  parentPath: string[]
   value: any
   flush: Flush
 }
 
 const ActionOperator: React.FunctionComponent<Props> = ({
   operator,
+  parentPath,
   value,
   flush,
 }) => {
   const state = useAppState()
   const delimiter = state.currentApp.delimiter
+
+  console.log('OPERATOR', operator)
 
   return (
     <div className={actionStyles.pipe}>
@@ -44,7 +48,12 @@ const ActionOperator: React.FunctionComponent<Props> = ({
           >
             {operator.type}
           </span>
-          <span className={styles.operatorName}>{operator.name}</span>
+          <span className={styles.operatorName}>
+            {parentPath
+              .concat(operator.path)
+              .concat(operator.name)
+              .join(delimiter)}
+          </span>
           <div className={styles.value}>
             {value === undefined ? null : (
               <ValueInspector delimiter={delimiter} value={value} small />

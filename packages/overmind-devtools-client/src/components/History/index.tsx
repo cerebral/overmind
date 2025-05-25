@@ -6,6 +6,7 @@ import {
   FlushHistoryRecord,
   HistoryRecordType,
   MutationHistoryRecord,
+  StateHistoryRecord,
 } from '../../overmind/types'
 import {
   FaCheck,
@@ -22,10 +23,35 @@ import { useAppState } from '../../overmind'
 const History: React.FunctionComponent = () => {
   const state = useAppState()
 
+  console.log('WTF', state.history)
+
   return (
     <div className={styles.wrapper}>
       {state.history.map((record, index) => {
         switch (record.type) {
+          case HistoryRecordType.State: {
+            const stateRecord = record as StateHistoryRecord
+
+            return (
+              <div className={styles.recordWrapper} key={index}>
+                <div className={styles.label}>
+                  <FaDatabase />
+                </div>
+                <div className={styles.effectPath}>N/A</div>
+                <div className={styles.mutationType}>set</div>
+                <div className={styles.mutationPath}>
+                  {stateRecord.data.path.join('.')}
+                </div>
+                <div className={styles.arg}>
+                  <ValueInspector
+                    value={stateRecord.data.value}
+                    delimiter={state.currentApp.delimiter}
+                    small
+                  />
+                </div>
+              </div>
+            )
+          }
           case HistoryRecordType.Mutation: {
             const mutationRecord = record as MutationHistoryRecord
 
