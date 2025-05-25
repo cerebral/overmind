@@ -1,0 +1,3 @@
+- We should queue mutations and pop them off in our state observer
+- Show action arguments
+-

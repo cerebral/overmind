@@ -26,6 +26,7 @@ import {
   StateMachineTransitionMessage,
   UpdateComponentMessage,
   App,
+  HistoryRecordType,
 } from './types'
 import {
   createApp,
@@ -182,14 +183,13 @@ export const updateDerived = ({ state }: Context, message: DerivedMessage) => {
   const target = path.reduce(
     (aggr: Record<string, any>, pathKey: string) =>
       aggr && aggr.__CLASS__
-        ? aggr[pathKey]
-          ? aggr[pathKey].value
-          : undefined
+        ? aggr.value[pathKey]
         : aggr
           ? aggr[pathKey]
           : undefined,
     appState
   )
+
   if (target) {
     if (target.__CLASS__) {
       target.value[key] = message.data.value
@@ -346,13 +346,15 @@ export const updateState = ({ state }: Context, message: StateMessage) => {
     }
   }, app.state)
 
-  if (target && typeof target === 'object') {
-    target[key] = message.data.value
-  } else {
+  if (!target || typeof target !== 'object') {
     console.warn(
       `Cannot update state at path ${message.data.path.join('.')}: parent object not found`
     )
+
+    return
   }
+
+  target[key] = message.data.value
 }
 
 export const updateAction = ({ state }: Context, message: EndActionMessage) => {
@@ -411,11 +413,12 @@ export const updateEffect = ({ state }: Context, message: EffectMessage) => {
   }
 }
 
-export const getMessage = (_, value: Message) =>
-  ({
+export const getMessage = (_, value: Message) => {
+  return {
     ...value.message,
     appName: value.appName,
-  }) as AppMessage<any>
+  } as AppMessage<any>
+}
 
 export const updateOperatorAsync = () => () => {}
 

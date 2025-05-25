@@ -5,7 +5,7 @@ import { Provider } from 'overmind-react'
 import { createRoot } from 'react-dom/client'
 
 import Devtools from './components/Devtools'
-import { config } from './overmind'
+import { config, useActions, useAppState } from './overmind'
 import { css } from './theme'
 
 injectGlobal`
@@ -43,6 +43,7 @@ container.id = 'app'
 document.body.appendChild(container)
 
 const root = createRoot(container)
+
 root.render(
   <Provider value={overmind}>
     <Devtools />
