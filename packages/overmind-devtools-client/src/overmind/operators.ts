@@ -62,10 +62,10 @@ export const addStateAndActions = ({ state }, message: InitMessage) => {
   state.apps[message.appName].delimiter = message.data.delimiter || '.'
 
   // default to null for backwards compatibility
-  state.apps[message.appName].features.transitions = message.data.features
-    ?.transitions
-    ? message.data.features.transitions
-    : null
+  state.apps[message.appName].features.transitions =
+    typeof message.data.features?.transitions === 'boolean'
+      ? message.data.features.transitions
+      : null
 
   // default to true
   state.apps[message.appName].features.charts =
