@@ -23,8 +23,6 @@ const Action: React.FunctionComponent<Props> = ({
   const state = useAppState()
   const operatorsByPath = getOperatorsByPath(action)
 
-  console.log('WUT?', inline, action)
-
   function renderOperators(operatorsByPath: OperatorsByPath) {
     return operatorsByPath.map((operatorByPath, index) => {
       const flushReference =
@@ -42,7 +40,9 @@ const Action: React.FunctionComponent<Props> = ({
           }}
         >
           <ActionOperator
-            parentPath={parentPath || action.path}
+            parentPath={
+              parentPath ? parentPath.concat(action.path) : action.path
+            }
             operator={operatorByPath.operator}
             flush={flush}
             value={operatorByPath.value}

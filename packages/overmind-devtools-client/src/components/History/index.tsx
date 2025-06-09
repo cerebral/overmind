@@ -23,8 +23,6 @@ import { useAppState } from '../../overmind'
 const History: React.FunctionComponent = () => {
   const state = useAppState()
 
-  console.log('WTF', state.history)
-
   return (
     <div className={styles.wrapper}>
       {state.history.map((record, index) => {
@@ -37,7 +35,7 @@ const History: React.FunctionComponent = () => {
                 <div className={styles.label}>
                   <FaDatabase />
                 </div>
-                <div className={styles.effectPath}>N/A</div>
+                <div className={styles.effectPath}>no action</div>
                 <div className={styles.mutationType}>set</div>
                 <div className={styles.mutationPath}>
                   {stateRecord.data.path.join('.')}

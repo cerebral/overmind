@@ -33,8 +33,6 @@ const ActionOperator: React.FunctionComponent<Props> = ({
   const state = useAppState()
   const delimiter = state.currentApp.delimiter
 
-  console.log('OPERATOR', operator)
-
   return (
     <div className={actionStyles.pipe}>
       <div className={styles.operator}>

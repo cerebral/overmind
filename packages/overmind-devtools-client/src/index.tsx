@@ -5,7 +5,7 @@ import { Provider } from 'overmind-react'
 import { createRoot } from 'react-dom/client'
 
 import Devtools from './components/Devtools'
-import { config, useActions, useAppState } from './overmind'
+import { config } from './overmind'
 import { css } from './theme'
 
 injectGlobal`
