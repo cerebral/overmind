@@ -328,11 +328,13 @@ describe('Statemachine', () => {
         foo: 'bar',
       },
     })
-
+    type Context = IContext<{
+      state: typeof state
+    }>
     const config = {
       state,
       actions: {
-        changeFoo({ state }) {
+        changeFoo({ state }: Context) {
           state.obj.foo = 'bar2'
         },
       },
