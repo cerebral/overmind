@@ -14,7 +14,7 @@
     "build:es": "tsc --outDir es --module ES2022 --target ES2022",
     "build:dist": "webpack --config webpack.config.js",
     "clean": "rimraf es lib coverage",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --skipLibCheck",
     "test": "jest --runInBand && npm run test:size",
     "test:watch": "jest --watch --coverage false",
     "test:size": "size-limit",

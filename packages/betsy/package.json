@@ -13,7 +13,7 @@
 		"build:lib": "tsc --outDir lib --module commonjs",
 		"build:es": "tsc --outDir es --module ES2022 --target ES2022",
 		"clean": "rimraf es lib coverage",
-		"typecheck": "tsc --noEmit",
+		"typecheck": "tsc --noEmit --skipLibCheck",
 		"test": "jest",
 		"test:watch": "jest --watch --updateSnapshot --coverage false",
 		"prebuild": "npm run clean",

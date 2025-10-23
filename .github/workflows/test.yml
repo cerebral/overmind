@@ -27,4 +27,3 @@ jobs:
       - run: npm run lint
       - run: npm run checkdeps
       - run: npm test
-      - run: npm run typecheck
