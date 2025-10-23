@@ -3,8 +3,9 @@ import * as styles from './styles'
 
 type Props = {
   onClick?: () => void
-  type?: string
+  type?: 'submit' | 'reset' | 'button'
   disabled?: boolean
+  children?: React.ReactNode
 }
 
 const Button: React.FunctionComponent<Props> = ({
