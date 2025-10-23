@@ -165,24 +165,20 @@ The port is displayed in the DevTools UI, under the "Devtool port" section in th
 If you're having connection issues:
 
 1. **Cannot connect to WebSocket server**
-
    - Check if the server is running (you should see "Overmind DevTools WebSocket server running on port 3031" in the console)
    - Verify no other application is using the port
    - Try specifying a different port using the OV_DEV_PORT environment variable
 
 2. **No data appears in DevTools**
-
    - Ensure your Overmind app is configured with the correct devtools option
    - Check browser console for any errors
    - Make sure the port in your app configuration matches the port used by the DevTools server
 
 3. **Components not appearing**
-
    - Make sure you're using the overmind-react package correctly
    - Verify components are consuming state via useAppState()
 
 4. **State machines not showing in Transitions tab**
-
    - Ensure you're using Overmind state machines properly
    - Check that state transitions are triggered in your application
 

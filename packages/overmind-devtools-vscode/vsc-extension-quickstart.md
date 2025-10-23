@@ -81,12 +81,10 @@
    ```
 
 2. Open `extension.ts` in the editor and press `F5` to start debugging
-
    - Select `VS Code Extension Development` if prompted
    - This will open a new VS Code window with the extension loaded
 
 3. In the Extension Development Host window:
-
    - Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS)
    - Type and select `Overmind: Start DevTools`
 
