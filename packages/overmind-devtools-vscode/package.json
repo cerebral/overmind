@@ -64,9 +64,9 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "^7.27.1",
-    "@vscode/vsce": "^3.3.2",
+    "@vscode/vsce": "^3.6.2",
     "babel-loader": "^10.0.0",
-    "webpack": "^5.99.8"
+    "webpack": "^5.102.1"
   },
   "peerDependencies": {
     "overmind-devtools-client": "next"

@@ -44,7 +44,7 @@
     "babel-loader": "^10.0.0",
     "size-limit": "^11.2.0",
     "terser-webpack-plugin": "^5.3.14",
-    "webpack": "^5.99.8"
+    "webpack": "^5.102.1"
   },
   "size-limit": [
     {

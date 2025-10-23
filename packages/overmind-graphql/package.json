@@ -36,7 +36,7 @@
     "graphql-request": "^5.1.0",
     "graphql-tag": "^2.12.6",
     "overmind": "next",
-    "phoenix": "^1.7.21",
-		"tslib": "^2.8.1"
+    "phoenix": "^1.8.1",
+    "tslib": "^2.8.1"
   }
 }

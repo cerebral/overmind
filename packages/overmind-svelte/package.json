@@ -37,7 +37,7 @@
 		"tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/svelte": "^3.2.2",
     "svelte-jester": "^2.3.2"
   }
