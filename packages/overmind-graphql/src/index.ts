@@ -1,4 +1,3 @@
-import * as withAbsintheSocket from '@absinthe/socket'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { print } from 'graphql/language/printer'
@@ -6,6 +5,8 @@ import { Socket as PhoenixSocket } from 'phoenix'
 
 import gqlTag from 'graphql-tag'
 import { GraphQLError } from 'graphql'
+
+import { absintheSocket, AbsintheSocket } from './absinthe-socket'
 
 export interface Query<Result extends any, Payload extends any = void> {
   (payload: Payload): Result
@@ -154,7 +155,6 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
         _clients[_http.endpoint].setHeaders(headers)
       } else {
         _clients[_http.endpoint] = new GraphQLClient(_http.endpoint, {
-          ..._http.options,
           headers,
         })
       }
@@ -165,8 +165,8 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
     return null
   }
 
-  let wsClient: PhoenixSocket | null = null
-  function getWsClient(): PhoenixSocket | null {
+  let wsClient: AbsintheSocket | null = null
+  function getWsClient(): AbsintheSocket | null {
     if (_ws && !wsClient) {
       const socket =
         typeof _ws === 'function'
@@ -180,7 +180,7 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
           'You are trying to create a Socket for subscriptions, but there is no socket or socket information provided'
         )
       }
-      wsClient = withAbsintheSocket.create(socket)
+      wsClient = absintheSocket.create(socket)
       return wsClient
     }
 
@@ -266,12 +266,12 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
           if (client) {
             const variables = arg2 ? arg1 : {}
             const action = arg2 || arg1
-            const notifier = withAbsintheSocket.send(client, {
+            const notifier = absintheSocket.send(client, {
               operation: queryString,
               variables,
             })
 
-            const observer = withAbsintheSocket.observe(client, notifier, {
+            const observer = absintheSocket.observe(client, notifier, {
               onResult: ({ data }) => {
                 action(data)
               },
@@ -280,7 +280,7 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
             _subscriptions[queryString].push({
               variables,
               dispose: () =>
-                withAbsintheSocket.unobserve(client, notifier, observer),
+                absintheSocket.unobserve(client, notifier, observer),
             })
           } else {
             throw createError('There is no ws client available for this query')
