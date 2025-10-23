@@ -9,14 +9,15 @@
     "commit": "git-cz",
     "commit-msg": "cz-customizable-ghooks",
     "fixdeps": "repo-cooker --fix-dependencies",
-    "format": "eslint --fix . && prettier --write .",
+    "format": "eslint --fix . && prettier --write --list-different .",
     "install": "npm run link && npm run build",
     "link": "repo-cooker --link",
     "lint": "eslint . && prettier --check .",
     "lint-staged": "lint-staged",
     "prepare": "husky",
     "release": "repo-cooker --release",
-    "test": "repo-cooker test --no-parallel"
+    "test": "repo-cooker test --no-parallel",
+    "typecheck": "repo-cooker typecheck"
   },
   "heroku-run-build-script": false,
   "repository": {

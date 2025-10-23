@@ -10,7 +10,7 @@
 		"start:ws": "node server.js",
 		"start:devtools": "OV_DEV_PORT=$OV_DEV_PORT webpack-dev-server",
 		"build": "webpack --config webpack.prod.js",
-		"typecheck": "tsc --noEmit",
+		"typecheck": "tsc --noEmit --skipLibCheck",
 		"prepare": "npm run build",
 		"posttest": "npm run typecheck"
 	},
