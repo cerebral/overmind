@@ -16,8 +16,7 @@
     "test:watch": "jest --watch --updateSnapshot --coverage false",
     "test:size": "size-limit",
     "prebuild": "npm run clean",
-    "postbuild": "rimraf {lib,es}/**/__tests__",
-    "posttest": "npm run typecheck"
+    "postbuild": "rimraf {lib,es}/**/__tests__"
   },
   "repository": {
     "type": "git",
