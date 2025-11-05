@@ -31,7 +31,7 @@
     "react"
   ],
   "dependencies": {
-    "graphql": "^16.11.0",
+    "graphql": "^16.12.0",
     "graphql-request": "^5.1.0",
     "graphql-tag": "^2.12.6",
     "overmind": "next",
