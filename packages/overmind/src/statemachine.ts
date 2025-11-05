@@ -3,6 +3,7 @@ import { IMutationTree, PATH, PROXY_TREE, VALUE } from 'proxy-state-tree'
 
 import { IState } from '.'
 import { Devtools } from './Devtools'
+import { isStateMachine } from './utils'
 
 type TState = {
   current: string
@@ -79,7 +80,7 @@ const TRANSITION_LISTENERS = Symbol('TRANSITION_LISTENERS')
 
 // We have to export here to avoid a circular dependency issue with "utils"
 export function deepCopy(obj) {
-  if (obj instanceof StateMachine) {
+  if (isStateMachine(obj)) {
     return (obj as any).clone()
   } else if (isPlainObject(obj)) {
     return Object.keys(obj).reduce((aggr: any, key) => {
