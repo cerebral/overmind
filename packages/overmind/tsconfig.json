@@ -4,7 +4,6 @@
     "module": "commonjs",
     "jsx": "react",
     "jsxFactory": "h",
-    "rootDir": "src",
     "outDir": ".code",
     "newLine": "LF",
     "lib": ["dom", "es2022"],
@@ -17,5 +16,6 @@
     "inlineSources": true,
     "strictNullChecks": true
   },
-  "exclude": ["node_modules", "dist", "es", "lib"]
+  "exclude": ["node_modules", "dist", "es", "lib"],
+  "include": ["src", "tsdown.config.mts"]
 }

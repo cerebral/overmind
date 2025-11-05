@@ -1,8 +1,0 @@
-{
-  "name": "overmind/config",
-  "private": true,
-  "main": "../lib/config",
-  "module": "../es/config",
-  "jsnext:main": "../es/config",
-  "types": "../lib/config/index.d.ts"
-}

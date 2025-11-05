@@ -8,18 +8,35 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./es/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./config": {
+      "import": {
+        "types": "./lib/config/index.d.ts",
+        "default": "./es/config/index.js"
+      },
+      "require": {
+        "types": "./lib/config/index.d.ts",
+        "default": "./lib/config/index.js"
+      }
+    }
+  },
   "scripts": {
-    "build": "(npm run build:lib & npm run build:es) && npm run build:dist",
-    "build:lib": "tsc --outDir lib --module commonjs",
-    "build:es": "tsc --outDir es --module ES2022 --target ES2022",
-    "build:dist": "webpack --config webpack.config.js",
-    "clean": "rimraf es lib coverage",
-    "typecheck": "tsc --noEmit --skipLibCheck",
+    "build": "tsdown",
+    "prebuild": "rimraf coverage",
     "test": "jest --runInBand && npm run test:size",
     "test:watch": "jest --watch --coverage false",
     "test:size": "size-limit",
-    "prebuild": "npm run clean",
-    "postbuild": "rimraf {lib,es}/**/__tests__"
+    "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "keywords": [
     "state",
@@ -29,8 +46,7 @@
   ],
   "files": [
     "lib",
-    "es",
-    "config"
+    "es"
   ],
   "dependencies": {
     "betsy": "next",
@@ -42,13 +58,12 @@
     "@size-limit/file": "^11.2.0",
     "babel-loader": "^10.0.0",
     "size-limit": "^11.2.0",
-    "terser-webpack-plugin": "^5.3.14",
-    "webpack": "^5.102.1"
+    "tsdown": "^0.16.0"
   },
   "size-limit": [
     {
-      "path": "./dist/overmind.min.js",
-      "limit": "1 kB"
+      "path": "./dist/index.iife.min.js",
+      "limit": "11 kB"
     }
   ]
 }
