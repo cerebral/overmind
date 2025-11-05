@@ -1,6 +1,6 @@
 import isPlainObject from 'is-plain-obj'
 import { IMutation, IS_PROXY, VALUE } from 'proxy-state-tree'
-import { deepCopy } from './statemachine'
+import { deepCopy, StateMachine } from './statemachine'
 
 // Due to avoid circular dependency warnings we export this utility from here
 export { deepCopy } from './statemachine'
@@ -250,4 +250,8 @@ function hasStateChartStructure(state: any): boolean {
     state.actions &&
     typeof state.actions === 'object'
   )
+}
+
+export const isStateMachine = (obj: any): boolean => {
+  return obj instanceof StateMachine
 }

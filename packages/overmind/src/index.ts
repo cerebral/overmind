@@ -15,7 +15,11 @@ export type {
 export { createOperator, createMutationOperator } from './operator'
 export { MODE_DEFAULT, MODE_TEST, MODE_SSR, ENVIRONMENT, json } from './utils'
 export { SERIALIZE, rehydrate } from './rehydrate'
-export { type Statemachine, statemachine } from './statemachine'
+export {
+  type MachineMethods,
+  type Statemachine,
+  statemachine,
+} from './statemachine'
 export * from './OvermindMock'
 export * from './OvermindSSR'
 

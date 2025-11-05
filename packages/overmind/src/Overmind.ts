@@ -380,15 +380,120 @@ export class Overmind<ThisConfig extends IConfiguration>
     return execution
   }
 
+  private createScopedProxy(target: any, namespacePath: string[]): any {
+    if (!namespacePath.length) {
+      return target
+    }
+
+    return new Proxy(target, {
+      get: (obj, prop) => {
+        // Allow direct access to symbols and internal properties
+        if (typeof prop === 'symbol' || String(prop).startsWith('__')) {
+          return obj[prop]
+        }
+
+        const namespaceObj = namespacePath.reduce(
+          (aggr, key) => aggr?.[key],
+          obj
+        )
+
+        // Special handling for StateMachine: bind methods to preserve context
+        if (utils.isStateMachine(namespaceObj)) {
+          const value = namespaceObj[prop]
+          return typeof value === 'function' ? value.bind(namespaceObj) : value
+        }
+
+        // Standard scoping: prefer namespace, fallback to root
+        return namespaceObj && prop in namespaceObj
+          ? namespaceObj[prop]
+          : obj[prop]
+      },
+
+      set: (obj, prop, value) => {
+        const namespaceObj = namespacePath.reduce(
+          (aggr, key) => aggr?.[key],
+          obj
+        )
+
+        if (namespaceObj) {
+          namespaceObj[prop] = value
+        } else {
+          obj[prop] = value
+        }
+        return true
+      },
+
+      has: (obj, prop) => {
+        const namespaceObj = namespacePath.reduce(
+          (aggr, key) => aggr?.[key],
+          obj
+        )
+        return (namespaceObj && prop in namespaceObj) || prop in obj
+      },
+
+      ownKeys: (obj) => {
+        const namespaceObj = namespacePath.reduce(
+          (aggr, key) => aggr?.[key],
+          obj
+        )
+
+        if (utils.isStateMachine(namespaceObj)) {
+          return Object.keys(namespaceObj)
+        }
+
+        const namespaceKeys = namespaceObj ? Object.keys(namespaceObj) : []
+        const rootKeys = Object.keys(obj)
+        return Array.from(new Set([...namespaceKeys, ...rootKeys]))
+      },
+
+      getOwnPropertyDescriptor: (obj, prop) => {
+        const namespaceObj = namespacePath.reduce(
+          (aggr, key) => aggr?.[key],
+          obj
+        )
+
+        if (namespaceObj && prop in namespaceObj) {
+          return (
+            Object.getOwnPropertyDescriptor(namespaceObj, prop) || {
+              configurable: true,
+              enumerable: true,
+            }
+          )
+        }
+
+        return (
+          Object.getOwnPropertyDescriptor(obj, prop) || {
+            configurable: true,
+            enumerable: true,
+          }
+        )
+      },
+    })
+  }
+
   private createContext(execution, tree) {
+    const namespacePath = execution.namespacePath || []
+
+    // Create base actions proxy
+    const actionsProxy = utils.createActionsProxy(this.actions, (action) => {
+      return (value) => action(value, execution.isRunning ? execution : null)
+    })
+
     return {
-      state: tree.state,
-      actions: utils.createActionsProxy(this.actions, (action) => {
-        return (value) => action(value, execution.isRunning ? execution : null)
-      }),
+      state: namespacePath.length
+        ? this.createScopedProxy(tree.state, namespacePath)
+        : tree.state,
+      actions: namespacePath.length
+        ? this.createScopedProxy(actionsProxy, namespacePath)
+        : actionsProxy,
       execution,
       proxyStateTree: this.proxyStateTreeInstance,
-      effects: this.trackEffects(this.effects, execution),
+      effects: namespacePath.length
+        ? this.createScopedProxy(
+            this.trackEffects(this.effects, execution),
+            namespacePath
+          )
+        : this.trackEffects(this.effects, execution),
       addNamespace: this.addNamespace.bind(this),
       reaction: this.reaction.bind(this),
       addMutationListener: this.addMutationListener.bind(this),
