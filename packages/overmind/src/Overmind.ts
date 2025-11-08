@@ -399,14 +399,35 @@ export class Overmind<ThisConfig extends IConfiguration>
 
         // Special handling for StateMachine: bind methods to preserve context
         if (utils.isStateMachine(namespaceObj)) {
-          const value = namespaceObj[prop]
-          return typeof value === 'function' ? value.bind(namespaceObj) : value
+          if (prop in namespaceObj) {
+            const value = namespaceObj[prop]
+            if (prop in obj && utils.isStateMachine(obj[prop])) {
+              return obj[prop]
+            }
+
+            if (typeof value === 'function') {
+              return value.bind(namespaceObj)
+            }
+            return value
+          }
+          return obj[prop]
         }
 
         // Standard scoping: prefer namespace, fallback to root
-        return namespaceObj && prop in namespaceObj
-          ? namespaceObj[prop]
-          : obj[prop]
+        const value =
+          namespaceObj && prop in namespaceObj ? namespaceObj[prop] : obj[prop]
+
+        // If we got a function from the namespace object (like an effect method),
+        // bind it to maintain the correct 'this' context
+        if (
+          namespaceObj &&
+          prop in namespaceObj &&
+          typeof value === 'function'
+        ) {
+          return value.bind(namespaceObj)
+        }
+
+        return value
       },
 
       set: (obj, prop, value) => {
@@ -474,7 +495,6 @@ export class Overmind<ThisConfig extends IConfiguration>
   private createContext(execution, tree) {
     const namespacePath = execution.namespacePath || []
 
-    // Create base actions proxy
     const actionsProxy = utils.createActionsProxy(this.actions, (action) => {
       return (value) => action(value, execution.isRunning ? execution : null)
     })
