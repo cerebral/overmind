@@ -58,7 +58,7 @@
     "@size-limit/file": "^11.2.0",
     "babel-loader": "^10.0.0",
     "size-limit": "^11.2.0",
-    "tsdown": "^0.16.0"
+    "tsdown": "^0.16.4"
   },
   "size-limit": [
     {
