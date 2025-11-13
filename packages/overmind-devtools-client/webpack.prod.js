@@ -8,6 +8,8 @@ const basePlugins = base.plugins.filter(
   (plugin) => !(plugin instanceof HtmlWebpackPlugin)
 )
 
+global.localStorage = {} // workaround for node 25 and HtmlWebpackPlugin's `...global`
+
 module.exports = merge(
   {
     ...base,
