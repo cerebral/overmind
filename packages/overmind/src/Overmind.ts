@@ -248,6 +248,12 @@ export class Overmind<
     }
   }
 
+  private currentExecution: internalTypes.Execution | null = null
+
+  private getCurrentExecution() {
+    return this.currentExecution
+  }
+
   private createProxyStateTree(
     configuration: IConfiguration,
     eventHub: EventEmitter<any> | utils.MockedEventEmitter,
@@ -260,6 +266,34 @@ export class Overmind<
         devmode: devmode && !ssr,
         ssr,
         delimiter: this.delimiter,
+        transformPath: (path: string) => {
+          const execution = this.getCurrentExecution()
+          if (!execution?.namespacePath?.length) {
+            return path // No namespace, no transformation
+          }
+
+          if (!path) {
+            return path
+          }
+
+          const pathSegments = path.split(this.delimiter)
+          const firstSegment = pathSegments[0]
+
+          // Get root level keys to detect absolute paths
+          const rootKeys =
+            this.state && typeof this.state === 'object'
+              ? Object.keys(this.state)
+              : []
+
+          // Absolute paths start with a root key - don't transform
+          if (rootKeys.includes(firstSegment)) {
+            return path
+          }
+
+          // Relative path - prepend namespace
+          const namespace = execution.namespacePath.join(this.delimiter)
+          return namespace + this.delimiter + path
+        },
         onSetFunction: (tree, path, target, prop, func) => {
           if (func[IS_DERIVED_CONSTRUCTOR]) {
             return new Derived(func) as any
@@ -397,7 +431,7 @@ export class Overmind<
           obj
         )
 
-        // Special handling for StateMachine: bind methods to preserve context
+        // If the entire namespace is a StateMachine
         if (utils.isStateMachine(namespaceObj)) {
           if (prop in namespaceObj) {
             const value = namespaceObj[prop]
@@ -413,12 +447,11 @@ export class Overmind<
           return obj[prop]
         }
 
-        // Standard scoping: prefer namespace, fallback to root
+        // Standard scoping for actions/effects
         const value =
           namespaceObj && prop in namespaceObj ? namespaceObj[prop] : obj[prop]
 
-        // If we got a function from the namespace object (like an effect method),
-        // bind it to maintain the correct 'this' context
+        // Bind functions to maintain correct 'this' context
         if (
           namespaceObj &&
           prop in namespaceObj &&
@@ -428,20 +461,6 @@ export class Overmind<
         }
 
         return value
-      },
-
-      set: (obj, prop, value) => {
-        const namespaceObj = namespacePath.reduce(
-          (aggr, key) => aggr?.[key],
-          obj
-        )
-
-        if (namespaceObj) {
-          namespaceObj[prop] = value
-        } else {
-          obj[prop] = value
-        }
-        return true
       },
 
       has: (obj, prop) => {
@@ -500,9 +519,7 @@ export class Overmind<
     })
 
     return {
-      state: namespacePath.length
-        ? this.createScopedProxy(tree.state, namespacePath)
-        : tree.state,
+      state: tree.state,
       actions: namespacePath.length
         ? this.createScopedProxy(actionsProxy, namespacePath)
         : actionsProxy,
@@ -569,8 +586,6 @@ export class Overmind<
     this.actionReferences[name] = originalAction
     const actionFunc = (value?, boundExecution?: internalTypes.Execution) => {
       const action = this.actionReferences[name]
-      // Developer might unintentionally pass more arguments, so have to ensure
-      // that it is an actual execution
       boundExecution =
         boundExecution && boundExecution[utils.EXECUTION]
           ? boundExecution
@@ -582,46 +597,58 @@ export class Overmind<
         this.mode.mode === utils.MODE_SSR
       ) {
         const execution = this.createExecution(name, action, boundExecution)
-        this.eventHub.emit(internalTypes.EventType.ACTION_START, {
-          ...execution,
-          value,
-        })
 
-        if (action[utils.IS_OPERATOR]) {
-          return new Promise((resolve, reject) => {
-            action(
-              null,
-              {
-                ...this.createContext(execution, this.proxyStateTreeInstance),
-                value,
-              },
-              (err, finalContext) => {
-                execution.isRunning = false
-                finalContext &&
-                  this.eventHub.emit(internalTypes.EventType.ACTION_END, {
-                    ...finalContext.execution,
-                    operatorId: finalContext.execution.operatorId - 1,
-                  })
-                if (err) reject(err)
-                else {
-                  resolve(finalContext.value)
-                }
-              }
-            )
+        const previousExecution = this.currentExecution
+        this.currentExecution = execution
+
+        try {
+          this.eventHub.emit(internalTypes.EventType.ACTION_START, {
+            ...execution,
+            value,
           })
-        } else {
-          const mutationTree = execution.getMutationTree()
-          if (this.isStrict) {
-            mutationTree.blockMutations()
+
+          if (action[utils.IS_OPERATOR]) {
+            return new Promise((resolve, reject) => {
+              action(
+                null,
+                {
+                  ...this.createContext(execution, this.proxyStateTreeInstance),
+                  value,
+                },
+                (err, finalContext) => {
+                  execution.isRunning = false
+                  finalContext &&
+                    this.eventHub.emit(internalTypes.EventType.ACTION_END, {
+                      ...finalContext.execution,
+                      operatorId: finalContext.execution.operatorId - 1,
+                    })
+                  if (err) reject(err)
+                  else {
+                    resolve(finalContext.value)
+                  }
+                }
+              )
+            }).finally(() => {
+              this.currentExecution = previousExecution
+            })
+          } else {
+            const mutationTree = execution.getMutationTree()
+            if (this.isStrict) {
+              mutationTree.blockMutations()
+            }
+            const returnValue = action(
+              this.createContext(execution, mutationTree),
+              value
+            )
+
+            this.eventHub.emit(internalTypes.EventType.ACTION_END, execution)
+
+            return returnValue
           }
-          const returnValue = action(
-            this.createContext(execution, mutationTree),
-            value
-          )
-
-          this.eventHub.emit(internalTypes.EventType.ACTION_END, execution)
-
-          return returnValue
+        } finally {
+          if (!action[utils.IS_OPERATOR]) {
+            this.currentExecution = previousExecution
+          }
         }
       } else {
         const execution = {
@@ -629,6 +656,10 @@ export class Overmind<
           operatorId: 0,
           type: 'action',
         }
+
+        const previousExecution = this.currentExecution
+        this.currentExecution = execution
+
         this.eventHub.emit(internalTypes.EventType.ACTION_START, {
           ...execution,
           value,
@@ -648,6 +679,9 @@ export class Overmind<
 
         const scopedValue = this.scopeValue(value, mutationTree)
         const context = this.createContext(execution, mutationTree)
+
+        let result
+        let isAsync = false
 
         try {
           let pendingFlush
@@ -677,9 +711,10 @@ export class Overmind<
             }
           })
 
-          let result = action(context, scopedValue)
+          result = action(context, scopedValue)
+          isAsync = utils.isPromise(result)
 
-          if (utils.isPromise(result)) {
+          if (isAsync) {
             this.eventHub.emit(
               internalTypes.EventType.OPERATOR_ASYNC,
               execution
@@ -720,6 +755,9 @@ export class Overmind<
 
                 throw error
               })
+              .finally(() => {
+                this.currentExecution = previousExecution
+              })
           } else {
             execution.isRunning = false
             if (!boundExecution) {
@@ -743,6 +781,10 @@ export class Overmind<
           })
           this.eventHub.emit(internalTypes.EventType.ACTION_END, execution)
           throw err
+        } finally {
+          if (!isAsync) {
+            this.currentExecution = previousExecution
+          }
         }
       }
     }

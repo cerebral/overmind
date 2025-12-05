@@ -253,6 +253,44 @@ export class Proxifier {
     return proxy
   }
 
+  private resolveTransformedPath(
+    path: string,
+    target: any,
+    prop: string | symbol
+  ) {
+    const originalPath = this.concat(path, prop)
+    let transformedPath = originalPath
+
+    // Apply path transformation if configured
+    if (this.tree.root.options.transformPath) {
+      transformedPath = this.tree.root.options.transformPath(originalPath)
+    }
+
+    // If no transformation occurred, return early
+    if (transformedPath === originalPath) {
+      return {
+        nestedPath: originalPath,
+        actualTarget: target,
+        actualProp: prop,
+        wasTransformed: false,
+      }
+    }
+
+    // Navigate to transformed location
+    const segments = transformedPath.split(this.delimiter)
+    const actualProp = segments[segments.length - 1]
+    const actualTarget = segments
+      .slice(0, -1)
+      .reduce((obj, key) => obj?.[key], target)
+
+    return {
+      nestedPath: transformedPath,
+      actualTarget: actualTarget || target,
+      actualProp,
+      wasTransformed: true,
+    }
+  }
+
   private createObjectProxy(object, path) {
     if (!this.ssr && this.isProxyCached(object, path)) {
       return object[this.CACHED_PROXY]
@@ -295,36 +333,56 @@ export class Proxifier {
         }
 
         const trackingTree = proxifier.getTrackingTree()
-
-        const targetValue = target[prop]
-        const nestedPath = proxifier.concat(path, prop)
         const currentTree = trackingTree || proxifier.tree
 
-        if (typeof targetValue === 'function') {
+        const { nestedPath, actualTarget, actualProp, wasTransformed } =
+          proxifier.resolveTransformedPath(path, target, prop)
+
+        const actualValue = actualTarget[actualProp]
+
+        if (typeof actualValue === 'function') {
           if (proxifier.tree.root.options.onGetFunction) {
-            return proxifier.tree.root.options.onGetFunction(
+            const result = proxifier.tree.root.options.onGetFunction(
               trackingTree || proxifier.tree,
               nestedPath,
-              target,
-              prop
+              actualTarget,
+              actualProp
             )
+
+            // If onGetFunction handled it, use that result
+            if (result !== actualValue) {
+              return result
+            }
           }
-          return isClass(target)
-            ? targetValue
-            : targetValue.call(target, proxifier.tree, nestedPath)
+
+          // Handle binding for transformed paths (namespace scoping)
+          if (wasTransformed && isClass(actualTarget)) {
+            const targetPath = nestedPath.substring(
+              0,
+              nestedPath.lastIndexOf(proxifier.delimiter)
+            )
+            const proxiedTarget = proxifier.proxify(actualTarget, targetPath)
+            return actualValue.bind(proxiedTarget)
+          }
+
+          // Default behavior for functions
+          return isClass(actualTarget)
+            ? actualValue
+            : actualValue.call(actualTarget, proxifier.tree, nestedPath)
         } else {
           currentTree.trackPathListeners.forEach((cb) => cb(nestedPath))
           trackingTree && trackingTree.proxifier.trackPath(nestedPath)
         }
 
-        if (shouldProxy(targetValue)) {
-          return proxifier.proxify(targetValue, nestedPath)
+        if (shouldProxy(actualValue)) {
+          return proxifier.proxify(actualValue, nestedPath)
         }
 
-        return targetValue
+        return actualValue
       },
       set(target, prop, value) {
-        const nestedPath = proxifier.concat(path, prop)
+        const { nestedPath, actualTarget, actualProp } =
+          proxifier.resolveTransformedPath(path, target, prop)
 
         /* @__PURE__ */ proxifier.ensureMutationTrackingIsEnabled(nestedPath)
         /* @__PURE__ */ proxifier.ensureValueDosntExistInStateTreeElsewhere(
@@ -333,12 +391,12 @@ export class Proxifier {
 
         let objectChangePath
 
-        if (!(prop in target)) {
+        if (!(actualProp in actualTarget)) {
           objectChangePath = path
         }
 
         const mutationTree = proxifier.getMutationTree()
-        const existingValue = target[prop]
+        const existingValue = actualTarget[actualProp]
 
         if (
           typeof value === 'function' &&
@@ -347,14 +405,14 @@ export class Proxifier {
           value = proxifier.tree.root.options.onSetFunction(
             proxifier.getTrackingTree() || proxifier.tree,
             nestedPath,
-            target,
-            prop,
+            actualTarget,
+            actualProp,
             value
           )
         }
 
         const hasChangedValue = existingValue !== value
-        const result = Reflect.set(target, prop, value)
+        const result = Reflect.set(actualTarget, actualProp, value)
 
         mutationTree.addMutation(
           {
@@ -370,18 +428,19 @@ export class Proxifier {
         return result
       },
       deleteProperty(target, prop) {
-        const nestedPath = proxifier.concat(path, prop)
+        const { nestedPath, actualTarget, actualProp } =
+          proxifier.resolveTransformedPath(path, target, prop)
 
         /* @__PURE__ */ proxifier.ensureMutationTrackingIsEnabled(nestedPath)
 
         let objectChangePath
-        if (prop in target) {
+        if (actualProp in actualTarget) {
           objectChangePath = path
         }
 
         const mutationTree = proxifier.getMutationTree()
 
-        delete target[prop]
+        delete actualTarget[actualProp]
 
         mutationTree.addMutation(
           {

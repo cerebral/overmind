@@ -76,6 +76,7 @@ export interface IOptions<D> {
   onGetFunction?: (...args: any[]) => any
   onGetter?: Function
   getDevtools?: () => D
+  transformPath?: (path: string) => string
 }
 
 export interface IFlushCallback {
