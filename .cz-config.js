@@ -5,7 +5,6 @@ module.exports = {
     { value: 'feat', name: 'feat:     A new feature' },
     { value: 'fix', name: 'fix:      A bug fix' },
     { value: 'docs', name: 'docs:     Documentation only changes' },
-    { value: 'types', name: 'types:    Typing only changes' },
     {
       value: 'style',
       name: 'style:    Changes that do not affect the meaning of the code\n            (white-space, formatting, missing semi-colons, etc)',
@@ -18,12 +17,24 @@ module.exports = {
       value: 'perf',
       name: 'perf:     A code change that improves performance',
     },
-    { value: 'test', name: 'test:     Adding missing tests' },
+    {
+      value: 'test',
+      name: 'test:     Adding missing tests or correcting existing tests',
+    },
+    {
+      value: 'build',
+      name: 'build:    Changes that affect the build system or external dependencies',
+    },
+    {
+      value: 'ci',
+      name: 'ci:       Changes to our CI configuration files and scripts',
+    },
     {
       value: 'chore',
-      name: 'chore:    Changes to the build process or auxiliary tools\n            and libraries such as documentation generation',
+      name: "chore:    Other changes that don't modify src or test files",
     },
-    { value: 'revert', name: 'revert:   Revert to a commit' },
+    { value: 'revert', name: 'revert:   Reverts a previous commit' },
+    { value: 'typing', name: 'typing:   Typescript/Typing related changes' },
   ],
 
   scopes: [
@@ -48,6 +59,6 @@ module.exports = {
   },
 
   allowCustomScopes: true,
-  allowBreakingChanges: ['feat', 'fix'],
+  allowBreakingChanges: ['feat', 'fix', 'typing', 'refactor', 'perf'],
   appendBranchNameToCommitMessage: false,
 }
