@@ -911,6 +911,33 @@ describe('Namespaced module scoping', () => {
     expect(app.state.moduleA.value).toBe('A')
     expect(app.state.moduleB.value).toBe('B')
   })
+
+  test('should replace namespace object when action assigns the namespace key (no nested duplication)', () => {
+    const app = new Overmind({
+      state: {
+        user: {
+          status: 'logged_in',
+        },
+      },
+      actions: {
+        user: {
+          logout({ state }: any) {
+            ;(state as any)._probe = 'probe'
+            state.user = { status: 'logged_out' }
+          },
+        },
+      },
+    })
+
+    // Initial state
+    expect(app.state.user.status).toBe('logged_in')
+    // Execute logout which replaces the whole namespace object
+    app.actions.user.logout()
+    // Ensure the whole namespace object was replaced, not nested under itself
+    expect(app.state.user.status).toBe('logged_out')
+    // Ensure we didn't accidentally merge or create nested user.user
+    expect((app.state as any).user.user).toBeUndefined()
+  })
 })
 
 describe('Namespaced module scoping with statemachines', () => {

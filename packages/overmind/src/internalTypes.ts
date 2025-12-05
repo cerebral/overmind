@@ -75,6 +75,7 @@ export type Execution = {
   isRunning: boolean
   parentExecution?: Execution
   path: string[]
+  namespacePath?: string[]
   emit(event: EventType, value: any): void
   flush(isAsync?: boolean): {
     mutations: IMutation[]
