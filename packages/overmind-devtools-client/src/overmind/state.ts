@@ -98,9 +98,7 @@ const state: State = {
   hasActionsError: derived((state: State) => {
     return Boolean(
       state.currentApp &&
-        Object.values(state.currentApp.actions).some(
-          (action) => action.hasError
-        )
+      Object.values(state.currentApp.actions).some((action) => action.hasError)
     )
   }),
   componentsMounted: derived((state: State) =>

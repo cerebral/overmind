@@ -4,8 +4,9 @@ import * as internalTypes from './internalTypes'
 import { Overmind } from './Overmind'
 import * as utils from './utils'
 
-export interface OvermindMock<Config extends IConfiguration>
-  extends Overmind<Config> {
+export interface OvermindMock<
+  Config extends IConfiguration,
+> extends Overmind<Config> {
   onInitialize: () => Promise<proxyStateTree.IMutation[]>
   mutations: proxyStateTree.IMutation[]
 }

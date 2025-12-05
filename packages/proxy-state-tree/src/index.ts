@@ -29,9 +29,10 @@ export {
 
 export * from './types'
 
-export class ProxyStateTree<T extends object, D>
-  implements IProxyStateTree<T, D>
-{
+export class ProxyStateTree<T extends object, D> implements IProxyStateTree<
+  T,
+  D
+> {
   flushCallbacks: IFlushCallback[] = []
   mutationCallbacks: IMutationCallback[] = []
   currentFlushId: number = 0

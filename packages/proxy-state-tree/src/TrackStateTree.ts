@@ -6,9 +6,10 @@ import {
   ITrackStateTree,
 } from './types'
 
-export class TrackStateTree<T extends object, D>
-  implements ITrackStateTree<T, D>
-{
+export class TrackStateTree<T extends object, D> implements ITrackStateTree<
+  T,
+  D
+> {
   root: IProxyStateTree<T, D>
   pathDependencies: Set<string> = new Set()
   state: T

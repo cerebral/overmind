@@ -11,9 +11,9 @@ import * as utils from './utils'
 
 const hotReloadingCache = {}
 
-export class Overmind<ThisConfig extends IConfiguration>
-  implements IConfiguration
-{
+export class Overmind<
+  ThisConfig extends IConfiguration,
+> implements IConfiguration {
   private proxyStateTreeInstance: proxyStateTree.ProxyStateTree<
     object,
     Devtools | undefined

@@ -4,8 +4,9 @@ import * as proxyStateTree from 'proxy-state-tree'
 import * as utils from './utils'
 import * as internalTypes from './internalTypes'
 
-export interface OvermindSSR<Config extends IConfiguration>
-  extends Overmind<Config> {
+export interface OvermindSSR<
+  Config extends IConfiguration,
+> extends Overmind<Config> {
   hydrate(): proxyStateTree.IMutation[]
 }
 
