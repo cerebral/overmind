@@ -1194,4 +1194,70 @@ describe('Namespaced module scoping with statemachines', () => {
     expect(app.state.router.current).toBe('NAVIGATING')
     expect((app.state.router as any).path).toBe('/test')
   })
+
+  test('should allow using matches() on nested statemachines', () => {
+    type SelectingRowsStates = { current: 'SELECTED'; count: number }
+    type SelectingRowsEvents = { type: 'DESELECT_ALL' }
+
+    const selectingRowsMachine = statemachine<
+      SelectingRowsStates,
+      SelectingRowsEvents
+    >({
+      SELECTED: {
+        DESELECT_ALL: () => ({ current: 'SELECTED', count: 0 }),
+      },
+    })
+
+    type RowSelectionStates =
+      | { current: 'INACTIVE' }
+      | { current: 'ACTIVE'; selectedRows: any }
+
+    type RowSelectionEvents = { type: 'ACTIVATE' | 'DEACTIVATE' }
+
+    const rowSelectionMachine = statemachine<
+      RowSelectionStates,
+      RowSelectionEvents
+    >({
+      INACTIVE: {
+        ACTIVATE: () => ({
+          current: 'ACTIVE',
+          selectedRows: selectingRowsMachine.create({
+            current: 'SELECTED',
+            count: 1,
+          }),
+        }),
+      },
+      ACTIVE: {
+        DEACTIVATE: () => ({ current: 'INACTIVE' }),
+      },
+    })
+
+    const app = createOvermind(
+      namespaced({
+        dispatcherBook: {
+          state: {
+            rowSelection: rowSelectionMachine.create({ current: 'INACTIVE' }),
+          },
+          actions: {
+            testMatches({ state }: any) {
+              return state.rowSelection.matches('ACTIVE')
+            },
+          },
+        },
+      })
+    )
+
+    const initialResult = (app.actions as any).dispatcherBook.testMatches()
+    expect(initialResult).toBeUndefined()
+
+    app.state.dispatcherBook.rowSelection.send('ACTIVATE')
+
+    const activeResult = (app.actions as any).dispatcherBook.testMatches()
+    expect(activeResult).toBe(app.state.dispatcherBook.rowSelection)
+
+    const nestedRowSelection = app.state.dispatcherBook.rowSelection as any
+    expect(nestedRowSelection.selectedRows.matches('SELECTED')).toBe(
+      nestedRowSelection.selectedRows
+    )
+  })
 })
