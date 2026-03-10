@@ -90,7 +90,7 @@
     "terser-webpack-plugin": "5.4.0",
     "ts-jest": "^29.4.6",
     "ts-loader": "^9.5.4",
-    "tsdown": "0.17.0",
+    "tsdown": "0.21.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1",
     "url-loader": "4.1.1",
