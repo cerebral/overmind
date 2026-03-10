@@ -70,6 +70,7 @@
     "babel-loader": "10.0.0",
     "commitizen": "^4.3.1",
     "concurrently": "9.2.1",
+    "cosmiconfig": "^9.0.1",
     "cz-customizable": "^7.5.1",
     "cz-customizable-ghooks": "^2.0.0",
     "eslint": "^9.39.1",
