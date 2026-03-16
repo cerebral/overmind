@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useAppState, useActions } from '../../overmind'
 import * as styles from './styles'
 import * as textStyles from '../../styles/text'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import { colors } from '../../theme'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useAppState, useEffects } from '../../overmind'
 import * as styles from './styles'
 import * as text from '../../styles/text'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import Workspace from '../Workspace'
 import Zoomable from '../Zoomable'
 

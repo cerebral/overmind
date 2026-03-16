@@ -3,7 +3,7 @@ import { useAppState } from '../../overmind'
 import { Flush as FlushType } from '../../overmind/types'
 import * as styles from './styles'
 import * as textStyles from '../../styles/text'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import { FaCode, FaLink } from 'react-icons/fa'
 
 type Props = {

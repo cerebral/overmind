@@ -3,7 +3,7 @@ import { useAppState } from '../../overmind'
 import * as textStyles from '../../styles/text'
 import ValueInspector from '../ValueInspector'
 import * as styles from './styles'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 
 const Flushes: React.FunctionComponent = () => {
   const state = useAppState()

@@ -1,4 +1,4 @@
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import { colors } from '../../../theme'
 
 export const button = css({
