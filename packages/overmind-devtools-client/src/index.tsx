@@ -31,7 +31,7 @@ injectGlobal`
 `
 
 window.onerror = (_, _2, _3, _4, error) => {
-  overmind.actions.setError(error.message)
+  overmind.actions.setError(error!.message)
 }
 
 const overmind = createOvermind(config, {

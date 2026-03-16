@@ -14,7 +14,8 @@
     "declaration": true,
     "pretty": true,
     "sourceMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "strict": true
   },
   "files": ["src/index.ts", "src/vue3.ts"],
   "exclude": ["node_modules", "dist", "es", "lib", "src/**/*.test.ts"]

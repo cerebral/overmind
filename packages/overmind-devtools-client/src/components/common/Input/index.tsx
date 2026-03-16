@@ -25,7 +25,7 @@ const Input: React.FunctionComponent<Props> = ({
         ? {
             width: 75 + 16 * length + 'px',
           }
-        : null
+        : undefined
     }
   >
     <input

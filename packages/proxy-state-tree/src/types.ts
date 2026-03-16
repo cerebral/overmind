@@ -128,8 +128,8 @@ export interface IProxyStateTree<T extends object, D> {
   }
   root: IProxyStateTree<T, D>
   proxifier: IProxifier<T>
-  currentTree: TTree
-  previousTree: TTree
+  currentTree: TTree | null
+  previousTree: TTree | null
   mutationTree: IMutationTree<T, D>
   mutationCallbacks: IMutationCallback[]
   flushCallbacks: IFlushCallback[]

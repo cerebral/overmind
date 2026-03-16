@@ -101,13 +101,13 @@ describe('OPERATOR', () => {
       banana: OperatorContextFunction<'banana', K>
       apple: OperatorContextFunction<'apple', K>
     }): IOperator<'banana' | 'apple', K> {
-      return createOperator('whenBananaOrApple', '', (err, _, value, next) => {
+      return createOperator('whenBananaOrApple', '', (err, _, value: any, next) => {
         if (err) next(err, value)
         else
           next(null, value, {
             path: {
               name: value,
-              operator: paths[value],
+              operator: paths[value as 'banana' | 'apple'],
             },
           })
       })
@@ -148,8 +148,8 @@ describe('OPERATOR', () => {
   })
   test('should be able to create an operator that can mutate', () => {
     expect.assertions(1)
-    function changeState<T>(operation: (state: {}) => void): IOperator<T, T> {
-      return createMutationOperator<{ state: {} }>(
+    function changeState<T>(operation: (state: any) => void): IOperator<T, T> {
+      return createMutationOperator<{ state: any }>(
         'changeState',
         operation.name,
         (err, context, value, next) => {
@@ -189,7 +189,7 @@ describe('OPERATOR', () => {
   })
   test('should be able to create an operator that can track mutations', (done) => {
     function waitForMutation<T>(
-      operation: (state: {}) => void
+      operation: (state: any) => void
     ): IOperator<T, T> {
       return createOperator(
         'waitForMutation',
@@ -245,7 +245,7 @@ describe('OPERATOR', () => {
   })
   test('should be able to create an operator that evaluates mutations', (done) => {
     function waitUntilTrue<T>(
-      operation: (state: {}) => boolean
+      operation: (state: any) => boolean
     ): IOperator<T, T> {
       return createOperator(
         'waitUntilTrue',

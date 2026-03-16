@@ -32,7 +32,7 @@ interface Statecharts {
   [id: string]: Statechart<any, any>
 }
 
-function isRootChart(chart) {
+function isRootChart(chart: any): boolean {
   return 'initial' in chart && 'states' in chart
 }
 
@@ -41,18 +41,18 @@ function forceNestedCharts(charts: Statecharts | Statechart<any, any>) {
     charts = { [CHART]: charts } as Statecharts
   }
 
-  return Object.keys(charts).reduce((aggr, chartKey) => {
+  return Object.keys(charts).reduce<Record<string, any>>((aggr, chartKey) => {
     aggr[chartKey] = {
-      ...charts[chartKey],
-      states: Object.keys(charts[chartKey].states).reduce(
+      ...(charts as any)[chartKey],
+      states: Object.keys((charts as any)[chartKey].states).reduce<Record<string, any>>(
         (statesAggr, stateKey) => {
-          if (charts[chartKey].states[stateKey].chart) {
+          if ((charts as any)[chartKey].states[stateKey].chart) {
             statesAggr[stateKey] = {
-              ...charts[chartKey].states[stateKey],
-              chart: forceNestedCharts(charts[chartKey].states[stateKey].chart),
+              ...(charts as any)[chartKey].states[stateKey],
+              chart: forceNestedCharts((charts as any)[chartKey].states[stateKey].chart),
             }
           } else {
-            statesAggr[stateKey] = charts[chartKey].states[stateKey]
+            statesAggr[stateKey] = (charts as any)[chartKey].states[stateKey]
           }
 
           return statesAggr
@@ -117,15 +117,15 @@ function getActionTransitions(
   return transitions
 }
 
-function getCanTransitionActions(actions, charts, state) {
-  return Object.keys(actions || {}).reduce((aggr, key) => {
+function getCanTransitionActions(actions: any, charts: any, state: any) {
+  return Object.keys(actions || {}).reduce<Record<string, any>>((aggr, key) => {
     aggr[key] = Boolean(getActionTransitions(key, charts, state).length)
 
     return aggr
   }, {})
 }
 
-function getMatchPaths(matches, paths: Array<string[]> = [[]]) {
+function getMatchPaths(matches: any, paths: Array<string[]> = [[]]) {
   const initialPath = paths[paths.length - 1].slice()
 
   Object.keys(matches).forEach((matchKey, index) => {
@@ -208,12 +208,12 @@ function createNewStatePath(
   return newStatePath
 }
 
-function getTarget(source, path) {
-  return path.reduce((aggr, key) => aggr[key], source)
+function getTarget(source: any, path: any[]): any {
+  return path.reduce((aggr: any, key: any) => aggr[key], source)
 }
 
-function getStateTarget(charts, path) {
-  return path.reduce((aggr, key, index) => {
+function getStateTarget(charts: any, path: any[]): any {
+  return path.reduce((aggr: any, key: any, index: number) => {
     const isChart = index % 2
 
     if (!isChart) {
@@ -259,7 +259,7 @@ export function statechart<
   actions: C['actions']
   effects: C['effects']
 } {
-  let currentInstance
+  let currentInstance: any
 
   const charts = forceNestedCharts(chartDefinition)
   const actions = config.actions || {}
@@ -295,7 +295,7 @@ export function statechart<
 
   const initialActions = {
     [ACTIONS]: copiedActions,
-    onInitializeOvermind: (async (context, instance) => {
+    onInitializeOvermind: (async (context: any, instance: any) => {
       if (onInitializeOvermindAction) {
         await onInitializeOvermindAction(context, instance)
       }
@@ -313,12 +313,12 @@ export function statechart<
       const statePaths = stateTarget.states.slice()
 
       // Run entry actions of initial state
-      statePaths.forEach((statePath) => {
+      statePaths.forEach((statePath: any) => {
         const state = statePath.slice()
         while (state.length) {
           const target = getStateTarget(charts, state)
 
-          if (config.actions && config.actions[target.entry]) {
+          if (config.actions && (config.actions as any)[target.entry]) {
             actionsTarget[ACTIONS][target.entry](context)
           }
 
@@ -350,17 +350,17 @@ export function statechart<
       actions: derived((state) =>
         getCanTransitionActions(copiedActions, charts, state)
       ) as any,
-      matches: derived((state: any) => (match) => {
+      matches: derived((state: any) => (match: any) => {
         const matchPaths = getMatchPaths(match)
-        const statesWithoutRootChartIndicator = state.states.map((statePath) =>
-          statePath.filter((path) => path !== CHART)
+        const statesWithoutRootChartIndicator = state.states.map((statePath: any) =>
+          statePath.filter((path: any) => path !== CHART)
         )
 
         for (let x = 0; x < matchPaths.length; x++) {
           const matchPath = matchPaths[x]
           const shouldMatch = matchPath.reduce((aggr, key) => aggr[key], match)
           const hasMatch = statesWithoutRootChartIndicator.reduce(
-            (aggr, statePath) => {
+            (aggr: any, statePath: any) => {
               if (aggr) {
                 return aggr
               }
@@ -384,7 +384,7 @@ export function statechart<
         return true
       }),
     }),
-    actions: Object.keys(copiedActions).reduce((aggr, key) => {
+    actions: Object.keys(copiedActions).reduce<Record<string, any>>((aggr, key) => {
       aggr[key] = pipe(
         function getTransition({ state, execution }: any, payload) {
           const stateTarget = getTarget(state, execution.namespacePath)

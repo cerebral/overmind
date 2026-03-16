@@ -36,16 +36,16 @@ export class ProxyStateTree<T extends object, D> implements IProxyStateTree<
   flushCallbacks: IFlushCallback[] = []
   mutationCallbacks: IMutationCallback[] = []
   currentFlushId: number = 0
-  currentTree: TTree
-  previousTree: TTree
-  mutationTree: IMutationTree<T, D>
-  proxifier: IProxifier<T>
-  root: ProxyStateTree<T, D>
+  currentTree: TTree | null = null
+  previousTree: TTree | null = null
+  mutationTree!: IMutationTree<T, D>
+  proxifier!: IProxifier<T>
+  root!: ProxyStateTree<T, D>
   pathDependencies: {
     [path: string]: Set<ITrackCallback>
   } = {}
 
-  state: T
+  state!: T
   sourceState: T
   options: IOptions<D>
   constructor(state: T, options: IOptions<D> = {}) {
@@ -141,8 +141,8 @@ export class ProxyStateTree<T extends object, D> implements IProxyStateTree<
   }
 
   forceFlush() {
-    const emptyMutations = []
-    const emptyPaths = []
+    const emptyMutations: IMutation[] = []
+    const emptyPaths: string[] = []
     for (const key in this.pathDependencies) {
       const callbacks = this.pathDependencies[key]
       callbacks.forEach((callback) => {
@@ -151,7 +151,7 @@ export class ProxyStateTree<T extends object, D> implements IProxyStateTree<
     }
   }
 
-  flush(trees, isAsync: boolean = false) {
+  flush(trees: any, isAsync: boolean = false) {
     let changes
     if (Array.isArray(trees)) {
       changes = trees.reduce(
@@ -176,8 +176,8 @@ export class ProxyStateTree<T extends object, D> implements IProxyStateTree<
 
     if (!changes.mutations.length && !changes.objectChanges.size) {
       return {
-        mutations: [],
-        flushId: null,
+        mutations: [] as IMutation[],
+        flushId: -1,
       }
     }
 

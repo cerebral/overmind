@@ -8,13 +8,13 @@ const IS_PRODUCTION = ENVIRONMENT === 'production'
 
 let nextComponentId = 0
 
-function createMixin(overmind, propsCallback, trackPropsCallback = false) {
+function createMixin(overmind: Overmind<any>, propsCallback: ((context: any) => any) | null | Function, trackPropsCallback = false) {
   const componentId = nextComponentId++
   let componentInstanceId = 0
 
   return {
     beforeCreate(this: any) {
-      if (overmind.mode.mode === MODE_SSR) {
+      if ((overmind as any).mode.mode === MODE_SSR) {
         this.overmind = {
           state: overmind.state,
           actions: overmind.actions,
@@ -36,7 +36,7 @@ function createMixin(overmind, propsCallback, trackPropsCallback = false) {
         this[OVERMIND] = {
           tree: (overmind as any).proxyStateTreeInstance.getTrackStateTree(),
           componentInstanceId: componentInstanceId++,
-          onUpdate: (mutations, paths, flushId) => {
+          onUpdate: (mutations: any, paths: any, flushId: any) => {
             this[OVERMIND].currentFlushId = flushId
             this[OVERMIND].isUpdating = true
             this.$forceUpdate()
@@ -66,7 +66,7 @@ function createMixin(overmind, propsCallback, trackPropsCallback = false) {
       }
     },
     beforeUpdate(this: any) {
-      if (overmind.mode.mode === MODE_SSR) return
+      if ((overmind as any).mode.mode === MODE_SSR) return
 
       this[OVERMIND].tree.track(this[OVERMIND].onUpdate)
 
@@ -89,7 +89,7 @@ function createMixin(overmind, propsCallback, trackPropsCallback = false) {
         }
       : {
           mounted(this: any) {
-            if (overmind.mode.mode === MODE_SSR) return
+            if ((overmind as any).mode.mode === MODE_SSR) return
 
             overmind.eventHub.emitAsync(EventType.COMPONENT_ADD, {
               componentId,
@@ -99,7 +99,7 @@ function createMixin(overmind, propsCallback, trackPropsCallback = false) {
             })
           },
           updated(this: any) {
-            if (overmind.mode.mode === MODE_SSR) return
+            if ((overmind as any).mode.mode === MODE_SSR) return
 
             this[OVERMIND].tree.stopTracking()
 
@@ -116,7 +116,7 @@ function createMixin(overmind, propsCallback, trackPropsCallback = false) {
           },
         }),
     beforeDestroy(this: any) {
-      if (overmind.mode.mode === MODE_SSR) return
+      if ((overmind as any).mode.mode === MODE_SSR) return
 
       // @ts-ignore
       overmind.proxyStateTreeInstance.disposeTree(this[OVERMIND].tree)
@@ -133,10 +133,10 @@ function createMixin(overmind, propsCallback, trackPropsCallback = false) {
   }
 }
 
-export const createPlugin = (overmind) => ({
+export const createPlugin = (overmind: Overmind<any>) => ({
   install(
-    Vue,
-    propsCallback = ({ state, actions, effects }) => ({
+    Vue: any,
+    propsCallback = ({ state, actions, effects }: any) => ({
       state,
       actions,
       effects,

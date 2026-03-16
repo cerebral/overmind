@@ -14,32 +14,32 @@ const hotReloadingCache = {}
 export class Overmind<
   ThisConfig extends IConfiguration,
 > implements IConfiguration {
-  private proxyStateTreeInstance: proxyStateTree.ProxyStateTree<
+  private proxyStateTreeInstance!: proxyStateTree.ProxyStateTree<
     object,
     Devtools | undefined
   >
   private actionReferences: { [path: string]: Function } = {}
   private nextExecutionId: number = 0
-  private mode:
+  private mode!:
     | internalTypes.DefaultMode
     | internalTypes.TestMode
     | internalTypes.SSRMode
 
   private rehydrateMutationsForHotReloading: proxyStateTree.IMutation[] = []
-  private originalConfiguration
+  private originalConfiguration: any
   private isStrict = false
-  initialized: Promise<any>
-  eventHub: EventEmitter<internalTypes.Events>
-  devtools: Devtools
-  actions: {
+  initialized!: Promise<any>
+  eventHub!: EventEmitter<internalTypes.Events>
+  devtools!: Devtools
+  actions!: {
     [K in keyof ThisConfig['actions']]: internalTypes.ResolveAction<
       ThisConfig['actions'][K]
     >
   }
 
-  state: ThisConfig['state']
-  effects: ThisConfig['effects'] & {}
-  delimiter: string
+  state!: ThisConfig['state']
+  effects!: ThisConfig['effects'] & {}
+  delimiter!: string
   constructor(
     configuration: ThisConfig,
     options: internalTypes.Options = {},
@@ -66,10 +66,10 @@ export class Overmind<
       options.hotReloading !== false &&
       !isNode
     ) {
-      if (hotReloadingCache[name]) {
-        return hotReloadingCache[name].reconfigure(configuration)
+      if ((hotReloadingCache as any)[name]) {
+        return (hotReloadingCache as any)[name].reconfigure(configuration)
       } else {
-        hotReloadingCache[name] = this
+        (hotReloadingCache as any)[name] = this
       }
     }
 
@@ -177,7 +177,7 @@ export class Overmind<
           proxyStateTreeInstance.getMutationTree().flush()
       })
 
-      let nextTick
+      let nextTick: any
       const flushTree = () => {
         proxyStateTreeInstance.getMutationTree().flush(true)
       }
@@ -328,7 +328,7 @@ export class Overmind<
           return func
         },
         onGetter: devmode
-          ? (path, value) => {
+          ? (path: any, value: any) => {
               this.eventHub.emitAsync(internalTypes.EventType.GETTER, {
                 path,
                 value,
@@ -347,7 +347,7 @@ export class Overmind<
     return proxyStateTreeInstance
   }
 
-  private createExecution(name, action, parentExecution) {
+  private createExecution(name: any, action: any, parentExecution: any): any {
     const namespacePath = name.split('.')
 
     namespacePath.pop()
@@ -403,10 +403,10 @@ export class Overmind<
       getTrackStateTree: () => {
         return this.proxyStateTreeInstance.getTrackStateTree()
       },
-      onFlush: (cb) => {
+      onFlush: (cb: any) => {
         return this.proxyStateTreeInstance.onFlush(cb)
       },
-      scopeValue: (value, tree) => {
+      scopeValue: (value: any, tree: any) => {
         return this.scopeValue(value, tree)
       },
     }
@@ -511,11 +511,11 @@ export class Overmind<
     })
   }
 
-  private createContext(execution, tree) {
+  private createContext(execution: any, tree: any): any {
     const namespacePath = execution.namespacePath || []
 
-    const actionsProxy = utils.createActionsProxy(this.actions, (action) => {
-      return (value) => action(value, execution.isRunning ? execution : null)
+    const actionsProxy = utils.createActionsProxy(this.actions, (action: any) => {
+      return (value: any) => action(value, execution.isRunning ? execution : null)
     })
 
     return {
@@ -547,15 +547,15 @@ export class Overmind<
     const namespaceKey = path.pop()!
 
     if (configuration.state) {
-      const stateTarget = path.reduce((aggr, key) => aggr[key], state)
+      const stateTarget = path.reduce((aggr: any, key) => aggr[key], state)
       stateTarget[namespaceKey] = utils.processState(configuration.state)
     }
     if (configuration.actions) {
-      const actionsTarget = path.reduce((aggr, key) => aggr[key], this.actions)
+      const actionsTarget = path.reduce((aggr: any, key) => aggr[key], this.actions)
       actionsTarget[namespaceKey] = this.getActions(configuration.actions)
     }
     if (configuration.effects) {
-      const effectsTarget = path.reduce((aggr, key) => aggr[key], this.effects)
+      const effectsTarget = path.reduce((aggr: any, key) => aggr[key], this.effects)
       effectsTarget[namespaceKey] = configuration.effects
     }
   }
@@ -582,18 +582,18 @@ export class Overmind<
     ;(this as any).mutations.push(mutation)
   }
 
-  private createAction(name, originalAction) {
+  private createAction(name: any, originalAction: any): any {
     this.actionReferences[name] = originalAction
-    const actionFunc = (value?, boundExecution?: internalTypes.Execution) => {
+    const actionFunc = (value?: any, boundExecution?: internalTypes.Execution) => {
       const action = this.actionReferences[name]
       boundExecution =
-        boundExecution && boundExecution[utils.EXECUTION]
+        boundExecution && (boundExecution as any)[utils.EXECUTION]
           ? boundExecution
           : undefined
 
       if (
         utils.ENVIRONMENT === 'production' ||
-        action[utils.IS_OPERATOR] ||
+        (action as any)[utils.IS_OPERATOR] ||
         this.mode.mode === utils.MODE_SSR
       ) {
         const execution = this.createExecution(name, action, boundExecution)
@@ -607,7 +607,7 @@ export class Overmind<
             value,
           })
 
-          if (action[utils.IS_OPERATOR]) {
+          if ((action as any)[utils.IS_OPERATOR]) {
             return new Promise((resolve, reject) => {
               action(
                 null,
@@ -615,7 +615,7 @@ export class Overmind<
                   ...this.createContext(execution, this.proxyStateTreeInstance),
                   value,
                 },
-                (err, finalContext) => {
+                (err: any, finalContext: any) => {
                   execution.isRunning = false
                   finalContext &&
                     this.eventHub.emit(internalTypes.EventType.ACTION_END, {
@@ -646,7 +646,7 @@ export class Overmind<
             return returnValue
           }
         } finally {
-          if (!action[utils.IS_OPERATOR]) {
+          if (!(action as any)[utils.IS_OPERATOR]) {
             this.currentExecution = previousExecution
           }
         }
@@ -670,7 +670,7 @@ export class Overmind<
         if (this.isStrict) {
           mutationTree.blockMutations()
         }
-        mutationTree.onMutation((mutation) => {
+        mutationTree.onMutation((mutation: any) => {
           this.eventHub.emit(internalTypes.EventType.MUTATIONS, {
             ...execution,
             mutations: [mutation],
@@ -684,8 +684,8 @@ export class Overmind<
         let isAsync = false
 
         try {
-          let pendingFlush
-          mutationTree.onMutation((mutation) => {
+          let pendingFlush: any
+          mutationTree.onMutation((mutation: any) => {
             if (pendingFlush) {
               clearTimeout(pendingFlush)
             }
@@ -720,7 +720,7 @@ export class Overmind<
               execution
             )
             result = result
-              .then((promiseResult) => {
+              .then((promiseResult: any) => {
                 execution.isRunning = false
                 if (!boundExecution) {
                   mutationTree.dispose()
@@ -737,7 +737,7 @@ export class Overmind<
 
                 return promiseResult
               })
-              .catch((error) => {
+              .catch((error: any) => {
                 execution.isRunning = false
                 if (!boundExecution) {
                   mutationTree.dispose()
@@ -777,7 +777,7 @@ export class Overmind<
             ...execution,
             isAsync: false,
             result: undefined,
-            error: err.message,
+            error: (err as any).message,
           })
           this.eventHub.emit(internalTypes.EventType.ACTION_END, execution)
           throw err
@@ -792,7 +792,7 @@ export class Overmind<
     return actionFunc
   }
 
-  private trackEffects(effects = {}, execution) {
+  private trackEffects(effects = {}, execution: any): any {
     if (utils.ENVIRONMENT === 'production') {
       return effects
     }
@@ -819,7 +819,7 @@ export class Overmind<
           ...effect,
           args: effect.args,
           isPending: false,
-          error: error.message,
+          error: (error as any).message,
         })
         throw error
       }
@@ -834,7 +834,7 @@ export class Overmind<
         })
 
         return result
-          .then((promisedResult) => {
+          .then((promisedResult: any) => {
             this.eventHub.emit(internalTypes.EventType.EFFECT, {
               ...execution,
               ...effect,
@@ -846,7 +846,7 @@ export class Overmind<
 
             return promisedResult
           })
-          .catch((error) => {
+          .catch((error: any) => {
             this.eventHub.emit(internalTypes.EventType.EFFECT, {
               ...execution,
               ...effect,
@@ -872,15 +872,15 @@ export class Overmind<
   }
 
   private initializeDevtools(
-    host,
-    name,
-    eventHub,
-    actions,
+    host: any,
+    name: any,
+    eventHub: any,
+    actions: any,
     logLevel: internalTypes.LogLevel = 'error'
   ) {
     if (utils.ENVIRONMENT === 'production') return
     const devtools = new Devtools(name, logLevel)
-    devtools.connect(host, (message: DevtoolsMessage) => {
+    devtools.connect(host, ((message: DevtoolsMessage) => {
       switch (message.type) {
         case 'refresh': {
           location.reload()
@@ -889,7 +889,7 @@ export class Overmind<
         case 'executeAction': {
           const action = message.data.name
             .split('.')
-            .reduce((aggr, key) => aggr[key], this.actions)
+            .reduce((aggr: any, key: any) => aggr[key], this.actions)
           message.data.payload
             ? action(JSON.parse(message.data.payload))
             : action()
@@ -900,7 +900,7 @@ export class Overmind<
           const path = message.data.path.slice()
           const value = JSON.parse(`{ "value": ${message.data.value} }`).value
           const key = path.pop()
-          const state = path.reduce((aggr, key) => aggr[key], tree.state)
+          const state = path.reduce((aggr: any, key: any) => aggr[key], tree.state)
 
           state[key] = value
           tree.flush(true)
@@ -915,24 +915,24 @@ export class Overmind<
           break
         }
       }
-    })
+    }) as any)
     for (const type in internalTypes.EventType) {
       eventHub.on(
-        internalTypes.EventType[type],
-        ((eventType) => (data) => {
+        (internalTypes.EventType as any)[type],
+        ((eventType) => (data: any) => {
           devtools.send({
-            type: internalTypes.EventType[type],
+            type: (internalTypes.EventType as any)[type],
             data,
           })
 
           if (eventType === internalTypes.EventType.MUTATIONS) {
             // We want to trigger property access when setting objects and arrays, as any derived set would
             // then trigger and update the devtools
-            data.mutations.forEach((mutation) => {
+            data.mutations.forEach((mutation: any) => {
               const value = mutation.path
                 .split(this.delimiter)
                 .reduce(
-                  (aggr, key) => aggr[key],
+                  (aggr: any, key: any) => aggr[key],
                   this.proxyStateTreeInstance.state
                 )
               if (isPlainObject(value)) {
@@ -950,11 +950,11 @@ export class Overmind<
           // Access the derived which will trigger calculation and devtools
           if (eventType === internalTypes.EventType.DERIVED_DIRTY) {
             data.derivedPath.reduce(
-              (aggr, key) => aggr[key],
+              (aggr: any, key: any) => aggr[key],
               this.proxyStateTreeInstance.state
             )
           }
-        })(internalTypes.EventType[type])
+        })((internalTypes.EventType as any)[type])
       )
     }
     devtools.send({
@@ -981,7 +981,7 @@ export class Overmind<
     return state
   }
 
-  private getActions(actions: any = {}, path: string[] = []) {
+  private getActions(actions: any = {}, path: string[] = []): any {
     return Object.keys(actions).reduce((aggr, name) => {
       if (typeof actions[name] === 'function') {
         const action = this.createAction(
@@ -1013,12 +1013,12 @@ export class Overmind<
         if (this.actionReferences[actionName]) {
           this.actionReferences[actionName] = actions[name]
         } else {
-          const target = path.reduce((aggr, key) => {
-            if (!aggr[key]) {
-              aggr[key] = {}
+          const target = path.reduce((aggr: any, key) => {
+            if (!(aggr as any)[key]) {
+              (aggr as any)[key] = {}
             }
 
-            return aggr[key]
+            return (aggr as any)[key]
           }, this.actions)
           target[name] = this.createAction(actionName, actions[name]) as any
 
@@ -1049,18 +1049,18 @@ export class Overmind<
     updateCallback,
     options = {}
   ) => {
-    let disposer
+    let disposer: any
 
     if (options.nested) {
       const value = stateCallback(this.state)
 
-      if (!value || !value[proxyStateTree.IS_PROXY]) {
+      if (!value || !(value as any)[proxyStateTree.IS_PROXY]) {
         throw new Error(
           'You have to return an object or array from the Overmind state when using a "nested" reaction'
         )
       }
 
-      const path = value[proxyStateTree.PATH]
+      const path = (value as any)[proxyStateTree.PATH]
 
       disposer = this.addFlushListener((mutations) => {
         mutations.forEach((mutation) => {
@@ -1069,7 +1069,7 @@ export class Overmind<
               path
                 ? path
                     .split(this.delimiter)
-                    .reduce((aggr, key) => aggr[key], this.state)
+                    .reduce((aggr: any, key: any) => aggr[key], this.state)
                 : this.state
             )
           }
@@ -1077,7 +1077,7 @@ export class Overmind<
       })
     } else {
       const tree = this.proxyStateTreeInstance.getTrackStateTree()
-      let returnValue
+      let returnValue: any
       const updateReaction = () => {
         disposer?.()
 
@@ -1117,7 +1117,7 @@ export class Overmind<
 
     const mutationTree = this.proxyStateTreeInstance.getMutationTree()
     // We change the state to match the new structure
-    rehydrate(mutationTree.state as any, changeMutations)
+    rehydrate(mutationTree.state as object, changeMutations)
 
     // We run any mutations ran during the session, it might fail though
     // as the state structure might have changed, but no worries we just

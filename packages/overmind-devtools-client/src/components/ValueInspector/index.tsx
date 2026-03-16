@@ -13,7 +13,7 @@ const ValueInspector: React.FunctionComponent<Props> = ({
   small,
   delimiter,
 }) => {
-  const [expandedPaths, setExpandedPaths] = React.useState([])
+  const [expandedPaths, setExpandedPaths] = React.useState<string[]>([])
 
   function onToggleExpand(path: string[]) {
     const pathString = path.join(delimiter)

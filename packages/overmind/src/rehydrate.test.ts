@@ -44,7 +44,7 @@ describe('REHYDRATE', () => {
         }
       }
 
-      static fromJSON(json) {
+      static fromJSON(json: any) {
         return Object.assign(new User(), json)
       }
     }
@@ -84,9 +84,9 @@ describe('REHYDRATE', () => {
   test('should allow rehydration of array', () => {
     expect.assertions(2)
     class User {
-      [SERIALIZE]
+      [SERIALIZE]: any
       name = 'Bob'
-      static fromJSON(json) {
+      static fromJSON(json: any) {
         return Object.assign(new User(), json)
       }
     }
@@ -119,9 +119,9 @@ describe('REHYDRATE', () => {
   test('should allow rehydration of dictionary', () => {
     expect.assertions(2)
     class User {
-      [SERIALIZE]
+      [SERIALIZE]: any
       name = 'Bob'
-      static fromJSON(json) {
+      static fromJSON(json: any) {
         return Object.assign(new User(), json)
       }
     }

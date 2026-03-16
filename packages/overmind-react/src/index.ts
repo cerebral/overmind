@@ -27,7 +27,7 @@ export type IReactComponent<P = any> =
   | React.LazyExoticComponent<React.ComponentType<P>>
   | React.ComponentType<P>
 
-function getFiberType(component) {
+function getFiberType(component: any): any {
   if (component.type) {
     // React.memo
     return getFiberType(component.type)
@@ -37,7 +37,7 @@ function getFiberType(component) {
 }
 
 // Inspired from https://github.com/facebook/react/blob/master/packages/react-devtools-shared/src/backend/renderer.js
-function getDisplayName(component): string {
+function getDisplayName(component: any): string {
   const type = getFiberType(component)
   return type.displayName || type.name || 'Anonymous'
 }
@@ -105,7 +105,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
   if (IS_PRODUCTION) {
     React.useLayoutEffect(
       () =>
-        trackStateTree.subscribe((_, __, flushId) => {
+        trackStateTree.subscribe((_: any, __: any, flushId: any) => {
           forceRerender(flushId)
         }),
       [trackStateTree]
@@ -140,7 +140,7 @@ const useState = <Context extends IContext<{ state: {} }>>(
     }, [])
 
     React.useLayoutEffect(() => {
-      const dispose = trackStateTree.subscribe((_, __, flushId) => {
+      const dispose = trackStateTree.subscribe((_: any, __: any, flushId: any) => {
         overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
           componentId: component.__componentId,
           componentInstanceId,

@@ -1,6 +1,6 @@
 export type Listener = {
   once: boolean
-  cb: ({}) => void
+  cb: (msg: any) => void
 }
 
 export class EventEmitter<T> {
@@ -44,7 +44,7 @@ export class EventEmitter<T> {
     this.addListener(event, cb, true)
   }
 
-  private addListener(event: keyof T, cb: ({}) => void, once: boolean) {
+  private addListener(event: keyof T, cb: (msg: any) => void, once: boolean) {
     const listeners = this.events.get(event) || []
 
     listeners.push({

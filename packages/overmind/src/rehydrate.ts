@@ -20,7 +20,7 @@ export function rehydrateState(target: any, source: any, classes: any = {}) {
       target[key].constructor.name === 'Object'
     ) {
       target[key] = Object.keys(source[key] as any).reduce((aggr, subKey) => {
-        aggr[subKey] = classInstance((source[key] as any)[subKey])
+        ;(aggr as any)[subKey] = classInstance((source[key] as any)[subKey])
 
         return aggr
       }, {})
@@ -31,7 +31,7 @@ export function rehydrateState(target: any, source: any, classes: any = {}) {
       !Array.isArray(value) &&
       value !== null
     ) {
-      if (!target[key]) target[key] = {}
+      if (!target[key]) (target as any)[key] = {}
       rehydrateState(target[key], source[key], classes[key])
     } else {
       target[key] = source[key]

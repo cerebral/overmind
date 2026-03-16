@@ -9,12 +9,12 @@ const ActionPayload: React.FunctionComponent = () => {
   const state = useAppState()
   const actions = useActions()
   const reaction = useReaction()
-  const input = React.useRef(null)
+  const input = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
     reaction(
       () => state.currentApp.selectedActionQuery,
-      () => setTimeout(() => input.current && input.current.focus())
+      () => setTimeout(() => input.current && input.current!.focus())
     )
   }, [])
 
@@ -32,7 +32,7 @@ const ActionPayload: React.FunctionComponent = () => {
           !state.currentApp.selectedActionQuery || state.isExecutingAction
         }
         placeholder={
-          state.currentApp.selectedActionQuery ? 'Add some payload...' : null
+          state.currentApp.selectedActionQuery ? 'Add some payload...' : undefined
         }
         onKeyDown={(event) => {
           if (event.keyCode === 13) {

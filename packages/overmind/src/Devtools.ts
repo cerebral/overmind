@@ -18,7 +18,7 @@ export class Devtools {
   private circularReferenceCache: any[] = []
   private buffer: string[] = []
   private serializer = Promise.resolve()
-  private ws: WebSocket
+  private ws!: WebSocket
   private isConnected: boolean = false
   private doReconnect: boolean = false
   private hasWarnedReconnect: boolean = false
@@ -77,7 +77,7 @@ export class Devtools {
     }
   }
 
-  private reconnect(host, onMessage) {
+  private reconnect(host: any, onMessage: any) {
     setTimeout(() => this.connect(host, onMessage), this.reconnectInterval)
   }
 

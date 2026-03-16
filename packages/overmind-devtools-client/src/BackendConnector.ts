@@ -14,10 +14,10 @@ class WebsocketConnector {
     [event: string]: Function[]
   } = {}
 
-  private socket: WebSocket
+  private socket!: WebSocket | null
   private messagesBeforeConnected: Array<[string, any, any]> = []
   private isOpen = false
-  private currentPort: number
+  private currentPort!: number
 
   private schedulePing() {
     setTimeout(() => {
@@ -116,7 +116,7 @@ class WebsocketConnector {
     this.callbacks[event].push(cb)
   }
 
-  off(event, cb) {
+  off(event: any, cb: any) {
     if (this.callbacks[event]) {
       this.callbacks[event].splice(this.callbacks[event].indexOf(cb), 1)
     }
@@ -130,7 +130,7 @@ class WebsocketConnector {
 
     const nextEvaluationId = this.nextEvaluationId++
 
-    this.socket.send(
+    this.socket!.send(
       JSON.stringify({
         type: event,
         data,
@@ -139,7 +139,7 @@ class WebsocketConnector {
     )
 
     if (onEvaluated) {
-      const cb = (data) => {
+      const cb = (data: any) => {
         if (data.id === nextEvaluationId) {
           this.off('evaluated', cb)
           onEvaluated(data.error ? data.error : null, data.data)
@@ -152,18 +152,18 @@ class WebsocketConnector {
 
 export class BackendConnector extends WebsocketConnector {
   onMessage = (onMessage: MessageCallback) => {
-    this.on('message', (message) => {
+    this.on('message', (message: any) => {
       onMessage(message)
     })
   }
 
   onDisconnect = (onDisconnect: (name: string) => void) => {
-    this.on('disconnect', (name) => {
+    this.on('disconnect', (name: any) => {
       onDisconnect(name)
     })
   }
 
-  sendMessage(appName: string, eventName: string, payload: object = null) {
+  sendMessage(appName: string, eventName: string, payload: object | undefined = undefined) {
     this.send('message', {
       appName,
       type: eventName,

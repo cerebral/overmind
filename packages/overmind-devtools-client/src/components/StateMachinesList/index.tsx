@@ -66,7 +66,7 @@ const StateMachinesList: React.FunctionComponent = () => {
                     machine.instanceId && styles.selectedItem
                 )}
                 onClick={() =>
-                  actions.selectStateMachineInstance(machine.instanceId)
+                  actions.selectStateMachineInstance(machine!.instanceId!)
                 }
               >
                 <div

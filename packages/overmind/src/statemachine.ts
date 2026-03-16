@@ -79,7 +79,7 @@ const BASE_STATE = Symbol('BASE_STATE')
 const TRANSITION_LISTENERS = Symbol('TRANSITION_LISTENERS')
 
 // We have to export here to avoid a circular dependency issue with "utils"
-export function deepCopy(obj) {
+export function deepCopy(obj: any): any {
   if (isStateMachine(obj)) {
     return (obj as any).clone()
   } else if (isPlainObject(obj)) {
@@ -112,11 +112,11 @@ export class StateMachine<
   Events extends TEvents,
   BaseState extends TBaseState,
 > {
-  current: State['current']
-  private [INITIAL_STATE]: State['current']
-  private [TRANSITIONS]: StatemachineTransitions<State, Events, BaseState>
+  current!: State['current']
+  private [INITIAL_STATE]!: State['current']
+  private [TRANSITIONS]!: StatemachineTransitions<State, Events, BaseState>
   private [STATE]: any
-  private [BASE_STATE]: BaseState
+  private [BASE_STATE]!: BaseState
   private [TRANSITION_LISTENERS]: Array<(state: State) => void> = []
   private [IS_DISPOSED] = false
   private clone() {
@@ -128,13 +128,13 @@ export class StateMachine<
   }
 
   private dispose() {
-    this[VALUE][TRANSITION_LISTENERS] = []
-    Object.keys(this[VALUE]).forEach((key) => {
-      if (this[VALUE][key] instanceof StateMachine) {
-        this[key].dispose()
+    (this as any)[VALUE][TRANSITION_LISTENERS] = []
+    Object.keys((this as any)[VALUE]).forEach((key) => {
+      if ((this as any)[VALUE][key] instanceof StateMachine) {
+        (this as any)[key].dispose()
       }
     })
-    this[VALUE][IS_DISPOSED] = true
+    ;(this as any)[VALUE][IS_DISPOSED] = true
   }
 
   constructor(
@@ -142,50 +142,50 @@ export class StateMachine<
     state: State,
     baseState: BaseState
   ) {
-    this[STATE] = state
-    this[BASE_STATE] = baseState
-    this[INITIAL_STATE] = state.current
-    this[TRANSITIONS] = transitions
-    this[CURRENT_KEYS] = Object.keys(state)
+    ;(this as any)[STATE] = state
+    ;(this as any)[BASE_STATE] = baseState
+    ;(this as any)[INITIAL_STATE] = state.current
+    ;(this as any)[TRANSITIONS] = transitions
+    ;(this as any)[CURRENT_KEYS] = Object.keys(state)
     Object.assign(this, state, baseState)
   }
 
-  send(type, data) {
-    if (this[VALUE][IS_DISPOSED]) {
+  send(type: any, data: any) {
+    if ((this as any)[VALUE][IS_DISPOSED]) {
       if (process.env.NODE_ENV === 'development') {
         console.warn(
-          `Overmind - The statemachine at "${this[PATH]}" has been disposed, but you tried to transition on it`
+          `Overmind - The statemachine at "${(this as any)[PATH]}" has been disposed, but you tried to transition on it`
         )
       }
       return this
     }
 
     const tree: IMutationTree<object, Devtools | undefined> =
-      this[PROXY_TREE].root.mutationTree || this[PROXY_TREE]
+      (this as any)[PROXY_TREE].root.mutationTree || (this as any)[PROXY_TREE]
 
     tree.enableMutations()
 
     let result
 
-    if (typeof this[VALUE][TRANSITIONS] === 'function') {
-      const transition = this[VALUE][TRANSITIONS]
+    if (typeof (this as any)[VALUE][TRANSITIONS] === 'function') {
+      const transition = (this as any)[VALUE][TRANSITIONS]
 
       result = transition({ type, data }, this)
-    } else if (this[VALUE][TRANSITIONS][this[VALUE].current][type]) {
-      const transition = this[VALUE][TRANSITIONS][this[VALUE].current][type]
+    } else if ((this as any)[VALUE][TRANSITIONS][(this as any)[VALUE].current][type]) {
+      const transition = (this as any)[VALUE][TRANSITIONS][(this as any)[VALUE].current][type]
 
       result = transition(data, this)
     }
 
     if (result) {
-      this[VALUE].previousState = this[VALUE].current
+      ;(this as any)[VALUE].previousState = (this as any)[VALUE].current
 
-      this[VALUE][CURRENT_KEYS].forEach((key) => {
+      ;(this as any)[VALUE][CURRENT_KEYS].forEach((key: any) => {
         if (key !== 'current') {
-          delete this[key]
+          delete (this as any)[key]
         }
       })
-      this[VALUE][CURRENT_KEYS] = Object.keys(result)
+      ;(this as any)[VALUE][CURRENT_KEYS] = Object.keys(result)
       Object.assign(this, result)
 
       // Report to DevTools if available
@@ -194,9 +194,9 @@ export class StateMachine<
         devtools.send({
           type: 'machine:transition',
           data: {
-            path: this[PATH],
-            fromState: this[VALUE].previousState,
-            toState: this[VALUE].current,
+            path: (this as any)[PATH],
+            fromState: (this as any)[VALUE].previousState,
+            toState: (this as any)[VALUE].current,
             eventType: type,
             payload: data,
             timestamp: Date.now(),
@@ -204,7 +204,7 @@ export class StateMachine<
         })
       }
 
-      this[VALUE][TRANSITION_LISTENERS].forEach((listener) => listener(this))
+      ;(this as any)[VALUE][TRANSITION_LISTENERS].forEach((listener: any) => listener(this))
     }
 
     tree.blockMutations()
@@ -219,7 +219,7 @@ export class StateMachine<
   }
 
   onTransition(listener: (state: State) => void) {
-    this[VALUE][TRANSITION_LISTENERS].push(listener)
+    ;(this as any)[VALUE][TRANSITION_LISTENERS].push(listener)
   }
 }
 
@@ -246,7 +246,7 @@ export function statemachine<
   transitions: StatemachineTransitions<States, Events, BaseState>
 ): StatemachineFactory<States, Events, BaseState> {
   return {
-    create(state, baseState) {
+    create(state: any, baseState: any) {
       return new StateMachine(transitions, state as any, baseState as any)
     },
   } as any

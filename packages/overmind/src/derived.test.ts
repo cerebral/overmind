@@ -130,7 +130,7 @@ describe('Derived', () => {
       foo: 'bar',
       upperFoo: derived(
         () =>
-          function () {
+          function (this: any) {
             const state = this[PROXY_TREE].state
 
             return state.foo.toUpperCase()

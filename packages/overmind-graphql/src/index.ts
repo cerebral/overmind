@@ -17,13 +17,13 @@ type Variable = string | number | boolean | null
 interface NoPayloadSubscription<R> {
   (action: (result: R) => void): void
   dispose(): void
-  disposeWhere(cb: (variables: { [variables: string]: Variable }) => boolean)
+  disposeWhere(cb: (variables: { [variables: string]: Variable }) => boolean): void
 }
 
 interface PayloadSubscription<P, R> {
   (payload: P, action: (result: R) => void): void
   dispose(): void
-  disposeWhere(cb: (variables: { [variables: string]: Variable }) => boolean)
+  disposeWhere(cb: (variables: { [variables: string]: Variable }) => boolean): void
 }
 
 interface Subscription {
@@ -188,8 +188,8 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
   }
 
   const evaluatedQueries = {
-    rawQueries: Object.keys(queries.rawQueries || {}).reduce((aggr, key) => {
-      aggr[key] = (variables) => {
+    rawQueries: Object.keys(queries.rawQueries || {}).reduce<Record<string, any>>((aggr, key) => {
+      aggr[key] = (variables: any) => {
         const query = queries.rawQueries![key] as any
         const client = getClient()
 
@@ -203,8 +203,8 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
       }
       return aggr
     }, {}),
-    queries: Object.keys(queries.queries || {}).reduce((aggr, key) => {
-      aggr[key] = (variables) => {
+    queries: Object.keys(queries.queries || {}).reduce<Record<string, any>>((aggr, key) => {
+      aggr[key] = (variables: any) => {
         const query = queries.queries![key] as any
         const client = getClient()
 
@@ -218,9 +218,9 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
       }
       return aggr
     }, {}),
-    rawMutations: Object.keys(queries.rawMutations || {}).reduce(
+    rawMutations: Object.keys(queries.rawMutations || {}).reduce<Record<string, any>>(
       (aggr, key) => {
-        aggr[key] = (variables) => {
+        aggr[key] = (variables: any) => {
           const query = queries.rawMutations![key] as any
           const client = getClient()
 
@@ -236,8 +236,8 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
       },
       {}
     ),
-    mutations: Object.keys(queries.mutations || {}).reduce((aggr, key) => {
-      aggr[key] = (variables) => {
+    mutations: Object.keys(queries.mutations || {}).reduce<Record<string, any>>((aggr, key) => {
+      aggr[key] = (variables: any) => {
         const query = queries.mutations![key] as any
         const client = getClient()
 
@@ -251,7 +251,7 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
       }
       return aggr
     }, {}),
-    subscriptions: Object.keys(queries.subscriptions || {}).reduce(
+    subscriptions: Object.keys(queries.subscriptions || {}).reduce<Record<string, any>>(
       (aggr, key) => {
         const query = queries.subscriptions![key] as any
         const queryString = print(query)
@@ -260,7 +260,7 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
           _subscriptions[queryString] = []
         }
 
-        function subscription(arg1, arg2) {
+        function subscription(arg1: any, arg2: any) {
           const client = getWsClient()
 
           if (client) {
@@ -298,7 +298,7 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
           _subscriptions[queryString].length = 0
         }
 
-        subscription.disposeWhere = (cb) => {
+        subscription.disposeWhere = (cb: (variables: { [key: string]: Variable }) => boolean) => {
           _subscriptions[queryString] = _subscriptions[queryString].reduce<
             Subscription[]
           >((subAggr, sub) => {
