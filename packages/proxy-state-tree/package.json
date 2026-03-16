@@ -36,9 +36,9 @@
   },
   "homepage": "https://github.com/christianalfoni/proxy-state-tree#readme",
   "devDependencies": {
-    "@size-limit/file": "^12.0.0",
-    "babel-loader": "^10.0.0",
-    "size-limit": "^12.0.0",
+    "@size-limit/file": "^12.0.1",
+    "babel-loader": "^10.1.1",
+    "size-limit": "^12.0.1",
     "terser-webpack-plugin": "^5.4.0",
     "webpack": "^5.105.4"
   },

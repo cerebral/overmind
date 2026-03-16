@@ -63,9 +63,9 @@
     "build": "rimraf devtoolsDist && cp -R ../overmind-devtools-client/dist devtoolsDist"
   },
   "devDependencies": {
-    "@babel/plugin-transform-class-properties": "^7.27.1",
+    "@babel/plugin-transform-class-properties": "^7.28.6",
     "@vscode/vsce": "^3.7.1",
-    "babel-loader": "^10.0.0",
+    "babel-loader": "^10.1.1",
     "webpack": "^5.105.4"
   },
   "peerDependencies": {
