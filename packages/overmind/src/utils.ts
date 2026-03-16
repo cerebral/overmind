@@ -9,7 +9,9 @@ export const createOnInitialize = () => {
   return ({ actions }: any, instance: any) => {
     const initializers = getActionsByName('onInitializeOvermind', actions)
 
-    return Promise.all(initializers.map((initialize: any) => initialize(instance)))
+    return Promise.all(
+      initializers.map((initialize: any) => initialize(instance))
+    )
   }
 }
 
@@ -74,7 +76,7 @@ export function processState(state: {}) {
       const value = (state as any)[key]
 
       if (isPlainObject(value)) {
-        (aggr as any)[key] = processState(value)
+        ;(aggr as any)[key] = processState(value)
       } else {
         Object.defineProperty(aggr, key, originalDescriptor as any)
       }
@@ -112,8 +114,16 @@ export function getChangeMutations(
   })
 
   stateBKeys.forEach((key) => {
-    if (isPlainObject((stateA as any)[key]) && isPlainObject((stateB as any)[key])) {
-      getChangeMutations((stateA as any)[key], (stateB as any)[key], path.concat(key), mutations)
+    if (
+      isPlainObject((stateA as any)[key]) &&
+      isPlainObject((stateB as any)[key])
+    ) {
+      getChangeMutations(
+        (stateA as any)[key],
+        (stateB as any)[key],
+        path.concat(key),
+        mutations
+      )
     } else if ((stateA as any)[key] !== (stateB as any)[key]) {
       mutations.push({
         delimiter: getChangeMutationsDelimiter,
@@ -150,7 +160,9 @@ export function getActionPaths(actions = {}, currentPath: string[] = []): any {
       return aggr.concat(currentPath.concat(key).join('.'))
     }
 
-    return aggr.concat(getActionPaths((actions as any)[key], currentPath.concat(key)))
+    return aggr.concat(
+      getActionPaths((actions as any)[key], currentPath.concat(key))
+    )
   }, [])
 }
 

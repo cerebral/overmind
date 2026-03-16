@@ -488,6 +488,7 @@ export const addStateMachineTransition = (
 
   // Set as current if none selected
   if (!app.currentStateMachineInstanceId) {
-    app.currentStateMachineInstanceId = app.stateMachinesList[0]?.instanceId || null
+    app.currentStateMachineInstanceId =
+      app.stateMachinesList[0]?.instanceId || null
   }
 }

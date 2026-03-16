@@ -128,10 +128,10 @@ export class StateMachine<
   }
 
   private dispose() {
-    (this as any)[VALUE][TRANSITION_LISTENERS] = []
+    ;(this as any)[VALUE][TRANSITION_LISTENERS] = []
     Object.keys((this as any)[VALUE]).forEach((key) => {
       if ((this as any)[VALUE][key] instanceof StateMachine) {
-        (this as any)[key].dispose()
+        ;(this as any)[key].dispose()
       }
     })
     ;(this as any)[VALUE][IS_DISPOSED] = true
@@ -171,15 +171,18 @@ export class StateMachine<
       const transition = (this as any)[VALUE][TRANSITIONS]
 
       result = transition({ type, data }, this)
-    } else if ((this as any)[VALUE][TRANSITIONS][(this as any)[VALUE].current][type]) {
-      const transition = (this as any)[VALUE][TRANSITIONS][(this as any)[VALUE].current][type]
+    } else if (
+      (this as any)[VALUE][TRANSITIONS][(this as any)[VALUE].current][type]
+    ) {
+      const transition = (this as any)[VALUE][TRANSITIONS][
+        (this as any)[VALUE].current
+      ][type]
 
       result = transition(data, this)
     }
 
     if (result) {
       ;(this as any)[VALUE].previousState = (this as any)[VALUE].current
-
       ;(this as any)[VALUE][CURRENT_KEYS].forEach((key: any) => {
         if (key !== 'current') {
           delete (this as any)[key]
@@ -204,7 +207,9 @@ export class StateMachine<
         })
       }
 
-      ;(this as any)[VALUE][TRANSITION_LISTENERS].forEach((listener: any) => listener(this))
+      ;(this as any)[VALUE][TRANSITION_LISTENERS].forEach((listener: any) =>
+        listener(this)
+      )
     }
 
     tree.blockMutations()

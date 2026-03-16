@@ -140,16 +140,18 @@ const useState = <Context extends IContext<{ state: {} }>>(
     }, [])
 
     React.useLayoutEffect(() => {
-      const dispose = trackStateTree.subscribe((_: any, __: any, flushId: any) => {
-        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-          componentId: component.__componentId,
-          componentInstanceId,
-          name,
-          paths: Array.from(trackStateTree.pathDependencies) as any,
-          flushId,
-        })
-        forceRerender(flushId)
-      })
+      const dispose = trackStateTree.subscribe(
+        (_: any, __: any, flushId: any) => {
+          overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+            componentId: component.__componentId,
+            componentInstanceId,
+            name,
+            paths: Array.from(trackStateTree.pathDependencies) as any,
+            flushId,
+          })
+          forceRerender(flushId)
+        }
+      )
 
       return () => {
         dispose()

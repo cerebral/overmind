@@ -101,16 +101,20 @@ describe('OPERATOR', () => {
       banana: OperatorContextFunction<'banana', K>
       apple: OperatorContextFunction<'apple', K>
     }): IOperator<'banana' | 'apple', K> {
-      return createOperator('whenBananaOrApple', '', (err, _, value: any, next) => {
-        if (err) next(err, value)
-        else
-          next(null, value, {
-            path: {
-              name: value,
-              operator: paths[value as 'banana' | 'apple'],
-            },
-          })
-      })
+      return createOperator(
+        'whenBananaOrApple',
+        '',
+        (err, _, value: any, next) => {
+          if (err) next(err, value)
+          else
+            next(null, value, {
+              path: {
+                name: value,
+                operator: paths[value as 'banana' | 'apple'],
+              },
+            })
+        }
+      )
     }
 
     const test = whenBananaOrApple({

@@ -163,7 +163,11 @@ export class BackendConnector extends WebsocketConnector {
     })
   }
 
-  sendMessage(appName: string, eventName: string, payload: object | undefined = undefined) {
+  sendMessage(
+    appName: string,
+    eventName: string,
+    payload: object | undefined = undefined
+  ) {
     this.send('message', {
       appName,
       type: eventName,

@@ -32,7 +32,9 @@ const ActionPayload: React.FunctionComponent = () => {
           !state.currentApp.selectedActionQuery || state.isExecutingAction
         }
         placeholder={
-          state.currentApp.selectedActionQuery ? 'Add some payload...' : undefined
+          state.currentApp.selectedActionQuery
+            ? 'Add some payload...'
+            : undefined
         }
         onKeyDown={(event) => {
           if (event.keyCode === 13) {

@@ -17,13 +17,17 @@ type Variable = string | number | boolean | null
 interface NoPayloadSubscription<R> {
   (action: (result: R) => void): void
   dispose(): void
-  disposeWhere(cb: (variables: { [variables: string]: Variable }) => boolean): void
+  disposeWhere(
+    cb: (variables: { [variables: string]: Variable }) => boolean
+  ): void
 }
 
 interface PayloadSubscription<P, R> {
   (payload: P, action: (result: R) => void): void
   dispose(): void
-  disposeWhere(cb: (variables: { [variables: string]: Variable }) => boolean): void
+  disposeWhere(
+    cb: (variables: { [variables: string]: Variable }) => boolean
+  ): void
 }
 
 interface Subscription {
@@ -188,7 +192,9 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
   }
 
   const evaluatedQueries = {
-    rawQueries: Object.keys(queries.rawQueries || {}).reduce<Record<string, any>>((aggr, key) => {
+    rawQueries: Object.keys(queries.rawQueries || {}).reduce<
+      Record<string, any>
+    >((aggr, key) => {
       aggr[key] = (variables: any) => {
         const query = queries.rawQueries![key] as any
         const client = getClient()
@@ -203,29 +209,14 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
       }
       return aggr
     }, {}),
-    queries: Object.keys(queries.queries || {}).reduce<Record<string, any>>((aggr, key) => {
-      aggr[key] = (variables: any) => {
-        const query = queries.queries![key] as any
-        const client = getClient()
-
-        if (client) {
-          return client.request(print(query), variables)
-        }
-
-        throw createError(
-          'You are running a query, though there is no HTTP endpoint configured'
-        )
-      }
-      return aggr
-    }, {}),
-    rawMutations: Object.keys(queries.rawMutations || {}).reduce<Record<string, any>>(
+    queries: Object.keys(queries.queries || {}).reduce<Record<string, any>>(
       (aggr, key) => {
         aggr[key] = (variables: any) => {
-          const query = queries.rawMutations![key] as any
+          const query = queries.queries![key] as any
           const client = getClient()
 
           if (client) {
-            return client.rawRequest(print(query), variables)
+            return client.request(print(query), variables)
           }
 
           throw createError(
@@ -236,13 +227,15 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
       },
       {}
     ),
-    mutations: Object.keys(queries.mutations || {}).reduce<Record<string, any>>((aggr, key) => {
+    rawMutations: Object.keys(queries.rawMutations || {}).reduce<
+      Record<string, any>
+    >((aggr, key) => {
       aggr[key] = (variables: any) => {
-        const query = queries.mutations![key] as any
+        const query = queries.rawMutations![key] as any
         const client = getClient()
 
         if (client) {
-          return client.request(print(query), variables)
+          return client.rawRequest(print(query), variables)
         }
 
         throw createError(
@@ -251,75 +244,93 @@ export const graphql: <T extends Queries>(queries: T) => Graphql<T> = (
       }
       return aggr
     }, {}),
-    subscriptions: Object.keys(queries.subscriptions || {}).reduce<Record<string, any>>(
+    mutations: Object.keys(queries.mutations || {}).reduce<Record<string, any>>(
       (aggr, key) => {
-        const query = queries.subscriptions![key] as any
-        const queryString = print(query)
-
-        if (!_subscriptions[queryString]) {
-          _subscriptions[queryString] = []
-        }
-
-        function subscription(arg1: any, arg2: any) {
-          const client = getWsClient()
+        aggr[key] = (variables: any) => {
+          const query = queries.mutations![key] as any
+          const client = getClient()
 
           if (client) {
-            const variables = arg2 ? arg1 : {}
-            const action = arg2 || arg1
-            const notifier = absintheSocket.send(client, {
-              operation: queryString,
-              variables,
-            })
-
-            const observer = absintheSocket.observe(client, notifier, {
-              onResult: ({ data }) => {
-                action(data)
-              },
-            })
-
-            _subscriptions[queryString].push({
-              variables,
-              dispose: () =>
-                absintheSocket.unobserve(client, notifier, observer),
-            })
-          } else {
-            throw createError('There is no ws client available for this query')
+            return client.request(print(query), variables)
           }
-        }
 
-        subscription.dispose = () => {
-          _subscriptions[queryString].forEach((sub) => {
+          throw createError(
+            'You are running a query, though there is no HTTP endpoint configured'
+          )
+        }
+        return aggr
+      },
+      {}
+    ),
+    subscriptions: Object.keys(queries.subscriptions || {}).reduce<
+      Record<string, any>
+    >((aggr, key) => {
+      const query = queries.subscriptions![key] as any
+      const queryString = print(query)
+
+      if (!_subscriptions[queryString]) {
+        _subscriptions[queryString] = []
+      }
+
+      function subscription(arg1: any, arg2: any) {
+        const client = getWsClient()
+
+        if (client) {
+          const variables = arg2 ? arg1 : {}
+          const action = arg2 || arg1
+          const notifier = absintheSocket.send(client, {
+            operation: queryString,
+            variables,
+          })
+
+          const observer = absintheSocket.observe(client, notifier, {
+            onResult: ({ data }) => {
+              action(data)
+            },
+          })
+
+          _subscriptions[queryString].push({
+            variables,
+            dispose: () => absintheSocket.unobserve(client, notifier, observer),
+          })
+        } else {
+          throw createError('There is no ws client available for this query')
+        }
+      }
+
+      subscription.dispose = () => {
+        _subscriptions[queryString].forEach((sub) => {
+          try {
+            sub.dispose()
+          } catch (e) {
+            // Ignore, it probably throws an error because we weren't subscribed in the first place
+          }
+        })
+        _subscriptions[queryString].length = 0
+      }
+
+      subscription.disposeWhere = (
+        cb: (variables: { [key: string]: Variable }) => boolean
+      ) => {
+        _subscriptions[queryString] = _subscriptions[queryString].reduce<
+          Subscription[]
+        >((subAggr, sub) => {
+          if (cb(sub.variables)) {
             try {
               sub.dispose()
             } catch (e) {
               // Ignore, it probably throws an error because we weren't subscribed in the first place
             }
-          })
-          _subscriptions[queryString].length = 0
-        }
+            return subAggr
+          }
+          return subAggr.concat(sub)
+        }, [])
+      }
 
-        subscription.disposeWhere = (cb: (variables: { [key: string]: Variable }) => boolean) => {
-          _subscriptions[queryString] = _subscriptions[queryString].reduce<
-            Subscription[]
-          >((subAggr, sub) => {
-            if (cb(sub.variables)) {
-              try {
-                sub.dispose()
-              } catch (e) {
-                // Ignore, it probably throws an error because we weren't subscribed in the first place
-              }
-              return subAggr
-            }
-            return subAggr.concat(sub)
-          }, [])
-        }
+      aggr[key] = subscription
 
-        aggr[key] = subscription
-
-        return aggr
-      },
-      {}
-    ),
+      return aggr
+    }, {}),
   }
 
   return {

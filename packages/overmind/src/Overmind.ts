@@ -69,7 +69,7 @@ export class Overmind<
       if ((hotReloadingCache as any)[name]) {
         return (hotReloadingCache as any)[name].reconfigure(configuration)
       } else {
-        (hotReloadingCache as any)[name] = this
+        ;(hotReloadingCache as any)[name] = this
       }
     }
 
@@ -514,9 +514,13 @@ export class Overmind<
   private createContext(execution: any, tree: any): any {
     const namespacePath = execution.namespacePath || []
 
-    const actionsProxy = utils.createActionsProxy(this.actions, (action: any) => {
-      return (value: any) => action(value, execution.isRunning ? execution : null)
-    })
+    const actionsProxy = utils.createActionsProxy(
+      this.actions,
+      (action: any) => {
+        return (value: any) =>
+          action(value, execution.isRunning ? execution : null)
+      }
+    )
 
     return {
       state: tree.state,
@@ -551,11 +555,17 @@ export class Overmind<
       stateTarget[namespaceKey] = utils.processState(configuration.state)
     }
     if (configuration.actions) {
-      const actionsTarget = path.reduce((aggr: any, key) => aggr[key], this.actions)
+      const actionsTarget = path.reduce(
+        (aggr: any, key) => aggr[key],
+        this.actions
+      )
       actionsTarget[namespaceKey] = this.getActions(configuration.actions)
     }
     if (configuration.effects) {
-      const effectsTarget = path.reduce((aggr: any, key) => aggr[key], this.effects)
+      const effectsTarget = path.reduce(
+        (aggr: any, key) => aggr[key],
+        this.effects
+      )
       effectsTarget[namespaceKey] = configuration.effects
     }
   }
@@ -584,7 +594,10 @@ export class Overmind<
 
   private createAction(name: any, originalAction: any): any {
     this.actionReferences[name] = originalAction
-    const actionFunc = (value?: any, boundExecution?: internalTypes.Execution) => {
+    const actionFunc = (
+      value?: any,
+      boundExecution?: internalTypes.Execution
+    ) => {
       const action = this.actionReferences[name]
       boundExecution =
         boundExecution && (boundExecution as any)[utils.EXECUTION]
@@ -900,7 +913,10 @@ export class Overmind<
           const path = message.data.path.slice()
           const value = JSON.parse(`{ "value": ${message.data.value} }`).value
           const key = path.pop()
-          const state = path.reduce((aggr: any, key: any) => aggr[key], tree.state)
+          const state = path.reduce(
+            (aggr: any, key: any) => aggr[key],
+            tree.state
+          )
 
           state[key] = value
           tree.flush(true)
@@ -1015,7 +1031,7 @@ export class Overmind<
         } else {
           const target = path.reduce((aggr: any, key) => {
             if (!(aggr as any)[key]) {
-              (aggr as any)[key] = {}
+              ;(aggr as any)[key] = {}
             }
 
             return (aggr as any)[key]

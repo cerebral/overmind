@@ -75,7 +75,9 @@ const Tabs: React.FunctionComponent = () => {
             onClick={() => actions.changeTab(Tab.Actions)}
             style={{
               opacity:
-                state.currentApp && state.currentTab === Tab.Actions ? 1 : undefined,
+                state.currentApp && state.currentTab === Tab.Actions
+                  ? 1
+                  : undefined,
             }}
           >
             <FaCogs />

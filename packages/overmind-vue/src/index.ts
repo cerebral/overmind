@@ -8,7 +8,11 @@ const IS_PRODUCTION = ENVIRONMENT === 'production'
 
 let nextComponentId = 0
 
-function createMixin(overmind: Overmind<any>, propsCallback: ((context: any) => any) | null | Function, trackPropsCallback = false) {
+function createMixin(
+  overmind: Overmind<any>,
+  propsCallback: ((context: any) => any) | null | Function,
+  trackPropsCallback = false
+) {
   const componentId = nextComponentId++
   let componentInstanceId = 0
 

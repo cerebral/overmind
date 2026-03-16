@@ -28,7 +28,8 @@ const RuntimeConfig: React.FunctionComponent = () => {
       if (effects.platform.isElectron()) {
         window.electronAPI!.setNewPort(newPort)
       } else if (effects.platform.isVSCodeExtension()) {
-        const vscode = (window as any).vscode || (window as any).acquireVsCodeApi()
+        const vscode =
+          (window as any).vscode || (window as any).acquireVsCodeApi()
         vscode.postMessage({
           command: 'newPort',
           text: newPort,

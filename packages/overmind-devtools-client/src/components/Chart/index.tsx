@@ -149,7 +149,9 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                           (onKey) => {
                             let target: string | undefined
                             if (nestedChart.states[key].on![onKey]) {
-                              const onValue = nestedChart.states[key].on![onKey] as any
+                              const onValue = nestedChart.states[key].on![
+                                onKey
+                              ] as any
                               target = onValue.target || onValue
                             }
                             return (
