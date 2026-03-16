@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useAppState, useActions } from '../../overmind'
 import { getAppShortName, nameToColor } from '../../overmind/utils'
 import * as styles from './styles'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 
 const Apps: React.FunctionComponent = () => {
   const state = useAppState()

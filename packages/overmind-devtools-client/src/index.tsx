@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { injectGlobal } from 'emotion'
+import { injectGlobal } from '@emotion/css'
 import { createOvermind } from 'overmind'
 import { Provider } from 'overmind-react'
 import { createRoot } from 'react-dom/client'

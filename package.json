@@ -28,7 +28,7 @@
     "color-hash": "2.0.2",
     "electron": "35.7.5",
     "electron-json-storage": "4.6.0",
-    "emotion": "9.2.12",
+    "@emotion/css": "11.13.5",
     "graphql": "16.13.1",
     "graphql-request": "5.1.0",
     "graphql-tag": "2.12.6",

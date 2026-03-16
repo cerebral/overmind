@@ -1,4 +1,4 @@
-import { css, keyframes } from 'emotion'
+import { css, keyframes } from '@emotion/css'
 import { colors } from '../../theme'
 
 export const operator = css({
