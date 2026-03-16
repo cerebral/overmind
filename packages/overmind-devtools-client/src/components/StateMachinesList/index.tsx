@@ -2,7 +2,7 @@ import * as React from 'react'
 import { FaChevronDown } from 'react-icons/fa'
 import { useAppState, useActions } from '../../overmind'
 import * as styles from './styles'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import { nameToColor } from '../../overmind/utils'
 
 const StateMachinesList: React.FunctionComponent = () => {

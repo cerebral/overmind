@@ -1,4 +1,4 @@
-import { css, injectGlobal } from 'emotion'
+import { css, injectGlobal } from '@emotion/css'
 import { colors } from '../../../theme'
 
 injectGlobal`
