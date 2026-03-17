@@ -102,7 +102,7 @@ export function pipe(...operators: any[]) {
         try {
           operatorToRun(operatorErr, operatorContext, run, final)
         } catch (operatorError) {
-          operatorToRun(operatorErr, operatorContext, run, final)
+          run(operatorError, operatorContext)
         }
       }
 
@@ -214,7 +214,7 @@ export function branch(...operators: any[]) {
         try {
           operatorToRun(operatorErr, operatorContext, run, final)
         } catch (operatorError) {
-          operatorToRun(operatorErr, operatorContext, run, final)
+          run(operatorError, operatorContext)
         }
       }
 
