@@ -19,7 +19,7 @@ export function createMixin<Config extends IConfiguration>(
   let nextComponentInstanceId = 0
   let currentFlushId = 0
 
-  const subscribe = (listener) => {
+  const subscribe = (listener: (state: any) => void) => {
     const tree = (overmind as any).proxyStateTreeInstance.getTrackStateTree()
     const componentInstanceId = nextComponentInstanceId++
     let isUpdating = false

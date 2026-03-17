@@ -481,7 +481,7 @@ describe('OPERATORS', () => {
     expect.assertions(1)
     const increaseCount = pipe(({ state }: Context) => state.runCount++)
     const test = pipe(
-      waitUntil((state: Context['state']) => state.runCount === 1),
+      waitUntil((state: any) => state.runCount === 1),
       ({ state }: Context) => (state.hasRun = true)
     )
     const state = {

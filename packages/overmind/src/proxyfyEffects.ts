@@ -1,6 +1,6 @@
 export const doNotProxy = Symbol('doNotProxy')
 
-function isObject(value) {
+function isObject(value: any) {
   return typeof value === 'object' && !Array.isArray(value) && value !== null
 }
 
@@ -9,7 +9,7 @@ let currentEffectId = 0
 const ORIGIN_TARGET = Symbol('ORIGIN_TARGET')
 export function proxifyEffects<Effects>(
   effects: Effects,
-  cb: (effect) => void,
+  cb: (effect: any) => void,
   path: string = ''
 ): Effects {
   if (!isObject(effects) && !(typeof effects === 'function')) {

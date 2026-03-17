@@ -26,7 +26,7 @@ export class MutationTree<T extends object, D> implements IMutationTree<T, D> {
 
   trackPaths() {
     const paths = new Set<string>()
-    const listener = (path) => {
+    const listener = (path: string) => {
       paths.add(path)
     }
     this.trackPathListeners.push(listener)

@@ -11,10 +11,10 @@ const app = {
     count: 0,
   },
   actions: {
-    increase({ state }) {
+    increase({ state }: any) {
       state.count++
     },
-    decrease({ state }) {
+    decrease({ state }: any) {
       state.count--
     },
   },

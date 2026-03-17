@@ -75,7 +75,9 @@ const Tabs: React.FunctionComponent = () => {
             onClick={() => actions.changeTab(Tab.Actions)}
             style={{
               opacity:
-                state.currentApp && state.currentTab === Tab.Actions ? 1 : null,
+                state.currentApp && state.currentTab === Tab.Actions
+                  ? 1
+                  : undefined,
             }}
           >
             <FaCogs />
@@ -84,7 +86,7 @@ const Tabs: React.FunctionComponent = () => {
           <span
             className={styles.actionsCount}
             style={{
-              backgroundColor: state.hasActionsError ? colors.red : null,
+              backgroundColor: state.hasActionsError ? colors.red : undefined,
             }}
             onClick={() =>
               !state.isConnecting && actions.changeTab(Tab.Actions)

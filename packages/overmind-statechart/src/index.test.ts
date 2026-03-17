@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { IContext, createOvermind } from 'overmind'
 
 import { Statechart, statechart } from './'

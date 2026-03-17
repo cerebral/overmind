@@ -23,7 +23,7 @@ export function action<T extends OperatorContextFunction<any, any>>(
         if (isPromise(result)) {
           next(
             null,
-            result.then((resolvedValue) => resolvedValue)
+            result.then((resolvedValue: any) => resolvedValue)
           )
         } else {
           next(null, result)
@@ -33,7 +33,7 @@ export function action<T extends OperatorContextFunction<any, any>>(
   )
 }
 
-export function operatorStarted(type, arg, context) {
+export function operatorStarted(type: any, arg: any, context: any) {
   if (process.env.NODE_ENV === 'production') {
     return
   }
@@ -49,8 +49,8 @@ export function operatorStarted(type, arg, context) {
 }
 
 export function operatorStopped(
-  context,
-  value,
+  context: any,
+  value: any,
   details: {
     error?: Error
     isIntercepted?: boolean
@@ -98,7 +98,7 @@ export function operatorStopped(
   }
 }
 
-export function createContext(context, value, path?) {
+export function createContext(context: any, value: any, path?: any) {
   if (process.env.NODE_ENV === 'production') {
     return {
       ...context,
@@ -117,8 +117,8 @@ export function createContext(context, value, path?) {
     ...context,
     actions: createActionsProxy(
       context.actions[ORIGINAL_ACTIONS] || context.actions,
-      (action) => {
-        return (value) =>
+      (action: any) => {
+        return (value: any) =>
           action(value, newExecution.isRunning ? newExecution : null)
       }
     ),
@@ -127,18 +127,18 @@ export function createContext(context, value, path?) {
     effects: context.execution.trackEffects(newExecution),
     flush: context.parentExecution
       ? context.parentExecution.flush
-      : (isAsync?: boolean) => {
+      : function (this: any, isAsync?: boolean) {
           return this.proxyStateTree.flush(mutationTrees, isAsync)
         },
     getMutationTree: context.parentExecution
       ? context.parentExecution.getMutationTree
-      : () => {
+      : function (this: any) {
           const mutationTree = this.proxyStateTree.getMutationTree()
 
           mutationTrees.push(mutationTree)
 
           if (this.mode.mode === MODE_TEST) {
-            mutationTree.onMutation((mutation) => {
+            mutationTree.onMutation((mutation: any) => {
               this.addExecutionMutation(mutation)
             })
           }
@@ -147,12 +147,12 @@ export function createContext(context, value, path?) {
   }
 }
 
-export function createNextPath(next) {
+export function createNextPath(next: any) {
   if (process.env.NODE_ENV === 'production') {
     return next
   }
 
-  return (err, context) => {
+  return (err: any, context: any) => {
     const newContext = {
       ...context,
       execution: {
@@ -186,7 +186,7 @@ export function createOperator<ThisConfig extends IConfiguration>(
     final: (err: Error | null, value: any) => void
   ) => any
 ): any {
-  const operator = (err, context, next, final) => {
+  const operator = (err: any, context: any, next: any, final: any) => {
     operatorStarted(type, name, context)
     let nextIsCalled = false
     try {
@@ -202,8 +202,8 @@ export function createOperator<ThisConfig extends IConfiguration>(
           reaction: context.reaction,
         },
         context.value,
-        (err, value, options = {}) => {
-          function run(err, value) {
+        (err: any, value: any, options: any = {}) => {
+          function run(err: any, value: any) {
             if (options.path) {
               const newContext = createContext(
                 context,
@@ -215,7 +215,7 @@ export function createOperator<ThisConfig extends IConfiguration>(
               const operatorToRun = options.path.operator[IS_OPERATOR]
                 ? options.path.operator
                 : action(options.path.operator as any)
-              operatorToRun(err, newContext, (...args) => {
+              operatorToRun(err, newContext, (...args: any[]) => {
                 operatorStopped(context, args[1].value)
                 nextWithPath(...args)
               })
@@ -236,7 +236,7 @@ export function createOperator<ThisConfig extends IConfiguration>(
             run(err, value)
           }
         },
-        (err, value) => {
+        (err: any, value: any) => {
           nextIsCalled = true
           operatorStopped(context, err || value, {
             isSkipped: Boolean(err),
@@ -248,9 +248,9 @@ export function createOperator<ThisConfig extends IConfiguration>(
     } catch (error) {
       nextIsCalled = true
       operatorStopped(context, context.value, {
-        error,
+        error: error as Error,
       })
-      next(error, createContext(context, context.value))
+      next(error as Error, createContext(context, context.value))
     }
 
     if (!nextIsCalled) {
@@ -284,11 +284,11 @@ export function createMutationOperator<ThisConfig extends IConfiguration>(
     final: (err: Error | null, value: any) => void
   ) => any
 ): any {
-  const operator = (err, context, next, final) => {
+  const operator = (err: any, context: any, next: any, final: any) => {
     operatorStarted(type, name, context)
     const mutationTree = context.execution.getMutationTree()
     if (!(process.env.NODE_ENV === 'production')) {
-      mutationTree.onMutation((mutation) => {
+      mutationTree.onMutation((mutation: any) => {
         context.execution.emit(EventType.MUTATIONS, {
           ...context.execution,
           mutations: [mutation],
@@ -311,8 +311,8 @@ export function createMutationOperator<ThisConfig extends IConfiguration>(
         process.env.NODE_ENV === 'production'
           ? context.value
           : context.execution.scopeValue(context.value, mutationTree),
-        (err, value, options = {}) => {
-          function run(err, value) {
+        (err: any, value: any, options: any = {}) => {
+          function run(err: any, value: any) {
             operatorStopped(context, err || value, {
               isSkipped: err ? true : options.isSkipped,
             })
@@ -329,7 +329,7 @@ export function createMutationOperator<ThisConfig extends IConfiguration>(
             run(err, value)
           }
         },
-        (err, value) => {
+        (err: any, value: any) => {
           nextIsCalled = true
           operatorStopped(context, err || value, {
             isSkipped: Boolean(err),
@@ -340,7 +340,7 @@ export function createMutationOperator<ThisConfig extends IConfiguration>(
       )
 
       if (!(process.env.NODE_ENV === 'production')) {
-        let pendingFlush
+        let pendingFlush: any
         mutationTree.onMutation(() => {
           if (pendingFlush) {
             clearTimeout(pendingFlush)
@@ -364,9 +364,9 @@ export function createMutationOperator<ThisConfig extends IConfiguration>(
     } catch (error) {
       nextIsCalled = true
       operatorStopped(context, context.value, {
-        error,
+        error: error as Error,
       })
-      next(error, createContext(context, context.value))
+      next(error as Error, createContext(context, context.value))
     }
 
     if (!nextIsCalled) {

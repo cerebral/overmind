@@ -42,7 +42,7 @@ describe('Config', () => {
           foo: 'bar',
         },
         actions: {
-          returnStateFromB({ state }) {
+          returnStateFromB({ state }: any) {
             return state.configB.bar
           },
         },
@@ -56,7 +56,7 @@ describe('Config', () => {
     const merged = merge(
       {
         actions: {
-          loadConfigB: ({ actions }) => {
+          loadConfigB: ({ actions }: any) => {
             return actions.lazy.loadConfig('configB')
           },
         },
@@ -110,7 +110,7 @@ describe('Config', () => {
         foo: 'bar',
       },
       actions: {
-        changeFoo(context) {
+        changeFoo(context: any) {
           context.state.config.foo = 'bar2'
         },
       },

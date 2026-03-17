@@ -2,7 +2,7 @@ import isPlainObject from 'is-plain-obj'
 
 import { IConfiguration } from '../'
 
-function copy(target, source) {
+function copy(target: any, source: any) {
   return Object.keys(source).reduce((aggr, key) => {
     if (key === '__esModule') {
       return aggr

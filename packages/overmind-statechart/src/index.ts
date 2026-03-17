@@ -32,7 +32,7 @@ interface Statecharts {
   [id: string]: Statechart<any, any>
 }
 
-function isRootChart(chart) {
+function isRootChart(chart: any): boolean {
   return 'initial' in chart && 'states' in chart
 }
 
@@ -41,24 +41,25 @@ function forceNestedCharts(charts: Statecharts | Statechart<any, any>) {
     charts = { [CHART]: charts } as Statecharts
   }
 
-  return Object.keys(charts).reduce((aggr, chartKey) => {
+  return Object.keys(charts).reduce<Record<string, any>>((aggr, chartKey) => {
     aggr[chartKey] = {
-      ...charts[chartKey],
-      states: Object.keys(charts[chartKey].states).reduce(
-        (statesAggr, stateKey) => {
-          if (charts[chartKey].states[stateKey].chart) {
-            statesAggr[stateKey] = {
-              ...charts[chartKey].states[stateKey],
-              chart: forceNestedCharts(charts[chartKey].states[stateKey].chart),
-            }
-          } else {
-            statesAggr[stateKey] = charts[chartKey].states[stateKey]
+      ...(charts as any)[chartKey],
+      states: Object.keys((charts as any)[chartKey].states).reduce<
+        Record<string, any>
+      >((statesAggr, stateKey) => {
+        if ((charts as any)[chartKey].states[stateKey].chart) {
+          statesAggr[stateKey] = {
+            ...(charts as any)[chartKey].states[stateKey],
+            chart: forceNestedCharts(
+              (charts as any)[chartKey].states[stateKey].chart
+            ),
           }
+        } else {
+          statesAggr[stateKey] = (charts as any)[chartKey].states[stateKey]
+        }
 
-          return statesAggr
-        },
-        {}
-      ),
+        return statesAggr
+      }, {}),
     }
 
     return aggr
@@ -117,15 +118,15 @@ function getActionTransitions(
   return transitions
 }
 
-function getCanTransitionActions(actions, charts, state) {
-  return Object.keys(actions || {}).reduce((aggr, key) => {
+function getCanTransitionActions(actions: any, charts: any, state: any) {
+  return Object.keys(actions || {}).reduce<Record<string, any>>((aggr, key) => {
     aggr[key] = Boolean(getActionTransitions(key, charts, state).length)
 
     return aggr
   }, {})
 }
 
-function getMatchPaths(matches, paths: Array<string[]> = [[]]) {
+function getMatchPaths(matches: any, paths: Array<string[]> = [[]]) {
   const initialPath = paths[paths.length - 1].slice()
 
   Object.keys(matches).forEach((matchKey, index) => {
@@ -208,12 +209,12 @@ function createNewStatePath(
   return newStatePath
 }
 
-function getTarget(source, path) {
-  return path.reduce((aggr, key) => aggr[key], source)
+function getTarget(source: any, path: any[]): any {
+  return path.reduce((aggr: any, key: any) => aggr[key], source)
 }
 
-function getStateTarget(charts, path) {
-  return path.reduce((aggr, key, index) => {
+function getStateTarget(charts: any, path: any[]): any {
+  return path.reduce((aggr: any, key: any, index: number) => {
     const isChart = index % 2
 
     if (!isChart) {
@@ -259,7 +260,7 @@ export function statechart<
   actions: C['actions']
   effects: C['effects']
 } {
-  let currentInstance
+  let currentInstance: any
 
   const charts = forceNestedCharts(chartDefinition)
   const actions = config.actions || {}
@@ -295,7 +296,7 @@ export function statechart<
 
   const initialActions = {
     [ACTIONS]: copiedActions,
-    onInitializeOvermind: (async (context, instance) => {
+    onInitializeOvermind: (async (context: any, instance: any) => {
       if (onInitializeOvermindAction) {
         await onInitializeOvermindAction(context, instance)
       }
@@ -313,12 +314,12 @@ export function statechart<
       const statePaths = stateTarget.states.slice()
 
       // Run entry actions of initial state
-      statePaths.forEach((statePath) => {
+      statePaths.forEach((statePath: any) => {
         const state = statePath.slice()
         while (state.length) {
           const target = getStateTarget(charts, state)
 
-          if (config.actions && config.actions[target.entry]) {
+          if (config.actions && (config.actions as any)[target.entry]) {
             actionsTarget[ACTIONS][target.entry](context)
           }
 
@@ -350,17 +351,17 @@ export function statechart<
       actions: derived((state) =>
         getCanTransitionActions(copiedActions, charts, state)
       ) as any,
-      matches: derived((state: any) => (match) => {
+      matches: derived((state: any) => (match: any) => {
         const matchPaths = getMatchPaths(match)
-        const statesWithoutRootChartIndicator = state.states.map((statePath) =>
-          statePath.filter((path) => path !== CHART)
+        const statesWithoutRootChartIndicator = state.states.map(
+          (statePath: any) => statePath.filter((path: any) => path !== CHART)
         )
 
         for (let x = 0; x < matchPaths.length; x++) {
           const matchPath = matchPaths[x]
           const shouldMatch = matchPath.reduce((aggr, key) => aggr[key], match)
           const hasMatch = statesWithoutRootChartIndicator.reduce(
-            (aggr, statePath) => {
+            (aggr: any, statePath: any) => {
               if (aggr) {
                 return aggr
               }
@@ -384,180 +385,183 @@ export function statechart<
         return true
       }),
     }),
-    actions: Object.keys(copiedActions).reduce((aggr, key) => {
-      aggr[key] = pipe(
-        function getTransition({ state, execution }: any, payload) {
-          const stateTarget = getTarget(state, execution.namespacePath)
-          const canTransition = stateTarget.actions[key]
-          if (currentTransitionAction && !canTransition) {
-            console.warn(
-              `Overmind Statecharts: Transition action "${currentTransitionAction}" is calling transition action "${key}" synchronously. The previous transition is not done yet and "${key}" will be ignored. Consider calling it asynchronously `
-            )
-          } else if (!canTransition && ENVIRONMENT === 'development') {
-            console.warn(
-              `You tried to call action "${key}", but it was blocked by the statechart. You are not supposed to call this action in the current state of the chart. This warning only appear during development`
-            )
-          }
-
-          return {
-            canTransition,
-            payload,
-          }
-        },
-        filter(function canTransition(_, payload) {
-          return payload.canTransition
-        }),
-        function runAction(context: any, { payload }) {
-          const stateTarget = getTarget(
-            context.state,
-            context.execution.namespacePath
-          )
-          const actionsTarget = getTarget(
-            context.actions,
-            context.execution.namespacePath
-          )
-          const transitionActions = getActionTransitions(
-            key,
-            charts,
-            stateTarget
-          )
-
-          // If there are no new transition target, just drop moving on, just run the action
-          if (
-            !transitionActions.some(
-              (transitionAction) => transitionAction.target
-            )
-          ) {
-            if (config.actions) {
-              return actionsTarget[ACTIONS][key](payload)
+    actions: Object.keys(copiedActions).reduce<Record<string, any>>(
+      (aggr, key) => {
+        aggr[key] = pipe(
+          function getTransition({ state, execution }: any, payload) {
+            const stateTarget = getTarget(state, execution.namespacePath)
+            const canTransition = stateTarget.actions[key]
+            if (currentTransitionAction && !canTransition) {
+              console.warn(
+                `Overmind Statecharts: Transition action "${currentTransitionAction}" is calling transition action "${key}" synchronously. The previous transition is not done yet and "${key}" will be ignored. Consider calling it asynchronously `
+              )
+            } else if (!canTransition && ENVIRONMENT === 'development') {
+              console.warn(
+                `You tried to call action "${key}", but it was blocked by the statechart. You are not supposed to call this action in the current state of the chart. This warning only appear during development`
+              )
             }
-            return
-          }
 
-          const exitActions: string[] = []
-          const entryActions: string[] = []
-          const newStates: Array<string[]> = []
+            return {
+              canTransition,
+              payload,
+            }
+          },
+          filter(function canTransition(_, payload) {
+            return payload.canTransition
+          }),
+          function runAction(context: any, { payload }) {
+            const stateTarget = getTarget(
+              context.state,
+              context.execution.namespacePath
+            )
+            const actionsTarget = getTarget(
+              context.actions,
+              context.execution.namespacePath
+            )
+            const transitionActions = getActionTransitions(
+              key,
+              charts,
+              stateTarget
+            )
 
-          transitionActions.forEach((transitionAction) => {
-            // It is an action that does not cause a transition
-            if (!transitionAction.target) {
+            // If there are no new transition target, just drop moving on, just run the action
+            if (
+              !transitionActions.some(
+                (transitionAction) => transitionAction.target
+              )
+            ) {
+              if (config.actions) {
+                return actionsTarget[ACTIONS][key](payload)
+              }
               return
             }
 
-            const currentStatePath =
-              stateTarget.states[transitionAction.index].slice()
-            const stateTransitions = currentStatePath.map(() => null)
+            const exitActions: string[] = []
+            const entryActions: string[] = []
+            const newStates: Array<string[]> = []
 
-            // Build new transition path
-            while (currentStatePath.length) {
-              const target = getStateTarget(charts, currentStatePath)
-
-              // Collect the new transition state
-              if (target.on && target.on[key]) {
-                stateTransitions[currentStatePath.length - 1] =
-                  target.on[key].target || target.on[key]
+            transitionActions.forEach((transitionAction) => {
+              // It is an action that does not cause a transition
+              if (!transitionAction.target) {
+                return
               }
 
-              currentStatePath.pop()
-            }
+              const currentStatePath =
+                stateTarget.states[transitionAction.index].slice()
+              const stateTransitions = currentStatePath.map(() => null)
 
-            const newStatePath = createNewStatePath(
-              stateTarget.states,
-              stateTransitions,
-              charts,
-              transitionAction.index
-            )
+              // Build new transition path
+              while (currentStatePath.length) {
+                const target = getStateTarget(charts, currentStatePath)
 
-            // Go down old path and trigger exits where the state has changed
-            const traverseOldPath =
-              stateTarget.states[transitionAction.index].slice()
+                // Collect the new transition state
+                if (target.on && target.on[key]) {
+                  stateTransitions[currentStatePath.length - 1] =
+                    target.on[key].target || target.on[key]
+                }
 
-            while (traverseOldPath.length) {
-              const target = getStateTarget(charts, traverseOldPath)
-
-              if (
-                target.exit &&
-                newStatePath[traverseOldPath.length - 1] !==
-                  traverseOldPath[traverseOldPath.length - 1]
-              ) {
-                exitActions.push(target.exit)
+                currentStatePath.pop()
               }
 
-              traverseOldPath.pop()
-            }
-
-            newStates.push(newStatePath.slice())
-
-            // Go down new path and trigger any entry on new states
-            const traverseNewPath = newStatePath.slice()
-            while (traverseNewPath.length) {
-              const target = getStateTarget(charts, traverseNewPath)
-
-              if (
-                target.entry &&
-                newStatePath[traverseNewPath.length - 1] !==
-                  stateTarget.states[transitionAction.index][
-                    traverseNewPath.length - 1
-                  ]
-              ) {
-                entryActions.push(target.entry)
-              }
-
-              traverseNewPath.pop()
-            }
-          })
-
-          // Run exits
-          exitActions.forEach((exitAction) => {
-            if (config.actions) {
-              actionsTarget[ACTIONS][exitAction](payload)
-            }
-          })
-
-          currentTransitionAction = key
-          let actionResult
-          if (config.actions) {
-            actionResult = actionsTarget[ACTIONS][key](payload)
-          }
-
-          currentTransitionAction = null
-
-          // Transition to new state
-          stateTarget.states = newStates
-
-          // Run entry actions
-          entryActions.forEach((entryAction) => {
-            if (config.actions) {
-              actionsTarget[ACTIONS][entryAction](payload)
-            }
-          })
-
-          if (
-            ENVIRONMENT === 'development' &&
-            currentInstance &&
-            currentInstance.devtools
-          ) {
-            currentInstance.devtools.send({
-              type: 'chart',
-              data: {
-                path: context.execution.namespacePath,
-                states: stateTarget.states,
+              const newStatePath = createNewStatePath(
+                stateTarget.states,
+                stateTransitions,
                 charts,
-                actions: getCanTransitionActions(
-                  config.actions,
-                  charts,
-                  stateTarget
-                ),
-              },
+                transitionAction.index
+              )
+
+              // Go down old path and trigger exits where the state has changed
+              const traverseOldPath =
+                stateTarget.states[transitionAction.index].slice()
+
+              while (traverseOldPath.length) {
+                const target = getStateTarget(charts, traverseOldPath)
+
+                if (
+                  target.exit &&
+                  newStatePath[traverseOldPath.length - 1] !==
+                    traverseOldPath[traverseOldPath.length - 1]
+                ) {
+                  exitActions.push(target.exit)
+                }
+
+                traverseOldPath.pop()
+              }
+
+              newStates.push(newStatePath.slice())
+
+              // Go down new path and trigger any entry on new states
+              const traverseNewPath = newStatePath.slice()
+              while (traverseNewPath.length) {
+                const target = getStateTarget(charts, traverseNewPath)
+
+                if (
+                  target.entry &&
+                  newStatePath[traverseNewPath.length - 1] !==
+                    stateTarget.states[transitionAction.index][
+                      traverseNewPath.length - 1
+                    ]
+                ) {
+                  entryActions.push(target.entry)
+                }
+
+                traverseNewPath.pop()
+              }
             })
+
+            // Run exits
+            exitActions.forEach((exitAction) => {
+              if (config.actions) {
+                actionsTarget[ACTIONS][exitAction](payload)
+              }
+            })
+
+            currentTransitionAction = key
+            let actionResult
+            if (config.actions) {
+              actionResult = actionsTarget[ACTIONS][key](payload)
+            }
+
+            currentTransitionAction = null
+
+            // Transition to new state
+            stateTarget.states = newStates
+
+            // Run entry actions
+            entryActions.forEach((entryAction) => {
+              if (config.actions) {
+                actionsTarget[ACTIONS][entryAction](payload)
+              }
+            })
+
+            if (
+              ENVIRONMENT === 'development' &&
+              currentInstance &&
+              currentInstance.devtools
+            ) {
+              currentInstance.devtools.send({
+                type: 'chart',
+                data: {
+                  path: context.execution.namespacePath,
+                  states: stateTarget.states,
+                  charts,
+                  actions: getCanTransitionActions(
+                    config.actions,
+                    charts,
+                    stateTarget
+                  ),
+                },
+              })
+            }
+
+            return actionResult
           }
+        )
 
-          return actionResult
-        }
-      )
-
-      return aggr
-    }, initialActions),
+        return aggr
+      },
+      initialActions
+    ),
     effects: config.effects || {},
   }
 }

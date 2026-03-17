@@ -332,7 +332,7 @@ describe('Statemachine', () => {
     const config = {
       state,
       actions: {
-        changeFoo({ state }) {
+        changeFoo({ state }: any) {
           state.obj.foo = 'bar2'
         },
       },

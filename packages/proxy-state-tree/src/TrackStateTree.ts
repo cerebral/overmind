@@ -23,7 +23,7 @@ export class TrackStateTree<T extends object, D> implements ITrackStateTree<
 
   trackPaths() {
     const paths = new Set<string>()
-    const listener = (path) => {
+    const listener = (path: string) => {
       paths.add(path)
     }
     this.trackPathListeners.push(listener)

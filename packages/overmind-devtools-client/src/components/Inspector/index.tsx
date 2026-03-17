@@ -88,7 +88,7 @@ function renderValue({
 
 type PathKeyProps = {
   path: string
-  onClickPath: (path: string[]) => void
+  onClickPath?: (path: string[]) => void
   onToggleExpand?: (path: string[]) => void
   disabled: boolean
   delimiter: string
@@ -106,11 +106,11 @@ const PathKey: React.FunctionComponent<PathKeyProps> = ({
       className={styles.key}
       onClick={
         disabled
-          ? null
+          ? undefined
           : (event) => {
               event.stopPropagation()
               if (event.metaKey || event.ctrlKey) {
-                onClickPath(path.split(delimiter))
+                onClickPath?.(path.split(delimiter))
               } else if (onToggleExpand) {
                 onToggleExpand(path.split(delimiter))
               }
@@ -124,7 +124,7 @@ const PathKey: React.FunctionComponent<PathKeyProps> = ({
 
 type EditValueProps = {
   value: any
-  onSubmit: (newState: string) => void
+  onSubmit?: (newState: string) => void
 }
 
 const EditValue: React.FunctionComponent<EditValueProps> = ({
@@ -146,12 +146,12 @@ const EditValue: React.FunctionComponent<EditValueProps> = ({
           onChange={(event) => setState(event.currentTarget.value)}
           onKeyDown={(event) => {
             if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
-              onSubmit(state)
+              onSubmit?.(state)
             }
           }}
           className={styles.newState}
           style={{
-            borderColor: isValid ? null : colors.red,
+            borderColor: isValid ? undefined : colors.red,
           }}
         />
         <span className={styles.ok}>CMD/CTRL + ENTER to save</span>
@@ -164,7 +164,7 @@ type NestedProps = {
   startBracket: string
   endBracket: string
   expandedPaths: string[]
-  renderPaths: RenderPaths
+  renderPaths?: RenderPaths
   delimiter: string
   path: string
   hasWrapper: boolean
@@ -172,8 +172,8 @@ type NestedProps = {
   value: any
   onToggleExpand: (path: string[]) => void
   onClickPath?: (path: string[]) => void
-  selectedStatePath: string
-  onSubmitState: (newState: string) => void
+  selectedStatePath?: string
+  onSubmitState?: (newState: string) => void
 }
 
 const Nested: React.FunctionComponent<NestedProps> = React.memo(
@@ -209,7 +209,7 @@ const Nested: React.FunctionComponent<NestedProps> = React.memo(
           ) : null}
           <EditValue
             value={isClass ? value.value : value}
-            onSubmit={onSubmitState}
+            onSubmit={onSubmitState!}
           />
         </div>
       )
@@ -336,8 +336,8 @@ type ValueComponentProps = {
   hasWrapper: boolean
   onClickPath?: (path: string[]) => void
   delimiter: string
-  selectedStatePath: string
-  onSubmitState: (newState: string) => void
+  selectedStatePath?: string
+  onSubmitState?: (newState: string) => void
 }
 
 const ValueComponent: React.FunctionComponent<ValueComponentProps> = React.memo(
@@ -358,7 +358,7 @@ const ValueComponent: React.FunctionComponent<ValueComponentProps> = React.memo(
           {path.length ? (
             <span className={styles.key}>{path.split(delimiter).pop()}:</span>
           ) : null}
-          <EditValue value={value} onSubmit={onSubmitState} />
+          <EditValue value={value} onSubmit={onSubmitState!} />
         </div>
       )
     }

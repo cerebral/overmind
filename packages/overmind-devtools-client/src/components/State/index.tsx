@@ -26,7 +26,7 @@ const State: React.FunctionComponent = () => {
   const actions = useActions()
 
   React.useEffect(() => {
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.keyCode === 27) {
         actions.undoSettingState()
       }
@@ -56,7 +56,7 @@ const State: React.FunctionComponent = () => {
             Object.keys(state.currentApp.derived || {}).reduce(
               (aggr, key) =>
                 Object.assign(aggr, {
-                  [key]: (children) => (
+                  [key]: (children: React.ReactNode) => (
                     <DerivedWrapper key={key}>{children}</DerivedWrapper>
                   ),
                 }),

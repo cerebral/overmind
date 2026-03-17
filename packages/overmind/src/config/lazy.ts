@@ -51,7 +51,7 @@ export function lazy<T extends LazyConfiguration>(
   return {
     actions: {
       lazy: {
-        loadConfig({ state, execution, addNamespace }, key) {
+        loadConfig({ state, execution, addNamespace }: any, key: any) {
           const configToLoad = configurations[key]
           const namespacePath = execution.namespacePath
             .slice(0, execution.namespacePath.length - 1)

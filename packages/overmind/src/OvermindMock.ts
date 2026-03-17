@@ -59,14 +59,20 @@ export function createOvermindMock<Config extends IConfiguration>(
         effectsCallback: (effect) => {
           const mockedEffect = (
             effect.name ? effect.name.split('.') : []
-          ).reduce((aggr, key) => (aggr ? aggr[key] : aggr), mockedEffects)
+          ).reduce(
+            (aggr, key) => (aggr ? (aggr as any)[key] : aggr),
+            mockedEffects
+          )
 
-          if (!mockedEffect || (mockedEffect && !mockedEffect[effect.method])) {
+          if (
+            !mockedEffect ||
+            (mockedEffect && !(mockedEffect as any)[effect.method])
+          ) {
             throw new Error(
               `The effect "${effect.name}" with method ${effect.method} has not been mocked`
             )
           }
-          return mockedEffect[effect.method](...effect.args)
+          return (mockedEffect as any)[effect.method](...effect.args)
         },
       },
     } as internalTypes.TestMode

@@ -18,7 +18,7 @@ const Button: React.FunctionComponent<Props> = ({
     className={styles.button}
     type={type}
     disabled={disabled}
-    onClick={onClick ? () => onClick() : null}
+    onClick={onClick ? () => onClick() : undefined}
   >
     {children}
   </button>

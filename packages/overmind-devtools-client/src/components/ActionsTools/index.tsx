@@ -23,7 +23,9 @@ const ActionsTools: React.FunctionComponent = () => {
       <ActionPayload />
       <div
         className={styles.button}
-        onClick={state.isExecutingAction ? null : () => actions.executeAction()}
+        onClick={
+          state.isExecutingAction ? undefined : () => actions.executeAction()
+        }
         style={{
           backgroundColor:
             !state.isExecutingAction && state.currentApp.selectedActionQuery

@@ -54,9 +54,9 @@ export const ZoomProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Set up Electron IPC listeners
     if (effects.platform.isElectron()) {
-      window.electronAPI.onZoomIn(zoomIn)
-      window.electronAPI.onZoomOut(zoomOut)
-      window.electronAPI.onZoomReset(resetZoom)
+      window.electronAPI!.onZoomIn(zoomIn)
+      window.electronAPI!.onZoomOut(zoomOut)
+      window.electronAPI!.onZoomReset(resetZoom)
     }
 
     return () => {
