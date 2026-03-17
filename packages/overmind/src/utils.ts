@@ -6,10 +6,12 @@ import { deepCopy, StateMachine } from './statemachine'
 export { deepCopy } from './statemachine'
 
 export const createOnInitialize = () => {
-  return ({ actions }, instance) => {
+  return ({ actions }: any, instance: any) => {
     const initializers = getActionsByName('onInitializeOvermind', actions)
 
-    return Promise.all(initializers.map((initialize) => initialize(instance)))
+    return Promise.all(
+      initializers.map((initialize: any) => initialize(instance))
+    )
   }
 }
 
@@ -45,7 +47,7 @@ export class MockedEventEmitter {
 }
 
 export const json = <T>(obj: T): T => {
-  return deepCopy(obj && obj[IS_PROXY] ? obj[VALUE] : obj)
+  return deepCopy(obj && (obj as any)[IS_PROXY] ? (obj as any)[VALUE] : obj)
 }
 
 export function isPromise(maybePromise: any) {
@@ -71,10 +73,10 @@ export function processState(state: {}) {
         return aggr
       }
 
-      const value = state[key]
+      const value = (state as any)[key]
 
       if (isPlainObject(value)) {
-        aggr[key] = processState(value)
+        ;(aggr as any)[key] = processState(value)
       } else {
         Object.defineProperty(aggr, key, originalDescriptor as any)
       }
@@ -112,12 +114,20 @@ export function getChangeMutations(
   })
 
   stateBKeys.forEach((key) => {
-    if (isPlainObject(stateA[key]) && isPlainObject(stateB[key])) {
-      getChangeMutations(stateA[key], stateB[key], path.concat(key), mutations)
-    } else if (stateA[key] !== stateB[key]) {
+    if (
+      isPlainObject((stateA as any)[key]) &&
+      isPlainObject((stateB as any)[key])
+    ) {
+      getChangeMutations(
+        (stateA as any)[key],
+        (stateB as any)[key],
+        path.concat(key),
+        mutations
+      )
+    } else if ((stateA as any)[key] !== (stateB as any)[key]) {
       mutations.push({
         delimiter: getChangeMutationsDelimiter,
-        args: [stateB[key]],
+        args: [(stateB as any)[key]],
         path: path.concat(key).join('.'),
         hasChangedValue: false,
         method: 'set',
@@ -132,29 +142,31 @@ export function getActionsByName(
   name: string,
   actions = {},
   currentPath: string[] = []
-) {
+): any {
   return Object.keys(actions).reduce<string[]>((aggr, key) => {
-    if (typeof actions[key] === 'function' && key === name) {
-      return aggr.concat(actions[key])
+    if (typeof (actions as any)[key] === 'function' && key === name) {
+      return aggr.concat((actions as any)[key])
     }
 
     return aggr.concat(
-      getActionsByName(name, actions[key], currentPath.concat(key))
+      getActionsByName(name, (actions as any)[key], currentPath.concat(key))
     )
   }, [])
 }
 
-export function getActionPaths(actions = {}, currentPath: string[] = []) {
+export function getActionPaths(actions = {}, currentPath: string[] = []): any {
   return Object.keys(actions).reduce<string[]>((aggr, key) => {
-    if (typeof actions[key] === 'function') {
+    if (typeof (actions as any)[key] === 'function') {
       return aggr.concat(currentPath.concat(key).join('.'))
     }
 
-    return aggr.concat(getActionPaths(actions[key], currentPath.concat(key)))
+    return aggr.concat(
+      getActionPaths((actions as any)[key], currentPath.concat(key))
+    )
   }, [])
 }
 
-export function createActionsProxy(actions, cb) {
+export function createActionsProxy(actions: any, cb: any) {
   return new Proxy(actions, {
     get(target, prop) {
       if (prop === ORIGINAL_ACTIONS) {

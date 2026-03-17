@@ -227,7 +227,7 @@ export const setState = ({ state }: Context, path: string[]) => {
 }
 
 export const undoSettingState = ({ state }: Context) => {
-  state.currentApp.selectedStatePath = null
+  state.currentApp.selectedStatePath = null as any
 }
 
 export const submitState = ({ state, effects }: Context, newState: string) => {
@@ -241,7 +241,7 @@ export const submitState = ({ state, effects }: Context, newState: string) => {
     value: JSON.stringify(eval(`(function () { return ${newState} })()`)),
   })
 
-  state.currentApp.selectedStatePath = null
+  state.currentApp.selectedStatePath = null as any
 }
 
 export const toggleRuntimeConfig = ({ state }: Context) => {
@@ -299,7 +299,7 @@ export const updateChartsSplitSize = pipe(
 export const clearActions = ({ state }: Context) => {
   state.currentApp.actions = {}
   state.currentApp.actionsList = []
-  state.currentApp.currentActionId = null
+  state.currentApp.currentActionId = null as any
 }
 
 export const selectChart = ({ state }: Context, id: string) => {
@@ -389,7 +389,7 @@ export const startSplitPaneDrag = (
   state.splitPane.startPos = startPos
   state.splitPane.startSizes = [...sizes]
   state.splitPane.currentSizes = [...sizes]
-  state.splitPane.minSizes = minSizes
+  state.splitPane.minSizes = minSizes || []
   state.splitPane.splitType = split
 }
 

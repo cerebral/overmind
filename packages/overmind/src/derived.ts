@@ -17,9 +17,9 @@ export class Derived {
   private isDirty: boolean = true
   private previousProxifier: any
   private value: any
-  private paths: Set<string>
+  private paths!: Set<string>
   private updateCount: number = 0
-  private disposeOnMutation: () => void
+  private disposeOnMutation!: () => void
   constructor(private cb: (state: object, parent: object) => void) {
     const boundEvaluate: any = this.evaluate.bind(this)
 
@@ -34,10 +34,10 @@ export class Derived {
     return boundEvaluate
   }
 
-  private runScope(tree, path) {
+  private runScope(tree: any, path: any) {
     const parent = path
       .slice(0, path.length - 1)
-      .reduce((curr, key) => curr[key], tree.state)
+      .reduce((curr: any, key: any) => curr[key], tree.state)
 
     return this.cb(parent, tree.state)
   }
@@ -48,14 +48,14 @@ export class Derived {
       | ITrackStateTree<object, Devtools | undefined>
       | IMutationTree<object, Devtools | undefined>,
     proxyStateTree: ProxyStateTree<object, any>,
-    path
+    path: any
   ) {
     if (!this.disposeOnMutation) {
       this.disposeOnMutation = proxyStateTree.onMutation(
         (_, paths, flushId) => {
           if (
             typeof path.reduce(
-              (aggr, key) => aggr && aggr[key],
+              (aggr: any, key: any) => aggr && aggr[key],
               proxyStateTree.sourceState
             ) !== 'function'
           ) {

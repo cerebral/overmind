@@ -72,9 +72,9 @@ const state: State = {
   isShowingRuntime: false,
   isConnecting: true,
   isChangingPort: false,
-  error: null,
+  error: null as any,
   showApps: false,
-  currentAppName: null,
+  currentAppName: null as any,
   actionsSplitSize: 200,
   stateMachinesSplitSize: 250,
   chartsSplitSize: 200,
@@ -142,7 +142,7 @@ const state: State = {
             aggr.includes(mutation.path) ? aggr : aggr.concat(mutation.path),
           aggr
         )
-      }, []).length
+      }, [] as string[]).length
   ),
   currentAction: derived(
     (state: State) => state.currentApp.actions[state.currentApp.currentActionId]
@@ -210,7 +210,7 @@ const state: State = {
                 (componentId) => state.currentApp.components[componentId].name
               ),
               derived: flush.derived.map(
-                (derivedId) => state.currentApp.derived[derivedId]
+                (derivedId: any) => (state.currentApp.derived as any)[derivedId]
               ),
               isCollapsed: true,
             },
@@ -232,7 +232,7 @@ const state: State = {
       }
 
       return aggr
-    }, [])
+    }, [] as HistoryRecord[])
   }),
   currentOperatorsByPath: derived((state: State) => {
     const operators = Object.keys(state.currentAction.operators)
@@ -244,10 +244,10 @@ const state: State = {
       let currentValue = state.currentAction.value
       const traversePath = operator.path.slice()
       traversePath.unshift('')
-      traversePath.reduce((childrenByPath, key, index) => {
+      traversePath.reduce((childrenByPath: any, key: any, index: any) => {
         const isLastKey = index === traversePath.length - 1
         const matchingChildren = childrenByPath.find(
-          (children) => children[0].path === key
+          (children: any) => children[0].path === key
         )
         const lastChildByPath = matchingChildren
           ? matchingChildren[matchingChildren.length - 1]
@@ -259,7 +259,7 @@ const state: State = {
             operator,
             childrenByPath: [],
             value: matchingChildren
-              ? lastChildByPath.operator.result
+              ? lastChildByPath!.operator.result
               : currentValue,
           }
 
@@ -270,13 +270,13 @@ const state: State = {
           return
         }
 
-        currentValue = lastChildByPath.value
+        currentValue = lastChildByPath!.value
 
-        return lastChildByPath.childrenByPath
+        return lastChildByPath!.childrenByPath
       }, aggr)
 
       return aggr
-    }, [])
+    }, [] as OperatorsByPath[])
   }),
   splitPane: {
     isDragging: false,

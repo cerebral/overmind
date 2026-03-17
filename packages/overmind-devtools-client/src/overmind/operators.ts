@@ -44,7 +44,7 @@ export const ensureCurrentApp = ({ state }: Context, message: Message) => {
   return message
 }
 
-export const runGetterMutation = ({ state }, message: GetterMessage) => {
+export const runGetterMutation = ({ state }: any, message: GetterMessage) => {
   runMutation(state.apps[message.appName].state)({
     method: 'set',
     path: message.data.path,
@@ -53,7 +53,7 @@ export const runGetterMutation = ({ state }, message: GetterMessage) => {
   })
 }
 
-export const addStateAndActions = ({ state }, message: InitMessage) => {
+export const addStateAndActions = ({ state }: any, message: InitMessage) => {
   state.isConnecting = false
   state.error = null
   state.apps[message.appName].connectionState = 'connected'
@@ -354,7 +354,7 @@ export const updateState = ({ state }: Context, message: StateMessage) => {
     return
   }
 
-  target[key] = message.data.value
+  target[key!] = message.data.value
 }
 
 export const updateAction = ({ state }: Context, message: EndActionMessage) => {
@@ -394,7 +394,7 @@ export const updateEffect = ({ state }: Context, message: EffectMessage) => {
   const operator =
     state.apps[message.appName].actions[id].operators[effect.operatorId]
   const existingEvent = operator.events.find(
-    (event) =>
+    (event: any) =>
       event.type === EventType.Effect &&
       (event.data as Effect).effectId === effect.effectId
   )
@@ -413,7 +413,7 @@ export const updateEffect = ({ state }: Context, message: EffectMessage) => {
   }
 }
 
-export const getMessage = (_, value: Message) => {
+export const getMessage = (_: any, value: Message) => {
   return {
     ...value.message,
     appName: value.appName,
@@ -423,7 +423,7 @@ export const getMessage = (_, value: Message) => {
 export const updateOperatorAsync = () => () => {}
 
 export const addStateMachineTransition = (
-  { state },
+  { state }: any,
   message: StateMachineTransitionMessage
 ) => {
   const machineId = `${message.data.path}`
@@ -488,6 +488,7 @@ export const addStateMachineTransition = (
 
   // Set as current if none selected
   if (!app.currentStateMachineInstanceId) {
-    app.currentStateMachineInstanceId = app.stateMachinesList[0].instanceId
+    app.currentStateMachineInstanceId =
+      app.stateMachinesList[0]?.instanceId || null
   }
 }

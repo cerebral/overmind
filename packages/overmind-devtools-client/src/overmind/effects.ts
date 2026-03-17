@@ -49,7 +49,7 @@ export const config = {
 }
 
 export const utils = {
-  confirmDialog(text): boolean {
+  confirmDialog(text: any): boolean {
     return window.confirm(text)
   },
 }
@@ -57,7 +57,7 @@ export const utils = {
 export const storage = {
   clear() {
     return new Promise<void>((resolve, reject) => {
-      connector.send('storage:clear', null, (error) => {
+      connector.send('storage:clear', null, (error: any) => {
         if (error) {
           reject(error)
         } else {
@@ -68,7 +68,7 @@ export const storage = {
   },
   get<T>(key: string): Promise<T> {
     return new Promise((resolve, reject) => {
-      connector.send('storage:get', { key }, (err, data) => {
+      connector.send('storage:get', { key }, (err: any, data: any) => {
         if (err) {
           reject(err)
         } else {
@@ -77,7 +77,7 @@ export const storage = {
       })
     })
   },
-  set(key, data) {
+  set(key: any, data: any) {
     return new Promise<void>((resolve, reject) => {
       connector.send(
         'storage:set',
@@ -85,7 +85,7 @@ export const storage = {
           key,
           data,
         },
-        (err) => {
+        (err: any) => {
           if (err) {
             reject(err)
           } else {

@@ -33,10 +33,10 @@ const arrayMutations = new Set([
   'copyWithin',
 ])
 
-const getValue = (proxyOrValue) =>
+const getValue = (proxyOrValue: any) =>
   proxyOrValue && proxyOrValue[IS_PROXY] ? proxyOrValue[VALUE] : proxyOrValue
 
-const isClass = (value) =>
+const isClass = (value: any) =>
   typeof value === 'object' &&
   value !== null &&
   !Array.isArray(value) &&
@@ -59,15 +59,15 @@ export class Proxifier {
   delimiter: string
   ssr: boolean
   constructor(private tree: TTree) {
-    this.delimiter = tree.root.options.delimiter
+    this.delimiter = tree.root.options.delimiter!
     this.ssr = Boolean(tree.root.options.ssr)
   }
 
-  private concat(path, prop) {
-    return path ? path + this.delimiter + prop : prop
+  private concat(path: string, prop: string | symbol): string {
+    return path ? path + this.delimiter + String(prop) : String(prop)
   }
 
-  ensureMutationTrackingIsEnabled(path) {
+  ensureMutationTrackingIsEnabled(path: string) {
     if (ENVIRONMENT === 'production') return
 
     if (this.tree.root.options.devmode && !this.tree.canMutate()) {
@@ -86,7 +86,7 @@ export class Proxifier {
     return this.tree.proxifier === this.tree.root.proxifier
   }
 
-  ensureValueDosntExistInStateTreeElsewhere(value) {
+  ensureValueDosntExistInStateTreeElsewhere(value: any) {
     if (ENVIRONMENT === 'production') return
 
     if (value && value[IS_PROXY] === true) {
@@ -142,14 +142,14 @@ export class Proxifier {
     return this.tree.root.mutationTree || (this.tree as IMutationTree<any, any>)
   }
 
-  private isProxyCached(value, path) {
+  private isProxyCached(value: any, path: any) {
     return (
       value[this.CACHED_PROXY] &&
       String(value[this.CACHED_PROXY][PATH]) === String(path)
     )
   }
 
-  private createArrayProxy(value, path) {
+  private createArrayProxy(value: any, path: string) {
     if (!this.ssr && this.isProxyCached(value, path)) {
       return value[this.CACHED_PROXY]
     }
@@ -162,7 +162,7 @@ export class Proxifier {
         if (prop === PATH) return path
         if (prop === VALUE) return value
         if (prop === 'indexOf') {
-          return (searchTerm, offset) =>
+          return (searchTerm: any, offset: any) =>
             value.indexOf(getValue(searchTerm), getValue(offset))
         }
         if (
@@ -185,7 +185,7 @@ export class Proxifier {
 
         if (arrayMutations.has(method)) {
           /* @__PURE__ */ proxifier.ensureMutationTrackingIsEnabled(nestedPath)
-          return (...args) => {
+          return (...args: any[]) => {
             const mutationTree = proxifier.getMutationTree()
 
             let result
@@ -281,7 +281,7 @@ export class Proxifier {
     const actualProp = segments[segments.length - 1]
     const actualTarget = segments
       .slice(0, -1)
-      .reduce((obj, key) => obj?.[key], target)
+      .reduce((obj: any, key: any) => obj?.[key], target)
 
     return {
       nestedPath: transformedPath,
@@ -291,7 +291,7 @@ export class Proxifier {
     }
   }
 
-  private createObjectProxy(object, path) {
+  private createObjectProxy(object: any, path: string) {
     if (!this.ssr && this.isProxyCached(object, path)) {
       return object[this.CACHED_PROXY]
     }
@@ -467,7 +467,7 @@ export class Proxifier {
     return proxy
   }
 
-  proxify(value: any, path: string) {
+  proxify(value: any, path: string): any {
     if (value) {
       const isUnmatchingProxy =
         value[IS_PROXY] &&

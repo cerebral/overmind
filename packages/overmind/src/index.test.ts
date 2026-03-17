@@ -9,7 +9,7 @@ import {
 } from '..'
 import { merge, namespaced } from './config'
 
-function toJSON(obj) {
+function toJSON(obj: any) {
   return JSON.parse(JSON.stringify(obj))
 }
 
@@ -54,7 +54,7 @@ function createDefaultOvermind() {
     await Promise.resolve()
     context.state.foo = 'bar2'
   }
-  const changeValue = (_, value: { isAwesome: boolean }) => {
+  const changeValue = (_: any, value: { isAwesome: boolean }) => {
     value.isAwesome = !value.isAwesome
   }
   const changeOptionalFoo = (context: Context, newFoo?: string) => {
@@ -153,7 +153,7 @@ describe('Overmind', () => {
         foo: 'bar',
       },
       actions: {
-        onInitializeOvermind(context, val) {
+        onInitializeOvermind(context: any, val: any) {
           expect(context.state.foo).toBe('bar')
           value = val
         },
@@ -453,7 +453,7 @@ describe('Overmind', () => {
         foo: 'bar2',
       },
       actions: {
-        changeFoo(context) {
+        changeFoo(context: any) {
           context.state.foo = 'replaced!'
         },
       },
@@ -489,7 +489,7 @@ describe('Namespaced module scoping', () => {
             currentPath: '/',
           },
           actions: {
-            navigate({ state }) {
+            navigate({ state }: any) {
               state.currentPath = '/new-path'
             },
           },
@@ -515,7 +515,7 @@ describe('Namespaced module scoping', () => {
             },
           },
           actions: {
-            initialize({ state, effects }) {
+            initialize({ state, effects }: any) {
               state.baseUrl = effects.getBaseUrl()
             },
           },
@@ -536,10 +536,10 @@ describe('Namespaced module scoping', () => {
             history: [] as string[],
           },
           actions: {
-            addToHistory({ state }, path: string) {
+            addToHistory({ state }: any, path: string) {
               state.history.push(path)
             },
-            navigate({ state, actions }, path: string) {
+            navigate({ state, actions }: any, path: string) {
               state.path = path
               actions.addToHistory(path)
             },
@@ -566,7 +566,7 @@ describe('Namespaced module scoping', () => {
             },
           },
           actions: {
-            updateMaxSize({ state }, size: number) {
+            updateMaxSize({ state }: any, size: number) {
               state.config.history.maxSize = size
             },
           },
@@ -594,7 +594,7 @@ describe('Namespaced module scoping', () => {
               data: '',
             },
             actions: {
-              fetchData({ state, effects }) {
+              fetchData({ state, effects }: any) {
                 state.data = (effects as any).http.get()
               },
             },
@@ -620,7 +620,7 @@ describe('Namespaced module scoping', () => {
             userName: '',
           },
           actions: {
-            getUserName({ state }) {
+            getUserName({ state }: any) {
               // Access other module via root fallback
               state.userName = (state as any).auth.user
             },
@@ -641,7 +641,7 @@ describe('Namespaced module scoping', () => {
             isLoggedIn: false,
           },
           actions: {
-            login({ state }) {
+            login({ state }: any) {
               state.isLoggedIn = true
             },
           },
@@ -651,7 +651,7 @@ describe('Namespaced module scoping', () => {
             redirected: false,
           },
           actions: {
-            navigateProtected({ state, actions }) {
+            navigateProtected({ state, actions }: any) {
               ;(actions as any).auth.login()
               state.redirected = true
             },
@@ -679,7 +679,7 @@ describe('Namespaced module scoping', () => {
             },
           },
           actions: {
-            async navigate({ state, effects }) {
+            async navigate({ state, effects }: any) {
               state.loading = true
               state.path = await effects.fetchPath()
               state.loading = false
@@ -712,7 +712,7 @@ describe('Namespaced module scoping', () => {
             },
           },
           actions: {
-            setRoute({ state, effects }, key: 'home' | 'about') {
+            setRoute({ state, effects }: any, key: 'home' | 'about') {
               const path = state.routes[key]
               state.routes[key] = (effects as any).helpers.parseRoute(path)
             },
@@ -734,7 +734,7 @@ describe('Namespaced module scoping', () => {
             path: '/',
           },
           actions: {
-            navigate({ state }) {
+            navigate({ state }: any) {
               state.path = '/new'
             },
           },
@@ -779,7 +779,7 @@ describe('Namespaced module scoping', () => {
                 path: '/',
               },
               actions: {
-                navigate({ state }) {
+                navigate({ state }: any) {
                   state.path = '/nested'
                 },
               },
@@ -800,7 +800,7 @@ describe('Namespaced module scoping', () => {
         count: 0,
       },
       actions: {
-        increment({ state }) {
+        increment({ state }: any) {
           state.count++
         },
       },
@@ -819,7 +819,7 @@ describe('Namespaced module scoping', () => {
             global: 'value',
           },
           actions: {
-            changeGlobal({ state }) {
+            changeGlobal({ state }: any) {
               state.global = 'changed'
             },
           },
@@ -830,7 +830,7 @@ describe('Namespaced module scoping', () => {
               path: '/',
             },
             actions: {
-              navigate({ state, actions }) {
+              navigate({ state, actions }: any) {
                 state.path = '/new'
                 ;(actions as any).changeGlobal()
               },
@@ -858,7 +858,7 @@ describe('Namespaced module scoping', () => {
             },
           },
           actions: {
-            navigate({ state, effects }, path: string) {
+            navigate({ state, effects }: any, path: string) {
               state.result = effects.buildUrl('https://example.com', path)
             },
           },
@@ -883,7 +883,7 @@ describe('Namespaced module scoping', () => {
             },
           },
           actions: {
-            update({ state, effects }) {
+            update({ state, effects }: any) {
               state.value = effects.getValue()
             },
           },
@@ -898,7 +898,7 @@ describe('Namespaced module scoping', () => {
             },
           },
           actions: {
-            update({ state, effects }) {
+            update({ state, effects }: any) {
               state.value = effects.getValue()
             },
           },
@@ -977,13 +977,13 @@ describe('Namespaced module scoping with statemachines', () => {
         router: {
           state: machine.create({ current: 'IDLE' }),
           actions: {
-            startLoad({ state }) {
+            startLoad({ state }: any) {
               state.send('START_LOAD')
             },
-            loadSuccess({ state }, data: string) {
+            loadSuccess({ state }: any, data: string) {
               state.send('LOAD_SUCCESS', data)
             },
-            reset({ state }) {
+            reset({ state }: any) {
               state.send('RESET')
             },
           },
@@ -1042,10 +1042,10 @@ describe('Namespaced module scoping with statemachines', () => {
         device: {
           state: machine.create({ current: 'OFF' }, { name: 'Light' }),
           actions: {
-            toggle({ state }) {
+            toggle({ state }: any) {
               state.send('TOGGLE')
             },
-            setBrightness({ state }, brightness: number) {
+            setBrightness({ state }: any, brightness: number) {
               state.send('SET_BRIGHTNESS', brightness)
             },
           },
@@ -1091,13 +1091,13 @@ describe('Namespaced module scoping with statemachines', () => {
         module: {
           state: machine.create({ current: 'IDLE' }),
           actions: {
-            checkIdle({ state }) {
+            checkIdle({ state }: any) {
               return !!state.matches('IDLE')
             },
-            checkActive({ state }) {
+            checkActive({ state }: any) {
               return !!state.matches('ACTIVE')
             },
-            activate({ state }) {
+            activate({ state }: any) {
               state.send('ACTIVATE')
             },
           },
@@ -1128,7 +1128,7 @@ describe('Namespaced module scoping with statemachines', () => {
         test: {
           state: machine.create({ current: 'FOO' }),
           actions: {
-            toggle({ state }) {
+            toggle({ state }: any) {
               state.send('TOGGLE')
             },
           },
@@ -1176,10 +1176,10 @@ describe('Namespaced module scoping with statemachines', () => {
         router: {
           state: routerMachine.create({ current: 'IDLE' }),
           actions: {
-            navigate({ state }, path: string) {
+            navigate({ state }: any, path: string) {
               state.send('NAVIGATE', path)
             },
-            complete({ state }) {
+            complete({ state }: any) {
               state.send('COMPLETE')
             },
           },

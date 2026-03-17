@@ -86,13 +86,13 @@ export function pipe<A, B, C, D, E, F, G, H, I, J, K>(
   i: OperatorContextFunction<I, J>,
   j: OperatorContextFunction<J, K>
 ): IOperator<A, K>
-export function pipe(...operators) {
-  const instance = (err, context, next, final = next) => {
+export function pipe(...operators: any[]) {
+  const instance = (err: any, context: any, next: any, final: any = next) => {
     if (err) next(err, context)
     else {
       let operatorIndex = 0
 
-      const run = (operatorErr, operatorContext) => {
+      const run = (operatorErr: any, operatorContext: any) => {
         const operator = operators[operatorIndex++]
         const operatorToRun = operator
           ? operator[utils.IS_OPERATOR]
@@ -188,19 +188,19 @@ export function branch<A, B, C, D, E, F, G, H, I, J, K>(
   i: OperatorContextFunction<I, J>,
   j: OperatorContextFunction<J, K>
 ): IOperator<A, A>
-export function branch(...operators) {
-  const instance = (err, context, next, final = next) => {
+export function branch(...operators: any[]) {
+  const instance = (err: any, context: any, next: any, final: any = next) => {
     if (err) next(err, context)
     else {
       let operatorIndex = 0
 
-      const run = (operatorErr, operatorContext) => {
+      const run = (operatorErr: any, operatorContext: any) => {
         const operator = operators[operatorIndex++]
         const operatorToRun = operator
           ? operator[utils.IS_OPERATOR]
             ? operator
             : action(operator)
-          : (err, finalContext, finalNext, finalFinal) => {
+          : (err: any, finalContext: any, finalNext: any, finalFinal: any) => {
               next(
                 err,
                 {
@@ -302,14 +302,14 @@ export function parallel<I, O1, O2, O3, O4, O5, O6>(
 export function parallel<T extends OperatorContextFunction<any, any>>(
   ...operators: T[]
 ): T {
-  const instance = (err, context, next) => {
+  const instance = (err: any, context: any, next: any) => {
     if (err) next(err, context)
     else {
       let evaluatingCount = operators.length
-      let lastContext
+      let lastContext: any
       let hasErrored = false
       const results: any[] = []
-      const evaluate = (index, err, newContext) => {
+      const evaluate = (index: any, err: any, newContext: any) => {
         if (hasErrored) {
           return
         }
@@ -346,7 +346,7 @@ export function parallel<T extends OperatorContextFunction<any, any>>(
         )
         const nextWithPath = createNextPath(evaluate.bind(undefined, index))
 
-        const operatorToRun = operator[utils.IS_OPERATOR]
+        const operatorToRun = (operator as any)[utils.IS_OPERATOR]
           ? operator
           : action(operator)
         // @ts-ignore
@@ -400,14 +400,14 @@ export function tryCatch<T, K>(paths: {
   try: OperatorContextFunction<T, K>
   catch: OperatorContextFunction<Error, K>
 }): IOperator<T, K> {
-  const instance = (err, context, next) => {
+  const instance = (err: any, context: any, next: any) => {
     if (err) next(err, context)
     else {
-      const evaluateCatch = (err, catchContext) => {
+      const evaluateCatch = (err: any, catchContext: any) => {
         operatorStopped(context, context.value)
         next(err, createContext(catchContext, context.value))
       }
-      const evaluateTry = (err, tryContext) => {
+      const evaluateTry = (err: any, tryContext: any) => {
         if (err) {
           const newContext = createContext(
             tryContext,
@@ -415,7 +415,7 @@ export function tryCatch<T, K>(paths: {
             context.execution.path && context.execution.path.concat('catch')
           )
           const nextWithPath = createNextPath(evaluateCatch)
-          const operatorToRun = paths.try[utils.IS_OPERATOR]
+          const operatorToRun = (paths.try as any)[utils.IS_OPERATOR]
             ? paths.catch
             : action(paths.catch)
 
@@ -436,7 +436,7 @@ export function tryCatch<T, K>(paths: {
       )
       const nextWithPath = createNextPath(evaluateTry)
 
-      const operatorToRun = paths.try[utils.IS_OPERATOR]
+      const operatorToRun = (paths.try as any)[utils.IS_OPERATOR]
         ? paths.try
         : action(paths.try)
       // @ts-ignore
@@ -508,8 +508,8 @@ export function wait<T>(ms: number): IOperator<T, T> {
 }
 
 export function debounce<T>(ms: number): IOperator<T, T> {
-  let timeout
-  let previousFinal
+  let timeout: any
+  let previousFinal: any
 
   return createOperator(
     'debounce',
@@ -532,9 +532,9 @@ export function debounce<T>(ms: number): IOperator<T, T> {
 }
 
 export function throttle<T>(ms: number): IOperator<T, T> {
-  let timeout
-  let previousFinal
-  let currentNext
+  let timeout: any
+  let previousFinal: any
+  let currentNext: any
 
   return createOperator(
     'throttle',
@@ -570,7 +570,7 @@ export function waitUntil<T, C extends IContext<{}>>(
       if (err) next(err, value)
       else {
         const tree = context.execution.getTrackStateTree()
-        let disposer
+        let disposer: any
         const test = () => {
           disposer?.()
 

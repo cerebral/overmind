@@ -130,7 +130,7 @@ describe('Mock', () => {
     const config = {
       state,
       actions: {
-        runFoo({ effects }) {
+        runFoo({ effects }: any) {
           return effects.foo()
         },
       },

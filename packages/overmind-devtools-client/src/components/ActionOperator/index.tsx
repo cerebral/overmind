@@ -40,8 +40,8 @@ const ActionOperator: React.FunctionComponent<Props> = ({
           <span
             className={styles.operatorType}
             style={{
-              backgroundColor: operator.error ? colors.red : null,
-              color: operator.error ? colors.text : null,
+              backgroundColor: operator.error ? colors.red : undefined,
+              color: operator.error ? colors.text : undefined,
             }}
           >
             {operator.type}

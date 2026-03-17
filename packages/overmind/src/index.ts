@@ -26,7 +26,7 @@ export * from './OvermindSSR'
 export const derived = <S extends object, R extends object, O>(
   cb: (state: S, rootState: R) => O
 ): O => {
-  cb[IS_DERIVED_CONSTRUCTOR] = true
+  ;(cb as any)[IS_DERIVED_CONSTRUCTOR] = true
   return cb as any
 }
 

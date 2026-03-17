@@ -1,10 +1,12 @@
+// @ts-expect-error no types
 import ColorHash from 'color-hash'
 
 import { Action, App, Flush, Mutation, OperatorsByPath } from './types'
 
+// @ts-expect-error no types
 import clonedeep from 'lodash.clonedeep'
 
-export const runMutation = (state) => (mutation: Mutation) => {
+export const runMutation = (state: any) => (mutation: Mutation) => {
   const pathArray = mutation.path.split(mutation.delimiter)
   const key = pathArray.pop()
 
@@ -20,13 +22,13 @@ export const runMutation = (state) => (mutation: Mutation) => {
 
   switch (mutation.method) {
     case 'set':
-      target[key] = clonedeep(mutation.args[0])
+      target[key!] = clonedeep(mutation.args[0])
       break
     case 'unset':
-      delete target[key]
+      delete target[key!]
       break
     default:
-      target[key][mutation.method](...clonedeep(mutation.args))
+      target[key!][mutation.method](...clonedeep(mutation.args))
   }
 }
 
@@ -88,7 +90,7 @@ export const createApp = (data: Partial<App>): App =>
     data
   )
 
-export const nameToColor = (name, lightness = 0.5, saturation = 0.5) => {
+export const nameToColor = (name: any, lightness = 0.5, saturation = 0.5) => {
   const colorHash = new ColorHash({
     hash: 'bkdr',
     saturation,
@@ -98,7 +100,7 @@ export const nameToColor = (name, lightness = 0.5, saturation = 0.5) => {
   return colorHash.hex(name)
 }
 
-export const ensureFlushExists = (flushes, flushData) => {
+export const ensureFlushExists = (flushes: any, flushData: any) => {
   if (!flushes[flushData.flushId]) {
     const flush: Flush = {
       flushId: flushData.flushId,
@@ -145,10 +147,10 @@ export const getOperatorsByPath = (action: Action) => {
     traversePath.unshift('')
 
     // eslint-disable-next-line
-    traversePath.reduce((childrenByPath, key, index) => {
+    traversePath.reduce((childrenByPath: any, key: any, index: any) => {
       const isLastKey = index === traversePath.length - 1
       const matchingChildren = childrenByPath.find(
-        (children) => children[0].path === key
+        (children: any) => children[0].path === key
       )
       const lastChildByPath = matchingChildren
         ? matchingChildren[matchingChildren.length - 1]
@@ -160,7 +162,7 @@ export const getOperatorsByPath = (action: Action) => {
           operator,
           childrenByPath: [],
           value: matchingChildren
-            ? lastChildByPath.operator.result
+            ? lastChildByPath!.operator.result
             : currentValue,
         }
 
@@ -172,9 +174,9 @@ export const getOperatorsByPath = (action: Action) => {
         return
       }
 
-      currentValue = lastChildByPath.value
+      currentValue = lastChildByPath!.value
 
-      return lastChildByPath.childrenByPath
+      return lastChildByPath!.childrenByPath
     }, aggr)
 
     return aggr

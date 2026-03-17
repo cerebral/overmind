@@ -8,7 +8,7 @@
     "newLine": "LF",
     "lib": ["dom", "es2022"],
     "moduleResolution": "node",
-    "strictNullChecks": true,
+    "strict": true,
     "importHelpers": true,
     "declaration": true,
     "pretty": true,

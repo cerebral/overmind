@@ -21,7 +21,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
   statePath,
   nestedCharts = chart.charts,
 }) => {
-  const [expandedIds, setExpandedIds] = React.useState([])
+  const [expandedIds, setExpandedIds] = React.useState<string[]>([])
   const state = useAppState()
   const actions = useActions()
 
@@ -80,7 +80,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                         style={{
                           backgroundColor: isActiveState
                             ? nameToColor(chart.path.join(delimiter))
-                            : null,
+                            : undefined,
                         }}
                       >
                         <span className={textStyles.label}>{key}</span>
@@ -92,7 +92,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                         style={{
                           backgroundColor: isActiveState
                             ? nameToColor(chart.path.join(delimiter))
-                            : null,
+                            : undefined,
                         }}
                       />
                     </div>
@@ -103,7 +103,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                           style={{
                             borderColor: isActiveState
                               ? nameToColor(chart.path.join(delimiter))
-                              : null,
+                              : undefined,
                           }}
                         >
                           <span className={textStyles.normal}>
@@ -129,7 +129,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                         style={{
                           backgroundColor: isActiveState
                             ? nameToColor(chart.path.join(delimiter))
-                            : null,
+                            : undefined,
                         }}
                       />
                     </div>
@@ -138,7 +138,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                       style={{
                         borderColor: isActiveState
                           ? nameToColor(chart.path.join(delimiter))
-                          : null,
+                          : undefined,
                       }}
                     >
                       <div
@@ -147,11 +147,12 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                       >
                         {Object.keys(nestedChart.states[key].on || {}).map(
                           (onKey) => {
-                            let target: string
-                            if (nestedChart.states[key].on[onKey]) {
-                              target =
-                                nestedChart.states[key].on[onKey][target] ||
-                                nestedChart.states[key].on[onKey]
+                            let target: string | undefined
+                            if (nestedChart.states[key].on![onKey]) {
+                              const onValue = nestedChart.states[key].on![
+                                onKey
+                              ] as any
+                              target = onValue.target || onValue
                             }
                             return (
                               <div key={onKey} className={styles.stateItem}>
@@ -164,7 +165,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                                               .concat(onKey)
                                               .join(delimiter)
                                           )
-                                      : null
+                                      : undefined
                                   }
                                   className={css(
                                     styles.stateNameCell,
@@ -226,7 +227,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                           style={{
                             borderColor: isActiveState
                               ? nameToColor(chart.path.join(delimiter))
-                              : null,
+                              : undefined,
                           }}
                         >
                           <span className={textStyles.normal}>
