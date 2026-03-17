@@ -14,6 +14,7 @@ import {
   waitUntil,
   IContext,
 } from './'
+import { IS_OPERATOR } from './utils'
 
 describe('OPERATORS', () => {
   test('branch - passes input as output', async () => {
@@ -513,5 +514,79 @@ describe('OPERATORS', () => {
     return overmind.actions.test().then(() => {
       expect(overmind.state.runCount).toBe(1)
     })
+  })
+
+  test('pipe - propagates error from throwing IS_OPERATOR instead of re-invoking', async () => {
+    let callCount = 0
+    const throwingOperator: any = (_err: any, _context: any, _next: any) => {
+      callCount++
+      throw new Error('sync throw')
+    }
+    throwingOperator[IS_OPERATOR] = true
+
+    const state = {
+      error: '',
+    }
+
+    const test = (pipe as any)(
+      throwingOperator,
+      catchError(({ state }: any, error: Error) => {
+        state.error = error.message
+        return 'caught'
+      })
+    )
+
+    const actions = { test }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const overmind = new Overmind(config) as any
+
+    await overmind.actions.test()
+
+    expect(callCount).toBe(1)
+    expect(overmind.state.error).toBe('sync throw')
+  })
+
+  test('branch - propagates error from throwing IS_OPERATOR instead of re-invoking', async () => {
+    let callCount = 0
+    const throwingOperator: any = (_err: any, _context: any, _next: any) => {
+      callCount++
+      throw new Error('sync throw')
+    }
+    throwingOperator[IS_OPERATOR] = true
+
+    const state = {
+      error: '',
+      value: '',
+    }
+
+    const test = (pipe as any)(
+      (branch as any)(throwingOperator),
+      catchError(({ state }: any, error: Error) => {
+        state.error = error.message
+        return 'caught'
+      }),
+      ({ state }: any, value: string) => {
+        state.value = value
+      }
+    )
+
+    const actions = { test }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const overmind = new Overmind(config) as any
+
+    await overmind.actions.test()
+
+    expect(callCount).toBe(1)
+    expect(overmind.state.error).toBe('sync throw')
   })
 })
