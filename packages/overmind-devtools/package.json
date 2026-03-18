@@ -2,10 +2,13 @@
 	"name": "overmind-devtools",
 	"version": "29.2.0",
 	"description": "Overmind devtool",
-  	"main": "src/main.js",
+	"main": "src/main.js",
 	"author": "Christian Alfoni <christianalfoni@gmail.com>",
 	"license": "MIT",
-	"repository": "git+https://github.com/cerebral/overmind.git",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cerebral/overmind.git"
+	},
 	"bin": {
 		"overmind-devtools": "bin.js"
 	},

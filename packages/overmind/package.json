@@ -4,7 +4,10 @@
   "description": "Frictionless state management",
   "author": "Christian Alfoni <christianalfoni@gmail.com>",
   "license": "MIT",
-  "repository": "git+https://github.com/cerebral/overmind.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cerebral/overmind.git"
+  },
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "lib/index.d.ts",

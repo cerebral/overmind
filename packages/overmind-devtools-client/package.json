@@ -4,7 +4,10 @@
 	"description": "Overmind devtool",
 	"author": "Christian Alfoni <christianalfoni@gmail.com>",
 	"license": "MIT",
-	"repository": "git+https://github.com/cerebral/overmind.git",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cerebral/overmind.git"
+	},
 	"scripts": {
 		"start": "concurrently \"npm run start:ws\" \"npm run start:devtools\"",
 		"start:ws": "node server.js",
@@ -24,12 +27,12 @@
 		"lodash.clonedeep": "^4.5.0",
 		"overmind-react": "next",
 		"react": "^19.2.4",
-    	"react-dom": "^19.2.4",
+		"react-dom": "^19.2.4",
 		"tslib": "^2.8.1",
 		"ws": "^8.19.0"
 	},
 	"devDependencies": {
-    	"@babel/plugin-transform-class-properties": "^7.28.6",
+		"@babel/plugin-transform-class-properties": "^7.28.6",
 		"babel-loader": "^10.1.1",
 		"concurrently": "^9.2.1",
 		"html-webpack-plugin": "^5.6.6",

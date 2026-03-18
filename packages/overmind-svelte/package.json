@@ -4,7 +4,10 @@
   "description": "Functional actions",
   "author": "Marcus Feitoza <marcus.feitoza.filho@gmail.com>",
   "license": "MIT",
-  "repository": "git+https://github.com/cerebral/overmind.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cerebral/overmind.git"
+  },
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "lib/index.d.ts",
@@ -33,7 +36,7 @@
   "dependencies": {
     "overmind": "next",
     "svelte": "^3.59.2",
-		"tslib": "^2.8.1"
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
