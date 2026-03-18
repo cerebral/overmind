@@ -140,12 +140,12 @@ export function createStateHook<
 }
 
 export interface ActionsHook<Context extends IContext<{ actions: {} }>> {
-  (): Ref<Context['actions']>
+  (): Context['actions']
   <CB extends (actions: Context['actions']) => object>(
     cb: CB
   ): CB extends (actions: Context['actions']) => infer O
     ? O extends object
-      ? Ref<O>
+      ? O
       : never
     : never
 }
@@ -161,12 +161,12 @@ export function createActionsHook<
 }
 
 export interface EffectsHook<Context extends IContext<{ effects: {} }>> {
-  (): Ref<Context['effects']>
+  (): Context['effects']
   <CB extends (effects: Context['effects']) => object>(
     cb: CB
   ): CB extends (effects: Context['effects']) => infer O
     ? O extends object
-      ? Ref<O>
+      ? O
       : never
     : never
 }
