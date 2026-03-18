@@ -33,6 +33,8 @@ export default defineConfig([
     minify: true,
     sourcemap: true,
     globalName: 'Overmind',
-    noExternal: [/.*/],
+    deps: {
+      alwaysBundle: [/.*/],
+    },
   },
 ])
