@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/christianalfoni/proxy-state-tree.git"
+    "url": "git+https://github.com/cerebral/overmind.git"
   },
   "keywords": [
     "state",
@@ -32,9 +32,9 @@
   "author": "Christian Alfoni",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/christianalfoni/proxy-state-tree/issues"
+    "url": "https://github.com/cerebral/overmind/issues"
   },
-  "homepage": "https://github.com/christianalfoni/proxy-state-tree#readme",
+  "homepage": "https://github.com/cerebral/overmind/tree/next/packages/proxy-state-tree#readme",
   "devDependencies": {
     "@size-limit/file": "^12.0.1",
     "babel-loader": "^10.1.1",
