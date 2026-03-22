@@ -1,9 +1,8 @@
 {
-    "name": "overmind/vue3",
-    "private": true,
-    "main": "../lib/vue3",
-    "module": "../es/vue3",
-    "jsnext:main": "../es/vue3",
-    "types": "../lib/vue3.d.ts"
-  }
-  
+  "name": "overmind/vue3",
+  "private": true,
+  "main": "../lib/index",
+  "module": "../es/index",
+  "jsnext:main": "../es/index",
+  "types": "../lib/index.d.ts"
+}

@@ -1,7 +1,7 @@
 {
   "name": "overmind-vue",
   "version": "1.0.0-alpha1",
-  "description": "Functional actions",
+  "description": "Vue 3 bindings for Overmind",
   "author": "Christian Alfoni <christianalfoni@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -37,6 +37,6 @@
     "tslib": "^2.8.1"
   },
   "peerDependencies": {
-    "vue": "*"
+    "vue": "^3.0.0"
   }
 }

@@ -17,6 +17,6 @@
     "inlineSources": true,
     "strict": true
   },
-  "files": ["src/index.ts", "src/vue3.ts"],
+  "files": ["src/index.ts"],
   "exclude": ["node_modules", "dist", "es", "lib", "src/**/*.test.ts"]
 }
