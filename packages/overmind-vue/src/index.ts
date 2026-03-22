@@ -10,8 +10,6 @@ import {
   Ref,
   inject,
   ref,
-  onBeforeUpdate,
-  onRenderTracked,
   onMounted,
   onBeforeUnmount,
   defineComponent,
@@ -60,79 +58,57 @@ export function createStateHook<
     if (overmindInstance.mode.mode === MODE_SSR) {
       return cb ? cb(overmindInstance.state) : overmindInstance.state
     } else {
-      const overmindRef = ref<any>({})
-      const flushIds = ref(-1)
-      const { value } = overmindRef
-      const state = ref(
-        cb ? cb(overmindInstance.state) : overmindInstance.state
-      )
+      const trackStateTree =
+        overmindInstance.proxyStateTreeInstance.getTrackStateTree()
+      const instanceId = componentInstanceId++
 
-      if (!value.tree) {
-        value.tree = overmindInstance.proxyStateTreeInstance.getTrackStateTree()
-        value.componentInstanceId = componentInstanceId++
-        value.onUpdate = (_: any, __: any, flushId: number) => {
-          value.currentFlushId = flushId
-          value.isUpdating = true
-          flushIds.value = flushId
-          state.value = {
-            ...(cb ? cb(overmindInstance.state) : overmindInstance.state),
-          }
+      trackStateTree.track()
 
-          // this.$forceUpdate()
-        }
-        value.isUpdating = false
+      const state = ref(cb ? cb(trackStateTree.state) : trackStateTree.state)
+
+      if (IS_PRODUCTION) {
+        onMounted(() => {
+          trackStateTree.subscribe((_: any, __: any, flushId: any) => {
+            state.value = {
+              ...(cb ? cb(overmindInstance.state) : overmindInstance.state),
+            }
+          })
+        })
+      } else {
+        onMounted(() => {
+          overmindInstance.eventHub.emitAsync(EventType.COMPONENT_ADD, {
+            componentId,
+            componentInstanceId: instanceId,
+            name: '',
+            paths: Array.from(trackStateTree.pathDependencies) as any,
+          })
+
+          trackStateTree.subscribe((_: any, __: any, flushId: any) => {
+            overmindInstance.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+              componentId,
+              componentInstanceId: instanceId,
+              name: '',
+              paths: Array.from(trackStateTree.pathDependencies) as any,
+              flushId,
+            })
+            state.value = {
+              ...(cb ? cb(overmindInstance.state) : overmindInstance.state),
+            }
+          })
+        })
       }
 
-      onBeforeUpdate(function (this: any) {
-        if (overmindInstance.mode.mode === MODE_SSR) return
-
-        value.tree.track(value.onUpdate)
-      })
-
-      onRenderTracked(function (this: any) {
-        if (IS_PRODUCTION) {
-          return
-        }
-
-        if (overmindInstance.isUpdating) {
-          overmindInstance.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-            componentId,
-            componentInstanceId: value.componentInstanceId,
-            name: '', // this.$options.name || '',
-            flushId: value.currentFlushId,
-            paths: Array.from(value.tree.pathDependencies) as any,
-          })
-          value.isUpdating = false
-        }
-      })
-
-      onMounted(() => {
-        if (IS_PRODUCTION || overmindInstance.mode.mode === MODE_SSR) return
-        value.tree.stopTracking()
-        overmindInstance.eventHub.emitAsync(EventType.COMPONENT_ADD, {
-          componentId,
-          componentInstanceId: value.componentInstanceId,
-          name: '', // this.$options.name || '',
-          paths: Array.from(value.tree.pathDependencies) as any,
-        })
-      })
-
       onBeforeUnmount(() => {
-        if (overmindInstance.mode.mode === MODE_SSR) return
+        overmindInstance.proxyStateTreeInstance.disposeTree(trackStateTree)
 
-        overmindInstance.proxyStateTreeInstance.disposeTree(value.tree)
-        if (IS_PRODUCTION) {
-          return
+        if (!IS_PRODUCTION) {
+          overmindInstance.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
+            componentId,
+            componentInstanceId: instanceId,
+            name: '',
+          })
         }
-
-        overmindInstance.eventHub.emitAsync(EventType.COMPONENT_REMOVE, {
-          componentId,
-          componentInstanceId: value.componentInstanceId,
-          name: '', // this.$options.name || '',
-        })
       })
-
-      value.tree.track(value.onUpdate)
 
       return state
     }
