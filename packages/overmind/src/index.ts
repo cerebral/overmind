@@ -13,7 +13,14 @@ export type {
   ContextFunction,
 } from './internalTypes'
 export { createOperator, createMutationOperator } from './operator'
-export { MODE_DEFAULT, MODE_TEST, MODE_SSR, ENVIRONMENT, json } from './utils'
+export {
+  MODE_DEFAULT,
+  MODE_TEST,
+  MODE_SSR,
+  ENVIRONMENT,
+  json,
+  isPromise,
+} from './utils'
 export { SERIALIZE, rehydrate } from './rehydrate'
 export {
   type MachineMethods,

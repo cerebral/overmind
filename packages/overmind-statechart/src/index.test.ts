@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { IContext, createOvermind } from 'overmind'
+import { IContext, createOvermind, pipe, wait } from 'overmind'
 
 import { Statechart, statechart } from './'
 
@@ -1080,5 +1080,314 @@ describe('Statecharts', () => {
       'entry',
       'step2',
     ])
+  })
+
+  test('should work with operator-based action using pipe', async () => {
+    const increaseCount = pipe(function step({ state }: any) {
+      state.count++
+    })
+
+    const state = {
+      count: 0,
+    }
+    const actions = {
+      increaseCount,
+    }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const chart: Statechart<
+      typeof config,
+      {
+        foo: void
+        bar: void
+      }
+    > = {
+      initial: 'foo',
+      states: {
+        foo: {
+          on: {
+            increaseCount: 'bar',
+          },
+        },
+        bar: {},
+      },
+    }
+
+    const instance = createOvermind(
+      statechart(config, {
+        id1: chart,
+      })
+    )
+
+    expect(instance.state.states).toEqual([['id1', 'foo']])
+    expect(instance.state.actions).toEqual({ increaseCount: true })
+
+    await instance.actions.increaseCount()
+
+    expect(instance.state.states).toEqual([['id1', 'bar']])
+    expect(instance.state.actions).toEqual({ increaseCount: false })
+    expect(instance.state.count).toBe(1)
+  })
+
+  test('should work with multi-step operator pipe action', async () => {
+    const doTransition = pipe(
+      function addFirst({ state }: any) {
+        state.steps.push('first')
+      },
+      function addSecond({ state }: any) {
+        state.steps.push('second')
+      }
+    )
+
+    const state = {
+      steps: [] as string[],
+    }
+    const actions = {
+      doTransition,
+    }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const chart: Statechart<
+      typeof config,
+      {
+        foo: void
+        bar: void
+      }
+    > = {
+      initial: 'foo',
+      states: {
+        foo: {
+          on: {
+            doTransition: 'bar',
+          },
+        },
+        bar: {},
+      },
+    }
+
+    const instance = createOvermind(
+      statechart(config, {
+        id1: chart,
+      })
+    )
+
+    await instance.actions.doTransition()
+
+    expect(instance.state.states).toEqual([['id1', 'bar']])
+    expect(instance.state.steps).toEqual(['first', 'second'])
+  })
+
+  test('should await operator-based exit action with async steps before main action', async () => {
+    const exitAction = pipe(wait(50), function onExit({ state }: any) {
+      state.events.push('exit')
+    })
+
+    const doTransition = pipe(function step({ state }: any) {
+      state.events.push('main')
+    })
+
+    const state = {
+      events: [] as string[],
+    }
+    const actions = {
+      exitAction,
+      doTransition,
+    }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const chart: Statechart<
+      typeof config,
+      {
+        foo: void
+        bar: void
+      }
+    > = {
+      initial: 'foo',
+      states: {
+        foo: {
+          exit: 'exitAction',
+          on: {
+            doTransition: 'bar',
+          },
+        },
+        bar: {},
+      },
+    }
+
+    const instance = createOvermind(
+      statechart(config, {
+        id1: chart,
+      })
+    )
+
+    await instance.actions.doTransition()
+
+    expect(instance.state.states).toEqual([['id1', 'bar']])
+    expect(instance.state.events).toEqual(['exit', 'main'])
+  })
+
+  test('should block operator-based action not allowed by statechart', async () => {
+    const increaseCount = pipe(function step({ state }: any) {
+      state.count++
+    })
+
+    const state = {
+      count: 0,
+    }
+    const actions = {
+      increaseCount,
+    }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const chart: Statechart<
+      typeof config,
+      {
+        foo: void
+        bar: void
+      }
+    > = {
+      initial: 'foo',
+      states: {
+        foo: {},
+        bar: {
+          on: {
+            increaseCount: null,
+          },
+        },
+      },
+    }
+
+    const instance = createOvermind(
+      statechart(config, {
+        id1: chart,
+      })
+    )
+
+    expect(instance.state.actions).toEqual({ increaseCount: false })
+
+    await instance.actions.increaseCount()
+
+    expect(instance.state.count).toBe(0)
+  })
+
+  test('should work with operator-based action without transition target', async () => {
+    const increaseCount = pipe(function step({ state }: any) {
+      state.count++
+    })
+
+    const state = {
+      count: 0,
+    }
+    const actions = {
+      increaseCount,
+    }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const chart: Statechart<
+      typeof config,
+      {
+        foo: void
+      }
+    > = {
+      initial: 'foo',
+      states: {
+        foo: {
+          on: {
+            increaseCount: null,
+          },
+        },
+      },
+    }
+
+    const instance = createOvermind(
+      statechart(config, {
+        id1: chart,
+      })
+    )
+
+    expect(instance.state.actions).toEqual({ increaseCount: true })
+
+    await instance.actions.increaseCount()
+
+    expect(instance.state.states).toEqual([['id1', 'foo']])
+    expect(instance.state.count).toBe(1)
+  })
+
+  test('should complete async exit action then execute transition', async () => {
+    // Verifies that async exit actions fully complete before the
+    // main action and transition execute
+    const exitAction = async ({ state }: any) => {
+      state.events.push('exit-start')
+      await new Promise((resolve) => setTimeout(resolve, 10))
+      state.events.push('exit-end')
+    }
+
+    const doTransition = ({ state }: any) => {
+      state.events.push('main')
+    }
+
+    const state = {
+      events: [] as string[],
+    }
+    const actions = {
+      exitAction,
+      doTransition,
+    }
+
+    const config = {
+      state,
+      actions,
+    }
+
+    const chart: Statechart<
+      typeof config,
+      {
+        foo: void
+        bar: void
+      }
+    > = {
+      initial: 'foo',
+      states: {
+        foo: {
+          exit: 'exitAction',
+          on: {
+            doTransition: 'bar',
+          },
+        },
+        bar: {},
+      },
+    }
+
+    const instance = createOvermind(
+      statechart(config, {
+        id1: chart,
+      })
+    )
+
+    await instance.actions.doTransition()
+
+    expect(instance.state.states).toEqual([['id1', 'bar']])
+    // Exit must fully complete (both start and end) before main action
+    expect(instance.state.events).toEqual(['exit-start', 'exit-end', 'main'])
   })
 })

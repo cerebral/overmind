@@ -1,4 +1,11 @@
-import { ENVIRONMENT, IConfiguration, derived, filter, pipe } from 'overmind'
+import {
+  ENVIRONMENT,
+  IConfiguration,
+  derived,
+  filter,
+  isPromise,
+  pipe,
+} from 'overmind'
 
 const ACTIONS = 'ACTIONS'
 const CHART = 'CHART'
@@ -509,52 +516,73 @@ export function statechart<
               }
             })
 
-            // Run exits
-            exitActions.forEach((exitAction) => {
+            function executeTransition() {
+              currentTransitionAction = key
+              let actionResult
               if (config.actions) {
-                actionsTarget[ACTIONS][exitAction](payload)
+                actionResult = actionsTarget[ACTIONS][key](payload)
               }
-            })
 
-            currentTransitionAction = key
-            let actionResult
-            if (config.actions) {
-              actionResult = actionsTarget[ACTIONS][key](payload)
+              currentTransitionAction = null
+
+              // Transition to new state
+              stateTarget.states = newStates
+
+              // Run entry actions
+              entryActions.forEach((entryAction) => {
+                if (config.actions) {
+                  actionsTarget[ACTIONS][entryAction](payload)
+                }
+              })
+
+              if (
+                ENVIRONMENT === 'development' &&
+                currentInstance &&
+                currentInstance.devtools
+              ) {
+                currentInstance.devtools.send({
+                  type: 'chart',
+                  data: {
+                    path: context.execution.namespacePath,
+                    states: stateTarget.states,
+                    charts,
+                    actions: getCanTransitionActions(
+                      copiedActions,
+                      charts,
+                      stateTarget
+                    ),
+                  },
+                })
+              }
+
+              return actionResult
             }
 
-            currentTransitionAction = null
-
-            // Transition to new state
-            stateTarget.states = newStates
-
-            // Run entry actions
-            entryActions.forEach((entryAction) => {
+            // Run exits, awaiting any that return promises
+            const exitResults: any[] = []
+            exitActions.forEach((exitAction) => {
               if (config.actions) {
-                actionsTarget[ACTIONS][entryAction](payload)
+                exitResults.push(actionsTarget[ACTIONS][exitAction](payload))
               }
             })
 
-            if (
-              ENVIRONMENT === 'development' &&
-              currentInstance &&
-              currentInstance.devtools
-            ) {
-              currentInstance.devtools.send({
-                type: 'chart',
-                data: {
-                  path: context.execution.namespacePath,
-                  states: stateTarget.states,
-                  charts,
-                  actions: getCanTransitionActions(
-                    config.actions,
-                    charts,
-                    stateTarget
-                  ),
-                },
+            const pendingExits = exitResults.filter(isPromise)
+
+            if (pendingExits.length) {
+              return Promise.all(pendingExits).then(() => {
+                // Re-validate that the transition is still valid after
+                // async exit actions complete, since state may have
+                // changed during the async gap
+                const canStillTransition = stateTarget.actions[key]
+                if (!canStillTransition) {
+                  return
+                }
+
+                return executeTransition()
               })
             }
 
-            return actionResult
+            return executeTransition()
           }
         )
 
