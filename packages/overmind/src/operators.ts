@@ -535,6 +535,7 @@ export function throttle<T>(ms: number): IOperator<T, T> {
   let timeout: any
   let previousFinal: any
   let currentNext: any
+  let currentValue: any
 
   return createOperator(
     'throttle',
@@ -548,11 +549,12 @@ export function throttle<T>(ms: number): IOperator<T, T> {
         } else {
           timeout = setTimeout(() => {
             timeout = null
-            currentNext(null, value)
+            currentNext(null, currentValue)
           }, ms)
         }
         previousFinal = final
         currentNext = next
+        currentValue = value
       }
     }
   )

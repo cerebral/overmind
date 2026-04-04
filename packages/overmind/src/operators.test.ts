@@ -363,6 +363,42 @@ describe('OPERATORS', () => {
     )
   })
 
+  test('throttle passes most recent value', () => {
+    expect.assertions(2)
+    const test = pipe(throttle(0), ({ state }: Context, value: number) => {
+      state.lastValue = value
+      state.runCount++
+    })
+    const state = {
+      lastValue: -1,
+      runCount: 0,
+    }
+    const actions = {
+      test,
+    }
+    const config = {
+      state,
+      actions,
+    }
+    const overmind = new Overmind(config)
+
+    type Context = IContext<{
+      state: typeof state
+      actions: {
+        test: typeof actions.test
+      }
+    }>
+
+    return Promise.all([
+      overmind.actions.test(1),
+      overmind.actions.test(2),
+      overmind.actions.test(3),
+    ]).then(() => {
+      expect(overmind.state.runCount).toBe(1)
+      expect(overmind.state.lastValue).toBe(3)
+    })
+  })
+
   test('catchError', () => {
     expect.assertions(3)
     const test = pipe(
