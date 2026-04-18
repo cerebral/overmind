@@ -73,7 +73,9 @@ describe('overmind-svelte', () => {
       mixin.state.subscribe(listener)
 
       expect(listener).toHaveBeenCalledTimes(1)
-      expect(listener).toHaveBeenCalledWith(expect.objectContaining({ count: 0 }))
+      expect(listener).toHaveBeenCalledWith(
+        expect.objectContaining({ count: 0 })
+      )
     })
 
     test('should call listener when tracked state changes', () => {
@@ -110,12 +112,15 @@ describe('overmind-svelte', () => {
       const onMountCallback = mockOnMount.mock.calls[0][0]
       onMountCallback()
 
-      expect(eventSpy).toHaveBeenCalledWith(EventType.COMPONENT_ADD, expect.objectContaining({
-        componentId: expect.any(Number),
-        componentInstanceId: expect.any(Number),
-        name: '',
-        paths: expect.any(Array),
-      }))
+      expect(eventSpy).toHaveBeenCalledWith(
+        EventType.COMPONENT_ADD,
+        expect.objectContaining({
+          componentId: expect.any(Number),
+          componentInstanceId: expect.any(Number),
+          name: '',
+          paths: expect.any(Array),
+        })
+      )
     })
 
     test('should emit COMPONENT_UPDATE on state change', () => {
@@ -131,13 +136,16 @@ describe('overmind-svelte', () => {
 
       mixin.actions.increase()
 
-      expect(eventSpy).toHaveBeenCalledWith(EventType.COMPONENT_UPDATE, expect.objectContaining({
-        componentId: expect.any(Number),
-        componentInstanceId: expect.any(Number),
-        name: '',
-        flushId: expect.any(Number),
-        paths: expect.any(Array),
-      }))
+      expect(eventSpy).toHaveBeenCalledWith(
+        EventType.COMPONENT_UPDATE,
+        expect.objectContaining({
+          componentId: expect.any(Number),
+          componentInstanceId: expect.any(Number),
+          name: '',
+          flushId: expect.any(Number),
+          paths: expect.any(Array),
+        })
+      )
     })
 
     test('should not emit COMPONENT_UPDATE when no state change occurs', () => {
@@ -153,7 +161,7 @@ describe('overmind-svelte', () => {
 
       // No action dispatched — no COMPONENT_UPDATE expected
       const updateCalls = eventSpy.mock.calls.filter(
-        call => call[0] === EventType.COMPONENT_UPDATE
+        (call) => call[0] === EventType.COMPONENT_UPDATE
       )
       expect(updateCalls).toHaveLength(0)
     })
@@ -174,11 +182,14 @@ describe('overmind-svelte', () => {
       unsubscribe()
 
       expect(disposeSpy).toHaveBeenCalled()
-      expect(eventSpy).toHaveBeenCalledWith(EventType.COMPONENT_REMOVE, expect.objectContaining({
-        componentId: expect.any(Number),
-        componentInstanceId: expect.any(Number),
-        name: '',
-      }))
+      expect(eventSpy).toHaveBeenCalledWith(
+        EventType.COMPONENT_REMOVE,
+        expect.objectContaining({
+          componentId: expect.any(Number),
+          componentInstanceId: expect.any(Number),
+          name: '',
+        })
+      )
     })
 
     test('should support multiple independent subscribers', () => {
@@ -186,8 +197,12 @@ describe('overmind-svelte', () => {
       const mixin = createMixin(overmind)
       let count1 = -1
       let count2 = -1
-      const listener1 = jest.fn((state) => { count1 = state.count })
-      const listener2 = jest.fn((state) => { count2 = state.count })
+      const listener1 = jest.fn((state) => {
+        count1 = state.count
+      })
+      const listener2 = jest.fn((state) => {
+        count2 = state.count
+      })
 
       const unsub1 = mixin.state.subscribe(listener1)
       const unsub2 = mixin.state.subscribe(listener2)

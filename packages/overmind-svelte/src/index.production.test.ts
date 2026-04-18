@@ -77,8 +77,9 @@ describe('overmind-svelte (production mode)', () => {
     mixin.actions.increase()
 
     const devtoolsCalls = eventSpy.mock.calls.filter(
-      call => call[0] === EventType.COMPONENT_ADD ||
-              call[0] === EventType.COMPONENT_UPDATE
+      (call) =>
+        call[0] === EventType.COMPONENT_ADD ||
+        call[0] === EventType.COMPONENT_UPDATE
     )
     expect(devtoolsCalls).toHaveLength(0)
   })
