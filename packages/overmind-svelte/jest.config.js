@@ -15,6 +15,8 @@ module.exports = {
     '/lib/',
     '<rootDir>/node_modules/',
   ],
-  transformIgnorePatterns: ['node_modules/(?!(svelte|@testing-library/svelte|esm-env)/)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(svelte|@testing-library/svelte|esm-env)/)',
+  ],
   coveragePathIgnorePatterns: ['<rootDir>/node_modules/'],
 }
