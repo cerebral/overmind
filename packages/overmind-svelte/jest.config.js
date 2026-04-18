@@ -5,6 +5,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.js$': 'ts-jest',
     '^.+\\.svelte$': 'svelte-jester',
   },
   testRegex: '\\.test\\.ts?$',
@@ -14,6 +15,6 @@ module.exports = {
     '/lib/',
     '<rootDir>/node_modules/',
   ],
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  transformIgnorePatterns: ['node_modules/(?!(svelte|@testing-library/svelte|esm-env)/)'],
   coveragePathIgnorePatterns: ['<rootDir>/node_modules/'],
 }
