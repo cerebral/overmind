@@ -5,8 +5,7 @@ import {
   IConfiguration,
   Overmind,
 } from 'overmind'
-import { afterUpdate, onDestroy, onMount } from 'svelte'
-import { ITrackCallback } from 'proxy-state-tree'
+import { onDestroy, onMount } from 'svelte'
 
 const IS_PRODUCTION = ENVIRONMENT === 'production'
 
@@ -17,28 +16,18 @@ export function createMixin<Config extends IConfiguration>(
 ) {
   const componentId = nextComponentId++
   let nextComponentInstanceId = 0
-  let currentFlushId = 0
 
   const subscribe = (listener: (state: any) => void) => {
     const tree = (overmind as any).proxyStateTreeInstance.getTrackStateTree()
     const componentInstanceId = nextComponentInstanceId++
-    let isUpdating = false
 
-    const onUpdate: ITrackCallback = (_mutations, _paths, flushId) => {
-      tree.track(onUpdate)
-      currentFlushId = flushId
-      isUpdating = true
-      listener(tree.state)
-    }
-
-    tree.track(onUpdate)
+    tree.track()
 
     listener(tree.state)
 
     if (IS_PRODUCTION) {
-      afterUpdate(() => {
-        tree.stopTracking()
-        isUpdating = false
+      tree.subscribe((_mutations: any, _paths: any, flushId: any) => {
+        listener(tree.state)
       })
     } else {
       onMount(() => {
@@ -50,18 +39,15 @@ export function createMixin<Config extends IConfiguration>(
         })
       })
 
-      afterUpdate(() => {
-        tree.stopTracking()
-        if (isUpdating) {
-          overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
-            componentId,
-            componentInstanceId,
-            name: '',
-            flushId: currentFlushId,
-            paths: Array.from(tree.pathDependencies),
-          })
-        }
-        isUpdating = false
+      tree.subscribe((_mutations: any, _paths: any, flushId: any) => {
+        overmind.eventHub.emitAsync(EventType.COMPONENT_UPDATE, {
+          componentId,
+          componentInstanceId,
+          name: '',
+          flushId,
+          paths: Array.from(tree.pathDependencies),
+        })
+        listener(tree.state)
       })
     }
 
